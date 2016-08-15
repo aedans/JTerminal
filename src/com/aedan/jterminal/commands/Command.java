@@ -1,5 +1,6 @@
 package com.aedan.jterminal.commands;
 
+import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.Output;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public abstract class Command {
      * @param output: The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
-    public abstract void parse(String in, String directory, Output output) throws CommandHandler.CommandHandlerException;
+    public abstract void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException;
 
     /**
      * Determines if a String is a valid command using the Command Format.

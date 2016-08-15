@@ -1,5 +1,6 @@
 package com.aedan.jterminal.commands.default_commands;
 
+import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.Output;
@@ -17,7 +18,7 @@ public class Echo extends Command {
     }
 
     @Override
-    public void parse(String in, String directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         output.println(getArgValues(in)[0]);
     }
 

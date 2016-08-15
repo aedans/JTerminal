@@ -1,6 +1,8 @@
 package com.aedan.jterminal.commands;
 
+import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.Output;
+import com.aedan.jterminal.commands.default_commands.ChangeDirectory;
 import com.aedan.jterminal.commands.default_commands.Echo;
 import com.aedan.jterminal.commands.default_commands.For;
 import com.aedan.jterminal.commands.default_commands.Help;
@@ -25,12 +27,13 @@ public class CommandHandler {
     /**
      * The current Directory of the CommandHandler.
      */
-    private String directory = "/";
+    private Directory directory = new Directory();
 
     /**
      * The default CommandHandler constructor.
      */
     public CommandHandler(){
+        this.addCommand(new ChangeDirectory());
         this.addCommand(new Echo());
         this.addCommand(new For(this));
         this.addCommand(new Help(this));
@@ -83,12 +86,12 @@ public class CommandHandler {
 
     }
 
-    public String getDirectory() {
+    public Directory getDirectory() {
         return directory;
     }
 
     @NotNull
-    public void setDirectory(String directory) {
+    public void setDirectory(Directory directory) {
         this.directory = directory;
     }
 

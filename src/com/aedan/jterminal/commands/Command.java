@@ -131,8 +131,8 @@ public abstract class Command {
 
     }
 
-    public Pattern getCommandFormat() {
-        return commandFormat;
+    public String getCommandFormat() {
+        return commandFormatS;
     }
 
     public String getIdentifier() {

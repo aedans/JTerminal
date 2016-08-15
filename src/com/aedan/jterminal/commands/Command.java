@@ -45,12 +45,14 @@ public abstract class Command {
      * @param commandFormat: The format of the command.
      *                     -s = a String
      *                     -i = an Integer
+     *                     * = optional
      * @param identifier: The identifier to identify the command.
      * @param argCount: The expected number of arguments.
      */
     public Command(String commandFormat, String identifier, int argCount){
         this.commandFormatS = commandFormat;
         this.commandFormat = Pattern.compile(commandFormat
+                .replaceAll(" ", " *")
                 .replaceAll("-s", " *(\"[^\"]+\"|[^ ]+)")
                 .replaceAll("-i", " *([0123456789]+)")
         );
@@ -90,7 +92,11 @@ public abstract class Command {
         Matcher m = commandFormat.matcher(in);
         if (m.find()) {
             for (int i = 0; i < argCount; i++) {
-                matches[i] = m.group(i+1).replaceAll("\"([^\"]+)\"", "$1");
+                if (m.group(i+1) != null) {
+                    matches[i] = m.group(i + 1).replaceAll("\"([^\"]+)\"", "$1");
+                } else {
+                    matches[i] = "";
+                }
             }
             return matches;
         }

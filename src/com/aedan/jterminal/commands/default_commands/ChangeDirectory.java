@@ -26,7 +26,7 @@ public class ChangeDirectory extends Command {
             directory.goToSuperDirectory();
         } else if (Objects.equals(dir, ".")){
             // Do nothing.
-        } else if (dir.matches("\\W:|\\\\|/")) {
+        } else if (dir.matches("\\w:.+|/.+|\\\\.+")) {
             directory.goToDirectory(dir);
         } else {
             directory.goToSubDirectory(dir);

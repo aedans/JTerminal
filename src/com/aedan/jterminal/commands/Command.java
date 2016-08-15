@@ -96,6 +96,9 @@ public abstract class Command {
         return "Command \"" + identifier + "\"";
     }
 
+    /**
+     * Exception thrown when the input does not match the Command Format.
+     */
     private class InvalidInputException extends CommandHandler.CommandHandlerException {
 
         /**

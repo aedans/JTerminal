@@ -35,16 +35,6 @@ public class Directory {
     }
 
     /**
-     * Goes to a Directory contained by the current directory.
-     *
-     * @param dir: The name of the subdirectory to go to.
-     * @throws DirectoryChangeException if the Directory cannot be changed to.
-     */
-    public void goToSubDirectory(String dir) throws DirectoryChangeException {
-        goToDirectory(directory.getAbsolutePath() + "\\" + dir);
-    }
-
-    /**
      * Goes to a Directory.
      *
      * @param dir: The Directory to go to.

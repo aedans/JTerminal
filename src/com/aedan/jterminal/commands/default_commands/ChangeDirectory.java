@@ -5,6 +5,8 @@ import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
@@ -29,7 +31,8 @@ public class ChangeDirectory extends Command {
         } else if (dir.matches("\\w:.+|/.+|\\\\.+")) {
             directory.goToDirectory(dir);
         } else {
-            directory.goToSubDirectory(dir);
+            Path p = Paths.get(directory.toString(), dir).toAbsolutePath();
+            directory.goToDirectory(p.toString());
         }
     }
 

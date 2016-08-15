@@ -53,6 +53,10 @@ public class Directory {
         }
     }
 
+    public File getDirectory() {
+        return directory;
+    }
+
     @Override
     public String toString() {
         return directory.toString();

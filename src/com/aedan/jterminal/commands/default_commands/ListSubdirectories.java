@@ -1,0 +1,27 @@
+package com.aedan.jterminal.commands.default_commands;
+
+import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.Output;
+import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.CommandHandler;
+
+import java.io.File;
+
+/**
+ * Created by Aedan Smith on 8/15/2016.
+ */
+
+public class ListSubdirectories extends Command {
+
+    public ListSubdirectories() {
+        super("ls", "ls", 0);
+    }
+
+    @Override
+    public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+        for (File f : directory.getDirectory().listFiles()){
+            output.println(f.getName());
+        }
+    }
+
+}

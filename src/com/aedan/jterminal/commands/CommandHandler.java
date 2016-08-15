@@ -2,10 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.Output;
-import com.aedan.jterminal.commands.default_commands.ChangeDirectory;
-import com.aedan.jterminal.commands.default_commands.Echo;
-import com.aedan.jterminal.commands.default_commands.For;
-import com.aedan.jterminal.commands.default_commands.Help;
+import com.aedan.jterminal.commands.default_commands.*;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -37,6 +34,7 @@ public class CommandHandler {
         this.addCommand(new Echo());
         this.addCommand(new For(this));
         this.addCommand(new Help(this));
+        this.addCommand(new ListSubdirectories());
     }
 
     /**

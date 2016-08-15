@@ -51,8 +51,8 @@ public abstract class Command {
     public Command(String commandFormat, String identifier, int argCount){
         this.commandFormatS = commandFormat;
         this.commandFormat = Pattern.compile(commandFormat
-                .replaceAll("-s", "([^ ]+)")
-                .replaceAll("-i", "([0123456789]+)")
+                .replaceAll("-s", " *(\"[^\"]+\"|[^ ]+)")
+                .replaceAll("-i", " *([0123456789]+)")
         );
         this.identifier = identifier;
         this.argCount = argCount;
@@ -90,7 +90,7 @@ public abstract class Command {
         Matcher m = commandFormat.matcher(in);
         if (m.find()) {
             for (int i = 0; i < argCount; i++) {
-                matches[i] = m.group(i+1);
+                matches[i] = m.group(i+1).replaceAll("\"([^\"]+)\"", "$1");
             }
             return matches;
         }

@@ -17,8 +17,8 @@ public class Echo extends Command {
     }
 
     @Override
-    public void parse(String s, String directory, Output output) throws CommandHandler.CommandHandlerException {
-        output.println(getArgValues(s)[0]);
+    public void parse(String in, String directory, Output output) throws CommandHandler.CommandHandlerException {
+        output.println(getArgValues(in)[0]);
     }
 
 }

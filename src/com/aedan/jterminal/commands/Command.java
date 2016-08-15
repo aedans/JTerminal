@@ -112,6 +112,22 @@ public abstract class Command {
         return flags;
     }
 
+    /**
+     * Returns if a given flag is present in the String.
+     *
+     * @param in: The String to look for the flag in.
+     * @param flag: The flag to look for.
+     * @return boolean: If the flag is present in the String.
+     */
+    protected boolean isFlagPresent(String in, String flag){
+        Matcher m = flagPattern.matcher(in);
+        while (m.find()){
+            if (m.group(1).matches(flag))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Command \"" + identifier + "\"";

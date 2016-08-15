@@ -61,6 +61,17 @@ public class Output {
     }
 
     /**
+     * Prints an Object to all PrintStreams, followed by a newline, with a max line length.
+     *
+     * @param o: The Object to print.
+     * @param maxLineLength: The maximum line length.
+     * @param indentationAmount: The amount to indent following Strings.
+     */
+    public void println(Object o, int maxLineLength, int indentationAmount){
+        println(o.toString(), maxLineLength, indentationAmount);
+    }
+
+    /**
      * Prints a String to all PrintStreams.
      *
      * @param s: The String to print.
@@ -79,6 +90,31 @@ public class Output {
     public void println(String s){
         for (PrintStream ps : outputs){
             ps.println(s);
+        }
+    }
+
+    /**
+     * Prints a String to all PrintStreams, followed by a newline, with a max line length.
+     *
+     * @param s: The String to print.
+     * @param maxLineLength: The maximum line length.
+     * @param indentationAmount: The amount to indent following Strings.
+     */
+    public void println(String s, int maxLineLength, int indentationAmount){
+        String[] lines = s.split("\\n");
+        System.out.println(lines.length);
+        for (String ss : lines){
+            ss = ss.trim();
+            if (ss.length() > maxLineLength){
+                println(ss.substring(0, maxLineLength));
+                int i;
+                for (i = maxLineLength; i < ss.length()-maxLineLength; i+=maxLineLength-indentationAmount) {
+                    println(getSpaces(indentationAmount) + ss.substring(i,i + maxLineLength-indentationAmount));
+                }
+                println(getSpaces(indentationAmount) + ss.substring(i));
+            } else {
+                println(ss);
+            }
         }
     }
 

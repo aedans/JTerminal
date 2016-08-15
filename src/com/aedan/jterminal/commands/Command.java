@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Output;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,11 @@ import java.util.regex.Pattern;
  */
 
 public abstract class Command {
+
+    /**
+     * The Pattern to search commands for flags.
+     */
+    private static Pattern flagPattern = Pattern.compile(" -(\\w+)");
 
     /**
      * The Regular Expression to parse the Command.
@@ -75,13 +81,13 @@ public abstract class Command {
     /**
      * Returns the matches of this command's Command Format.
      *
-     * @param s: The String to Match.
+     * @param in: The input to Match.
      * @return String[]: The matches of this command's Command Format.
      * @throws InvalidInputException if the Matcher does not Match the command.
      */
-    protected String[] getArgValues(String s) throws InvalidInputException {
+    protected String[] getArgValues(String in) throws InvalidInputException {
         String[] matches = new String[argCount];
-        Matcher m = commandFormat.matcher(s);
+        Matcher m = commandFormat.matcher(in);
         if (m.find()) {
             for (int i = 0; i < argCount; i++) {
                 matches[i] = m.group(i+1);
@@ -89,6 +95,21 @@ public abstract class Command {
             return matches;
         }
         throw new InvalidInputException();
+    }
+
+    /**
+     * Returns a List of flags for the Command. Does not include the - in the String.
+     *
+     * @param in: The input to get the flags for.
+     * @return ArrayList<String>: The List of flags (notated -r, -exec, etc.)
+     */
+    protected ArrayList<String> getFlags(String in) {
+        ArrayList<String> flags = new ArrayList<>();
+        Matcher m = flagPattern.matcher(in);
+        while (m.find()){
+            flags.add(m.group(1));
+        }
+        return flags;
     }
 
     @Override

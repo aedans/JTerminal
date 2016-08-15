@@ -1,6 +1,6 @@
-package com.aedan.jcmd.commands;
+package com.aedan.jterminal.commands;
 
-import com.aedan.jcmd.Output;
+import com.aedan.jterminal.Output;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

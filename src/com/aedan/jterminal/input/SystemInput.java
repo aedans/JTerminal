@@ -1,4 +1,4 @@
-package com.aedan.jcmd.input;
+package com.aedan.jterminal.input;
 
 import java.util.Scanner;
 

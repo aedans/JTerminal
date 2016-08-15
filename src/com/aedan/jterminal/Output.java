@@ -1,4 +1,4 @@
-package com.aedan.jcmd;
+package com.aedan.jterminal;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

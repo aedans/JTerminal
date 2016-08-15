@@ -1,8 +1,8 @@
-package com.aedan.jcmd.commands.default_commands;
+package com.aedan.jterminal.commands.default_commands;
 
-import com.aedan.jcmd.commands.Command;
-import com.aedan.jcmd.commands.CommandHandler;
-import com.aedan.jcmd.Output;
+import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.Output;
 
 /**
  * Created by Aedan Smith on 8/14/2016.

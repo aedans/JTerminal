@@ -1,7 +1,7 @@
-package com.aedan.jcmd.commands;
+package com.aedan.jterminal.commands;
 
-import com.aedan.jcmd.Output;
-import com.aedan.jcmd.commands.default_commands.Echo;
+import com.aedan.jterminal.Output;
+import com.aedan.jterminal.commands.default_commands.Echo;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;

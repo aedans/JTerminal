@@ -1,8 +1,8 @@
-package com.aedan.jcmd;
+package com.aedan.jterminal;
 
-import com.aedan.jcmd.commands.CommandHandler;
-import com.aedan.jcmd.input.CommandInput;
-import com.aedan.jcmd.input.SystemInput;
+import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.input.CommandInput;
+import com.aedan.jterminal.input.SystemInput;
 import com.sun.istack.internal.NotNull;
 
 import java.util.Objects;

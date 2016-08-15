@@ -1,4 +1,4 @@
-package com.aedan.jcmd.input;
+package com.aedan.jterminal.input;
 
 /**
  * Created by Aedan Smith on 8/14/2016.

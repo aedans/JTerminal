@@ -14,7 +14,7 @@ import java.io.File;
 public class ListSubdirectories extends Command {
 
     public ListSubdirectories() {
-        super("ls", "ls", 0);
+        super("ls", "ls", 0, "Lists all subdirectories of the current folder.");
     }
 
     @Override

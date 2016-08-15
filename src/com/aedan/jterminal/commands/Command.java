@@ -41,6 +41,11 @@ public abstract class Command {
     private int argCount;
 
     /**
+     * A Quick Description of the Command for the Help command.
+     */
+    private String quickDescription;
+
+    /**
      * The default Command constructor.
      *
      * @param commandFormat: The format of the command.
@@ -50,7 +55,7 @@ public abstract class Command {
      * @param identifier: The identifier to identify the command.
      * @param argCount: The expected number of arguments.
      */
-    public Command(String commandFormat, String identifier, int argCount){
+    public Command(String commandFormat, String identifier, int argCount, String quickDescription){
         this.commandFormatS = commandFormat;
         this.commandFormat = Pattern.compile(commandFormat
                 .replaceAll(" ", " *")
@@ -59,6 +64,7 @@ public abstract class Command {
         );
         this.identifier = identifier;
         this.argCount = argCount;
+        this.quickDescription = quickDescription;
     }
 
     /**
@@ -133,6 +139,10 @@ public abstract class Command {
                 return true;
         }
         return false;
+    }
+
+    public String getQuickDescription(){
+        return quickDescription;
     }
 
     @Override

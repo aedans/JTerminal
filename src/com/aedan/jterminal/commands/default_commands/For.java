@@ -16,7 +16,7 @@ public class For extends Command {
     private CommandHandler commandHandler;
 
     public For(CommandHandler commandHandler) {
-        super("for -i -i -s -s", "for", 4);
+        super("for -i -i -s -s", "for", 4, "Iterates a command and stores the current iteration in a variable.");
         this.commandHandler = commandHandler;
     }
 

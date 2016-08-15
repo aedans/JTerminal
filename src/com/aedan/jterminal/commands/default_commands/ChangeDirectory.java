@@ -18,7 +18,7 @@ import java.util.Objects;
 public class ChangeDirectory extends Command {
 
     public ChangeDirectory() {
-        super("cd -s", "cd", 1);
+        super("cd -s", "cd", 1, "Changes the active directory.");
     }
 
     @Override

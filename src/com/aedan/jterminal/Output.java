@@ -83,6 +83,70 @@ public class Output {
     }
 
     /**
+     * Prints an Array of ArrayLists of Objects in a grid format:
+     * grid[0].get(0); grid[1].get(0);
+     * grid[0].get(1); grid[1].get(1);
+     *
+     * @param space: The number of spaces to put between each column.
+     * @param grid: The List of ArrayLists to print.
+     */
+    public void printObjGrid(int space, ArrayList<?>... grid){
+        ArrayList<String>[] sGrid = new ArrayList[grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            sGrid[i] = new ArrayList<>();
+            for (Object o : grid[i]){
+                sGrid[i].add(o.toString());
+            }
+        }
+        printGrid(space, sGrid);
+    }
+
+    /**
+     * Prints an Array of ArrayLists of Strings in a grid format:
+     * grid[0].get(0); grid[1].get(0);
+     * grid[0].get(1); grid[1].get(1);
+     *
+     * @param space: The number of spaces to put between each column.
+     * @param grid: The List of ArrayLists to print.
+     */
+    @SafeVarargs
+    public final void printGrid(int space, ArrayList<String>... grid){
+        int size = grid[0].size();
+        for (ArrayList<String> ss : grid){
+            if (ss.size() != size) {
+                println("Internal Error: could not print grid (Uneven sizes)");
+                return;
+            }
+        }
+
+        int[] longestLines = new int[grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            int longestLine = 0;
+            for (String s : grid[i]) {
+                if (s.length() > longestLine)
+                    longestLine = s.length();
+            }
+            longestLines[i] = longestLine;
+        }
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                print(grid[j].get(i) + getSpaces(longestLines[j] - grid[j].get(i).length() + space));
+            }
+            println("");
+        }
+    }
+
+    private String getSpaces(int num){
+        String s = "";
+        for (int i = 0; i < num; i++) {
+            s += " ";
+        }
+        return s;
+    }
+
+
+    /**
      * Sets the Output to a given PrintStream.
      *
      * @param outputs: The PrintStream to set the Output to.

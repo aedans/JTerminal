@@ -23,20 +23,19 @@ public class Help extends Command {
     @Override
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         //noinspection unchecked
-        int lCommand = commandHandler.getCommands().get(0).getIdentifier().length();
         ArrayList<Command> sCommands = (ArrayList<Command>) commandHandler.getCommands().clone();
         sCommands.sort((o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));
-        for (Command c : sCommands){
-            output.println(c.getIdentifier() + getSpaces(lCommand-c.getIdentifier().length() + 4) + c.getQuickDescription());
-        }
-    }
 
-    private String getSpaces(int num){
-        String s = "";
-        for (int i = 0; i < num; i++) {
-            s += " ";
+        ArrayList<String> sIdentifiers = new ArrayList<>();
+        ArrayList<String> sDescriptions = new ArrayList<>();
+        ArrayList<String> sUsages = new ArrayList<>();
+        for (Command c : sCommands){
+            sIdentifiers.add(c.getIdentifier());
+            sDescriptions.add(c.getQuickDescription());
+            sUsages.add("Usage: " + c.getCommandFormat());
         }
-        return s;
+
+        output.printGrid(4, sIdentifiers, sDescriptions, sUsages);
     }
 
 }

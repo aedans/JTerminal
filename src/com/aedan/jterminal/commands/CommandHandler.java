@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.default_commands.Echo;
+import com.aedan.jterminal.commands.default_commands.For;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class CommandHandler {
      */
     public CommandHandler(){
         this.addCommand(new Echo());
+        this.addCommand(new For(this));
     }
 
     /**

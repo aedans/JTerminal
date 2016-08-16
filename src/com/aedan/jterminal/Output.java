@@ -181,15 +181,23 @@ public class Output {
         return s;
     }
 
+    /**
+     * Adds a PrintStream to the List of PrintStreams.
+     *
+     * @param output: The PrintStream to add.
+     */
+    public void addOutput(PrintStream output){
+        this.outputs.add(output);
+    }
 
     /**
      * Sets the Output to a given PrintStream.
      *
-     * @param outputs: The PrintStream to set the Output to.
+     * @param output: The PrintStream to set the Output to.
      */
-    public void setOutput(PrintStream outputs){
+    public void setOutput(PrintStream output){
         this.outputs = new ArrayList<>();
-        this.outputs.add(outputs);
+        this.outputs.add(output);
     }
 
     /**

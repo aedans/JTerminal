@@ -19,15 +19,19 @@ public final class FileUtils {
      *
      * @param file: The File to open.
      * @return String: The output of the function.
-     * @throws Exception if the file could not be opened.
+     * @throws FileIOException if the file could not be opened.
      */
-    public static String open(File file) throws Exception {
+    public static String open(File file) throws FileIOException {
         try {
-            Desktop.getDesktop().open(file);
-            return "Opened file " + file.getAbsolutePath();
-        } catch (IOException e) {
-            Desktop.getDesktop().edit(file);
-            return "Opened file " + file.getAbsolutePath();
+            try {
+                Desktop.getDesktop().open(file);
+                return "Opened file " + file.getAbsolutePath();
+            } catch (IOException e) {
+                Desktop.getDesktop().edit(file);
+                return "Opened file " + file.getAbsolutePath();
+            }
+        } catch (Exception e){
+            throw new FileIOException(e.getMessage());
         }
     }
 
@@ -35,28 +39,32 @@ public final class FileUtils {
      * Returns the content of a File.
      *
      * @param file: The File to read.
-     * @return String: The content of the file.
-     * @throws Exception
+     * @return String: The content of the File.
+     * @throws FileIOException if the File cannot be read.
      */
-    public static String readFile(File file) throws Exception {
-        if (file.exists()) {
-            if (file.isFile()) {
-                if (file.canRead()) {
-                    String s = "";
-                    BufferedReader buffer = new BufferedReader(new FileReader(file));
-                    String line;
-                    while ((line = buffer.readLine()) != null) {
-                        s += line + "\n";
+    public static String readFile(File file) throws FileIOException {
+        try {
+            if (file.exists()) {
+                if (file.isFile()) {
+                    if (file.canRead()) {
+                        String s = "";
+                        BufferedReader buffer = new BufferedReader(new FileReader(file));
+                        String line;
+                        while ((line = buffer.readLine()) != null) {
+                            s += line + "\n";
+                        }
+                        return s;
+                    } else {
+                        throw new FileIOException(file.getAbsolutePath() + " is not readable.");
                     }
-                    return s;
                 } else {
-                    return file.getAbsolutePath() + " is not readable.";
+                    throw new FileIOException(file.getAbsolutePath() + " is not a file.");
                 }
             } else {
-                return file.getAbsolutePath() + " is not a file.";
+                throw new FileIOException("File " + file.getAbsolutePath() + " does not exist.");
             }
-        } else {
-            return "File " + file.getAbsolutePath() + " does not exist.";
+        } catch (Exception e){
+            throw new FileIOException(e.getMessage());
         }
     }
 
@@ -65,17 +73,17 @@ public final class FileUtils {
      *
      * @param file: The File to remove.
      * @return String: The output of the function.
-     * @throws Exception
+     * @throws FileIOException if the File cannot be removed.
      */
-    public static String removeFile(File file) throws Exception {
+    public static String removeFile(File file) throws FileIOException {
         if (file.exists()){
             if (file.delete()){
                 return "Deleted file at " + file.getAbsolutePath();
             } else {
-                return "Could not delete file " + file.getAbsolutePath() + " (Unknown cause)";
+                throw new FileIOException("Could not delete file " + file.getAbsolutePath() + " (Unknown cause)");
             }
         } else {
-            return "File " + file.getAbsolutePath() + " does not exist.";
+            throw new FileIOException("File " + file.getAbsolutePath() + " does not exist.");
         }
     }
 
@@ -84,17 +92,17 @@ public final class FileUtils {
      *
      * @param file: The directory File to be created.
      * @return String: The output of the function.
-     * @throws Exception
+     * @throws FileIOException if the directory cannot be created.
      */
-    public static String createDirectory(File file) throws Exception {
+    public static String createDirectory(File file) throws FileIOException {
         if (!file.exists()) {
             if (file.mkdir()) {
                 return "Created directory at " + file.getAbsolutePath();
             } else {
-                return "Could not create directory at " + file.getAbsolutePath() + " (Unknown cause)";
+                throw new FileIOException("Could not create directory at " + file.getAbsolutePath() + " (Unknown cause)");
             }
         } else {
-            return "File " + file.getAbsolutePath() + " already exists.";
+            throw new FileIOException("File " + file.getAbsolutePath() + " already exists.");
         }
     }
 
@@ -103,10 +111,14 @@ public final class FileUtils {
      *
      * @param file: The directory File to be removed.
      * @return String: The output of the function.
-     * @throws Exception
+     * @throws FileIOException if the directory cannot be removed.
      */
-    public static String removeDirectory(File file) throws Exception {
-        return removeDirectoryR(file).trim();
+    public static String removeDirectory(File file) throws FileIOException {
+        if (file.exists()) {
+            return removeDirectoryR(file).trim();
+        } else {
+            throw new FileIOException("File " + file.getAbsolutePath() + " does not exist.");
+        }
     }
 
     /**
@@ -114,9 +126,8 @@ public final class FileUtils {
      *
      * @param file: The directory File to be removed.
      * @return String: The output of the function.
-     * @throws Exception
      */
-    private static String removeDirectoryR(File file) throws Exception {
+    private static String removeDirectoryR(File file) {
         String s = "";
         File[] subfs = file.listFiles();
         if (subfs == null)
@@ -135,6 +146,22 @@ public final class FileUtils {
                 return s + "Could not remove directory at " + file.getAbsolutePath() + "\n";
             }
         }
+    }
+
+    /**
+     * Exception thrown when FileUtils cannot perform an action.
+     */
+    public static class FileIOException extends Exception {
+
+        /**
+         * Default FileIOException constructor.
+         *
+         * @param message: The error message to display.
+         */
+        public FileIOException(String message){
+            super(message);
+        }
+
     }
 
 }

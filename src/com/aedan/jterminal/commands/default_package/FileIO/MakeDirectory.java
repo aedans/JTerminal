@@ -22,7 +22,7 @@ public class MakeDirectory extends Command {
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
             output.println(FileUtils.createDirectory(directory.getFile(getArgValues(in)[0])));
-        } catch (Exception e){
+        } catch (FileUtils.FileIOException e){
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }

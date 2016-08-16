@@ -35,7 +35,7 @@ class ExecuteJTermFile extends Command {
             } else {
                 throw new CommandHandler.CommandHandlerException("File \"" + dir + "\" is not a .jterm file");
             }
-        } catch (Exception e) {
+        } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }

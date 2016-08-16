@@ -4,6 +4,7 @@ import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.utils.FileUtils;
 
 import java.awt.*;
 import java.io.IOException;
@@ -23,11 +24,7 @@ class Open extends Command {
     @Override
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
-            try {
-                Desktop.getDesktop().open(directory.getFile(getArgValues(in)[0]));
-            } catch (IOException e) {
-                Desktop.getDesktop().edit(directory.getFile(getArgValues(in)[0]));
-            }
+            output.println(FileUtils.open(directory.getFile(getArgValues(in)[0])));
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

@@ -17,6 +17,7 @@ public class FileIOPackage implements CommandPackage {
         destCommandHandler.addCommand(new ListSubdirectories());
         destCommandHandler.addCommand(new MakeDirectory());
         destCommandHandler.addCommand(new Open());
+        destCommandHandler.addCommand(new RemoveDirectory());
         destCommandHandler.addCommandFormat(new OutputToFileCommandFormat());
     }
 

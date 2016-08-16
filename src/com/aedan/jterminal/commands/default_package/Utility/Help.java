@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
+ *
+ * Default Command.
  */
 
 class Help extends Command {

@@ -70,9 +70,9 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param in: The String to parse.
-     * @param directory: The directory of the CommandHandler.
-     * @param output: The output to print to.
+     * @param in : The String to parse.
+     * @param directory : The directory of the CommandHandler.
+     * @param output : The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
     public abstract void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException;

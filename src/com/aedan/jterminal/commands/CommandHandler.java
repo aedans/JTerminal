@@ -48,8 +48,8 @@ public class CommandHandler {
     /**
      * Handles a line of input.
      *
-     * @param in: The String to handle.
-     * @param output: The Output to output to.
+     * @param in : The String to handle.
+     * @param output : The Output to output to.
      * @throws CommandHandlerException if there is an error handling the String.
      */
     public void handleString(String in, Output output) throws CommandHandlerException {

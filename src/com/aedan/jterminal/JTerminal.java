@@ -26,9 +26,9 @@ public class JTerminal implements Runnable {
     private CommandHandler commandHandler = new CommandHandler();
 
     /**
-     * The Output for the JTerminal.
+     * The Outputs for the JTerminal.
      */
-    private Output output = new Output();
+    private Output output = new Output(System.out);
 
     /**
      * The default JTerminal constructor.

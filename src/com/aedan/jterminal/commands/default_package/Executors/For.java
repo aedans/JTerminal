@@ -26,8 +26,7 @@ class For extends Command {
         for (int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
             commandHandler.handleString(
                     args[3].replaceAll("\\[" + args[2] + "\\]", String.valueOf(i)),
-                    output
-            );
+                    output);
         }
     }
 

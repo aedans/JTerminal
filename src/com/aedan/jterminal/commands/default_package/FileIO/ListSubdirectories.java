@@ -9,6 +9,8 @@ import java.io.File;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
+ *
+ * Default Command.
  */
 
 class ListSubdirectories extends Command {

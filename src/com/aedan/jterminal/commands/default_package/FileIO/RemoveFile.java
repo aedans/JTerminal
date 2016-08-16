@@ -20,7 +20,11 @@ class RemoveFile extends Command {
 
     @Override
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        output.println(FileUtils.removeFile(directory.getFile(getArgValues(in)[0])));
+        try {
+            output.println(FileUtils.removeFile(directory.getFile(getArgValues(in)[0])));
+        } catch (Exception e) {
+            throw new CommandHandler.CommandHandlerException(e.getMessage());
+        }
     }
 
 }

@@ -35,7 +35,7 @@ public final class FileUtils {
      * @param file: The File to remove.
      * @return String: The output of the function.
      */
-    public static String removeFile(File file) {
+    public static String removeFile(File file) throws Exception {
         if (file.exists()){
             if (file.delete()){
                 return "Deleted file at " + file.getAbsolutePath();

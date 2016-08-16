@@ -30,6 +30,24 @@ public final class FileUtils {
     }
 
     /**
+     * Removes a File.
+     *
+     * @param file: The File to remove.
+     * @return String: The output of the function.
+     */
+    public static String removeFile(File file) {
+        if (file.exists()){
+            if (file.delete()){
+                return "Deleted file at " + file.getAbsolutePath();
+            } else {
+                return "Could not delete file " + file.getAbsolutePath() + " (Unknown cause)";
+            }
+        } else {
+            return "File " + file.getAbsolutePath() + " does not exist.";
+        }
+    }
+
+    /**
      * Creates a directory.
      *
      * @param file: The directory File to be created.

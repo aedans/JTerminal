@@ -24,9 +24,8 @@ class For extends Command {
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         String[] args = getArgValues(in);
         for (int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
-            // TODO: Better variable detection.
             commandHandler.handleString(
-                    args[3].replaceAll(args[2], String.valueOf(i)),
+                    args[3].replaceAll("\\[" + args[2] + "\\]", String.valueOf(i)),
                     output
             );
         }

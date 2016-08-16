@@ -4,7 +4,7 @@ import com.aedan.jterminal.commands.CommandHandler;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Interface for created packages of Commands for a CommandHandler.
  */
 

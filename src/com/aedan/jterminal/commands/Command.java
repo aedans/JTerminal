@@ -1,7 +1,7 @@
 package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Directory;
-import com.aedan.jterminal.Output;
+import com.aedan.jterminal.output.Output;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/10/16.
- *
+ * <p>
  * Abstract class containing necessary functions for the CommandHandler to use.
  */
 
@@ -49,13 +49,13 @@ public abstract class Command {
      * The default Command constructor.
      *
      * @param commandFormat: The format of the command.
-     *                     -s = a String
-     *                     -i = an Integer
-     *                     * = optional
-     * @param identifier: The identifier to identify the command.
-     * @param argCount: The expected number of arguments.
+     *                       -s = a String
+     *                       -i = an Integer
+     *                       * = optional
+     * @param identifier:    The identifier to identify the command.
+     * @param argCount:      The expected number of arguments.
      */
-    protected Command(String commandFormat, String identifier, int argCount, String quickDescription){
+    protected Command(String commandFormat, String identifier, int argCount, String quickDescription) {
         this.commandFormatS = commandFormat;
         this.commandFormat = Pattern.compile(commandFormat
                 .replaceAll(" ", " *")
@@ -70,9 +70,9 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param in : The String to parse.
+     * @param in        : The String to parse.
      * @param directory : The directory of the CommandHandler.
-     * @param output : The output to print to.
+     * @param output    : The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
     public abstract void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException;
@@ -83,7 +83,7 @@ public abstract class Command {
      * @param s: The String to validate.
      * @return boolean: True if the String is a valid Command.
      */
-    protected boolean isValidCommand(String s){
+    protected boolean isValidCommand(String s) {
         return s.matches(commandFormat.pattern());
     }
 
@@ -99,7 +99,7 @@ public abstract class Command {
         Matcher m = commandFormat.matcher(in);
         if (m.find()) {
             for (int i = 0; i < argCount; i++) {
-                if (m.group(i+1) != null) {
+                if (m.group(i + 1) != null) {
                     matches[i] = m.group(i + 1).replaceAll("\"([^\"]+)\"", "$1");
                 } else {
                     matches[i] = "";
@@ -119,7 +119,7 @@ public abstract class Command {
     protected ArrayList<String> getFlags(String in) {
         ArrayList<String> flags = new ArrayList<>();
         Matcher m = flagPattern.matcher(in);
-        while (m.find()){
+        while (m.find()) {
             flags.add(m.group(1));
         }
         return flags;
@@ -128,26 +128,34 @@ public abstract class Command {
     /**
      * Returns if a given flag is present in the String.
      *
-     * @param in: The String to look for the flag in.
+     * @param in:   The String to look for the flag in.
      * @param flag: The flag to look for.
      * @return boolean: If the flag is present in the String.
      */
-    protected boolean isFlagPresent(String in, String flag){
+    protected boolean isFlagPresent(String in, String flag) {
         Matcher m = flagPattern.matcher(in);
-        while (m.find()){
+        while (m.find()) {
             if (m.group(1).matches(flag))
                 return true;
         }
         return false;
     }
 
-    public String getQuickDescription(){
-        return quickDescription;
-    }
-
     @Override
     public String toString() {
         return "Command \"" + identifier + "\"";
+    }
+
+    public String getQuickDescription() {
+        return quickDescription;
+    }
+
+    public String getCommandFormat() {
+        return commandFormatS;
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     /**
@@ -158,18 +166,10 @@ public abstract class Command {
         /**
          * The default InvalidInputException constructor.
          */
-        public InvalidInputException() {
+        private InvalidInputException() {
             super("Input does not match format \"" + commandFormatS + "\"");
         }
 
-    }
-
-    public String getCommandFormat() {
-        return commandFormatS;
-    }
-
-    public String getIdentifier() {
-        return identifier;
     }
 
 }

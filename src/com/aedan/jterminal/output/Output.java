@@ -1,4 +1,4 @@
-package com.aedan.jterminal;
+package com.aedan.jterminal.output;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Collections;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
- *
+ * <p>
  * The Output controller for the JTerminal.
  */
 
@@ -20,7 +20,7 @@ public class Output {
     /**
      * The default Output constructor.
      */
-    public Output(){
+    public Output() {
         this(System.out);
     }
 
@@ -29,7 +29,7 @@ public class Output {
      *
      * @param outputs: The list of PrintStreams to print to.
      */
-    public Output(PrintStream... outputs){
+    public Output(PrintStream... outputs) {
         Collections.addAll(this.outputs, outputs);
     }
 
@@ -38,7 +38,7 @@ public class Output {
      *
      * @param outputs: The list of PrintStreams to print to.
      */
-    private Output(ArrayList<PrintStream> outputs){
+    private Output(ArrayList<PrintStream> outputs) {
         this.outputs = outputs;
     }
 
@@ -47,7 +47,7 @@ public class Output {
      *
      * @param o: The Object to print.
      */
-    public void print(Object o){
+    public void print(Object o) {
         print(o.toString());
     }
 
@@ -56,19 +56,8 @@ public class Output {
      *
      * @param o: The Object to print.
      */
-    public void println(Object o){
+    public void println(Object o) {
         println(o.toString());
-    }
-
-    /**
-     * Prints an Object to all PrintStreams, followed by a newline, with a max line length.
-     *
-     * @param o: The Object to print.
-     * @param maxLineLength: The maximum line length.
-     * @param indentationAmount: The amount to indent following Strings.
-     */
-    public void println(Object o, int maxLineLength, int indentationAmount){
-        println(o.toString(), maxLineLength, indentationAmount);
     }
 
     /**
@@ -76,8 +65,8 @@ public class Output {
      *
      * @param s: The String to print.
      */
-    public void print(String s){
-        for (PrintStream ps : outputs){
+    public void print(String s) {
+        for (PrintStream ps : outputs) {
             ps.print(s);
         }
     }
@@ -87,34 +76,9 @@ public class Output {
      *
      * @param s: The Object to print.
      */
-    public void println(String s){
-        for (PrintStream ps : outputs){
+    public void println(String s) {
+        for (PrintStream ps : outputs) {
             ps.println(s);
-        }
-    }
-
-    /**
-     * Prints a String to all PrintStreams, followed by a newline, with a max line length.
-     *
-     * @param s: The String to print.
-     * @param maxLineLength: The maximum line length.
-     * @param indentationAmount: The amount to indent following Strings.
-     */
-    public void println(String s, int maxLineLength, int indentationAmount){
-        String[] lines = s.split("\\n");
-        System.out.println(lines.length);
-        for (String ss : lines){
-            ss = ss.trim();
-            if (ss.length() > maxLineLength){
-                println(ss.substring(0, maxLineLength));
-                int i;
-                for (i = maxLineLength; i < ss.length()-maxLineLength; i+=maxLineLength-indentationAmount) {
-                    println(getSpaces(indentationAmount) + ss.substring(i,i + maxLineLength-indentationAmount));
-                }
-                println(getSpaces(indentationAmount) + ss.substring(i));
-            } else {
-                println(ss);
-            }
         }
     }
 
@@ -124,13 +88,13 @@ public class Output {
      * grid[0].get(1); grid[1].get(1);
      *
      * @param space: The number of spaces to put between each column.
-     * @param grid: The List of ArrayLists to print.
+     * @param grid:  The List of ArrayLists to print.
      */
-    public void printObjGrid(int space, ArrayList<?>... grid){
+    public void printObjGrid(int space, ArrayList<?>... grid) {
         ArrayList<String>[] sGrid = new ArrayList[grid.length];
         for (int i = 0; i < grid.length; i++) {
             sGrid[i] = new ArrayList<>();
-            for (Object o : grid[i]){
+            for (Object o : grid[i]) {
                 sGrid[i].add(o.toString());
             }
         }
@@ -143,12 +107,12 @@ public class Output {
      * grid[0].get(1); grid[1].get(1);
      *
      * @param space: The number of spaces to put between each column.
-     * @param grid: The List of ArrayLists to print.
+     * @param grid:  The List of ArrayLists to print.
      */
     @SafeVarargs
-    public final void printGrid(int space, ArrayList<String>... grid){
+    public final void printGrid(int space, ArrayList<String>... grid) {
         int size = grid[0].size();
-        for (ArrayList<String> ss : grid){
+        for (ArrayList<String> ss : grid) {
             if (ss.size() != size) {
                 println("Internal Error: could not print grid (Uneven sizes)");
                 return;
@@ -173,7 +137,13 @@ public class Output {
         }
     }
 
-    private String getSpaces(int num){
+    /**
+     * Gets a String with the number of spaces.
+     *
+     * @param num: The number of spaces to get.
+     * @return String: The String with the number of spaces.
+     */
+    private String getSpaces(int num) {
         String s = "";
         for (int i = 0; i < num; i++) {
             s += " ";
@@ -186,7 +156,7 @@ public class Output {
      *
      * @param output: The PrintStream to add.
      */
-    public void addOutput(PrintStream output){
+    public void addOutput(PrintStream output) {
         this.outputs.add(output);
     }
 
@@ -195,7 +165,7 @@ public class Output {
      *
      * @param output: The PrintStream to set the Output to.
      */
-    public void setOutput(PrintStream output){
+    public void setOutput(PrintStream output) {
         this.outputs = new ArrayList<>();
         this.outputs.add(output);
     }
@@ -205,13 +175,16 @@ public class Output {
      *
      * @param outputs: The PrintStreams to set the Output to.
      */
-    public void setOutputs(ArrayList<PrintStream> outputs){
+    public void setOutputs(ArrayList<PrintStream> outputs) {
         this.outputs = outputs;
     }
 
+    /**
+     * @return Output: A Deep clone of the Output.
+     */
     @SuppressWarnings("CloneDoesntCallSuperClone")
     @Override
-    public Output clone(){
+    public Output clone() {
         return new Output(outputs);
     }
 

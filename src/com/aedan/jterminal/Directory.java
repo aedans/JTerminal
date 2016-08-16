@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Utility class for managing the CommandHandler directory.
  */
 
@@ -24,7 +24,7 @@ public class Directory {
     /**
      * The default Directory constructor.
      */
-    public Directory(){
+    public Directory() {
         this.directory = new File(String.valueOf(Paths.get("").toAbsolutePath()));
     }
 
@@ -36,9 +36,9 @@ public class Directory {
      * @throws DirectoryFormatException if the String is not a valid Directory.
      */
     public File getFile(String dir) throws DirectoryFormatException {
-        if (Objects.equals(dir, "..")){
+        if (Objects.equals(dir, "..")) {
             return directory.getParentFile();
-        } else if (Objects.equals(dir, ".")){
+        } else if (Objects.equals(dir, ".")) {
             return directory;
         } else if (dir.matches("\\w:.+|/.+|\\\\.+")) {
             return new File(dir);
@@ -46,10 +46,14 @@ public class Directory {
             try {
                 Path p = Paths.get(directory.toString(), dir).toAbsolutePath();
                 return new File(p.toString());
-            } catch (InvalidPathException e){
+            } catch (InvalidPathException e) {
                 throw new DirectoryFormatException("Invalid Directory format: " + dir);
             }
         }
+    }
+
+    public File getDirectory() {
+        return directory;
     }
 
     /**
@@ -59,7 +63,7 @@ public class Directory {
      * @throws DirectoryChangeException if the Directory cannot be changed to.
      */
     public void setDirectory(File directory) throws DirectoryChangeException {
-        if (directory.exists()){
+        if (directory.exists()) {
             if (directory.isDirectory()) {
                 this.directory = directory;
             } else {
@@ -68,10 +72,6 @@ public class Directory {
         } else {
             throw new DirectoryChangeException("Directory \"" + directory.getAbsolutePath() + "\" does not exist");
         }
-    }
-
-    public File getDirectory() {
-        return directory;
     }
 
     @Override

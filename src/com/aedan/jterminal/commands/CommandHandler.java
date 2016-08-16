@@ -2,8 +2,8 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.Directory;
-import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.default_package.DefaultPackage;
+import com.aedan.jterminal.output.Output;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 8/10/16.
- *
+ * <p>
  * The CommandHandler for the JTerminal
  */
 
@@ -35,7 +35,7 @@ public class CommandHandler {
     /**
      * The default CommandHandler constructor.
      */
-    public CommandHandler(){
+    public CommandHandler() {
         this(new DefaultPackage());
     }
 
@@ -44,8 +44,8 @@ public class CommandHandler {
      *
      * @param commandPackages: The Packages to include.
      */
-    public CommandHandler(CommandPackage... commandPackages){
-        for (CommandPackage commandPackage : commandPackages){
+    public CommandHandler(CommandPackage... commandPackages) {
+        for (CommandPackage commandPackage : commandPackages) {
             addPackage(commandPackage);
         }
     }
@@ -53,21 +53,21 @@ public class CommandHandler {
     /**
      * Handles a line of input.
      *
-     * @param in : The String to handle.
+     * @param in     : The String to handle.
      * @param output : The Output to output to.
      * @throws CommandHandlerException if there is an error handling the String.
      */
     public void handleString(String in, Output output) throws CommandHandlerException {
-        for (CommandFormat commandFormat : commandFormats){
-            if (commandFormat.matches(in)){
+        for (CommandFormat commandFormat : commandFormats) {
+            if (commandFormat.matches(in)) {
                 commandFormat.handleString(this, in, output);
                 return;
             }
         }
 
         String identifier = in.split(" ")[0].toLowerCase();
-        for (Command command : commands){
-            if (Objects.equals(command.getIdentifier(), identifier)){
+        for (Command command : commands) {
+            if (Objects.equals(command.getIdentifier(), identifier)) {
                 command.parse(in, directory, output);
                 return;
             }
@@ -90,7 +90,7 @@ public class CommandHandler {
      *
      * @param command: The Command to add.
      */
-    public void addCommand(Command command){
+    public void addCommand(Command command) {
         commands.add(command);
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
@@ -100,24 +100,8 @@ public class CommandHandler {
      *
      * @param commandFormat: The CommandFormat to add.
      */
-    public void addCommandFormat(CommandFormat commandFormat){
+    public void addCommandFormat(CommandFormat commandFormat) {
         commandFormats.add(commandFormat);
-    }
-
-    /**
-     * An Exception thrown when there is an error handling a Command.
-     */
-    public static class CommandHandlerException extends Exception {
-
-        /**
-         * The default CommandHandlerException constructor.
-         *
-         * @param message: The error message to display.
-         */
-        public CommandHandlerException(String message){
-            super(message);
-        }
-
     }
 
     public Directory getDirectory() {
@@ -131,6 +115,22 @@ public class CommandHandler {
 
     public ArrayList<Command> getCommands() {
         return commands;
+    }
+
+    /**
+     * An Exception thrown when there is an error handling a Command.
+     */
+    public static class CommandHandlerException extends Exception {
+
+        /**
+         * The default CommandHandlerException constructor.
+         *
+         * @param message: The error message to display.
+         */
+        public CommandHandlerException(String message) {
+            super(message);
+        }
+
     }
 
 }

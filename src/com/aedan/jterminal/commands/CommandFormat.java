@@ -1,10 +1,10 @@
 package com.aedan.jterminal.commands;
 
-import com.aedan.jterminal.Output;
+import com.aedan.jterminal.output.Output;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Interface for creating custom Command formats.
  */
 
@@ -23,8 +23,8 @@ public interface CommandFormat {
      * Handles a String that matches the Command format.
      *
      * @param commandHandler: The CommandHandler that contains this CommandFormat.
-     * @param in: The String that matches the Command format.
-     * @param output: The Output of the CommandHandler.
+     * @param in:             The String that matches the Command format.
+     * @param output:         The Output of the CommandHandler.
      * @throws CommandHandler.CommandHandlerException if there is an error handling the String.
      */
     void handleString(CommandHandler commandHandler, String in, Output output) throws CommandHandler.CommandHandlerException;

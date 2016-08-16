@@ -3,11 +3,11 @@ package com.aedan.jterminal.commands.default_package.Utility;
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.Output;
+import com.aedan.jterminal.output.Output;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
- *
+ * <p>
  * Default Command.
  */
 

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
- *
+ * <p>
  * The default CommandInput for the JTerminal.
  */
 

@@ -3,13 +3,14 @@ package com.aedan.jterminal;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
+import com.aedan.jterminal.output.Output;
 import com.sun.istack.internal.NotNull;
 
 import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 8/10/16.
- *
+ * <p>
  * The main JTerminal class.
  */
 
@@ -33,16 +34,16 @@ public class JTerminal implements Runnable {
     /**
      * The default JTerminal constructor.
      */
-    public JTerminal(){
+    public JTerminal() {
 
     }
 
     /**
      * Starts the JTerminal. Can be exited by entering "exit".
      */
-    public void run(){
+    public void run() {
         String in;
-        while (true){
+        while (true) {
             try {
                 output.print(commandHandler.getDirectory() + "> ");
                 in = input.nextLine();

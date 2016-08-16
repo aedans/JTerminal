@@ -1,8 +1,8 @@
 package com.aedan.jterminal.commands.default_package.FileIO;
 
-import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.output.Output;
 
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Default CommandFormat.
  */
 
@@ -35,7 +35,7 @@ class OutputToFileCommandFormat implements CommandFormat {
             } else {
                 throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match Output To File format (command >> destination).");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }

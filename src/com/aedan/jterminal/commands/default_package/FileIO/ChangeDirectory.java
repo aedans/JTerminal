@@ -1,13 +1,13 @@
 package com.aedan.jterminal.commands.default_package.FileIO;
 
 import com.aedan.jterminal.Directory;
-import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.output.Output;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Default Command.
  */
 

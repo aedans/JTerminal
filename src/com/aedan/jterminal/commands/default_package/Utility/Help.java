@@ -1,15 +1,15 @@
 package com.aedan.jterminal.commands.default_package.Utility;
 
 import com.aedan.jterminal.Directory;
-import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.output.Output;
 
 import java.util.ArrayList;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Default Command.
  */
 
@@ -31,7 +31,7 @@ class Help extends Command {
         ArrayList<String> sIdentifiers = new ArrayList<>();
         ArrayList<String> sDescriptions = new ArrayList<>();
         ArrayList<String> sUsages = new ArrayList<>();
-        for (Command c : sCommands){
+        for (Command c : sCommands) {
             sIdentifiers.add(c.getIdentifier());
             sDescriptions.add(c.getQuickDescription());
             sUsages.add("Usage: " + c.getCommandFormat());

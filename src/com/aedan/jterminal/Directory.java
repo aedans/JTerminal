@@ -36,15 +36,15 @@ public class Directory {
      * @throws DirectoryFormatException if the String is not a valid Directory.
      */
     public File getFile(String dir) throws DirectoryFormatException {
-        if (Objects.equals(dir, "..")) {
+        if (Objects.equals(dir.trim(), "..")) {
             return directory.getParentFile();
-        } else if (Objects.equals(dir, ".")) {
+        } else if (Objects.equals(dir.trim(), ".")) {
             return directory;
         } else if (dir.matches("\\w:.+|/.+|\\\\.+")) {
             return new File(dir);
         } else {
             try {
-                Path p = Paths.get(directory.toString(), dir).toAbsolutePath();
+                Path p = Paths.get(directory.getPath(), dir).toAbsolutePath();
                 return new File(p.toString());
             } catch (InvalidPathException e) {
                 throw new DirectoryFormatException("Invalid Directory format: " + dir);
@@ -82,14 +82,14 @@ public class Directory {
     /**
      * Exception thrown if a Directory is in an invalid format.
      */
-    private class DirectoryFormatException extends CommandHandler.CommandHandlerException {
+    public class DirectoryFormatException extends CommandHandler.CommandHandlerException {
 
         /**
          * The default DirectoryFormatException constructor.
          *
          * @param message : The error message to display.
          */
-        public DirectoryFormatException(String message) {
+        DirectoryFormatException(String message) {
             super(message);
         }
 
@@ -105,7 +105,7 @@ public class Directory {
          *
          * @param message : The error message to display.
          */
-        public DirectoryChangeException(String message) {
+        DirectoryChangeException(String message) {
             super(message);
         }
 

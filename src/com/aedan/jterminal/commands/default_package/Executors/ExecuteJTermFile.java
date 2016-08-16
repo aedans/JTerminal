@@ -28,7 +28,7 @@ class ExecuteJTermFile extends Command {
         try {
             String dir = getArgValues(in)[0];
             if (dir.endsWith(".jterm")) {
-                String lines = FileUtils.readFile(new File(dir));
+                String lines = FileUtils.readFile(directory.getFile(dir));
                 for (String s : lines.split("\\n")) {
                     commandHandler.handleString(s, output);
                 }

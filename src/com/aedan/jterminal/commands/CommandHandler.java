@@ -45,7 +45,7 @@ public class CommandHandler {
      * @throws CommandHandlerException if there is an error handling the String.
      */
     public void handleString(String in, Output output) throws CommandHandlerException {
-        String identifier = in.split(" ")[0];
+        String identifier = in.split(" ")[0].toLowerCase();
         for (Command command : commands){
             if (Objects.equals(command.getIdentifier(), identifier)){
                 command.parse(in, directory, output);

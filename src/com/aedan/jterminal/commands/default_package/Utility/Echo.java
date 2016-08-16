@@ -11,9 +11,9 @@ import com.aedan.jterminal.Output;
  * Default Command.
  */
 
-public class Echo extends Command {
+class Echo extends Command {
 
-    public Echo() {
+    Echo() {
         super("echo -s", "echo", 1, "Outputs text.");
     }
 

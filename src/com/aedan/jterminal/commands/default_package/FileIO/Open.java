@@ -12,9 +12,9 @@ import java.io.IOException;
  * Created by Aedan Smith on 8/15/2016.
  */
 
-public class Open extends Command{
+class Open extends Command{
 
-    public Open() {
+    Open() {
         super("open -s", "open", 1, "Opens a given file with the default application");
     }
 

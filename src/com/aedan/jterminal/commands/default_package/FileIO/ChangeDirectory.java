@@ -11,9 +11,9 @@ import com.aedan.jterminal.commands.CommandHandler;
  * Default Command.
  */
 
-public class ChangeDirectory extends Command {
+class ChangeDirectory extends Command {
 
-    public ChangeDirectory() {
+    ChangeDirectory() {
         super("cd -s", "cd", 1, "Changes the active directory.");
     }
 

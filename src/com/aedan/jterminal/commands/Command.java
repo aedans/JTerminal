@@ -55,7 +55,7 @@ public abstract class Command {
      * @param identifier: The identifier to identify the command.
      * @param argCount: The expected number of arguments.
      */
-    public Command(String commandFormat, String identifier, int argCount, String quickDescription){
+    protected Command(String commandFormat, String identifier, int argCount, String quickDescription){
         this.commandFormatS = commandFormat;
         this.commandFormat = Pattern.compile(commandFormat
                 .replaceAll(" ", " *")

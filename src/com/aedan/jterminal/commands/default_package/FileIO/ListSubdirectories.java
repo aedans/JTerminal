@@ -11,9 +11,9 @@ import java.io.File;
  * Created by Aedan Smith on 8/15/2016.
  */
 
-public class ListSubdirectories extends Command {
+class ListSubdirectories extends Command {
 
-    public ListSubdirectories() {
+    ListSubdirectories() {
         super("ls", "ls", 0, "Lists all subdirectories of the current folder.");
     }
 

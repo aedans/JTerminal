@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * Created by Aedan Smith on 8/15/2016.
  */
 
-public class Help extends Command {
+class Help extends Command {
 
     private CommandHandler commandHandler;
 
-    public Help(CommandHandler commandHandler) {
+    Help(CommandHandler commandHandler) {
         super("help", "help", 0, "Lists all commands and their simple descriptions.");
         this.commandHandler = commandHandler;
     }

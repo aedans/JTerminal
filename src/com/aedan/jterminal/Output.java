@@ -181,6 +181,7 @@ public class Output {
         return s;
     }
 
+
     /**
      * Sets the Output to a given PrintStream.
      *

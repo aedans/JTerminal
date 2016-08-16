@@ -23,6 +23,11 @@ public class CommandHandler {
     private ArrayList<Command> commands = new ArrayList<>();
 
     /**
+     * The List of CommandFormats for the CommandHandler to Handle.
+     */
+    private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
+
+    /**
      * The current Directory of the CommandHandler.
      */
     private Directory directory = new Directory();
@@ -53,6 +58,13 @@ public class CommandHandler {
      * @throws CommandHandlerException if there is an error handling the String.
      */
     public void handleString(String in, Output output) throws CommandHandlerException {
+        for (CommandFormat commandFormat : commandFormats){
+            if (commandFormat.matches(in)){
+                commandFormat.handleString(this, in, output);
+                return;
+            }
+        }
+
         String identifier = in.split(" ")[0].toLowerCase();
         for (Command command : commands){
             if (Objects.equals(command.getIdentifier(), identifier)){
@@ -81,6 +93,15 @@ public class CommandHandler {
     public void addCommand(Command command){
         commands.add(command);
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
+    }
+
+    /**
+     * Adds a CommandFormat to the CommandHandler.
+     *
+     * @param commandFormat: The CommandFormat to add.
+     */
+    public void addCommandFormat(CommandFormat commandFormat){
+        commandFormats.add(commandFormat);
     }
 
     /**

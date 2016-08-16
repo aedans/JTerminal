@@ -35,6 +35,7 @@ public class CommandHandler {
         this.addCommand(new For(this));
         this.addCommand(new Help(this));
         this.addCommand(new ListSubdirectories());
+        this.addCommand(new Open());
     }
 
     /**

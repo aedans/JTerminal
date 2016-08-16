@@ -1,7 +1,9 @@
 package com.aedan.jterminal.utils;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -13,7 +15,7 @@ import java.io.IOException;
 public final class FileUtils {
 
     /**
-     * Opens a file with the OS default file opener.
+     * Opens a File with the OS default file opener.
      *
      * @param file: The File to open.
      * @return String: The output of the function.
@@ -30,10 +32,40 @@ public final class FileUtils {
     }
 
     /**
+     * Returns the content of a File.
+     *
+     * @param file: The File to read.
+     * @return String: The content of the file.
+     * @throws Exception
+     */
+    public static String readFile(File file) throws Exception {
+        if (file.exists()) {
+            if (file.isFile()) {
+                if (file.canRead()) {
+                    String s = "";
+                    BufferedReader buffer = new BufferedReader(new FileReader(file));
+                    String line;
+                    while ((line = buffer.readLine()) != null) {
+                        s += line + "\n";
+                    }
+                    return s;
+                } else {
+                    return file.getAbsolutePath() + " is not readable.";
+                }
+            } else {
+                return file.getAbsolutePath() + " is not a file.";
+            }
+        } else {
+            return "File " + file.getAbsolutePath() + " does not exist.";
+        }
+    }
+
+    /**
      * Removes a File.
      *
      * @param file: The File to remove.
      * @return String: The output of the function.
+     * @throws Exception
      */
     public static String removeFile(File file) throws Exception {
         if (file.exists()){
@@ -52,6 +84,7 @@ public final class FileUtils {
      *
      * @param file: The directory File to be created.
      * @return String: The output of the function.
+     * @throws Exception
      */
     public static String createDirectory(File file) throws Exception {
         if (!file.exists()) {
@@ -70,6 +103,7 @@ public final class FileUtils {
      *
      * @param file: The directory File to be removed.
      * @return String: The output of the function.
+     * @throws Exception
      */
     public static String removeDirectory(File file) throws Exception {
         return removeDirectoryR(file).trim();
@@ -80,6 +114,7 @@ public final class FileUtils {
      *
      * @param file: The directory File to be removed.
      * @return String: The output of the function.
+     * @throws Exception
      */
     private static String removeDirectoryR(File file) throws Exception {
         String s = "";

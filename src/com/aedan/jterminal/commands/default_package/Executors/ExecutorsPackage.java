@@ -13,6 +13,7 @@ public class ExecutorsPackage implements CommandPackage {
 
     @Override
     public void addCommands(CommandHandler destCommandHandler) {
+        destCommandHandler.addCommand(new ExecuteJTermFile(destCommandHandler));
         destCommandHandler.addCommand(new For(destCommandHandler));
     }
 

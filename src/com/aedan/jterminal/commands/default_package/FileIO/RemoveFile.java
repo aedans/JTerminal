@@ -8,11 +8,13 @@ import com.aedan.jterminal.utils.FileUtils;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
+ *
+ * Default Command.
  */
 
-public class RemoveFile extends Command {
+class RemoveFile extends Command {
 
-    protected RemoveFile() {
+    RemoveFile() {
         super("rm -s", "rm", 1, "Removes the file with the given name.");
     }
 

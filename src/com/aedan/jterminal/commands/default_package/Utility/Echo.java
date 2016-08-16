@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_commands;
+package com.aedan.jterminal.commands.default_package.Utility;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;

@@ -1,26 +1,27 @@
-package com.aedan.jterminal.commands.default_commands;
+package com.aedan.jterminal.commands.default_package.FileIO;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.Output;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 
+import java.io.File;
+
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
- * Default Command.
  */
 
-public class ChangeDirectory extends Command {
+public class ListSubdirectories extends Command {
 
-    public ChangeDirectory() {
-        super("cd -s", "cd", 1, "Changes the active directory.");
+    public ListSubdirectories() {
+        super("ls", "ls", 0, "Lists all subdirectories of the current folder.");
     }
 
     @Override
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        String dir = getArgValues(in)[0];
-        directory.setDirectory(directory.getFile(dir));
+        for (File f : directory.getDirectory().listFiles()){
+            output.println(f.getName());
+        }
     }
 
 }

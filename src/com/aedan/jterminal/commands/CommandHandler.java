@@ -1,8 +1,9 @@
 package com.aedan.jterminal.commands;
 
+import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.Output;
-import com.aedan.jterminal.commands.default_commands.*;
+import com.aedan.jterminal.commands.default_package.DefaultPackage;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -30,12 +31,18 @@ public class CommandHandler {
      * The default CommandHandler constructor.
      */
     public CommandHandler(){
-        this.addCommand(new ChangeDirectory());
-        this.addCommand(new Echo());
-        this.addCommand(new For(this));
-        this.addCommand(new Help(this));
-        this.addCommand(new ListSubdirectories());
-        this.addCommand(new Open());
+        this(new DefaultPackage());
+    }
+
+    /**
+     * CommandHandler constructor for adding custom packages.
+     *
+     * @param commandPackages: The Packages to include.
+     */
+    public CommandHandler(CommandPackage... commandPackages){
+        for (CommandPackage commandPackage : commandPackages){
+            addPackage(commandPackage);
+        }
     }
 
     /**
@@ -58,15 +65,22 @@ public class CommandHandler {
     }
 
     /**
+     * Adds a CommandPackage to the CommandHandler.
+     *
+     * @param commandPackage: The CommandPackage to add.
+     */
+    private void addPackage(CommandPackage commandPackage) {
+        commandPackage.addCommands(this);
+    }
+
+    /**
      * Adds a Command to the CommandHandler
      *
      * @param command: The Command to add.
      */
     public void addCommand(Command command){
-        if (command != null){
-            commands.add(command);
-            commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
-        }
+        commands.add(command);
+        commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
 
     /**

@@ -27,21 +27,24 @@ class Update extends Command {
 
     @Override
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+        File dir = directory.getFile(getArgValues(in)[0]);
+        dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
+
+        if (dir.exists()) {
+            try {
+                FileUtils.removeDirectory(dir);
+            } catch (FileUtils.FileIOException e){
+                throw new CommandHandler.CommandHandlerException(e.getMessage());
+            }
+        } else {
+            throw new CommandHandler.CommandHandlerException("No installation found at " + dir.getAbsolutePath());
+        }
         try {
             URL website = new URL("https://github.com/Ukn0wnSoldure/JTerminal/archive/master.zip");
             ReadableByteChannel rbc = Channels.newChannel(website.openStream());
             FileOutputStream fos = new FileOutputStream("JTerminal.zip");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             fos.close();
-
-            File dir = directory.getFile(getArgValues(in)[0]);
-            dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
-
-            if (dir.exists()) {
-                FileUtils.removeDirectory(dir);
-            } else {
-                throw new CommandHandler.CommandHandlerException("No installation found at " + dir.getAbsolutePath());
-            }
 
             ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream("JTerminal.zip"));
             ZipEntry zipEntry = zipInputStream.getNextEntry();

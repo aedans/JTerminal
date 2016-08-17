@@ -19,9 +19,9 @@ import java.util.zip.ZipInputStream;
  * Default Command.
  */
 
-public class Update extends Command {
+class Update extends Command {
 
-    public Update() {
+    Update() {
         super("update -s", "update", 1, "Updates the JTerminal source to the most recent version.");
     }
 
@@ -37,7 +37,11 @@ public class Update extends Command {
             File dir = directory.getFile(getArgValues(in)[0]);
             dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
 
-            FileUtils.removeDirectory(dir);
+            if (dir.exists()) {
+                FileUtils.removeDirectory(dir);
+            } else {
+                throw new CommandHandler.CommandHandlerException("No installation found at " + dir.getAbsolutePath());
+            }
 
             ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream("JTerminal.zip"));
             ZipEntry zipEntry = zipInputStream.getNextEntry();
@@ -56,7 +60,7 @@ public class Update extends Command {
                 }
             }
         } catch (Exception e){
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
+            e.printStackTrace();
         }
     }
 

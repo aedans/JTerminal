@@ -26,14 +26,10 @@ class ExecuteJTermFile extends Command {
     @Override
     public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
-            String dir = getArgValues(in)[0];
-            if (dir.endsWith(".jterm")) {
-                String lines = FileUtils.readFile(directory.getFile(dir));
-                for (String s : lines.split("\\n")) {
-                    commandHandler.handleString(s, output);
-                }
-            } else {
-                throw new CommandHandler.CommandHandlerException("File \"" + dir + "\" is not a .jterm file");
+            String dir = getArgValues(in)[0] + ".jterm";
+            String lines = FileUtils.readFile(directory.getFile(dir));
+            for (String s : lines.split("\\n")) {
+                commandHandler.handleString(s, output);
             }
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

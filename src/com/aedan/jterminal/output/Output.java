@@ -161,31 +161,12 @@ public class Output {
     }
 
     /**
-     * Sets the Output to a given PrintStream.
+     * Removes a PrintStream from the List of PrintStreams.
      *
-     * @param output: The PrintStream to set the Output to.
+     * @param output: The PrintStream to remove.
      */
-    public void setOutput(PrintStream output) {
-        this.outputs = new ArrayList<>();
-        this.outputs.add(output);
-    }
-
-    /**
-     * Sets the Outputs to a List of PrintStreams.
-     *
-     * @param outputs: The PrintStreams to set the Output to.
-     */
-    public void setOutputs(ArrayList<PrintStream> outputs) {
-        this.outputs = outputs;
-    }
-
-    /**
-     * @return Output: A Deep clone of the Output.
-     */
-    @SuppressWarnings("CloneDoesntCallSuperClone")
-    @Override
-    public Output clone() {
-        return new Output(outputs);
+    public void removeOutput(PrintStream output) {
+        this.outputs.remove(output);
     }
 
 }

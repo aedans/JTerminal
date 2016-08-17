@@ -55,13 +55,13 @@ public final class FileUtils {
                         }
                         return s;
                     } else {
-                        throw new FileIOException(file.getAbsolutePath() + " is not readable.");
+                        throw new FileIOException(file.getAbsolutePath() + " is not readable");
                     }
                 } else {
-                    throw new FileIOException(file.getAbsolutePath() + " is not a file.");
+                    throw new FileIOException(file.getAbsolutePath() + " is not a file");
                 }
             } else {
-                throw new FileIOException("File " + file.getAbsolutePath() + " does not exist.");
+                throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
             }
         } catch (Exception e){
             throw new FileIOException(e.getMessage());
@@ -83,7 +83,7 @@ public final class FileUtils {
                 throw new FileIOException("Could not delete file " + file.getAbsolutePath() + " (Unknown cause)");
             }
         } else {
-            throw new FileIOException("File " + file.getAbsolutePath() + " does not exist.");
+            throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
         }
     }
 
@@ -102,7 +102,7 @@ public final class FileUtils {
                 throw new FileIOException("Could not create directory at " + file.getAbsolutePath() + " (Unknown cause)");
             }
         } else {
-            throw new FileIOException("File " + file.getAbsolutePath() + " already exists.");
+            throw new FileIOException("File " + file.getAbsolutePath() + " already exists");
         }
     }
 
@@ -117,7 +117,7 @@ public final class FileUtils {
         if (file.exists()) {
             return removeDirectoryR(file).trim();
         } else {
-            throw new FileIOException("File " + file.getAbsolutePath() + " does not exist.");
+            throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
         }
     }
 

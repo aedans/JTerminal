@@ -50,7 +50,7 @@ public class JTerminal implements Runnable {
                 if (Objects.equals(in.trim(), "exit")) {
                     break;
                 } else {
-                    commandHandler.handleString(in.replaceAll(" {2,}", " "), output.clone());
+                    commandHandler.handleString(in.replaceAll(" {2,}", " "), output);
                 }
             } catch (CommandHandler.CommandHandlerException e) {
                 output.println("Could not handle command (" + e.getMessage() + ")");

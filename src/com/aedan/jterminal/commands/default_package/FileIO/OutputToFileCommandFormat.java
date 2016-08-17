@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 class OutputToFileCommandFormat implements CommandFormat {
 
-    private String outputToFileCommandFormatRegex = "([^>]+)>>(.+)";
+    private String outputToFileCommandFormatRegex = "([^>]+)>> *(.+)";
     private Pattern outputToFileCommandFormatPattern = Pattern.compile(outputToFileCommandFormatRegex);
 
     @Override
@@ -30,8 +30,11 @@ class OutputToFileCommandFormat implements CommandFormat {
         try {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
-                output.setOutput(new PrintStream(new FileOutputStream(commandHandler.getDirectory().getFile(m.group(2)))));
+                PrintStream ps = new PrintStream(new FileOutputStream(commandHandler.getDirectory().getFile(m.group(2))));
+                output.addOutput(ps);
                 commandHandler.handleString(m.group(1), output);
+                ps.close();
+                output.removeOutput(ps);
             } else {
                 throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match Output To File format (command >> destination).");
             }

@@ -33,13 +33,6 @@ public class CommandHandler {
     private Directory directory = new Directory();
 
     /**
-     * The default CommandHandler constructor.
-     */
-    public CommandHandler() {
-        this(new DefaultPackage());
-    }
-
-    /**
      * CommandHandler constructor for adding custom packages.
      *
      * @param commandPackages: The Packages to include.
@@ -81,7 +74,7 @@ public class CommandHandler {
      *
      * @param commandPackage: The CommandPackage to add.
      */
-    private void addPackage(CommandPackage commandPackage) {
+    public void addPackage(CommandPackage commandPackage) {
         commandPackage.addCommands(this);
     }
 

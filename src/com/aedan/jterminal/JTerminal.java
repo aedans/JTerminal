@@ -1,6 +1,7 @@
 package com.aedan.jterminal;
 
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.default_package.DefaultPackage;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.Output;
@@ -24,7 +25,7 @@ public class JTerminal implements Runnable {
     /**
      * The CommandHandler for the JTerminal
      */
-    private CommandHandler commandHandler = new CommandHandler();
+    private CommandHandler commandHandler;
 
     /**
      * The Outputs for the JTerminal.
@@ -35,7 +36,16 @@ public class JTerminal implements Runnable {
      * The default JTerminal constructor.
      */
     public JTerminal() {
+        this(new DefaultPackage());
+    }
 
+    /**
+     * JTerminal constructor for custom CommandPackages
+     *
+     * @param commandPackages: The CommandPackages to use.
+     */
+    public JTerminal(CommandPackage... commandPackages){
+        commandHandler = new CommandHandler(commandPackages);
     }
 
     /**

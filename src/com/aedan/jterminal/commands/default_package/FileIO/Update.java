@@ -56,7 +56,7 @@ public class Update extends Command {
                 }
             }
         } catch (Exception e){
-            e.printStackTrace();
+            throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
 

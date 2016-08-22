@@ -63,7 +63,12 @@ class Update extends Command {
                 }
             }
         } catch (Exception e){
-            e.printStackTrace();
+            try {
+                FileUtils.removeFile(new File("JTerminal.zip"));
+            } catch (FileUtils.FileIOException e1) {
+                throw new CommandHandler.CommandHandlerException(e.getMessage() + " and " + e1.getMessage());
+            }
+            throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
 

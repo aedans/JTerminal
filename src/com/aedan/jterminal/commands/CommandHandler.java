@@ -4,6 +4,7 @@ import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.default_package.DefaultPackage;
 import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.variables.Variable;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ public class CommandHandler {
      * The List of CommandFormats for the CommandHandler to Handle.
      */
     private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
+
+    /**
+     * The List of Variables for the CommandHandler to Parse.
+     */
+    private ArrayList<Variable> variables = new ArrayList<>();
 
     /**
      * The current Directory of the CommandHandler.
@@ -51,6 +57,10 @@ public class CommandHandler {
      * @throws CommandHandlerException if there is an error handling the String.
      */
     public void handleString(String in, Output output) throws CommandHandlerException {
+        for (Variable v : variables) {
+            in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
+        }
+
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
                 commandFormat.handleString(this, in, output);
@@ -67,6 +77,24 @@ public class CommandHandler {
         }
 
         throw new CommandHandlerException("Unrecognized Command \"" + identifier + "\"");
+    }
+
+    /**
+     * Adds a Variable to the CommandHandler.
+     *
+     * @param variable: The Variable to add.
+     */
+    public void addVariable(Variable variable){
+        variables.add(variable);
+    }
+
+    /**
+     * Removes a Variable from the CommandHandler.
+     *
+     * @param name: The name of the Variable to remove.
+     */
+    public void removeVariable(String name){
+        variables.stream().filter(v -> v.getName().equals(name)).forEach(v -> variables.remove(v));
     }
 
     /**

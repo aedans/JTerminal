@@ -62,6 +62,7 @@ class Update extends Command {
                         fileOutputStream.write(buf, 0, n);
                 }
             }
+            zipInputStream.close();
         } catch (Exception e){
             try {
                 FileUtils.removeFile(new File("JTerminal.zip"));

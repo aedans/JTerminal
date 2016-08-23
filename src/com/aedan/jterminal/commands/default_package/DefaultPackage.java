@@ -19,6 +19,7 @@ public class DefaultPackage implements CommandPackage {
         new FileIOPackage().addCommands(destCommandHandler);
         new ExecutorsPackage().addCommands(destCommandHandler);
         new UtilityPackage().addCommands(destCommandHandler);
+        destCommandHandler.addCommandFormat(new AddGlobalVariableCommandFormat());
     }
 
 }

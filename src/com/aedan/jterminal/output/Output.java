@@ -169,4 +169,8 @@ public class Output {
         this.outputs.remove(output);
     }
 
+    public ArrayList<PrintStream> getOutputs() {
+        return outputs;
+    }
+
 }

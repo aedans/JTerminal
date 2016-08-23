@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Utility class for accessing files.
  */
 
@@ -30,7 +30,7 @@ public final class FileUtils {
                 Desktop.getDesktop().edit(file);
                 return "Opened file " + file.getAbsolutePath();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new FileIOException(e.getMessage());
         }
     }
@@ -63,7 +63,7 @@ public final class FileUtils {
             } else {
                 throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new FileIOException(e.getMessage());
         }
     }
@@ -76,11 +76,15 @@ public final class FileUtils {
      * @throws FileIOException if the File cannot be removed.
      */
     public static String removeFile(File file) throws FileIOException {
-        if (file.exists()){
-            if (file.delete()){
-                return "Deleted file at " + file.getAbsolutePath();
+        if (file.exists()) {
+            if (file.isFile()) {
+                if (file.delete()) {
+                    return "Deleted file at " + file.getAbsolutePath();
+                } else {
+                    throw new FileIOException("Could not delete file " + file.getAbsolutePath() + " (Unknown cause)");
+                }
             } else {
-                throw new FileIOException("Could not delete file " + file.getAbsolutePath() + " (Unknown cause)");
+                throw new FileIOException("Directory at " + file.getAbsolutePath() + " is not a file.");
             }
         } else {
             throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
@@ -115,7 +119,11 @@ public final class FileUtils {
      */
     public static String removeDirectory(File file) throws FileIOException {
         if (file.exists()) {
-            return removeDirectoryR(file).trim();
+            if (file.isDirectory()) {
+                return removeDirectoryR(file).trim();
+            } else {
+                throw new FileIOException("File " + file.getAbsolutePath() + " is not a directory.");
+            }
         } else {
             throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
         }
@@ -131,7 +139,7 @@ public final class FileUtils {
         String s = "";
         File[] subfs = file.listFiles();
         if (subfs == null)
-            if (file.delete()){
+            if (file.delete()) {
                 return s + "Removed file at " + file.getAbsolutePath() + "\n";
             } else {
                 return s + "Could not remove file at " + file.getAbsolutePath() + "\n";
@@ -140,7 +148,7 @@ public final class FileUtils {
             for (File subf : subfs) {
                 s += removeDirectoryR(subf);
             }
-            if (file.delete()){
+            if (file.delete()) {
                 return s + "Removed directory at " + file.getAbsolutePath() + "\n";
             } else {
                 return s + "Could not remove directory at " + file.getAbsolutePath() + "\n";
@@ -158,7 +166,7 @@ public final class FileUtils {
          *
          * @param message: The error message to display.
          */
-        public FileIOException(String message){
+        public FileIOException(String message) {
             super(message);
         }
 

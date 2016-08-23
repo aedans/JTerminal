@@ -6,11 +6,9 @@ import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.output.Output;
 import com.aedan.jterminal.utils.FileUtils;
 
-import java.io.File;
-
 /**
  * Created by Aedan Smith on 8/15/2016.
- *
+ * <p>
  * Default Command.
  */
 

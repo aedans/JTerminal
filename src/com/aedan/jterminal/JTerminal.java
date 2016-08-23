@@ -7,7 +7,7 @@ import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.Output;
 import com.sun.istack.internal.NotNull;
 
-import java.util.Objects;
+import java.io.PrintStream;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -23,7 +23,7 @@ public class JTerminal implements Runnable {
     private CommandInput input = new SystemInput();
 
     /**
-     * The CommandHandler for the JTerminal
+     * The CommandHandler for the JTerminal.
      */
     private CommandHandler commandHandler;
 
@@ -40,30 +40,30 @@ public class JTerminal implements Runnable {
     }
 
     /**
-     * JTerminal constructor for custom CommandPackages
+     * JTerminal constructor for custom CommandPackages.
      *
      * @param commandPackages: The CommandPackages to use.
      */
-    public JTerminal(CommandPackage... commandPackages){
+    public JTerminal(CommandPackage... commandPackages) {
         commandHandler = new CommandHandler(commandPackages);
     }
 
     /**
-     * Starts the JTerminal. Can be exited by entering "exit".
+     * Starts the JTerminal.
      */
     public void run() {
         String in;
+        //noinspection InfiniteLoopStatement
         while (true) {
             try {
                 output.print(commandHandler.getDirectory() + "> ");
                 in = input.nextLine();
-                if (Objects.equals(in.trim(), "exit")) {
-                    break;
-                } else {
-                    commandHandler.handleString(in.replaceAll(" {2,}", " "), output);
-                }
+                commandHandler.handleString(in.replaceAll(" {2,}", " "), output);
             } catch (CommandHandler.CommandHandlerException e) {
                 output.println("Could not handle command (" + e.getMessage() + ")");
+            } catch (Exception e){
+                output.print("Fatal error: ");
+                output.getOutputs().forEach(e::printStackTrace);
             }
         }
     }

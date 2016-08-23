@@ -6,7 +6,9 @@ import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.output.Output;
 import com.aedan.jterminal.utils.FileUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -15,7 +17,7 @@ import java.util.zip.ZipInputStream;
 
 /**
  * Created by Aedan Smith on 8/16/2016.
- *
+ * <p>
  * Default Command.
  */
 
@@ -33,7 +35,7 @@ class Update extends Command {
         if (dir.exists()) {
             try {
                 FileUtils.removeDirectory(dir);
-            } catch (FileUtils.FileIOException e){
+            } catch (FileUtils.FileIOException e) {
                 throw new CommandHandler.CommandHandlerException(e.getMessage());
             }
         } else {
@@ -52,7 +54,7 @@ class Update extends Command {
                 zipInputStream.getNextEntry();
             }
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-                if (zipEntry.isDirectory()){
+                if (zipEntry.isDirectory()) {
                     FileUtils.createDirectory(new File(dir + zipEntry.getName().substring(40)));
                 } else {
                     FileOutputStream fileOutputStream = new FileOutputStream(dir + zipEntry.getName().substring(40));
@@ -63,7 +65,7 @@ class Update extends Command {
                 }
             }
             zipInputStream.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             try {
                 FileUtils.removeFile(new File("JTerminal.zip"));
             } catch (FileUtils.FileIOException e1) {

@@ -2,13 +2,14 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.Directory;
-import com.aedan.jterminal.commands.default_package.DefaultPackage;
 import com.aedan.jterminal.output.Output;
 import com.aedan.jterminal.variables.Variable;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -31,7 +32,12 @@ public class CommandHandler {
     /**
      * The List of Variables for the CommandHandler to Parse.
      */
-    private ArrayList<Variable> variables = new ArrayList<>();
+    private ArrayList<Variable> globalVariables = new ArrayList<>();
+
+    /**
+     * The List of String literals that the CommandHandler is using.
+     */
+    private ArrayList<String> stringLiterals = new ArrayList<>();
 
     /**
      * The current Directory of the CommandHandler.
@@ -56,8 +62,17 @@ public class CommandHandler {
      * @param output : The Output to output to.
      * @throws CommandHandlerException if there is an error handling the String.
      */
+    @NotNull
     public void handleString(String in, Output output) throws CommandHandlerException {
-        for (Variable v : variables) {
+        stringLiterals = new ArrayList<>();
+
+        Matcher m = Pattern.compile("\"[^\"]+\"").matcher(in);
+        while (m.find()) {
+            in = in.replaceFirst(m.group(), "&" + stringLiterals.size());
+            stringLiterals.add(m.group());
+        }
+
+        for (Variable v : globalVariables) {
             in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
         }
 
@@ -84,8 +99,9 @@ public class CommandHandler {
      *
      * @param variable: The Variable to add.
      */
-    public void addVariable(Variable variable){
-        variables.add(variable);
+    @NotNull
+    public void addVariable(Variable variable) {
+        globalVariables.add(variable);
     }
 
     /**
@@ -93,8 +109,8 @@ public class CommandHandler {
      *
      * @param name: The name of the Variable to remove.
      */
-    public void removeVariable(String name){
-        variables.stream().filter(v -> v.getName().equals(name)).forEach(v -> variables.remove(v));
+    public void removeVariable(String name) {
+        globalVariables.stream().filter(v -> v.getName().equals(name)).forEach(v -> globalVariables.remove(v));
     }
 
     /**
@@ -102,6 +118,7 @@ public class CommandHandler {
      *
      * @param commandPackage: The CommandPackage to add.
      */
+    @NotNull
     public void addPackage(CommandPackage commandPackage) {
         commandPackage.addCommands(this);
     }
@@ -111,6 +128,7 @@ public class CommandHandler {
      *
      * @param command: The Command to add.
      */
+    @NotNull
     public void addCommand(Command command) {
         commands.add(command);
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
@@ -121,6 +139,7 @@ public class CommandHandler {
      *
      * @param commandFormat: The CommandFormat to add.
      */
+    @NotNull
     public void addCommandFormat(CommandFormat commandFormat) {
         commandFormats.add(commandFormat);
     }

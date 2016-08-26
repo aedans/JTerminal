@@ -3,6 +3,7 @@ package com.aedan.jterminal.commands.default_package.FileIO;
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
 import com.aedan.jterminal.utils.FileUtils;
 
@@ -19,7 +20,7 @@ class RemoveFile extends Command {
     }
 
     @Override
-    public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
             output.println(FileUtils.removeFile(directory.getFile(getArgValues(in)[0])));
         } catch (FileUtils.FileIOException e) {

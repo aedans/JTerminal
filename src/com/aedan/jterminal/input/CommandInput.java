@@ -9,7 +9,7 @@ package com.aedan.jterminal.input;
 public interface CommandInput {
 
     /**
-     * @return String: The next line for the JTerminal to handle.
+     * @return The next line for the JTerminal to handle.
      */
     String nextLine();
 

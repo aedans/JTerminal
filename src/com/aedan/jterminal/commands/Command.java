@@ -1,6 +1,7 @@
 package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public abstract class Command {
         this.commandFormatS = commandFormat;
         this.commandFormat = Pattern.compile(commandFormat
                 .replaceAll(" ", " *")
-                .replaceAll("-s", " *(\"[^\"]+\"|[^ ]+)")
+                .replaceAll("-s", " *([^ ]+)")
                 .replaceAll("-i", " *([0123456789]+)")
         );
         this.identifier = identifier;
@@ -70,12 +71,12 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param in        : The String to parse.
-     * @param directory : The directory of the CommandHandler.
-     * @param output    : The output to print to.
-     * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
+     * @param input        : The String to parse.
+     * @param in
+     *@param directory : The directory of the CommandHandler.
+     * @param output    : The output to print to.   @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
-    public abstract void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException;
+    public abstract void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException;
 
     /**
      * Determines if a String is a valid command using the Command Format.
@@ -100,7 +101,7 @@ public abstract class Command {
         if (m.find()) {
             for (int i = 0; i < argCount; i++) {
                 if (m.group(i + 1) != null) {
-                    matches[i] = m.group(i + 1).replaceAll("\"([^\"]+)\"", "$1");
+                    matches[i] = m.group(i + 1);
                 } else {
                     matches[i] = "";
                 }

@@ -7,8 +7,6 @@ import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.Output;
 import com.sun.istack.internal.NotNull;
 
-import java.io.PrintStream;
-
 /**
  * Created by Aedan Smith on 8/10/16.
  * <p>
@@ -57,8 +55,7 @@ public class JTerminal implements Runnable {
         while (true) {
             try {
                 output.print(commandHandler.getDirectory() + "> ");
-                in = input.nextLine();
-                commandHandler.handleString(in.replaceAll(" {2,}", " "), output);
+                commandHandler.handleInput(input, output);
             } catch (CommandHandler.CommandHandlerException e) {
                 output.println("Could not handle command (" + e.getMessage() + ")");
             } catch (Exception e){

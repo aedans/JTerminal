@@ -16,11 +16,17 @@ public class SystemInput implements CommandInput {
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * @return String: The next line of the System input.
+     * The current line.
+     */
+    private String line;
+
+    /**
+     * @return The next line of the System input.
      */
     @Override
     public String nextLine() {
-        return scanner.nextLine();
+        line = scanner.nextLine();
+        return line;
     }
 
 }

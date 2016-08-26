@@ -1,5 +1,6 @@
 package com.aedan.jterminal.commands;
 
+import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
 
 /**
@@ -22,11 +23,11 @@ public interface CommandFormat {
     /**
      * Handles a String that matches the Command format.
      *
-     * @param commandHandler: The CommandHandler that contains this CommandFormat.
-     * @param in:             The String that matches the Command format.
-     * @param output:         The Output of the CommandHandler.
-     * @throws CommandHandler.CommandHandlerException if there is an error handling the String.
+     * @param commandHandler : The CommandHandler that contains this CommandFormat.
+     * @param input
+     *@param in :             The String that matches the Command format.
+     * @param output :         The Output of the CommandHandler.   @throws CommandHandler.CommandHandlerException if there is an error handling the String.
      */
-    void handleString(CommandHandler commandHandler, String in, Output output) throws CommandHandler.CommandHandlerException;
+    void handleInput(CommandHandler commandHandler, CommandInput input, String in, Output output) throws CommandHandler.CommandHandlerException;
 
 }

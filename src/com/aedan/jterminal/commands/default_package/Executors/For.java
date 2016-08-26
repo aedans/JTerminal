@@ -3,6 +3,7 @@ package com.aedan.jterminal.commands.default_package.Executors;
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
 
 /**
@@ -21,12 +22,14 @@ class For extends Command {
     }
 
     @Override
-    public void parse(String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         String[] args = getArgValues(in);
         for (int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
-            commandHandler.handleString(
+            commandHandler.handleInput(
+                    input,
                     args[3].replaceAll("\\[" + args[2] + "\\]", String.valueOf(i)),
-                    output);
+                    output
+            );
         }
     }
 

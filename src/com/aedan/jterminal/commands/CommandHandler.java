@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
 import com.aedan.jterminal.variables.Variable;
 import com.sun.istack.internal.NotNull;
@@ -58,12 +59,25 @@ public class CommandHandler {
     /**
      * Handles a line of input.
      *
-     * @param in     : The String to handle.
-     * @param output : The Output to output to.
-     * @throws CommandHandlerException if there is an error handling the String.
+     * @param input The String to handle.
+     * @param output The Output to output to.
+     * @throws CommandHandlerException if there is an error handling the Input.
      */
     @NotNull
-    public void handleString(String in, Output output) throws CommandHandlerException {
+    public void handleInput(CommandInput input, Output output) throws CommandHandlerException {
+        handleInput(input, input.nextLine(), output);
+    }
+
+    /**
+     * Handles a line of input.
+     *
+     * @param input The String to handle.
+     * @param in The String input.
+     * @param output The Output to output to.
+     * @throws CommandHandlerException if there is an error handling the Input.
+     */
+    @NotNull
+    public void handleInput(CommandInput input, String in, Output output) throws CommandHandlerException {
         stringLiterals = new ArrayList<>();
 
         Matcher m = Pattern.compile("\"[^\"]+\"").matcher(in);
@@ -78,7 +92,7 @@ public class CommandHandler {
 
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
-                commandFormat.handleString(this, in, output);
+                commandFormat.handleInput(this, input, in, output);
                 return;
             }
         }
@@ -86,7 +100,7 @@ public class CommandHandler {
         String identifier = in.split(" ")[0].toLowerCase();
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
-                command.parse(in, directory, output);
+                command.parse(input, in, directory, output);
                 return;
             }
         }

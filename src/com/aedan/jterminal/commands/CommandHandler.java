@@ -36,11 +36,6 @@ public class CommandHandler {
     private ArrayList<Variable> globalVariables = new ArrayList<>();
 
     /**
-     * The List of String literals that the CommandHandler is using.
-     */
-    private ArrayList<String> stringLiterals = new ArrayList<>();
-
-    /**
      * The current Directory of the CommandHandler.
      */
     private Directory directory = new Directory();
@@ -78,7 +73,7 @@ public class CommandHandler {
      */
     @NotNull
     public void handleInput(CommandInput input, String in, Output output) throws CommandHandlerException {
-        stringLiterals = new ArrayList<>();
+        ArrayList<String> stringLiterals = new ArrayList<>();
 
         for (Variable v : globalVariables) {
             in = in.replaceAll("\\[" + v.getName() + "\\]", "\"" + v.getValue() + "\"");
@@ -152,7 +147,7 @@ public class CommandHandler {
     }
 
     /**
-     * Adds a Command to the CommandHandler
+     * Adds a Command to the CommandHandler.
      *
      * @param command The Command to add.
      */

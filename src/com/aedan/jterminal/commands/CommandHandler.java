@@ -76,10 +76,10 @@ public class CommandHandler {
         ArrayList<String> stringLiterals = new ArrayList<>();
 
         for (Variable v : globalVariables) {
-            in = in.replaceAll("\\[" + v.getName() + "\\]", "\"" + v.getValue() + "\"");
+            in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
         }
 
-        Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(in);
+        Matcher m = Pattern.compile("\"(.+)\"").matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
             stringLiterals.add(m.group(1));

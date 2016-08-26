@@ -75,10 +75,6 @@ public class CommandHandler {
     public void handleInput(CommandInput input, String in, Output output) throws CommandHandlerException {
         ArrayList<String> stringLiterals = new ArrayList<>();
 
-        for (Variable v : globalVariables) {
-            in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
-        }
-
         Matcher m = Pattern.compile("\"(.+)\"").matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
@@ -96,9 +92,15 @@ public class CommandHandler {
         String identifier = args[0].toLowerCase();
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
-                for (int i = 0; i < stringLiterals.size(); i++) {
-                    for (int j = 0; j < args.length; j++) {
-                        args[j] = args[j].replaceAll("&" + i, stringLiterals.get(i));
+                for (int i = 0; i < args.length; i++) {
+                    for (int j = 0; j < stringLiterals.size(); j++) {
+                        args[i] = args[i].replaceAll("&" + j, stringLiterals.get(j));
+                    }
+                    for (int j = 0; j < globalVariables.size(); j++) {
+                        args[i] = args[i].replaceAll(
+                                "\\[" + globalVariables.get(j).getName() + "\\]",
+                                globalVariables.get(j).getValue()
+                        );
                     }
                 }
 

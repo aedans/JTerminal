@@ -84,10 +84,10 @@ public class CommandHandler {
             in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
         }
 
-        Matcher m = Pattern.compile("\"[^\"]+\"").matcher(in);
+        Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(in);
         while (m.find()) {
             in = in.replaceFirst(m.group(), "&" + stringLiterals.size());
-            stringLiterals.add(m.group());
+            stringLiterals.add(m.group(1));
         }
 
         for (CommandFormat commandFormat : commandFormats) {
@@ -101,6 +101,12 @@ public class CommandHandler {
         String identifier = args[0].toLowerCase();
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
+                for (int i = 0; i < stringLiterals.size(); i++) {
+                    for (int j = 0; j < args.length; j++) {
+                        args[j] = args[j].replaceAll("&" + i, stringLiterals.get(i));
+                    }
+                }
+
                 command.parse(input, args, directory, output);
                 return;
             }

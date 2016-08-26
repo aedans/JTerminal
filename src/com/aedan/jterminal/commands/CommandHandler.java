@@ -80,14 +80,14 @@ public class CommandHandler {
     public void handleInput(CommandInput input, String in, Output output) throws CommandHandlerException {
         stringLiterals = new ArrayList<>();
 
+        for (Variable v : globalVariables) {
+            in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
+        }
+
         Matcher m = Pattern.compile("\"[^\"]+\"").matcher(in);
         while (m.find()) {
             in = in.replaceFirst(m.group(), "&" + stringLiterals.size());
             stringLiterals.add(m.group());
-        }
-
-        for (Variable v : globalVariables) {
-            in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
         }
 
         for (CommandFormat commandFormat : commandFormats) {
@@ -97,10 +97,11 @@ public class CommandHandler {
             }
         }
 
-        String identifier = in.split(" ")[0].toLowerCase();
+        String[] args = in.split(" ");
+        String identifier = args[0].toLowerCase();
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
-                command.parse(input, in, directory, output);
+                command.parse(input, args, directory, output);
                 return;
             }
         }

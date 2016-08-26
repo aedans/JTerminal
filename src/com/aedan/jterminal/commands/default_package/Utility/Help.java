@@ -19,26 +19,24 @@ class Help extends Command {
     private CommandHandler commandHandler;
 
     Help(CommandHandler commandHandler) {
-        super("help", "help", 0, "Lists all commands and their simple descriptions.");
+        super("help", "Lists all commands and their simple descriptions.");
         this.commandHandler = commandHandler;
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         //noinspection unchecked
         ArrayList<Command> sCommands = (ArrayList<Command>) commandHandler.getCommands().clone();
         sCommands.sort((o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));
 
         ArrayList<String> sIdentifiers = new ArrayList<>();
         ArrayList<String> sDescriptions = new ArrayList<>();
-        ArrayList<String> sUsages = new ArrayList<>();
         for (Command c : sCommands) {
             sIdentifiers.add(c.getIdentifier());
             sDescriptions.add(c.getQuickDescription());
-            sUsages.add("Usage: " + c.getCommandFormat());
         }
 
-        output.printGrid(4, sIdentifiers, sDescriptions, sUsages);
+        output.printGrid(4, sIdentifiers, sDescriptions);
     }
 
 }

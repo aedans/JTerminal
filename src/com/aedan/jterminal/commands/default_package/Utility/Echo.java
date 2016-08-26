@@ -15,12 +15,12 @@ import com.aedan.jterminal.output.Output;
 class Echo extends Command {
 
     Echo() {
-        super("echo -s", "echo", 1, "Outputs text.");
+        super("echo", "Outputs text.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        output.println(getArgValues(in)[0]);
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+        output.println(args[1]);
     }
 
 }

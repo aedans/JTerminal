@@ -18,14 +18,14 @@ class ExecuteJTermFile extends Command {
     private CommandHandler commandHandler;
 
     ExecuteJTermFile(CommandHandler commandHandler) {
-        super("exec -s", "exec", 1, "Executes a .jterm file.");
+        super("exec", "Executes a .jterm file.");
         this.commandHandler = commandHandler;
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
-            String dir = getArgValues(in)[0] + ".jterm";
+            String dir = args[1] + ".jterm";
             String lines = FileUtils.readFile(directory.getFile(dir));
             for (String s : lines.split("\\n")) {
                 commandHandler.handleInput(input, s, output);

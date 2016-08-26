@@ -17,11 +17,11 @@ import java.io.File;
 class ListSubdirectories extends Command {
 
     ListSubdirectories() {
-        super("ls", "ls", 0, "Lists all subdirectories of the current folder.");
+        super("ls", "Lists all subdirectories of the current folder.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         for (File f : directory.getDirectory().listFiles()) {
             output.println(f.getName());
         }

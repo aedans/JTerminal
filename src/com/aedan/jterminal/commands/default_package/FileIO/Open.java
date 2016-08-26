@@ -16,13 +16,13 @@ import com.aedan.jterminal.utils.FileUtils;
 class Open extends Command {
 
     Open() {
-        super("open -s", "open", 1, "Opens a given file with the default application.");
+        super("open", "Opens a given file with the default application.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
-            output.println(FileUtils.open(directory.getFile(getArgValues(in)[0])));
+            output.println(FileUtils.open(directory.getFile(args[1])));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

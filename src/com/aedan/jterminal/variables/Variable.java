@@ -16,8 +16,8 @@ public class Variable {
     /**
      * Default Variable constructor.
      *
-     * @param name:  The Variable name.
-     * @param value: The Variable value.
+     * @param name The Variable name.
+     * @param value The Variable value.
      */
     public Variable(String name, String value) {
         this.name = name;

@@ -17,17 +17,16 @@ class For extends Command {
     private CommandHandler commandHandler;
 
     For(CommandHandler commandHandler) {
-        super("for -i -i -s -s", "for", 4, "Iterates a command and stores the current iteration in a variable.");
+        super("for", "Iterates a command and stores the current iteration in a variable.");
         this.commandHandler = commandHandler;
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        String[] args = getArgValues(in);
-        for (int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+        for (int i = Integer.parseInt(args[1]); i < Integer.parseInt(args[2]); i++) {
             commandHandler.handleInput(
                     input,
-                    args[3].replaceAll("\\[" + args[2] + "\\]", String.valueOf(i)),
+                    args[4].replaceAll("\\[" + args[3] + "\\]", String.valueOf(i)),
                     output
             );
         }

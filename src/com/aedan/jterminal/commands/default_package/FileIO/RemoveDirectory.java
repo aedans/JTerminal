@@ -16,13 +16,13 @@ import com.aedan.jterminal.utils.FileUtils;
 class RemoveDirectory extends Command {
 
     RemoveDirectory() {
-        super("rmdir -s", "rmdir", 1, "Removes the directory with the given name.");
+        super("rmdir", "Removes the directory with the given name.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
-            output.println(FileUtils.removeDirectory(directory.getFile(getArgValues(in)[0])));
+            output.println(FileUtils.removeDirectory(directory.getFile(args[1])));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

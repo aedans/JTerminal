@@ -15,13 +15,12 @@ import com.aedan.jterminal.output.Output;
 class ChangeDirectory extends Command {
 
     ChangeDirectory() {
-        super("cd -s", "cd", 1, "Changes the active directory.");
+        super("cd", "Changes the active directory.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        String dir = getArgValues(in)[0];
-        directory.setDirectory(directory.getFile(dir));
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+        directory.setDirectory(directory.getFile(args[1]));
     }
 
 }

@@ -16,13 +16,13 @@ import com.aedan.jterminal.utils.FileUtils;
 public class MakeDirectory extends Command {
 
     MakeDirectory() {
-        super("mkdir -s", "mkdir", 1, "Creates a directory with the given name.");
+        super("mkdir", "Creates a directory with the given name.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         try {
-            output.println(FileUtils.createDirectory(directory.getFile(getArgValues(in)[0])));
+            output.println(FileUtils.createDirectory(directory.getFile(args[1])));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

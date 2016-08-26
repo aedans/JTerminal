@@ -25,12 +25,12 @@ import java.util.zip.ZipInputStream;
 class Update extends Command {
 
     Update() {
-        super("update -s", "update", 1, "Updates the JTerminal source to the most recent version.");
+        super("update", "Updates the JTerminal source to the most recent version.");
     }
 
     @Override
-    public void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        File dir = directory.getFile(getArgValues(in)[0]);
+    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+        File dir = directory.getFile(args[1]);
         dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
 
         if (dir.exists()) {

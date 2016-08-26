@@ -40,7 +40,7 @@ public class JTerminal implements Runnable {
     /**
      * JTerminal constructor for custom CommandPackages.
      *
-     * @param commandPackages: The CommandPackages to use.
+     * @param commandPackages The CommandPackages to use.
      */
     public JTerminal(CommandPackage... commandPackages) {
         commandHandler = new CommandHandler(commandPackages);
@@ -50,7 +50,6 @@ public class JTerminal implements Runnable {
      * Starts the JTerminal.
      */
     public void run() {
-        String in;
         //noinspection InfiniteLoopStatement
         while (true) {
             try {
@@ -58,7 +57,7 @@ public class JTerminal implements Runnable {
                 commandHandler.handleInput(input, output);
             } catch (CommandHandler.CommandHandlerException e) {
                 output.println("Could not handle command (" + e.getMessage() + ")");
-            } catch (Exception e){
+            } catch (Exception e) {
                 output.print("Fatal error: ");
                 output.getOutputs().forEach(e::printStackTrace);
             }

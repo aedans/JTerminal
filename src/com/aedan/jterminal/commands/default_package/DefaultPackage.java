@@ -9,7 +9,7 @@ import com.aedan.jterminal.commands.default_package.Utility.UtilityPackage;
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
- * A CommandPackage containing all Default Commands.
+ * CommandPackage containing all Default Commands.
  */
 
 public class DefaultPackage implements CommandPackage {

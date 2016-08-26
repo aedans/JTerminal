@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Aedan Smith on 8/10/16.
  * <p>
- * The CommandHandler for the JTerminal
+ * The CommandHandler for the JTerminal.
  */
 
 public class CommandHandler {
@@ -48,7 +48,7 @@ public class CommandHandler {
     /**
      * CommandHandler constructor for adding custom packages.
      *
-     * @param commandPackages: The Packages to include.
+     * @param commandPackages The Packages to include.
      */
     public CommandHandler(CommandPackage... commandPackages) {
         for (CommandPackage commandPackage : commandPackages) {
@@ -59,7 +59,7 @@ public class CommandHandler {
     /**
      * Handles a line of input.
      *
-     * @param input The String to handle.
+     * @param input  The String to handle.
      * @param output The Output to output to.
      * @throws CommandHandlerException if there is an error handling the Input.
      */
@@ -71,8 +71,8 @@ public class CommandHandler {
     /**
      * Handles a line of input.
      *
-     * @param input The String to handle.
-     * @param in The String input.
+     * @param input  The String to handle.
+     * @param in     The String input.
      * @param output The Output to output to.
      * @throws CommandHandlerException if there is an error handling the Input.
      */
@@ -111,7 +111,7 @@ public class CommandHandler {
     /**
      * Adds a Variable to the CommandHandler.
      *
-     * @param variable: The Variable to add.
+     * @param variable The Variable to add.
      */
     @NotNull
     public void addVariable(Variable variable) {
@@ -121,7 +121,7 @@ public class CommandHandler {
     /**
      * Removes a Variable from the CommandHandler.
      *
-     * @param name: The name of the Variable to remove.
+     * @param name The name of the Variable to remove.
      */
     public void removeVariable(String name) {
         globalVariables.stream().filter(v -> v.getName().equals(name)).forEach(v -> globalVariables.remove(v));
@@ -130,7 +130,7 @@ public class CommandHandler {
     /**
      * Adds a CommandPackage to the CommandHandler.
      *
-     * @param commandPackage: The CommandPackage to add.
+     * @param commandPackage The CommandPackage to add.
      */
     @NotNull
     public void addPackage(CommandPackage commandPackage) {
@@ -140,7 +140,7 @@ public class CommandHandler {
     /**
      * Adds a Command to the CommandHandler
      *
-     * @param command: The Command to add.
+     * @param command The Command to add.
      */
     @NotNull
     public void addCommand(Command command) {
@@ -151,7 +151,7 @@ public class CommandHandler {
     /**
      * Adds a CommandFormat to the CommandHandler.
      *
-     * @param commandFormat: The CommandFormat to add.
+     * @param commandFormat The CommandFormat to add.
      */
     @NotNull
     public void addCommandFormat(CommandFormat commandFormat) {
@@ -179,7 +179,7 @@ public class CommandHandler {
         /**
          * The default CommandHandlerException constructor.
          *
-         * @param message: The error message to display.
+         * @param message The error message to display.
          */
         public CommandHandlerException(String message) {
             super(message);

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Aedan Smith on 8/22/2016.
  * <p>
- * Default CommandFormat
+ * Default CommandFormat.
  */
 
 public class AddGlobalVariableCommandFormat implements CommandFormat {

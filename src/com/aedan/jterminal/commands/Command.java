@@ -42,19 +42,19 @@ public abstract class Command {
     private int argCount;
 
     /**
-     * A Quick Description of the Command for the Help command.
+     * A quick description of the Command for the Help command.
      */
     private String quickDescription;
 
     /**
      * The default Command constructor.
      *
-     * @param commandFormat: The format of the command.
-     *                       -s = a String
-     *                       -i = an Integer
-     *                       * = optional
-     * @param identifier:    The identifier to identify the command.
-     * @param argCount:      The expected number of arguments.
+     * @param commandFormat The format of the command.
+     *                      -s = a String
+     *                      -i = an Integer
+     *                      * = optional
+     * @param identifier    The identifier to identify the command.
+     * @param argCount      The expected number of arguments.
      */
     protected Command(String commandFormat, String identifier, int argCount, String quickDescription) {
         this.commandFormatS = commandFormat;
@@ -71,18 +71,19 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param input        : The String to parse.
-     * @param in
-     *@param directory : The directory of the CommandHandler.
-     * @param output    : The output to print to.   @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
+     * @param input     The Input for the CommandHandler.
+     * @param in        The String to parse.
+     * @param directory The directory of the CommandHandler.
+     * @param output    The output to print to.
+     * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
     public abstract void parse(CommandInput input, String in, Directory directory, Output output) throws CommandHandler.CommandHandlerException;
 
     /**
      * Determines if a String is a valid command using the Command Format.
      *
-     * @param s: The String to validate.
-     * @return boolean: True if the String is a valid Command.
+     * @param s The String to validate.
+     * @return True if the String is a valid Command.
      */
     protected boolean isValidCommand(String s) {
         return s.matches(commandFormat.pattern());
@@ -91,8 +92,8 @@ public abstract class Command {
     /**
      * Returns the matches of this command's Command Format.
      *
-     * @param in: The input to Match.
-     * @return String[]: The matches of this command's Command Format.
+     * @param in The input to Match.
+     * @return The matches of this command's Command Format.
      * @throws InvalidInputException if the Matcher does not Match the command.
      */
     protected String[] getArgValues(String in) throws InvalidInputException {
@@ -114,8 +115,8 @@ public abstract class Command {
     /**
      * Returns a List of flags for the Command. Does not include the - in the String.
      *
-     * @param in: The input to get the flags for.
-     * @return ArrayList<String>: The List of flags (notated -r, -exec, etc.)
+     * @param in The input to get the flags for.
+     * @return The List of flags (notated -r, -exec, etc.)
      */
     protected ArrayList<String> getFlags(String in) {
         ArrayList<String> flags = new ArrayList<>();
@@ -129,9 +130,9 @@ public abstract class Command {
     /**
      * Returns if a given flag is present in the String.
      *
-     * @param in:   The String to look for the flag in.
-     * @param flag: The flag to look for.
-     * @return boolean: If the flag is present in the String.
+     * @param in   The String to look for the flag in.
+     * @param flag The flag to look for.
+     * @return If the flag is present in the String.
      */
     protected boolean isFlagPresent(String in, String flag) {
         Matcher m = flagPattern.matcher(in);

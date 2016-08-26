@@ -13,7 +13,7 @@ public interface CommandPackage {
     /**
      * Adds all Commands to a given CommandHandler
      *
-     * @param destCommandHandler: The CommandHandler to add the Commands to.
+     * @param destCommandHandler The CommandHandler to add the Commands to.
      */
     void addCommands(CommandHandler destCommandHandler);
 

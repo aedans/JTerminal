@@ -31,8 +31,8 @@ public class Directory {
     /**
      * Returns a File with directory of the given String relative to the Directory.
      *
-     * @param dir: The String to get the Directory of.
-     * @return File: The Directory File.
+     * @param dir The String to get the Directory of.
+     * @return The Directory File.
      * @throws DirectoryFormatException if the String is not a valid Directory.
      */
     public File getFile(String dir) throws DirectoryFormatException {
@@ -59,7 +59,7 @@ public class Directory {
     /**
      * Goes to a Directory.
      *
-     * @param directory: The Directory to go to.
+     * @param directory The Directory to go to.
      * @throws DirectoryChangeException if the Directory cannot be changed to.
      */
     public void setDirectory(File directory) throws DirectoryChangeException {
@@ -87,7 +87,7 @@ public class Directory {
         /**
          * The default DirectoryFormatException constructor.
          *
-         * @param message : The error message to display.
+         * @param message The error message to display.
          */
         DirectoryFormatException(String message) {
             super(message);
@@ -103,7 +103,7 @@ public class Directory {
         /**
          * The default DirectoryChangeException constructor.
          *
-         * @param message : The error message to display.
+         * @param message The error message to display.
          */
         DirectoryChangeException(String message) {
             super(message);

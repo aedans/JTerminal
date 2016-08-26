@@ -8,8 +8,17 @@ package com.aedan.jterminal.variables;
 
 public class Variable {
 
+    /**
+     * The name and value of the Variable.
+     */
     private String name, value;
 
+    /**
+     * Default Variable constructor.
+     *
+     * @param name:  The Variable name.
+     * @param value: The Variable value.
+     */
     public Variable(String name, String value) {
         this.name = name;
         this.value = value;

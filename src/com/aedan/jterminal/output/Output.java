@@ -13,7 +13,7 @@ import java.util.Collections;
 public class Output {
 
     /**
-     * The List of PrintStreams to print to;
+     * The List of PrintStreams to print to.
      */
     private ArrayList<PrintStream> outputs = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class Output {
     /**
      * Output constructor for adding custom outputs.
      *
-     * @param outputs: The list of PrintStreams to print to.
+     * @param outputs The list of PrintStreams to print to.
      */
     public Output(PrintStream... outputs) {
         Collections.addAll(this.outputs, outputs);
@@ -36,7 +36,7 @@ public class Output {
     /**
      * Output constructor for cloning.
      *
-     * @param outputs: The list of PrintStreams to print to.
+     * @param outputs The list of PrintStreams to print to.
      */
     private Output(ArrayList<PrintStream> outputs) {
         this.outputs = outputs;
@@ -45,7 +45,7 @@ public class Output {
     /**
      * Prints an Object to all PrintStreams.
      *
-     * @param o: The Object to print.
+     * @param o The Object to print.
      */
     public void print(Object o) {
         print(o.toString());
@@ -54,7 +54,7 @@ public class Output {
     /**
      * Prints an Object to all PrintStreams, followed by a newline.
      *
-     * @param o: The Object to print.
+     * @param o The Object to print.
      */
     public void println(Object o) {
         println(o.toString());
@@ -63,7 +63,7 @@ public class Output {
     /**
      * Prints a String to all PrintStreams.
      *
-     * @param s: The String to print.
+     * @param s The String to print.
      */
     public void print(String s) {
         for (PrintStream ps : outputs) {
@@ -74,7 +74,7 @@ public class Output {
     /**
      * Prints a String to all PrintStreams, followed by a newline.
      *
-     * @param s: The Object to print.
+     * @param s The Object to print.
      */
     public void println(String s) {
         for (PrintStream ps : outputs) {
@@ -87,8 +87,8 @@ public class Output {
      * grid[0].get(0); grid[1].get(0);
      * grid[0].get(1); grid[1].get(1);
      *
-     * @param space: The number of spaces to put between each column.
-     * @param grid:  The List of ArrayLists to print.
+     * @param space The number of spaces to put between each column.
+     * @param grid  The List of ArrayLists to print.
      */
     public void printObjGrid(int space, ArrayList<?>... grid) {
         ArrayList<String>[] sGrid = new ArrayList[grid.length];
@@ -106,8 +106,8 @@ public class Output {
      * grid[0].get(0); grid[1].get(0);
      * grid[0].get(1); grid[1].get(1);
      *
-     * @param space: The number of spaces to put between each column.
-     * @param grid:  The List of ArrayLists to print.
+     * @param space The number of spaces to put between each column.
+     * @param grid  The List of ArrayLists to print.
      */
     @SafeVarargs
     public final void printGrid(int space, ArrayList<String>... grid) {
@@ -140,8 +140,8 @@ public class Output {
     /**
      * Gets a String with the number of spaces.
      *
-     * @param num: The number of spaces to get.
-     * @return String: The String with the number of spaces.
+     * @param num The number of spaces to get.
+     * @return The String with the number of spaces.
      */
     private String getSpaces(int num) {
         String s = "";
@@ -154,7 +154,7 @@ public class Output {
     /**
      * Adds a PrintStream to the List of PrintStreams.
      *
-     * @param output: The PrintStream to add.
+     * @param output The PrintStream to add.
      */
     public void addOutput(PrintStream output) {
         this.outputs.add(output);
@@ -163,7 +163,7 @@ public class Output {
     /**
      * Removes a PrintStream from the List of PrintStreams.
      *
-     * @param output: The PrintStream to remove.
+     * @param output The PrintStream to remove.
      */
     public void removeOutput(PrintStream output) {
         this.outputs.remove(output);

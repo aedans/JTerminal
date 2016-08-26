@@ -17,8 +17,8 @@ public final class FileUtils {
     /**
      * Opens a File with the OS default file opener.
      *
-     * @param file: The File to open.
-     * @return String: The output of the function.
+     * @param file The File to open.
+     * @return The output of the function.
      * @throws FileIOException if the file could not be opened.
      */
     public static String open(File file) throws FileIOException {
@@ -38,8 +38,8 @@ public final class FileUtils {
     /**
      * Returns the content of a File.
      *
-     * @param file: The File to read.
-     * @return String: The content of the File.
+     * @param file The File to read.
+     * @return The content of the File.
      * @throws FileIOException if the File cannot be read.
      */
     public static String readFile(File file) throws FileIOException {
@@ -71,8 +71,8 @@ public final class FileUtils {
     /**
      * Removes a File.
      *
-     * @param file: The File to remove.
-     * @return String: The output of the function.
+     * @param file The File to remove.
+     * @return The output of the function.
      * @throws FileIOException if the File cannot be removed.
      */
     public static String removeFile(File file) throws FileIOException {
@@ -94,8 +94,8 @@ public final class FileUtils {
     /**
      * Creates a directory.
      *
-     * @param file: The directory File to be created.
-     * @return String: The output of the function.
+     * @param file The directory File to be created.
+     * @return The output of the function.
      * @throws FileIOException if the directory cannot be created.
      */
     public static String createDirectory(File file) throws FileIOException {
@@ -111,10 +111,10 @@ public final class FileUtils {
     }
 
     /**
-     * Removes a directory
+     * Removes a directory.
      *
-     * @param file: The directory File to be removed.
-     * @return String: The output of the function.
+     * @param file The directory File to be removed.
+     * @return The output of the function.
      * @throws FileIOException if the directory cannot be removed.
      */
     public static String removeDirectory(File file) throws FileIOException {
@@ -132,8 +132,8 @@ public final class FileUtils {
     /**
      * Removes a directory recursively.
      *
-     * @param file: The directory File to be removed.
-     * @return String: The output of the function.
+     * @param file The directory File to be removed.
+     * @return The output of the function.
      */
     private static String removeDirectoryR(File file) {
         String s = "";
@@ -164,9 +164,9 @@ public final class FileUtils {
         /**
          * Default FileIOException constructor.
          *
-         * @param message: The error message to display.
+         * @param message The error message to display.
          */
-        public FileIOException(String message) {
+        FileIOException(String message) {
             super(message);
         }
 

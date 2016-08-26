@@ -5,6 +5,7 @@ import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.variables.Variable;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -24,11 +25,13 @@ class For extends Command {
     @Override
     public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
         for (int i = Integer.parseInt(args[1]); i < Integer.parseInt(args[2]); i++) {
+            commandHandler.addVariable(new Variable(args[3], String.valueOf(i)));
             commandHandler.handleInput(
                     input,
-                    args[4].replaceAll("\\[" + args[3] + "\\]", String.valueOf(i)),
+                    args[4],
                     output
             );
+            commandHandler.removeVariable(args[3]);
         }
     }
 

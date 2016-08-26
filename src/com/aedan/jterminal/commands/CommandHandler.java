@@ -81,12 +81,12 @@ public class CommandHandler {
         stringLiterals = new ArrayList<>();
 
         for (Variable v : globalVariables) {
-            in = in.replaceAll("\\[" + v.getName() + "\\]", v.getValue());
+            in = in.replaceAll("\\[" + v.getName() + "\\]", "\"" + v.getValue() + "\"");
         }
 
         Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(in);
         while (m.find()) {
-            in = in.replaceFirst(m.group(), "&" + stringLiterals.size());
+            in = in.replace(m.group(), "&" + stringLiterals.size());
             stringLiterals.add(m.group(1));
         }
 
@@ -131,7 +131,14 @@ public class CommandHandler {
      * @param name The name of the Variable to remove.
      */
     public void removeVariable(String name) {
-        globalVariables.stream().filter(v -> v.getName().equals(name)).forEach(v -> globalVariables.remove(v));
+        Variable n = null;
+        for (Variable v : globalVariables){
+            if (Objects.equals(v.getName(), name)){
+                n = v;
+            }
+        }
+        if (n != null)
+            globalVariables.remove(n);
     }
 
     /**

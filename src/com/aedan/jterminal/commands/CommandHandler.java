@@ -73,6 +73,9 @@ public class CommandHandler {
      */
     @NotNull
     public void handleInput(CommandInput input, String in, Output output) throws CommandHandlerException {
+        if (in == null)
+            throw new CommandHandlerException("Input is null");
+
         ArrayList<String> stringLiterals = new ArrayList<>();
 
         Matcher m = Pattern.compile("\"(.+)\"").matcher(in);

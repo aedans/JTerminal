@@ -45,6 +45,21 @@ public abstract class Command {
     public abstract void parse(CommandInput input, String[] args, Directory directory, Output output)
             throws CommandHandler.CommandHandlerException;
 
+    /**
+     * Checks to see if a String[] contains a flag.
+     *
+     * @param args The String[] to check.
+     * @param flag The flag to check for.
+     * @return If the String[] contains the flag.
+     */
+    protected boolean containsFlag(String[] args, String flag){
+        for (String s : args){
+            if (s.contains("-" + flag))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Command \"" + identifier + "\"";

@@ -13,6 +13,7 @@ public class UtilityPackage implements CommandPackage {
 
     @Override
     public void addCommands(CommandHandler destCommandHandler) {
+        destCommandHandler.addCommandFormat(new AddGlobalVariableCommandFormat());
         destCommandHandler.addCommand(new Echo());
         destCommandHandler.addCommand(new Help(destCommandHandler));
     }

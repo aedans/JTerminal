@@ -169,8 +169,26 @@ public class Output {
         this.outputs.remove(output);
     }
 
+    /**
+     * Sets the PrintStreams to the given PrintStreams.
+     *
+     * @param outputs: The PrintStreams to set to.
+     */
+    public void setOutputs(PrintStream... outputs){
+        this.outputs = new ArrayList<>();
+        Collections.addAll(this.outputs, outputs);
+    }
+
     public ArrayList<PrintStream> getOutputs() {
         return outputs;
+    }
+
+    public Output clone(){
+        ArrayList<PrintStream> pss = new ArrayList<>();
+        for (PrintStream ps : this.outputs){
+            pss.add(new PrintStream(ps));
+        }
+        return new Output(pss);
     }
 
 }

@@ -4,6 +4,7 @@ import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.default_package.Executors.ExecutorsPackage;
 import com.aedan.jterminal.commands.default_package.FileIO.FileIOPackage;
+import com.aedan.jterminal.commands.default_package.Utility.AddGlobalVariableCommandFormat;
 import com.aedan.jterminal.commands.default_package.Utility.UtilityPackage;
 
 /**
@@ -19,7 +20,6 @@ public class DefaultPackage implements CommandPackage {
         new FileIOPackage().addCommands(destCommandHandler);
         new ExecutorsPackage().addCommands(destCommandHandler);
         new UtilityPackage().addCommands(destCommandHandler);
-        destCommandHandler.addCommandFormat(new AddGlobalVariableCommandFormat());
     }
 
 }

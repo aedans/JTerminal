@@ -32,10 +32,10 @@ class OutputToFileCommandFormat implements CommandFormat {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
                 PrintStream ps = new PrintStream(new FileOutputStream(commandHandler.getDirectory().getFile(m.group(2))));
-                output.addOutput(ps);
+                output.println("Created file at " + m.group(2));
+                output.setOutputs(ps);
                 commandHandler.handleInput(input, m.group(1), output);
                 ps.close();
-                output.removeOutput(ps);
             } else {
                 throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match Output To File format (command >> destination).");
             }

@@ -2,12 +2,11 @@ package com.aedan.jterminal;
 
 import acklib.utils.misc.ArgumentParseException;
 import acklib.utils.misc.ArgumentParser;
-import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.default_package.DefaultPackage;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
 import com.sun.istack.internal.NotNull;
 
@@ -29,7 +28,7 @@ public class JTerminal implements Runnable {
     /**
      * The Outputs for the JTerminal.
      */
-    private Output output;
+    private CommandOutput output;
 
     /**
      * The CommandHandler for the JTerminal.
@@ -44,8 +43,6 @@ public class JTerminal implements Runnable {
     public JTerminal(String args) {
         this(
                 args == null ? "" : args,
-                new SystemInput(),
-                new Output(System.out),
                 new DefaultPackage()
         );
     }
@@ -53,10 +50,27 @@ public class JTerminal implements Runnable {
     /**
      * JTerminal constructor for custom CommandPackages.
      *
-     * @param args: The list of arguments for the JTerminal.
+     * @param args            The list of arguments for the JTerminal.
      * @param commandPackages The CommandPackages to use.
      */
-    public JTerminal(String args, CommandInput input, Output output, CommandPackage... commandPackages) {
+    public JTerminal(String args, CommandPackage... commandPackages){
+        this(
+                args == null ? "" : args,
+                new SystemInput(),
+                new CommandOutput(System.out),
+                commandPackages
+        );
+    }
+
+    /**
+     * JTerminal constructor for custom CommandPackages, Inputs and Outputs.
+     *
+     * @param args            The list of arguments for the JTerminal.
+     * @param input           The CommandInput for the JTerminal.
+     * @param output          The CommandOutput for the JTerminal to use.
+     * @param commandPackages The CommandPackages to use.
+     */
+    public JTerminal(String args, CommandInput input, CommandOutput output, CommandPackage... commandPackages) {
         this.input = input;
         this.output = output;
         commandHandler = new CommandHandler(commandPackages);
@@ -94,7 +108,7 @@ public class JTerminal implements Runnable {
                 output.println("Could not handle command (" + e.getMessage() + ")");
             } catch (Exception e) {
                 output.print("Fatal error: ");
-                output.getOutputs().forEach(e::printStackTrace);
+                output.getPrintStreams().forEach(e::printStackTrace);
             }
         }
     }
@@ -117,12 +131,12 @@ public class JTerminal implements Runnable {
         this.input = input;
     }
 
-    public Output getOutput() {
+    public CommandOutput getOutput() {
         return output;
     }
 
     @NotNull
-    public void setOutput(Output output) {
+    public void setOutput(CommandOutput output) {
         this.output = output;
     }
 

@@ -1,7 +1,7 @@
 package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -26,9 +26,9 @@ public interface CommandFormat {
      * @param commandHandler The CommandHandler that contains this CommandFormat.
      * @param input          The input from the CommandHandler.
      * @param in             The String that matches the Command format.
-     * @param output         The Output of the CommandHandler.
+     * @param output         The CommandOutput of the CommandHandler.
      * @throws CommandHandler.CommandHandlerException if there is an error handling the String.
      */
-    void handleInput(CommandHandler commandHandler, CommandInput input, String in, Output output) throws CommandHandler.CommandHandlerException;
+    void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output) throws CommandHandler.CommandHandlerException;
 
 }

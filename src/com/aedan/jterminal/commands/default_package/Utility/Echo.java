@@ -4,7 +4,7 @@ import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
@@ -19,7 +19,7 @@ class Echo extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         output.println(args[1]);
     }
 

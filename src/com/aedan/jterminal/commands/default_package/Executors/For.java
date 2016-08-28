@@ -4,7 +4,7 @@ import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.variables.Variable;
 
 /**
@@ -23,7 +23,7 @@ class For extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         for (int i = Integer.parseInt(args[1]); i < Integer.parseInt(args[2]); i++) {
             commandHandler.addVariable(new Variable(args[3], String.valueOf(i)));
             commandHandler.handleInput(

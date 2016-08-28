@@ -4,17 +4,7 @@ import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
-import com.aedan.jterminal.utils.FileUtils;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import com.aedan.jterminal.output.CommandOutput;
 
 /**
  * Created by Aedan Smith on 8/16/2016.
@@ -29,7 +19,7 @@ class Update extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, String[] args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         output.println("Update command is currently not implemented.");
 
 //        File dir = directory.getFile(args[1]);

@@ -2,7 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -42,13 +42,13 @@ public abstract class Command {
      * @param output    The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
-    public abstract void parse(CommandInput input, String[] args, Directory directory, Output output)
+    public abstract void parse(CommandInput input, String[] args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException;
 
     /**
      * Checks to see if a String[] contains a flag.
      *
-     * @param args The String[] to check.
+     * @param args The String[] to check. Args[0] is always the identifier.
      * @param flag The flag to check for.
      * @return If the String[] contains the flag.
      */

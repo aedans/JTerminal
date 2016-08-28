@@ -3,7 +3,7 @@ package com.aedan.jterminal.commands.default_package.FileIO;
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -27,17 +27,17 @@ class OutputToFileCommandFormat implements CommandFormat {
     }
 
     @Override
-    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, Output output) throws CommandHandler.CommandHandlerException {
+    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output) throws CommandHandler.CommandHandlerException {
         try {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
                 PrintStream ps = new PrintStream(new FileOutputStream(commandHandler.getDirectory().getFile(m.group(2))));
-                output.println("Created file at " + m.group(2));
-                output.setOutputs(ps);
+                output.println("Created file " + m.group(2));
+                output.setPrintStreams(ps);
                 commandHandler.handleInput(input, m.group(1), output);
                 ps.close();
             } else {
-                throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match Output To File format (command >> destination).");
+                throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match CommandOutput To File format (command >> destination).");
             }
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

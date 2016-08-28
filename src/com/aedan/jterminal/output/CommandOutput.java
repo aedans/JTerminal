@@ -3,43 +3,44 @@ package com.aedan.jterminal.output;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
  * <p>
- * The Output controller for the JTerminal.
+ * The CommandOutput controller for the JTerminal.
  */
 
-public class Output {
+public class CommandOutput {
 
     /**
      * The List of PrintStreams to print to.
      */
-    private ArrayList<PrintStream> outputs = new ArrayList<>();
+    private ArrayList<PrintStream> printStreams = new ArrayList<>();
 
     /**
-     * The default Output constructor.
+     * The default CommandOutput constructor.
      */
-    public Output() {
+    public CommandOutput() {
         this(System.out);
     }
 
     /**
-     * Output constructor for adding custom outputs.
+     * CommandOutput constructor for adding custom printStreams.
      *
-     * @param outputs The list of PrintStreams to print to.
+     * @param printStreams The list of PrintStreams to print to.
      */
-    public Output(PrintStream... outputs) {
-        Collections.addAll(this.outputs, outputs);
+    public CommandOutput(PrintStream... printStreams) {
+        Collections.addAll(this.printStreams, printStreams);
     }
 
     /**
-     * Output constructor for cloning.
+     * CommandOutput constructor for cloning.
      *
-     * @param outputs The list of PrintStreams to print to.
+     * @param printStreams The list of PrintStreams to print to.
      */
-    private Output(ArrayList<PrintStream> outputs) {
-        this.outputs = outputs;
+    private CommandOutput(ArrayList<PrintStream> printStreams) {
+        this.printStreams = printStreams;
     }
 
     /**
@@ -66,7 +67,7 @@ public class Output {
      * @param s The String to print.
      */
     public void print(String s) {
-        for (PrintStream ps : outputs) {
+        for (PrintStream ps : printStreams) {
             ps.print(s);
         }
     }
@@ -77,7 +78,7 @@ public class Output {
      * @param s The Object to print.
      */
     public void println(String s) {
-        for (PrintStream ps : outputs) {
+        for (PrintStream ps : printStreams) {
             ps.println(s);
         }
     }
@@ -154,41 +155,39 @@ public class Output {
     /**
      * Adds a PrintStream to the List of PrintStreams.
      *
-     * @param output The PrintStream to add.
+     * @param printStreams The PrintStream to add.
      */
-    public void addOutput(PrintStream output) {
-        this.outputs.add(output);
+    public void addOutput(PrintStream printStreams) {
+        this.printStreams.add(printStreams);
     }
 
     /**
      * Removes a PrintStream from the List of PrintStreams.
      *
-     * @param output The PrintStream to remove.
+     * @param printStreams The PrintStream to remove.
      */
-    public void removeOutput(PrintStream output) {
-        this.outputs.remove(output);
+    public void removeOutput(PrintStream printStreams) {
+        this.printStreams.remove(printStreams);
     }
 
     /**
      * Sets the PrintStreams to the given PrintStreams.
      *
-     * @param outputs: The PrintStreams to set to.
+     * @param printStreams: The PrintStreams to set to.
      */
-    public void setOutputs(PrintStream... outputs){
-        this.outputs = new ArrayList<>();
-        Collections.addAll(this.outputs, outputs);
+    public void setPrintStreams(PrintStream... printStreams){
+        this.printStreams = new ArrayList<>();
+        Collections.addAll(this.printStreams, printStreams);
     }
 
-    public ArrayList<PrintStream> getOutputs() {
-        return outputs;
+    public ArrayList<PrintStream> getPrintStreams() {
+        return printStreams;
     }
 
-    public Output clone(){
-        ArrayList<PrintStream> pss = new ArrayList<>();
-        for (PrintStream ps : this.outputs){
-            pss.add(new PrintStream(ps));
-        }
-        return new Output(pss);
+    public CommandOutput clone(){
+        ArrayList<PrintStream> printStreams = this.printStreams.stream().map(PrintStream::new)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new CommandOutput(printStreams);
     }
 
 }

@@ -3,7 +3,7 @@ package com.aedan.jterminal.commands.default_package.Utility;
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.Output;
+import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.variables.Variable;
 
 import java.io.ByteArrayOutputStream;
@@ -28,13 +28,13 @@ public class AddGlobalVariableCommandFormat implements CommandFormat {
     }
 
     @Override
-    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, Output output) throws CommandHandler.CommandHandlerException {
+    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output) throws CommandHandler.CommandHandlerException {
         try {
             Matcher m = addGlobalVariableCommandFormatPattern.matcher(in);
             if (m.find()) {
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 PrintStream ps = new PrintStream(os);
-                commandHandler.handleInput(input, m.group(1), new Output(ps));
+                commandHandler.handleInput(input, m.group(1), new CommandOutput(ps));
                 commandHandler.addVariable(new Variable(m.group(2), os.toString("UTF8").trim()));
                 output.println("Created variable " + m.group(2));
             } else {

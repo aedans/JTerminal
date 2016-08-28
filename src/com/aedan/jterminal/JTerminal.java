@@ -126,4 +126,11 @@ public class JTerminal implements Runnable {
         this.output = output;
     }
 
+    /**
+     * Main function to launch JTerminal from JTerminal.jar.
+     */
+    public static void main(String[] args){
+        new JTerminal("").run();
+    }
+
 }

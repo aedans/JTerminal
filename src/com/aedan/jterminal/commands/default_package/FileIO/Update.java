@@ -30,50 +30,52 @@ class Update extends Command {
 
     @Override
     public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        File dir = directory.getFile(args[1]);
-        dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
+        output.println("");
 
-        if (dir.exists()) {
-            try {
-                FileUtils.removeDirectory(dir);
-            } catch (FileUtils.FileIOException e) {
-                throw new CommandHandler.CommandHandlerException(e.getMessage());
-            }
-        } else {
-            throw new CommandHandler.CommandHandlerException("No installation found at " + dir.getAbsolutePath());
-        }
-        try {
-            URL website = new URL("https://github.com/Ukn0wnSoldure/JTerminal/archive/master.zip");
-            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-            FileOutputStream fos = new FileOutputStream("JTerminal.zip");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            fos.close();
-
-            ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream("JTerminal.zip"));
-            ZipEntry zipEntry = zipInputStream.getNextEntry();
-            for (int i = 0; i < 4; i++) {
-                zipInputStream.getNextEntry();
-            }
-            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-                if (zipEntry.isDirectory()) {
-                    FileUtils.createDirectory(new File(dir + zipEntry.getName().substring(40)));
-                } else {
-                    FileOutputStream fileOutputStream = new FileOutputStream(dir + zipEntry.getName().substring(40));
-                    int n;
-                    byte[] buf = new byte[1024];
-                    while ((n = zipInputStream.read(buf, 0, 1024)) > -1)
-                        fileOutputStream.write(buf, 0, n);
-                }
-            }
-            zipInputStream.close();
-        } catch (Exception e) {
-            try {
-                FileUtils.removeFile(new File("JTerminal.zip"));
-            } catch (FileUtils.FileIOException e1) {
-                throw new CommandHandler.CommandHandlerException(e.getMessage() + " and " + e1.getMessage());
-            }
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
-        }
+//        File dir = directory.getFile(args[1]);
+//        dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
+//
+//        if (dir.exists()) {
+//            try {
+//                FileUtils.removeDirectory(dir);
+//            } catch (FileUtils.FileIOException e) {
+//                throw new CommandHandler.CommandHandlerException(e.getMessage());
+//            }
+//        } else {
+//            throw new CommandHandler.CommandHandlerException("No installation found at " + dir.getAbsolutePath());
+//        }
+//        try {
+//            URL website = new URL("https://github.com/Ukn0wnSoldure/JTerminal/archive/master.zip");
+//            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+//            FileOutputStream fos = new FileOutputStream("JTerminal.zip");
+//            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+//            fos.close();
+//
+//            ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream("JTerminal.zip"));
+//            ZipEntry zipEntry = zipInputStream.getNextEntry();
+//            for (int i = 0; i < 4; i++) {
+//                zipInputStream.getNextEntry();
+//            }
+//            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+//                if (zipEntry.isDirectory()) {
+//                    FileUtils.createDirectory(new File(dir + zipEntry.getName().substring(40)));
+//                } else {
+//                    FileOutputStream fileOutputStream = new FileOutputStream(dir + zipEntry.getName().substring(40));
+//                    int n;
+//                    byte[] buf = new byte[1024];
+//                    while ((n = zipInputStream.read(buf, 0, 1024)) > -1)
+//                        fileOutputStream.write(buf, 0, n);
+//                }
+//            }
+//            zipInputStream.close();
+//        } catch (Exception e) {
+//            try {
+//                FileUtils.removeFile(new File("JTerminal.zip"));
+//            } catch (FileUtils.FileIOException e1) {
+//                throw new CommandHandler.CommandHandlerException(e.getMessage() + " and " + e1.getMessage());
+//            }
+//            throw new CommandHandler.CommandHandlerException(e.getMessage());
+//        }
     }
 
 }

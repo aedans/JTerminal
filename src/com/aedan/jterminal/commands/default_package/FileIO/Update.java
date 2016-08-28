@@ -30,7 +30,7 @@ class Update extends Command {
 
     @Override
     public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        output.println("");
+        output.println("Update command is currently not implemented.");
 
 //        File dir = directory.getFile(args[1]);
 //        dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");

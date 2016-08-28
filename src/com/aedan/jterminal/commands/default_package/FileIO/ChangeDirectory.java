@@ -6,6 +6,8 @@ import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.Output;
 
+import java.io.File;
+
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
@@ -20,7 +22,10 @@ class ChangeDirectory extends Command {
 
     @Override
     public void parse(CommandInput input, String[] args, Directory directory, Output output) throws CommandHandler.CommandHandlerException {
-        directory.setDirectory(directory.getFile(args[1]));
+        File f = directory.getFile(args[1]);
+        if (f != null) {
+            directory.setDirectory(f);
+        }
     }
 
 }

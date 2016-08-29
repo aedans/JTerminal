@@ -1,6 +1,7 @@
 package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.commands.commandarguments.CommandArguments;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -37,12 +38,12 @@ public abstract class Command {
      * Parses a String.
      *
      * @param input     The Input for the CommandHandler.
-     * @param args      The String to parse.
+     * @param args      The CommandArguments to parse.
      * @param directory The directory of the CommandHandler.
      * @param output    The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
-    public abstract void parse(CommandInput input, CommandArgument[] args, Directory directory, CommandOutput output)
+    public abstract void parse(CommandInput input, CommandArguments args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException;
 
     /**

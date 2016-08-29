@@ -11,7 +11,7 @@ public class Variable {
     /**
      * The name and value of the Variable.
      */
-    private String name, value;
+    public final String name, value;
 
     /**
      * Default Variable constructor.
@@ -23,13 +23,4 @@ public class Variable {
         this.name = name;
         this.value = value;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
 }

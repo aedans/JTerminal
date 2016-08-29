@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands.default_package.FileIO;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArguments;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
@@ -23,6 +24,7 @@ public class MakeDirectory extends Command {
     @Override
     public void parse(CommandInput input, CommandArguments args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         try {
+            args.checkMatches(ArgumentType.STRING);
             output.println(FileUtils.createDirectory(directory.getFile(args.getArg(1).value)));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

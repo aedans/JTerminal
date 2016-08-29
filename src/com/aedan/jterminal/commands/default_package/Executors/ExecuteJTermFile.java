@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands.default_package.Executors;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArguments;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
@@ -26,6 +27,7 @@ class ExecuteJTermFile extends Command {
     @Override
     public void parse(CommandInput input, CommandArguments args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         try {
+            args.checkMatches(ArgumentType.STRING);
             String dir = args.getArg(1) + ".jterm";
             String lines = FileUtils.readFile(directory.getFile(dir));
             for (String s : lines.split("\\n")) {

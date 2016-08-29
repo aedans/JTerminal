@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands.default_package.Utility;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArguments;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
@@ -21,6 +22,7 @@ class Echo extends Command {
 
     @Override
     public void parse(CommandInput input, CommandArguments args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
+        args.checkMatches(ArgumentType.STRING);
         output.println(args.getArg(1));
     }
 

@@ -1,5 +1,7 @@
 package com.aedan.jterminal.commands.commandarguments;
 
+import com.aedan.jterminal.commands.CommandHandler;
+
 import java.util.Arrays;
 
 /**
@@ -17,8 +19,29 @@ public class CommandArguments {
 
     public CommandArguments(String[] strings) {
         args = new CommandArgument[strings.length];
-        for (int i = 0; i < args.length; i++) {
+        args[0] = new CommandArgument(strings[0], ArgumentType.COMMANDIDENTIFIER);
+        for (int i = 1; i < args.length; i++) {
             args[i] = new CommandArgument(strings[i]);
+        }
+    }
+
+    public void checkMatches(ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
+        cCheckMatches(argumentTypes[0] == ArgumentType.COMMANDIDENTIFIER, argumentTypes);
+    }
+
+    private void cCheckMatches(boolean ci, ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
+        if (args.length > (ci ? argumentTypes.length : argumentTypes.length+1))
+            throw new CommandHandler.CommandHandlerException("More arguments given then required " +
+                    "(given: " + (args.length-1) + ", required: " + (ci ? argumentTypes.length-1 : argumentTypes.length) + ")");
+
+        if (args.length < (ci ? argumentTypes.length : argumentTypes.length+1))
+            throw new CommandHandler.CommandHandlerException("Less arguments given then required " +
+                    "(given: " + (args.length-1) + ", required: " + (ci ? argumentTypes.length-1 : argumentTypes.length) + ")");
+
+        for (int i = ci ? 0 : 1; i < args.length; i++) {
+            if (argumentTypes[ci ? i : i-1] != ArgumentType.STRING && args[i].argumentType != argumentTypes[ci ? i : i-1])
+                throw new CommandHandler.CommandHandlerException(
+                        "Found " + args[i].argumentType + ", expected " + argumentTypes[ci ? i : i-1]);
         }
     }
 

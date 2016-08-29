@@ -101,8 +101,8 @@ public class CommandHandler {
                     }
                     for (int j = 0; j < globalVariables.size(); j++) {
                         args[i] = args[i].replaceAll(
-                                "\\[" + globalVariables.get(j).getName() + "\\]",
-                                globalVariables.get(j).getValue()
+                                "\\[" + globalVariables.get(j).name + "\\]",
+                                globalVariables.get(j).value
                         );
                     }
                 }
@@ -133,7 +133,7 @@ public class CommandHandler {
     public void removeVariable(String name) {
         Variable n = null;
         for (Variable v : globalVariables){
-            if (Objects.equals(v.getName(), name)){
+            if (Objects.equals(v.name, name)){
                 n = v;
             }
         }

@@ -42,7 +42,7 @@ public abstract class Command {
      * @param output    The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
-    public abstract void parse(CommandInput input, String[] args, Directory directory, CommandOutput output)
+    public abstract void parse(CommandInput input, CommandArgument[] args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException;
 
     /**

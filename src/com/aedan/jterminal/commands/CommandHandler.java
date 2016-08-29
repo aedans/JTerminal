@@ -116,7 +116,7 @@ public class CommandHandler {
                     }
                 }
 
-                command.parse(input, args, directory, output);
+                command.parse(input, CommandArgument.fromStringArray(args), directory, output);
                 return;
             }
         }

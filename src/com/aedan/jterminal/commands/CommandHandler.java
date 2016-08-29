@@ -86,6 +86,15 @@ public class CommandHandler {
 
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
+                for (int j = 0; j < stringLiterals.size(); j++) {
+                    in = in.replaceAll("&" + j, stringLiterals.get(j));
+                }
+                for (Variable globalVariable : globalVariables) {
+                    in = in.replaceAll(
+                            "\\[" + globalVariable.name + "\\]",
+                            globalVariable.value
+                    );
+                }
                 commandFormat.handleInput(this, input, in, output);
                 return;
             }
@@ -99,10 +108,10 @@ public class CommandHandler {
                     for (int j = 0; j < stringLiterals.size(); j++) {
                         args[i] = args[i].replaceAll("&" + j, stringLiterals.get(j));
                     }
-                    for (int j = 0; j < globalVariables.size(); j++) {
+                    for (Variable globalVariable : globalVariables) {
                         args[i] = args[i].replaceAll(
-                                "\\[" + globalVariables.get(j).name + "\\]",
-                                globalVariables.get(j).value
+                                "\\[" + globalVariable.name + "\\]",
+                                globalVariable.value
                         );
                     }
                 }

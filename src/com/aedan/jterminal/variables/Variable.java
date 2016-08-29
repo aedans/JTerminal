@@ -9,9 +9,14 @@ package com.aedan.jterminal.variables;
 public class Variable {
 
     /**
-     * The name and value of the Variable.
+     * The value of the Variable.
      */
-    public final String name, value;
+    public String value;
+
+    /**
+     * The name of the variable
+     */
+    public final String name;
 
     /**
      * Default Variable constructor.
@@ -23,4 +28,5 @@ public class Variable {
         this.name = name;
         this.value = value;
     }
+
 }

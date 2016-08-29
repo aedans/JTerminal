@@ -88,6 +88,9 @@ public class JTerminal implements Runnable {
                 output.println("(Startup error) " + e.getMessage());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.println("(Startup error) Could not handle command (" + e.getMessage() + ")");
+            } catch (Exception e){
+                output.print("Fatal error: ");
+                output.getPrintStreams().forEach(e::printStackTrace);
             }
 
         } catch (ArgumentParseException e){

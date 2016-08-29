@@ -45,7 +45,7 @@ class JTStringList extends JComponent implements MouseWheelListener {
 
         g.setColor(new Color(255, 255, 255));
         g.setFont(currentFont);
-        String[] lines = this.lines.split("\n");
+        String[] lines = (this.lines + "\000").split("\n");
         int i;
         for (i = 0; i < lines.length-1; i++) {
             g.drawString(lines[i], 5, currentFontSize+(i*currentFontSize)+fontTransY);
@@ -58,6 +58,7 @@ class JTStringList extends JComponent implements MouseWheelListener {
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         fontTransY -= e.getWheelRotation()*currentFontSize*2;
+        if (fontTransY > -3) fontTransY = -3;
     }
 
 }

@@ -55,6 +55,10 @@ public class CommandArgumentList {
         }
     }
 
+    public int length() {
+        return args.length;
+    }
+
     public CommandArgument getArg(int i) {
         return args[i];
     }

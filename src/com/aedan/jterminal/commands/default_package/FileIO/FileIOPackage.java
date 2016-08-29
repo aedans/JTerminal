@@ -13,6 +13,7 @@ public class FileIOPackage implements CommandPackage {
 
     @Override
     public void addCommands(CommandHandler destCommandHandler) {
+        destCommandHandler.addCommand(new Concatenate());
         destCommandHandler.addCommand(new ChangeDirectory());
         destCommandHandler.addCommand(new ListSubdirectories());
         destCommandHandler.addCommand(new MakeDirectory());

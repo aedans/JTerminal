@@ -37,6 +37,11 @@ public class CommandHandler {
     private ArrayList<Variable> globalVariables = new ArrayList<>();
 
     /**
+     * The current List of String literals.
+     */
+    private ArrayList<String> stringLiterals = new ArrayList<>();
+
+    /**
      * The current Directory of the CommandHandler.
      */
     private Directory directory = new Directory();
@@ -74,10 +79,10 @@ public class CommandHandler {
      */
     @NotNull
     public void handleInput(CommandInput input, String in, CommandOutput output) throws CommandHandlerException {
-        if (in == null)
+        if (in == null) {
+            stringLiterals = new ArrayList<>();
             throw new CommandHandlerException("Input is null");
-
-        ArrayList<String> stringLiterals = new ArrayList<>();
+        }
 
         Matcher m = Pattern.compile("\"(.+)\"").matcher(in);
         while (m.find()) {
@@ -87,16 +92,8 @@ public class CommandHandler {
 
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
-                for (int j = 0; j < stringLiterals.size(); j++) {
-                    in = in.replaceAll("&" + j, stringLiterals.get(j));
-                }
-                for (Variable globalVariable : globalVariables) {
-                    in = in.replaceAll(
-                            "\\[" + globalVariable.name + "\\]",
-                            globalVariable.value
-                    );
-                }
                 commandFormat.handleInput(this, input, in, output);
+                stringLiterals = new ArrayList<>();
                 return;
             }
         }
@@ -118,10 +115,12 @@ public class CommandHandler {
                 }
 
                 command.parse(input, new CommandArgumentList(args), directory, output);
+                stringLiterals = new ArrayList<>();
                 return;
             }
         }
 
+        stringLiterals = new ArrayList<>();
         throw new CommandHandlerException("Unrecognized Command \"" + identifier + "\"");
     }
 

@@ -53,6 +53,7 @@ public final class FileUtils {
                         while ((line = buffer.readLine()) != null) {
                             s += line + "\n";
                         }
+                        buffer.close();
                         return s;
                     } else {
                         throw new FileIOException(file.getAbsolutePath() + " is not readable");

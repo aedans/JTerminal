@@ -8,14 +8,31 @@ package com.aedan.jterminal.commands.commandarguments;
 
 public class CommandArgument {
 
+    /**
+     * The value of the CommandArgument.
+     */
     public String value;
 
+    /**
+     * The ArgumentType of the CommandArgument.
+     */
     public final ArgumentType argumentType;
 
+    /**
+     * Default CommandArgument constructor.
+     *
+     * @param value The value of the CommandArgument.
+     */
     public CommandArgument(String value) {
         this(value, ArgumentType.getArgumentType(value));
     }
 
+    /**
+     * CommandArgument constructor for assigning custom ArgumentTypes.
+     *
+     * @param value        The value of the CommandArgument.
+     * @param argumentType The ArgumentType of the CommandArgument.
+     */
     public CommandArgument(String value, ArgumentType argumentType){
         this.value = value;
         this.argumentType = argumentType;

@@ -10,14 +10,19 @@ import java.util.Arrays;
  * Class for passing arguments to Commands.
  */
 
-public class CommandArguments {
+public class CommandArgumentList {
 
     /**
-     * The value of the CommandArguments.
+     * The value of the CommandArgumentList.
      */
     public CommandArgument[] args;
 
-    public CommandArguments(String[] strings) {
+    /**
+     * Default CommandArgumentList constructor.
+     *
+     * @param strings The array of values for the CommandArgumentList
+     */
+    public CommandArgumentList(String[] strings) {
         args = new CommandArgument[strings.length];
         args[0] = new CommandArgument(strings[0], ArgumentType.COMMANDIDENTIFIER);
         for (int i = 1; i < args.length; i++) {
@@ -25,10 +30,15 @@ public class CommandArguments {
         }
     }
 
+    /**
+     * Checks to see if the CommandArgumentList matches the given format.
+     *
+     * @param argumentTypes The format for the CommandArgumentList.
+     * @throws CommandHandler.CommandHandlerException If the format for the CommandArgumentList does not match.
+     */
     public void checkMatches(ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
         cCheckMatches(argumentTypes[0] == ArgumentType.COMMANDIDENTIFIER, argumentTypes);
     }
-
     private void cCheckMatches(boolean ci, ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
         if (args.length > (ci ? argumentTypes.length : argumentTypes.length+1))
             throw new CommandHandler.CommandHandlerException("More arguments given then required " +
@@ -45,13 +55,13 @@ public class CommandArguments {
         }
     }
 
+    public CommandArgument getArg(int i) {
+        return args[i];
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(args);
-    }
-
-    public CommandArgument getArg(int i) {
-        return args[i];
     }
 
 }

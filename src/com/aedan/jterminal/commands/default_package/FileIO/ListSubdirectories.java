@@ -2,7 +2,7 @@ package com.aedan.jterminal.commands.default_package.FileIO;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
-import com.aedan.jterminal.commands.commandarguments.CommandArguments;
+import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -22,7 +22,7 @@ class ListSubdirectories extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArguments args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         for (File f : directory.getDirectory().listFiles()) {
             output.println(f.getName());
         }

@@ -2,7 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.Directory;
-import com.aedan.jterminal.commands.commandarguments.CommandArguments;
+import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.variables.Variable;
@@ -117,7 +117,7 @@ public class CommandHandler {
                     }
                 }
 
-                command.parse(input, new CommandArguments(args), directory, output);
+                command.parse(input, new CommandArgumentList(args), directory, output);
                 return;
             }
         }

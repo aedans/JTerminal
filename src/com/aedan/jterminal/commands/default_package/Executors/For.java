@@ -24,7 +24,7 @@ class For extends Command {
 
     @Override
     public void parse(CommandInput input, String[] args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
-        for (int i = Integer.parseInt(args[1]); i < Integer.parseInt(args[2]); i++) {
+        for (int i = Integer.parseInt(args[1]); i < Integer.parseInt(args[2]); ++i) {
             commandHandler.addVariable(new Variable(args[3], String.valueOf(i)));
             commandHandler.handleInput(
                     input,

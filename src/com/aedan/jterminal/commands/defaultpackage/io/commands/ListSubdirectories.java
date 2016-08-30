@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -15,9 +15,9 @@ import java.io.File;
  * Default Command.
  */
 
-class ListSubdirectories extends Command {
+public class ListSubdirectories extends Command {
 
-    ListSubdirectories() {
+    public ListSubdirectories() {
         super("ls", "Lists all subdirectories of the current folder.");
     }
 

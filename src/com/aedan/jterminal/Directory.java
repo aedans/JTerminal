@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
- * Utility class for managing the CommandHandler directory.
+ * utility class for managing the CommandHandler directory.
  */
 
 public class Directory {

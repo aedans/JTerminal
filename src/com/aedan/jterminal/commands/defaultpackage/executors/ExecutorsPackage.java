@@ -1,7 +1,9 @@
-package com.aedan.jterminal.commands.default_package.Executors;
+package com.aedan.jterminal.commands.defaultpackage.executors;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.defaultpackage.executors.commands.ExecuteJTermFile;
+import com.aedan.jterminal.commands.defaultpackage.executors.commands.For;
 
 /**
  * Created by Aedan Smith on 8/15/2016.

@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
- * Utility class for accessing files.
+ * utility class for accessing files.
  */
 
 public final class FileUtils {

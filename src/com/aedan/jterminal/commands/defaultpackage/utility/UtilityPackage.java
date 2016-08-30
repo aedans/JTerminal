@@ -1,12 +1,15 @@
-package com.aedan.jterminal.commands.default_package.Utility;
+package com.aedan.jterminal.commands.defaultpackage.utility;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.defaultpackage.utility.commandformats.AddGlobalVariableCommandFormat;
+import com.aedan.jterminal.commands.defaultpackage.utility.commands.Echo;
+import com.aedan.jterminal.commands.defaultpackage.utility.commands.Help;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
- * A Package containing all Default Utility Commands.
+ * A Package containing all Default utility Commands.
  */
 
 public class UtilityPackage implements CommandPackage {

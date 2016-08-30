@@ -3,7 +3,7 @@ package com.aedan.jcmd;
 import com.aedan.jtermgui.JTDisplay;
 import com.aedan.jtermgui.JTPrintStream;
 import com.aedan.jterminal.JTerminal;
-import com.aedan.jterminal.commands.default_package.DefaultPackage;
+import com.aedan.jterminal.commands.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.output.CommandOutput;
 
 /**

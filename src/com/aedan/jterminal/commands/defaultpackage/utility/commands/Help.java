@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.Utility;
+package com.aedan.jterminal.commands.defaultpackage.utility.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * Default Command.
  */
 
-class Help extends Command {
+public class Help extends Command {
 
     private CommandHandler commandHandler;
 
-    Help(CommandHandler commandHandler) {
+    public Help(CommandHandler commandHandler) {
         super("help", "Lists all commands and their simple descriptions.");
         this.commandHandler = commandHandler;
     }

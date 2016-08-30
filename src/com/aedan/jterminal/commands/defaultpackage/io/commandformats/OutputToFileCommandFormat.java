@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io.commandformats;
 
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * Default CommandFormat.
  */
 
-class OutputToFileCommandFormat implements CommandFormat {
+public class OutputToFileCommandFormat implements CommandFormat {
 
     private String outputToFileCommandFormatRegex = "([^>]+)>> *(.+)";
     private Pattern outputToFileCommandFormatPattern = Pattern.compile(outputToFileCommandFormatRegex);

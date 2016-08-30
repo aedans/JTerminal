@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -8,7 +8,6 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
 
-import java.io.File;
 import java.util.Objects;
 
 /**
@@ -17,9 +16,9 @@ import java.util.Objects;
  * Default command.
  */
 
-class Concatenate extends Command {
+public class Concatenate extends Command {
 
-    Concatenate() {
+    public Concatenate() {
         super("cat", "Concatenates any number of files.");
     }
 

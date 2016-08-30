@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -15,17 +15,17 @@ import com.aedan.jterminal.utils.FileUtils;
  * Default Command.
  */
 
-class Open extends Command {
+public class RemoveFile extends Command {
 
-    Open() {
-        super("open", "Opens a given file with the default application.");
+    public RemoveFile() {
+        super("rm", "Removes the file with the given name.");
     }
 
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         try {
             args.checkMatches(ArgumentType.STRING);
-            output.println(FileUtils.open(directory.getFile(args.getArg(1).value)));
+            output.println(FileUtils.removeFile(directory.getFile(args.getArg(1).value)));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

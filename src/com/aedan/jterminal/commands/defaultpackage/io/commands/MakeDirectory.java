@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -17,7 +17,7 @@ import com.aedan.jterminal.utils.FileUtils;
 
 public class MakeDirectory extends Command {
 
-    MakeDirectory() {
+    public MakeDirectory() {
         super("mkdir", "Creates a directory with the given name.");
     }
 

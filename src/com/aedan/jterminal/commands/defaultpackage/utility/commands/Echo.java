@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.utility.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -8,27 +8,22 @@ import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
-import java.io.File;
-
 /**
- * Created by Aedan Smith on 8/15/2016.
+ * Created by Aedan Smith on 8/14/2016.
  * <p>
  * Default Command.
  */
 
-class ChangeDirectory extends Command {
+public class Echo extends Command {
 
-    ChangeDirectory() {
-        super("cd", "Changes the active directory.");
+    public Echo() {
+        super("echo", "Outputs text.");
     }
 
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
-        File f = directory.getFile(args.getArg(1).value);
-        if (f != null) {
-            directory.setDirectory(f);
-        }
+        output.println(args.getArg(1));
     }
 
 }

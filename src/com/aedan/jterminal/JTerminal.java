@@ -3,7 +3,7 @@ package com.aedan.jterminal;
 import acklib.utils.misc.ArgumentParseException;
 import acklib.utils.misc.ArgumentParser;
 import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.commands.default_package.DefaultPackage;
+import com.aedan.jterminal.commands.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.CommandOutput;

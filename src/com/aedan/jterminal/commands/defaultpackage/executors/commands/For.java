@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.Executors;
+package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -15,11 +15,11 @@ import com.aedan.jterminal.variables.Variable;
  * Default Command.
  */
 
-class For extends Command {
+public class For extends Command {
 
     private CommandHandler commandHandler;
 
-    For(CommandHandler commandHandler) {
+    public For(CommandHandler commandHandler) {
         super("for", "Iterates a command and stores the current iteration in a variable.");
         this.commandHandler = commandHandler;
     }

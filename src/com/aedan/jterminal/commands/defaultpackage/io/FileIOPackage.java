@@ -1,12 +1,14 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.defaultpackage.io.commandformats.OutputToFileCommandFormat;
+import com.aedan.jterminal.commands.defaultpackage.io.commands.*;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
- * A CommandPackage containing all Default FileIO Commands.
+ * A CommandPackage containing all Default io Commands.
  */
 
 public class FileIOPackage implements CommandPackage {

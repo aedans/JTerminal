@@ -1,11 +1,10 @@
-package com.aedan.jterminal.commands.default_package;
+package com.aedan.jterminal.commands.defaultpackage;
 
 import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.commands.default_package.Executors.ExecutorsPackage;
-import com.aedan.jterminal.commands.default_package.FileIO.FileIOPackage;
-import com.aedan.jterminal.commands.default_package.Utility.AddGlobalVariableCommandFormat;
-import com.aedan.jterminal.commands.default_package.Utility.UtilityPackage;
+import com.aedan.jterminal.commands.defaultpackage.executors.ExecutorsPackage;
+import com.aedan.jterminal.commands.defaultpackage.io.FileIOPackage;
+import com.aedan.jterminal.commands.defaultpackage.utility.UtilityPackage;
 
 /**
  * Created by Aedan Smith on 8/15/2016.

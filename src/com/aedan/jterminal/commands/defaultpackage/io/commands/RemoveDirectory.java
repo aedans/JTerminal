@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.Executors;
+package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -10,29 +10,22 @@ import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
 
 /**
- * Created by Aedan Smith on 8/16/2016.
+ * Created by Aedan Smith on 8/15/2016.
  * <p>
  * Default Command.
  */
 
-class ExecuteJTermFile extends Command {
+public class RemoveDirectory extends Command {
 
-    private CommandHandler commandHandler;
-
-    ExecuteJTermFile(CommandHandler commandHandler) {
-        super("exec", "Executes a .jterm file.");
-        this.commandHandler = commandHandler;
+    public RemoveDirectory() {
+        super("rmdir", "Removes the directory with the given name.");
     }
 
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
         try {
             args.checkMatches(ArgumentType.STRING);
-            String dir = args.getArg(1) + ".jterm";
-            String lines = FileUtils.readFile(directory.getFile(dir));
-            for (String s : lines.split("\\n")) {
-                commandHandler.handleInput(input, s, output);
-            }
+            output.println(FileUtils.removeDirectory(directory.getFile(args.getArg(1).value)));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

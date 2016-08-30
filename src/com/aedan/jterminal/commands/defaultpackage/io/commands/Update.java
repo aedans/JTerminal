@@ -1,4 +1,4 @@
-package com.aedan.jterminal.commands.default_package.FileIO;
+package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
@@ -13,9 +13,9 @@ import com.aedan.jterminal.output.CommandOutput;
  * Default Command.
  */
 
-class Update extends Command {
+public class Update extends Command {
 
-    Update() {
+    public Update() {
         super("update", "Updates the JTerminal source to the most recent version.");
     }
 

@@ -27,6 +27,7 @@ public class JTDisplay extends JFrame {
      * @param yRes The JTDisplay y resolution.
      */
     public JTDisplay(int xRes, int yRes){
+        this.setTitle("JTerminal");
         this.add(stringList);
         this.addKeyListener(keyListener);
         this.addMouseWheelListener(stringList);

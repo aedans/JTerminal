@@ -8,7 +8,7 @@ package com.aedan.jterminal.commands.commandarguments;
 
 public enum ArgumentType {
 
-    STRING, INTEGER, COMMANDIDENTIFIER;
+    STRING, INTEGER, DOUBLE, COMMANDIDENTIFIER;
 
     /**
      * Returns the ArgumentType of a given String.
@@ -19,6 +19,8 @@ public enum ArgumentType {
     public static ArgumentType getArgumentType(String value) {
         if (value.matches(" *[-+0123456789]+ *")){
             return INTEGER;
+        } else if (value.matches(" *[-+0123456789.] *")) {
+            return DOUBLE;
         } else {
             return STRING;
         }

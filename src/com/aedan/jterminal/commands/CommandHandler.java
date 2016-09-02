@@ -88,7 +88,7 @@ public class CommandHandler {
             return;
         }
 
-        Matcher m = Pattern.compile("\"(.+)\"").matcher(in);
+        Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
             stringLiterals.add(m.group(1));

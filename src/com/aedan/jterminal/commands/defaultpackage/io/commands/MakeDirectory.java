@@ -18,7 +18,8 @@ import com.aedan.jterminal.utils.FileUtils;
 public class MakeDirectory extends Command {
 
     public MakeDirectory() {
-        super("mkdir", "Creates a directory with the given name.");
+        super("mkdir");
+        this.properties[0] = "Creates a directory with the given name.";
     }
 
     @Override

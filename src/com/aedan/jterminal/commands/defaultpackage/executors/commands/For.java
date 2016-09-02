@@ -20,7 +20,8 @@ public class For extends Command {
     private final CommandHandler commandHandler;
 
     public For(CommandHandler commandHandler) {
-        super("for", "Iterates a command and stores the current iteration in a variable.");
+        super("for");
+        this.properties[0] = "Iterates a command and stores the current iteration in a variable.";
         this.commandHandler = commandHandler;
     }
 

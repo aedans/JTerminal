@@ -20,7 +20,8 @@ public class Help extends Command {
     private final CommandHandler commandHandler;
 
     public Help(CommandHandler commandHandler) {
-        super("help", "Lists all commands and their simple descriptions.");
+        super("help");
+        this.properties[0] = "Lists all commands and their simple descriptions.";
         this.commandHandler = commandHandler;
     }
 
@@ -35,7 +36,7 @@ public class Help extends Command {
         ArrayList<String> sDescriptions = new ArrayList<>();
         for (Command c : sCommands) {
             sIdentifiers.add(c.getIdentifier());
-            sDescriptions.add(c.getQuickDescription());
+            sDescriptions.add(c.getProperty(0));
         }
 
         output.printGrid(4, sIdentifiers, sDescriptions);

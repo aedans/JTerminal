@@ -17,7 +17,8 @@ import com.aedan.jterminal.output.CommandOutput;
 public class Echo extends Command {
 
     public Echo() {
-        super("echo", "Outputs text.");
+        super("echo");
+        this.properties[0] = "Outputs text.";
     }
 
     @Override

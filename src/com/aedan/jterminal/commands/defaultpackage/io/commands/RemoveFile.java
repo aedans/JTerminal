@@ -18,7 +18,8 @@ import com.aedan.jterminal.utils.FileUtils;
 public class RemoveFile extends Command {
 
     public RemoveFile() {
-        super("rm", "Removes the file with the given name.");
+        super("rm");
+        this.properties[0] = "Removes the file with the given name.";
     }
 
     @Override

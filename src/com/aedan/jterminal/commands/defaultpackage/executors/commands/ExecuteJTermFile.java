@@ -20,7 +20,8 @@ public class ExecuteJTermFile extends Command {
     private final CommandHandler commandHandler;
 
     public ExecuteJTermFile(CommandHandler commandHandler) {
-        super("exec", "Executes a .jterm file.");
+        super("exec");
+        this.properties[0] = "Executes a .jterm file.";
         this.commandHandler = commandHandler;
     }
 

@@ -18,7 +18,8 @@ import com.aedan.jterminal.utils.FileUtils;
 public class Open extends Command {
 
     public Open() {
-        super("open", "Opens a given file with the default application.");
+        super("open");
+        this.properties[0] = "Opens a given file with the default application.";
     }
 
     @Override

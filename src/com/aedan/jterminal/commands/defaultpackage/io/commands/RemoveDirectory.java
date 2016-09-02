@@ -18,7 +18,8 @@ import com.aedan.jterminal.utils.FileUtils;
 public class RemoveDirectory extends Command {
 
     public RemoveDirectory() {
-        super("rmdir", "Removes the directory with the given name.");
+        super("rmdir");
+        this.properties[0] = "Removes the directory with the given name.";
     }
 
     @Override

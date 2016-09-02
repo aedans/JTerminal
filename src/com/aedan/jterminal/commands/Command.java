@@ -14,24 +14,27 @@ import com.aedan.jterminal.output.CommandOutput;
 public abstract class Command {
 
     /**
+     * The number of properties a Command should have.
+     */
+    public static int numProperties = 4;
+
+    /**
      * The identifier to identify the command.
      */
     private final String identifier;
 
     /**
-     * A quick description of the Command for the Help command.
+     * A list of properties that the Command has.
      */
-    private final String quickDescription;
+    public String[] properties = new String[numProperties];
 
     /**
      * The default Command constructor.
      *
      * @param identifier       The identifier to identify the Command.
-     * @param quickDescription A quick description of the Command.
      */
-    protected Command(String identifier, String quickDescription) {
+    protected Command(String identifier) {
         this.identifier = identifier;
-        this.quickDescription = quickDescription;
     }
 
     /**
@@ -66,12 +69,12 @@ public abstract class Command {
         return "Command \"" + identifier + "\"";
     }
 
-    public String getQuickDescription() {
-        return quickDescription;
-    }
-
     public String getIdentifier() {
         return identifier;
+    }
+
+    public String getProperty(int id){
+        return (properties[id] != null) ? properties[id] : "Command " + getClass() + " has not assigned property " + id;
     }
 
 }

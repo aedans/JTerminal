@@ -16,7 +16,8 @@ import com.aedan.jterminal.output.CommandOutput;
 public class Update extends Command {
 
     public Update() {
-        super("update", "Updates the JTerminal source to the most recent version.");
+        super("update");
+        this.properties[0] ="Updates the JTerminal source to the most recent version.";
     }
 
     @Override

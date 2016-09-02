@@ -19,7 +19,8 @@ import java.util.Objects;
 public class Concatenate extends Command {
 
     public Concatenate() {
-        super("cat", "Concatenates any number of files.");
+        super("cat");
+        this.properties[0] = "Concatenates any number of files.";
     }
 
     @Override

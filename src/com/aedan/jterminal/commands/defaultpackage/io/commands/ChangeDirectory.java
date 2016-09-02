@@ -19,7 +19,8 @@ import java.io.File;
 public class ChangeDirectory extends Command {
 
     public ChangeDirectory() {
-        super("cd", "Changes the active directory.");
+        super("cd");
+        this.properties[0] = "Changes the active directory.";
     }
 
     @Override

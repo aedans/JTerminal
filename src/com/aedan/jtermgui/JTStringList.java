@@ -29,6 +29,11 @@ class JTStringList extends JComponent implements MouseWheelListener {
     int numLines = 0;
 
     /**
+     * The Colors for the StringList to draw.
+     */
+    public Color fontColor = Color.WHITE, backgroundColor = Color.BLACK;
+
+    /**
      * The current font size for the StringList.
      */
     private int currentFontSize = 18;
@@ -62,10 +67,10 @@ class JTStringList extends JComponent implements MouseWheelListener {
         Graphics2D g = ((Graphics2D)g1);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
-        g.setColor(new Color(0, 0, 0));
+        g.setColor(backgroundColor);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        g.setColor(new Color(255, 255, 255));
+        g.setColor(fontColor);
         g.setFont(currentFont);
         String[] lines = (this.lines + "\000").split("\n");
         int i;

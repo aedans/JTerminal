@@ -1,6 +1,7 @@
 package com.aedan.jterminal;
 
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
 import java.nio.file.InvalidPathException;
@@ -49,7 +50,7 @@ public class Directory {
             return directory.getParentFile();
         } else if (Objects.equals(dir.trim(), ".")) {
             return directory;
-        } else if (dir.matches("\\w:.+|/.+|\\\\.+")) {
+        } else if (dir.matches(Patterns.absoluteDirectoryPattern.pattern())) {
             return new File(dir);
         } else {
             try {

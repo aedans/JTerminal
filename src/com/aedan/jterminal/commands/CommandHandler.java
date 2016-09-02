@@ -5,6 +5,7 @@ import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.utils.Patterns;
 import com.aedan.jterminal.variables.Variable;
 import com.sun.istack.internal.NotNull;
 
@@ -88,7 +89,7 @@ public class CommandHandler {
             return;
         }
 
-        Matcher m = Pattern.compile("\"([^\"]+)\"").matcher(in);
+        Matcher m = Patterns.stringLiteralPattern.matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
             stringLiterals.add(m.group(1));

@@ -73,7 +73,7 @@ public class JTerminal implements Runnable {
     public JTerminal(String args, CommandInput input, CommandOutput output, CommandPackage... commandPackages) {
         this.input = input;
         this.output = output;
-        commandHandler = new CommandHandler(commandPackages);
+        this.commandHandler = new CommandHandler(commandPackages);
         try {
             ArgumentParser parser = new ArgumentParser();
             parser.parseArguments(args);
@@ -85,9 +85,9 @@ public class JTerminal implements Runnable {
                     }
                 }
             } catch (FileUtils.FileIOException e) {
-                output.println("(Startup error) " + e.getMessage());
+                output.printf("(Startup error) %s\n", e.getMessage());
             } catch (CommandHandler.CommandHandlerException e) {
-                output.println("(Startup error) Could not handle command (" + e.getMessage() + ")");
+                output.printf("(Startup error) Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e){
                 output.print("Fatal error: ");
                 output.getPrintStreams().forEach(e::printStackTrace);
@@ -103,7 +103,10 @@ public class JTerminal implements Runnable {
             }
 
         } catch (ArgumentParseException e){
-            output.println("Could not handle args \"" + args + "\": " + e.getMessage());
+            output.printf("Could not parse args \"%s\": %s\n", args, e.getMessage());
+        } catch (Exception e){
+            output.println("Fatal error: Could not parse arguments: ");
+            output.getPrintStreams().forEach(e::printStackTrace);
         }
     }
 
@@ -117,7 +120,7 @@ public class JTerminal implements Runnable {
                 output.print(commandHandler.getDirectory() + "> ");
                 commandHandler.handleInput(input, output.clone());
             } catch (CommandHandler.CommandHandlerException e) {
-                output.println("Could not handle command (" + e.getMessage() + ")");
+                output.printf("Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e) {
                 output.print("Fatal error: ");
                 output.getPrintStreams().forEach(e::printStackTrace);

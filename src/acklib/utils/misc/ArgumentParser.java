@@ -36,7 +36,7 @@ public final class ArgumentParser {
      */
     public void parseArguments(final String args) throws ArgumentParseException{
         ArrayList<String> argumentList = new ArrayList<>();
-        String regex = "(\".+\")|(-\\w+)|([\\w./\\\\]+)";
+        String regex = "(\".+\")|(-\\w+)|([\\w.:;/\\\\]+)";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(args);
         while(m.find()){

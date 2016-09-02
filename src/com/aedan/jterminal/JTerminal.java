@@ -93,6 +93,14 @@ public class JTerminal implements Runnable {
                 output.getPrintStreams().forEach(e::printStackTrace);
             }
 
+            try {
+                if (parser.getString("directory") != null){
+                    commandHandler.setDirectory(new Directory(parser.getString("directory")));
+                }
+            } catch (Exception e){
+
+            }
+
         } catch (ArgumentParseException e){
             output.println("Could not handle args \"" + args + "\": " + e.getMessage());
         }

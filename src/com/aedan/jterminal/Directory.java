@@ -25,7 +25,16 @@ public class Directory {
      * The default Directory constructor.
      */
     public Directory() {
-        this.directory = new File(String.valueOf(Paths.get("").toAbsolutePath()));
+        this(String.valueOf(Paths.get("").toAbsolutePath()));
+    }
+
+    /**
+     * Directory constructor to create a Directory at a given path.
+     *
+     * @param directory The path of the Directory.
+     */
+    public Directory(String directory) {
+        this.directory = new File(directory);
     }
 
     /**

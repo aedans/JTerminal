@@ -29,14 +29,14 @@ public class For extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING);
-        for (int i = Integer.parseInt(args.getArg(1).value); i < Integer.parseInt(args.getArg(2).value); i++) {
-            commandHandler.addVariable(new Variable(args.getArg(3).value, String.valueOf(i)));
+        for (int i = Integer.parseInt(args.get(1).value); i < Integer.parseInt(args.get(2).value); i++) {
+            commandHandler.addVariable(new Variable(args.get(3).value, String.valueOf(i)));
             commandHandler.handleInput(
                     input,
-                    args.getArg(4).value,
+                    args.get(4).value,
                     output
             );
-            commandHandler.removeVariable(args.getArg(3).value);
+            commandHandler.removeVariable(args.get(3).value);
         }
     }
 

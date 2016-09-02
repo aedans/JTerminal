@@ -25,7 +25,7 @@ public class Echo extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
-        output.println(args.getArg(1));
+        output.println(args.get(1));
     }
 
 }

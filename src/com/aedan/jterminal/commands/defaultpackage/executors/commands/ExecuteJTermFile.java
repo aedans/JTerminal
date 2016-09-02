@@ -30,7 +30,7 @@ public class ExecuteJTermFile extends Command {
             throws CommandHandler.CommandHandlerException {
         try {
             args.checkMatches(ArgumentType.STRING);
-            String dir = args.getArg(1) + ".jterm";
+            String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(directory.getFile(dir));
             for (String s : lines.split("\\n")) {
                 commandHandler.handleInput(input, s, output);

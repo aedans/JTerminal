@@ -60,7 +60,7 @@ public class CommandArgumentList {
         return args.length;
     }
 
-    public CommandArgument getArg(int i) {
+    public CommandArgument get(int i) {
         return args[i];
     }
 

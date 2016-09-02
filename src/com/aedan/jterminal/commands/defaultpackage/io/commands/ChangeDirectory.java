@@ -27,7 +27,7 @@ public class ChangeDirectory extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
-        File f = directory.getFile(args.getArg(1).value);
+        File f = directory.getFile(args.get(1).value);
         if (f != null) {
             directory.setDirectory(f);
         }

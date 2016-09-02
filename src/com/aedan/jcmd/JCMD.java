@@ -19,7 +19,7 @@ public class JCMD {
      * Main function to launch JCMD from JTerminal.jar.
      */
     public static void main(String[] args) {
-        Command.numProperties = 1;
+        Command.numProperties = 2;
         JTDisplay display = new JTDisplay(1279, 716);
         new JTerminal(
                 "",

@@ -73,8 +73,26 @@ public abstract class Command {
         return identifier;
     }
 
-    public String getProperty(int id){
-        return (properties[id] != null) ? properties[id] : "Command " + getClass() + " has not assigned property " + id;
+    public String getProperty(int id) throws InvalidPropertyException {
+        if (properties.length < id)
+            throw new InvalidPropertyException(
+                    "Command \"" + identifier + "\" does not support more than " + properties.length + " properties");
+        if (properties[id] == null)
+            throw new InvalidPropertyException("Command \"" + identifier + "\" has not assigned property " + id);
+        return properties[id];
+    }
+
+    public static class InvalidPropertyException extends Exception {
+
+        /**
+         * The default InvalidPropertyException constructor.
+         *
+         * @param message The error message to display.
+         */
+        public InvalidPropertyException(String message) {
+            super(message);
+        }
+
     }
 
 }

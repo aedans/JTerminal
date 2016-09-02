@@ -27,7 +27,7 @@ public class RemoveFile extends Command {
             throws CommandHandler.CommandHandlerException {
         try {
             args.checkMatches(ArgumentType.STRING);
-            output.println(FileUtils.removeFile(directory.getFile(args.getArg(1).value)));
+            output.println(FileUtils.removeFile(directory.getFile(args.get(1).value)));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

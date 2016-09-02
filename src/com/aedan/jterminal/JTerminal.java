@@ -38,7 +38,7 @@ public class JTerminal implements Runnable {
     /**
      * The default JTerminal constructor.
      *
-     * @param args: The list of arguments for the JTerminal.
+     * @param args The list of arguments for the JTerminal.
      */
     public JTerminal(String args) {
         this(
@@ -66,9 +66,9 @@ public class JTerminal implements Runnable {
      * JTerminal constructor for custom CommandPackages, Inputs and Outputs.
      *
      * @param args            The list of arguments for the JTerminal.
-     * @param input           The CommandInput for the JTerminal.
+     * @param input           The CommandInput for the JTerminal to use.
      * @param output          The CommandOutput for the JTerminal to use.
-     * @param commandPackages The CommandPackages to use.
+     * @param commandPackages The CommandPackages for the JTerminal to use.
      */
     public JTerminal(String args, CommandInput input, CommandOutput output, CommandPackage... commandPackages) {
         this.input = input;
@@ -77,6 +77,15 @@ public class JTerminal implements Runnable {
         try {
             ArgumentParser parser = new ArgumentParser();
             parser.parseArguments(args);
+
+            try {
+                if (parser.getString("directory") != null){
+                    commandHandler.setDirectory(new Directory(parser.getString("directory")));
+                }
+            } catch (Exception e){
+                output.print("Fatal error: ");
+                output.getPrintStreams().forEach(e::printStackTrace);
+            }
 
             try {
                 if (parser.getString("startup") != null) {
@@ -88,15 +97,6 @@ public class JTerminal implements Runnable {
                 output.printf("(Startup error) %s\n", e.getMessage());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.printf("(Startup error) Could not handle command (%s)\n", e.getMessage());
-            } catch (Exception e){
-                output.print("Fatal error: ");
-                output.getPrintStreams().forEach(e::printStackTrace);
-            }
-
-            try {
-                if (parser.getString("directory") != null){
-                    commandHandler.setDirectory(new Directory(parser.getString("directory")));
-                }
             } catch (Exception e){
                 output.print("Fatal error: ");
                 output.getPrintStreams().forEach(e::printStackTrace);

@@ -24,6 +24,9 @@ public class Help extends Command {
     public Help(CommandHandler commandHandler) {
         super("help");
         this.properties[0] = "Lists all commands and their simple descriptions.";
+        this.properties[1] =
+                "help: Lists all commands and their simple descriptions.\n" +
+                "help [string]: Lists the detailed description of command [string].";
         this.commandHandler = commandHandler;
     }
 
@@ -54,6 +57,7 @@ public class Help extends Command {
                 if (c.getIdentifier().equals(args.get(1).value)){
                     try {
                         output.println(c.getProperty(1));
+                        return;
                     } catch (InvalidPropertyException e) {
                         output.printf("Could not access command \"%s\" description (%s)\n",
                                 c.getIdentifier(), e.getMessage());

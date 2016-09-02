@@ -22,6 +22,10 @@ public class For extends Command {
     public For(CommandHandler commandHandler) {
         super("for");
         this.properties[0] = "Iterates a command and stores the current iteration in a variable.";
+        this.properties[1] =
+                "for [int-begin] [int-end] [string-varname] [string-command]: Adds the variable [string-varname]\n" +
+                "to the CommandHandler, then executes [string-command] once for each value between [int-begin]\n" +
+                "and [int-end].";
         this.commandHandler = commandHandler;
     }
 

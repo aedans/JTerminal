@@ -19,6 +19,7 @@ public class Echo extends Command {
     public Echo() {
         super("echo");
         this.properties[0] = "Outputs text.";
+        this.properties[1] = "echo [string]: Outputs [string].";
     }
 
     @Override

@@ -21,6 +21,9 @@ public class Concatenate extends Command {
     public Concatenate() {
         super("cat");
         this.properties[0] = "Concatenates any number of files.";
+        this.properties[1] =
+                "cat: Prints all user input line by line. Exited by typing \"exit\"\n" +
+                "cat [directories]: Reads each file at [directory] line by line.";
     }
 
     @Override

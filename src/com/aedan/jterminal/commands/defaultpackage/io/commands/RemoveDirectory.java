@@ -20,6 +20,7 @@ public class RemoveDirectory extends Command {
     public RemoveDirectory() {
         super("rmdir");
         this.properties[0] = "Removes the directory with the given name.";
+        this.properties[1] = "rmdir [directory]: Recursively removes all files in [directory].";
     }
 
     @Override

@@ -21,6 +21,7 @@ public class ChangeDirectory extends Command {
     public ChangeDirectory() {
         super("cd");
         this.properties[0] = "Changes the active directory.";
+        this.properties[1] = "cd [directory]: Changes the active directory to [directory].";
     }
 
     @Override

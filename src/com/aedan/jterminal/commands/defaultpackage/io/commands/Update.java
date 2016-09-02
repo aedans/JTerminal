@@ -17,7 +17,7 @@ public class Update extends Command {
 
     public Update() {
         super("update");
-        this.properties[0] ="Updates the JTerminal source to the most recent version.";
+        this.properties[0] = "Updates the JTerminal source to the most recent version.";
     }
 
     @Override

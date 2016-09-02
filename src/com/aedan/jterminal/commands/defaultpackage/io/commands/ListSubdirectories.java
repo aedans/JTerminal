@@ -20,6 +20,7 @@ public class ListSubdirectories extends Command {
     public ListSubdirectories() {
         super("ls");
         this.properties[0] = "Lists all subdirectories of the current folder.";
+        this.properties[1] = "ls: Lists all subdirectories of the current folder.";
     }
 
     @Override

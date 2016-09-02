@@ -58,7 +58,10 @@ class JTStringList extends JComponent implements MouseWheelListener {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g1) {
+        Graphics2D g = ((Graphics2D)g1);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0, 0, getWidth(), getHeight());
 

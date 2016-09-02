@@ -127,7 +127,7 @@ public class CommandOutput {
         int size = grid[0].size();
         for (ArrayList<String> ss : grid) {
             if (ss.size() != size) {
-                println("Internal Error: could not print grid (Uneven sizes)");
+                println("Could not print grid (Uneven sizes)");
                 return;
             }
         }
@@ -185,7 +185,7 @@ public class CommandOutput {
     /**
      * Sets the PrintStreams to the given PrintStreams.
      *
-     * @param printStreams: The PrintStreams to set to.
+     * @param printStreams The PrintStreams to set to.
      */
     public void setPrintStreams(PrintStream... printStreams){
         this.printStreams = new ArrayList<>();
@@ -196,6 +196,9 @@ public class CommandOutput {
         return printStreams;
     }
 
+    /**
+     * @return Returns a deep clone of the CommandOutput.
+     */
     public CommandOutput clone(){
         ArrayList<PrintStream> printStreams = this.printStreams.stream().map(PrintStream::new)
                 .collect(Collectors.toCollection(ArrayList::new));

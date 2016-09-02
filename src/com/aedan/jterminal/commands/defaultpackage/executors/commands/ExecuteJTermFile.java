@@ -2,9 +2,9 @@ package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
@@ -17,7 +17,7 @@ import com.aedan.jterminal.utils.FileUtils;
 
 public class ExecuteJTermFile extends Command {
 
-    private CommandHandler commandHandler;
+    private final CommandHandler commandHandler;
 
     public ExecuteJTermFile(CommandHandler commandHandler) {
         super("exec", "Executes a .jterm file.");
@@ -25,7 +25,8 @@ public class ExecuteJTermFile extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
         try {
             args.checkMatches(ArgumentType.STRING);
             String dir = args.getArg(1) + ".jterm";

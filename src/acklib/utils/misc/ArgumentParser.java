@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 /**
  * @author hacke
- *
- * Basic parser for command line arguments, parsing "-l arg -k arg2 -f file.txt -flag"
- * into a hashmap of argument name to value
+ *         <p>
+ *         Basic parser for command line arguments, parsing "-l arg -k arg2 -f file.txt -flag"
+ *         into a hashmap of argument name to value
  */
 public final class ArgumentParser {
 
@@ -22,7 +22,7 @@ public final class ArgumentParser {
 
     private HashMap<String, Boolean> flagArgumentMap;
 
-    public ArgumentParser(){
+    public ArgumentParser() {
         this.stringArgumentMap = new HashMap<>();
         this.integerArgumentMap = new HashMap<>();
         this.flagArgumentMap = new HashMap<>();
@@ -34,33 +34,33 @@ public final class ArgumentParser {
      * @param args line to parse
      * @throws ArgumentParseException if the string is incorrectly formatted
      */
-    public void parseArguments(final String args) throws ArgumentParseException{
+    public void parseArguments(final String args) throws ArgumentParseException {
         ArrayList<String> argumentList = new ArrayList<>();
         String regex = "(\".+\")|(-\\w+)|([\\w.:;/\\\\]+)";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(args);
-        while(m.find()){
+        while (m.find()) {
             argumentList.add(m.group());
         }
         for (int i = 0; i < argumentList.size(); i++) {
             String argument = argumentList.get(i);
-            if(argument.startsWith("-")){
+            if (argument.startsWith("-")) {
                 String argName = argument.replaceFirst("-", "");
-                if(i + 1 >= argumentList.size()){   /* if at end of argument list, must be a boolean flag */
+                if (i + 1 >= argumentList.size()) {   /* if at end of argument list, must be a boolean flag */
                     flagArgumentMap.put(argName, true);
-                }else{  /* otherwise, check for integers, strings, and other flags */
+                } else {  /* otherwise, check for integers, strings, and other flags */
                     String nextArg = argumentList.get(i + 1);
-                    if(nextArg.startsWith("-")){
+                    if (nextArg.startsWith("-")) {
                         flagArgumentMap.put(argName, true);
-                    }else if(nextArg.matches("(\\d+)")){
+                    } else if (nextArg.matches("(\\d+)")) {
                         integerArgumentMap.put(argName, Integer.parseInt(nextArg));
                         i++;
-                    }else{
+                    } else {
                         stringArgumentMap.put(argName, nextArg.replaceAll("\"", ""));
                         i++;
                     }
                 }
-            }else{
+            } else {
                 throw new ArgumentParseException("argument \"" + argument + "\" is an invalid argument key");
             }
         }
@@ -72,8 +72,8 @@ public final class ArgumentParser {
      * @param argumentName the character that represents the value
      * @return the value with key provided or null if nonexistent
      */
-    public Integer getInteger(final String argumentName){
-        if(argumentName == null) throw new IllegalArgumentException("argument name cannot be null");
+    public Integer getInteger(final String argumentName) {
+        if (argumentName == null) throw new IllegalArgumentException("argument name cannot be null");
         return integerArgumentMap.getOrDefault(argumentName, null);
     }
 
@@ -83,8 +83,8 @@ public final class ArgumentParser {
      * @param argumentName the character that represents the value
      * @return the value with key provided or null if nonexistent
      */
-    public String getString(final String argumentName){
-        if(argumentName == null) throw new IllegalArgumentException("argument name cannot be null");
+    public String getString(final String argumentName) {
+        if (argumentName == null) throw new IllegalArgumentException("argument name cannot be null");
         return stringArgumentMap.getOrDefault(argumentName, null);
     }
 
@@ -94,8 +94,8 @@ public final class ArgumentParser {
      * @param argumentName the character that represents the value
      * @return the value with key provided or false if nonexistent
      */
-    public Boolean getFlag(final String argumentName){
-        if(argumentName == null) throw new IllegalArgumentException("argument name cannot be null");
+    public Boolean getFlag(final String argumentName) {
+        if (argumentName == null) throw new IllegalArgumentException("argument name cannot be null");
         return flagArgumentMap.getOrDefault(argumentName, false);
     }
 }

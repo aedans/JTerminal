@@ -16,12 +16,12 @@ public abstract class Command {
     /**
      * The identifier to identify the command.
      */
-    private String identifier;
+    private final String identifier;
 
     /**
      * A quick description of the Command for the Help command.
      */
-    private String quickDescription;
+    private final String quickDescription;
 
     /**
      * The default Command constructor.
@@ -53,8 +53,8 @@ public abstract class Command {
      * @param flag The flag to check for.
      * @return If the String[] contains the flag.
      */
-    protected boolean containsFlag(String[] args, String flag){
-        for (String s : args){
+    protected boolean containsFlag(String[] args, String flag) {
+        for (String s : args) {
             if (s.contains("-" + flag))
                 return true;
         }

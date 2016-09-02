@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelListener;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
- *
+ * <p>
  * Class for rendering Strings to the JTDisplay.
  */
 
@@ -53,12 +53,12 @@ class JTStringList extends JComponent implements MouseWheelListener {
      *
      * @param jtDisplay The Display for the StringList to display to.
      */
-    JTStringList(JTDisplay jtDisplay){
+    JTStringList(JTDisplay jtDisplay) {
         this.jtDisplay = jtDisplay;
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -66,22 +66,22 @@ class JTStringList extends JComponent implements MouseWheelListener {
         g.setFont(currentFont);
         String[] lines = (this.lines + "\000").split("\n");
         int i;
-        for (i = 0; i < lines.length-1; i++) {
-            g.drawString(lines[i], 5, currentFontSize+(i*currentFontSize)+fontTransY);
+        for (i = 0; i < lines.length - 1; i++) {
+            g.drawString(lines[i], 5, currentFontSize + (i * currentFontSize) + fontTransY);
         }
-        g.drawString(lines[i] + currentString, 5, currentFontSize+(i*currentFontSize)+fontTransY);
+        g.drawString(lines[i] + currentString, 5, currentFontSize + (i * currentFontSize) + fontTransY);
 
         repaint();
     }
 
-    void snapToInput(){
-        fontTransY = -currentFontSize*numLines + jtDisplay.getHeight()-35-currentFontSize*2;
+    void snapToInput() {
+        fontTransY = -currentFontSize * numLines + jtDisplay.getHeight() - 35 - currentFontSize * 2;
         if (fontTransY > -3) fontTransY = -3;
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        fontTransY -= e.getWheelRotation()*currentFontSize*2;
+        fontTransY -= e.getWheelRotation() * currentFontSize * 2;
         if (fontTransY > -3) fontTransY = -3;
     }
 

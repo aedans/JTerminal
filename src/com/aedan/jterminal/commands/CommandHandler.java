@@ -84,7 +84,7 @@ public class CommandHandler {
             throw new CommandHandlerException("Input is null");
         }
 
-        if (Objects.equals(in, "")){
+        if (Objects.equals(in, "")) {
             return;
         }
 
@@ -145,8 +145,8 @@ public class CommandHandler {
      */
     public void removeVariable(String name) {
         Variable n = null;
-        for (Variable v : globalVariables){
-            if (Objects.equals(v.name, name)){
+        for (Variable v : globalVariables) {
+            if (Objects.equals(v.name, name)) {
                 n = v;
             }
         }

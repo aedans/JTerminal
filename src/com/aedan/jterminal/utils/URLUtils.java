@@ -8,11 +8,11 @@ import java.net.URLConnection;
 
 /**
  * Created by Aedan Smith on 7/1/2016.
- *
+ * <p>
  * Utility class for loading URLs.
  */
 
-public class URLUtils {
+public final class URLUtils {
 
     /**
      * Loads the data at a given URL.

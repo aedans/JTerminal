@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 8/29/2016.
- *
+ * <p>
  * Default command.
  */
 
@@ -23,16 +23,17 @@ public class Concatenate extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
-        if (args.length() == 1){
+    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
+        if (args.length() == 1) {
             String out = "";
             String in = input.nextLine();
-            while (!Objects.equals(in.trim().toLowerCase(), "exit")){
+            while (!Objects.equals(in.trim().toLowerCase(), "exit")) {
                 out += in + "\n";
                 in = input.nextLine();
             }
             output.print(out);
-        } else if (args.length() == 2){
+        } else if (args.length() == 2) {
             try {
                 output.println(FileUtils.readFile(directory.getFile(args.getArg(1).value)));
             } catch (FileUtils.FileIOException e) {

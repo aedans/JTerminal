@@ -86,11 +86,11 @@ public class CommandOutput {
     /**
      * Prints a formatted String to all PrintStreams.
      *
-     * @param s The String to print.
+     * @param s       The String to print.
      * @param objects The objects to format.
      */
-    public void printf(String s, Object... objects){
-        for (PrintStream ps : printStreams){
+    public void printf(String s, Object... objects) {
+        for (PrintStream ps : printStreams) {
             ps.printf(s, objects);
         }
     }
@@ -104,6 +104,7 @@ public class CommandOutput {
      * @param grid  The List of ArrayLists to print.
      */
     public void printObjGrid(int space, ArrayList<?>... grid) {
+        //noinspection unchecked
         ArrayList<String>[] sGrid = new ArrayList[grid.length];
         for (int i = 0; i < grid.length; i++) {
             sGrid[i] = new ArrayList<>();
@@ -182,24 +183,25 @@ public class CommandOutput {
         this.printStreams.remove(printStreams);
     }
 
-    /**
-     * Sets the PrintStreams to the given PrintStreams.
-     *
-     * @param printStreams The PrintStreams to set to.
-     */
-    public void setPrintStreams(PrintStream... printStreams){
-        this.printStreams = new ArrayList<>();
-        Collections.addAll(this.printStreams, printStreams);
-    }
-
     public ArrayList<PrintStream> getPrintStreams() {
         return printStreams;
     }
 
     /**
+     * Sets the PrintStreams to the given PrintStreams.
+     *
+     * @param printStreams The PrintStreams to set to.
+     */
+    public void setPrintStreams(PrintStream... printStreams) {
+        this.printStreams = new ArrayList<>();
+        Collections.addAll(this.printStreams, printStreams);
+    }
+
+    /**
      * @return Returns a deep clone of the CommandOutput.
      */
-    public CommandOutput clone(){
+    @SuppressWarnings("CloneDoesntCallSuperClone")
+    public CommandOutput clone() {
         ArrayList<PrintStream> printStreams = this.printStreams.stream().map(PrintStream::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         return new CommandOutput(printStreams);

@@ -6,7 +6,7 @@ import java.io.PrintStream;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
- *
+ * <p>
  * PrintStream to print to the JTDisplay
  */
 
@@ -22,7 +22,7 @@ public class JTPrintStream extends PrintStream {
             @Override
             public void write(int b) throws IOException {
                 stringList.lines += (char) b;
-                if (b == '\n'){
+                if (b == '\n') {
                     stringList.numLines++;
                     stringList.snapToInput();
                 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
- *
+ * <p>
  * Display for the JTerminal GUI.
  */
 
@@ -13,12 +13,12 @@ public class JTDisplay extends JFrame {
     /**
      * The StringList for the Display to render.
      */
-    private JTStringList stringList = new JTStringList(this);
+    private final JTStringList stringList = new JTStringList(this);
 
     /**
      * The KeyListener for the Display.
      */
-    private JTKeyListener keyListener = new JTKeyListener(stringList);
+    private final JTKeyListener keyListener = new JTKeyListener(stringList);
 
     /**
      * Default JTDisplay constructor.
@@ -26,7 +26,7 @@ public class JTDisplay extends JFrame {
      * @param xRes The JTDisplay x resolution.
      * @param yRes The JTDisplay y resolution.
      */
-    public JTDisplay(int xRes, int yRes){
+    public JTDisplay(int xRes, int yRes) {
         this.setTitle("JTerminal");
         this.add(stringList);
         this.addKeyListener(keyListener);
@@ -37,7 +37,7 @@ public class JTDisplay extends JFrame {
         this.requestFocus();
     }
 
-    public JTKeyListener getJTKeyListener(){
+    public JTKeyListener getJTKeyListener() {
         return keyListener;
     }
 

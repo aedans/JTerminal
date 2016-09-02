@@ -8,7 +8,7 @@ import com.aedan.jterminal.output.CommandOutput;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
- *
+ * <p>
  * Main class for JCMD.
  */
 
@@ -17,7 +17,7 @@ public class JCMD {
     /**
      * Main function to launch JCMD from JTerminal.jar.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         JTDisplay display = new JTDisplay(1279, 716);
         new JTerminal(
                 "",

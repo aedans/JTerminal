@@ -2,9 +2,9 @@ package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
+import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.variables.Variable;
@@ -17,7 +17,7 @@ import com.aedan.jterminal.variables.Variable;
 
 public class For extends Command {
 
-    private CommandHandler commandHandler;
+    private final CommandHandler commandHandler;
 
     public For(CommandHandler commandHandler) {
         super("for", "Iterates a command and stores the current iteration in a variable.");
@@ -25,7 +25,8 @@ public class For extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING);
         for (int i = Integer.parseInt(args.getArg(1).value); i < Integer.parseInt(args.getArg(2).value); i++) {
             commandHandler.addVariable(new Variable(args.getArg(3).value, String.valueOf(i)));

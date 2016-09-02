@@ -53,7 +53,7 @@ public class JTerminal implements Runnable {
      * @param args            The list of arguments for the JTerminal.
      * @param commandPackages The CommandPackages to use.
      */
-    public JTerminal(String args, CommandPackage... commandPackages){
+    public JTerminal(String args, CommandPackage... commandPackages) {
         this(
                 args == null ? "" : args,
                 new SystemInput(),
@@ -79,10 +79,10 @@ public class JTerminal implements Runnable {
             parser.parseArguments(args);
 
             try {
-                if (parser.getString("directory") != null){
+                if (parser.getString("directory") != null) {
                     commandHandler.setDirectory(new Directory(parser.getString("directory")));
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 output.print("Fatal error: ");
                 output.getPrintStreams().forEach(e::printStackTrace);
             }
@@ -97,14 +97,14 @@ public class JTerminal implements Runnable {
                 output.printf("(Startup error) %s\n", e.getMessage());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.printf("(Startup error) Could not handle command (%s)\n", e.getMessage());
-            } catch (Exception e){
+            } catch (Exception e) {
                 output.print("Fatal error: ");
                 output.getPrintStreams().forEach(e::printStackTrace);
             }
 
-        } catch (ArgumentParseException e){
+        } catch (ArgumentParseException e) {
             output.printf("Could not parse args \"%s\": %s\n", args, e.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             output.println("Fatal error: Could not parse arguments: ");
             output.getPrintStreams().forEach(e::printStackTrace);
         }

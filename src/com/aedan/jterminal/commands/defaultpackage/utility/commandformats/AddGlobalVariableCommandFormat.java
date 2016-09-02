@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 
 public class AddGlobalVariableCommandFormat implements CommandFormat {
 
-    private String addGlobalVariableCommandFormatRegex = "([^=]+)=> *(.+)";
-    private Pattern addGlobalVariableCommandFormatPattern = Pattern.compile(addGlobalVariableCommandFormatRegex);
+    private final String addGlobalVariableCommandFormatRegex = "([^=]+)=> *(.+)";
+    private final Pattern addGlobalVariableCommandFormatPattern = Pattern.compile(addGlobalVariableCommandFormatRegex);
 
     @Override
     public boolean matches(String in) throws CommandHandler.CommandHandlerException {
@@ -28,7 +28,8 @@ public class AddGlobalVariableCommandFormat implements CommandFormat {
     }
 
     @Override
-    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
         try {
             Matcher m = addGlobalVariableCommandFormatPattern.matcher(in);
             if (m.find()) {
@@ -38,7 +39,8 @@ public class AddGlobalVariableCommandFormat implements CommandFormat {
                 commandHandler.addVariable(new Variable(m.group(2), os.toString("UTF8").trim()));
                 output.println("Created variable " + m.group(2));
             } else {
-                throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match Add Global Variable format (command => destination).");
+                throw new CommandHandler.CommandHandlerException(
+                        "\"" + in + "\" does not match Add Global Variable format (command => destination).");
             }
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

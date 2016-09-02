@@ -7,34 +7,33 @@ import java.awt.event.KeyListener;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
- *
+ * <p>
  * KeyListener and CommandInput for the JTerminal GUI.
  */
 
 class JTKeyListener implements KeyListener, CommandInput {
 
     /**
+     * The StringList for the KeyListener to modify.
+     */
+    private final JTStringList stringList;
+    /**
      * If the enter key is currently down.
      */
     private boolean isEnterDown = false;
-
-    /**
-     * The StringList for the KeyListener to modify.
-     */
-    private JTStringList stringList;
 
     /**
      * Default JTKeyListener constructor.
      *
      * @param stringList The StringList for the KeyListener to modify.
      */
-    JTKeyListener(JTStringList stringList){
+    JTKeyListener(JTStringList stringList) {
         this.stringList = stringList;
     }
 
     @Override
     public String nextLine() {
-        while (true){
+        while (true) {
             try {
                 Thread.sleep(25);
             } catch (InterruptedException e) {
@@ -61,7 +60,8 @@ class JTKeyListener implements KeyListener, CommandInput {
         } else if (e.getKeyChar() == '\b') {
             try {
                 this.stringList.currentString = stringList.currentString.substring(0, stringList.currentString.length() - 1);
-            } catch (StringIndexOutOfBoundsException ignored) {}
+            } catch (StringIndexOutOfBoundsException ignored) {
+            }
         } else {
             stringList.currentString += e.getKeyChar();
         }

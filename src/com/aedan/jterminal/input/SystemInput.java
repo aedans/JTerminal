@@ -18,6 +18,7 @@ public class SystemInput implements CommandInput {
     /**
      * The current line.
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private String line;
 
     /**

@@ -18,8 +18,8 @@ import java.util.regex.Pattern;
 
 public class OutputToFileCommandFormat implements CommandFormat {
 
-    private String outputToFileCommandFormatRegex = "([^>]+)>> *(.+)";
-    private Pattern outputToFileCommandFormatPattern = Pattern.compile(outputToFileCommandFormatRegex);
+    private final String outputToFileCommandFormatRegex = "([^>]+)>> *(.+)";
+    private final Pattern outputToFileCommandFormatPattern = Pattern.compile(outputToFileCommandFormatRegex);
 
     @Override
     public boolean matches(String in) throws CommandHandler.CommandHandlerException {
@@ -27,7 +27,8 @@ public class OutputToFileCommandFormat implements CommandFormat {
     }
 
     @Override
-    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
         try {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
@@ -37,7 +38,8 @@ public class OutputToFileCommandFormat implements CommandFormat {
                 commandHandler.handleInput(input, m.group(1), output);
                 ps.close();
             } else {
-                throw new CommandHandler.CommandHandlerException("\"" + in + "\" does not match CommandOutput To File format (command >> destination).");
+                throw new CommandHandler.CommandHandlerException(
+                        "\"" + in + "\" does not match CommandOutput To File format (command >> destination).");
             }
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

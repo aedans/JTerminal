@@ -2,8 +2,8 @@ package com.aedan.jterminal.commands.defaultpackage.utility.commands;
 
 import com.aedan.jterminal.Directory;
 import com.aedan.jterminal.commands.Command;
-import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Help extends Command {
 
-    private CommandHandler commandHandler;
+    private final CommandHandler commandHandler;
 
     public Help(CommandHandler commandHandler) {
         super("help", "Lists all commands and their simple descriptions.");
@@ -25,7 +25,8 @@ public class Help extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
         //noinspection unchecked
         ArrayList<Command> sCommands = (ArrayList<Command>) commandHandler.getCommands().clone();
         sCommands.sort((o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));

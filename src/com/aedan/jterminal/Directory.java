@@ -25,7 +25,7 @@ public class Directory {
      * The default Directory constructor.
      */
     public Directory() {
-        this(String.valueOf(Paths.get("").toAbsolutePath()));
+        this("");
     }
 
     /**
@@ -34,7 +34,7 @@ public class Directory {
      * @param directory The path of the Directory.
      */
     public Directory(String directory) {
-        this.directory = new File(directory);
+        this.directory = new File(String.valueOf(Paths.get(directory).toAbsolutePath()));
     }
 
     /**

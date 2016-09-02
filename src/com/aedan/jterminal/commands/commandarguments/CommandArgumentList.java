@@ -39,6 +39,7 @@ public class CommandArgumentList {
     public void checkMatches(ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
         cCheckMatches(argumentTypes[0] == ArgumentType.COMMANDIDENTIFIER, argumentTypes);
     }
+
     private void cCheckMatches(boolean ci, ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
         if (args.length > (ci ? argumentTypes.length : argumentTypes.length+1))
             throw new CommandHandler.CommandHandlerException("More arguments given then required " +

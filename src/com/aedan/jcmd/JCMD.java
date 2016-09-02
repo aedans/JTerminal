@@ -20,7 +20,7 @@ public class JCMD {
     public static void main(String[] args){
         JTDisplay display = new JTDisplay(1280, 716);
         new JTerminal(
-                "",
+                "-directory \"C:/Users/Aedan Smith/Desktop\"",
                 display.getJTKeyListener(),
                 new CommandOutput(new JTPrintStream(display.getJTStringList())),
                 new DefaultPackage()

@@ -98,7 +98,8 @@ public class JTerminal implements Runnable {
                     commandHandler.setDirectory(new Directory(parser.getString("directory")));
                 }
             } catch (Exception e){
-
+                output.print("Fatal error: ");
+                output.getPrintStreams().forEach(e::printStackTrace);
             }
 
         } catch (ArgumentParseException e){

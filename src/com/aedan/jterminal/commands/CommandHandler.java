@@ -84,6 +84,10 @@ public class CommandHandler {
             throw new CommandHandlerException("Input is null");
         }
 
+        if (Objects.equals(in, "")){
+            return;
+        }
+
         Matcher m = Pattern.compile("\"(.+)\"").matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
@@ -104,7 +108,7 @@ public class CommandHandler {
             if (Objects.equals(command.getIdentifier(), identifier)) {
                 for (int i = 0; i < args.length; i++) {
                     for (int j = 0; j < stringLiterals.size(); j++) {
-                        args[i] = args[i].replaceAll("&" + j, stringLiterals.get(j));
+                        args[i] = args[i].replace("&" + j, stringLiterals.get(j));
                     }
                     for (Variable globalVariable : globalVariables) {
                         args[i] = args[i].replaceAll(

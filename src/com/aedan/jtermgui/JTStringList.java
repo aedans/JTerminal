@@ -24,6 +24,11 @@ class JTStringList extends JComponent implements MouseWheelListener {
     String currentString = "";
 
     /**
+     * The number of lines currently being displayed.
+     */
+    int numLines = 0;
+
+    /**
      * The current font size for the StringList.
      */
     private int currentFontSize = 18;
@@ -37,6 +42,20 @@ class JTStringList extends JComponent implements MouseWheelListener {
      * The current font for the StringList.
      */
     private Font currentFont = new Font("Monospaced", Font.PLAIN, currentFontSize);
+
+    /**
+     * The current Display for the StringList.
+     */
+    private JTDisplay jtDisplay;
+
+    /**
+     * Default JTStringList constructor
+     *
+     * @param jtDisplay The Display for the StringList to display to.
+     */
+    JTStringList(JTDisplay jtDisplay){
+        this.jtDisplay = jtDisplay;
+    }
 
     @Override
     public void paint(Graphics g){
@@ -53,6 +72,11 @@ class JTStringList extends JComponent implements MouseWheelListener {
         g.drawString(lines[i] + currentString, 5, currentFontSize+(i*currentFontSize)+fontTransY);
 
         repaint();
+    }
+
+    void snapToInput(){
+        fontTransY = -currentFontSize*numLines + jtDisplay.getHeight()-35-currentFontSize*2;
+        if (fontTransY > -3) fontTransY = -3;
     }
 
     @Override

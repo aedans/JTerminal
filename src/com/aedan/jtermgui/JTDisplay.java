@@ -13,7 +13,7 @@ public class JTDisplay extends JFrame {
     /**
      * The StringList for the Display to render.
      */
-    private JTStringList stringList = new JTStringList();
+    private JTStringList stringList = new JTStringList(this);
 
     /**
      * The KeyListener for the Display.

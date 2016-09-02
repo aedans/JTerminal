@@ -22,6 +22,10 @@ public class JTPrintStream extends PrintStream {
             @Override
             public void write(int b) throws IOException {
                 stringList.lines += (char) b;
+                if (b == '\n'){
+                    stringList.numLines++;
+                    stringList.snapToInput();
+                }
             }
         });
     }

@@ -44,6 +44,7 @@ class JTKeyListener implements KeyListener, CommandInput {
                 try {
                     isEnterDown = false;
                     stringList.lines += stringList.currentString + "\n";
+                    stringList.numLines++;
                     return stringList.currentString;
                 } finally {
                     stringList.currentString = "";
@@ -54,6 +55,7 @@ class JTKeyListener implements KeyListener, CommandInput {
 
     @Override
     public void keyTyped(KeyEvent e) {
+        stringList.snapToInput();
         if (e.getKeyChar() == '\n') {
             isEnterDown = true;
         } else if (e.getKeyChar() == '\b') {

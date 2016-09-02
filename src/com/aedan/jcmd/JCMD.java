@@ -18,7 +18,7 @@ public class JCMD {
      * Main function to launch JCMD from JTerminal.jar.
      */
     public static void main(String[] args){
-        JTDisplay display = new JTDisplay(1280, 716);
+        JTDisplay display = new JTDisplay(1279, 716);
         new JTerminal(
                 "",
                 display.getJTKeyListener(),

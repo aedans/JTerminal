@@ -75,11 +75,23 @@ public class CommandOutput {
     /**
      * Prints a String to all PrintStreams, followed by a newline.
      *
-     * @param s The Object to print.
+     * @param s The String to print.
      */
     public void println(String s) {
         for (PrintStream ps : printStreams) {
             ps.println(s);
+        }
+    }
+
+    /**
+     * Prints a formatted String to all PrintStreams.
+     *
+     * @param s The String to print.
+     * @param objects The objects to format.
+     */
+    public void printf(String s, Object... objects){
+        for (PrintStream ps : printStreams){
+            ps.printf(s, objects);
         }
     }
 

@@ -15,24 +15,24 @@ import java.net.URLConnection;
 public class URLUtils {
 
     /**
-     * Loads the HTML at a given URL.
+     * Loads the data at a given URL.
      *
-     * @param sUrl The URL to load the HTML from.
-     * @return The HTML at the URL.
-     * @throws IOException if there is an error loading the URL HTML.
+     * @param sUrl The URL to load the data from.
+     * @return The data at the URL.
+     * @throws IOException if there is an error loading the URL data.
      */
-    public static String loadURLHTML(String sUrl) throws IOException {
-        return loadURLHTML(connectToURL(sUrl));
+    public static String loadURLData(String sUrl) throws IOException {
+        return loadURLData(connectToURL(sUrl));
     }
 
     /**
-     * Loads the HTML from a given URLConnection.
+     * Loads the data from a given URLConnection.
      *
      * @param connection The connection to the URL.
-     * @return The HTML returned from the URLConnection.
-     * @throws IOException if there is an error loading the URL HTML.
+     * @return The data returned from the URLConnection.
+     * @throws IOException if there is an error loading the URL data.
      */
-    public static String loadURLHTML(URLConnection connection) throws IOException {
+    public static String loadURLData(URLConnection connection) throws IOException {
         String s = "";
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
@@ -47,7 +47,7 @@ public class URLUtils {
      * Connects to a given URL.
      *
      * @param sUrl The URL to connect to.
-     * @return The URLConnection.
+     * @return The URLConnection to the given URL.
      * @throws IOException if unable to connect to the URL.
      */
     public static URLConnection connectToURL(String sUrl) throws IOException {

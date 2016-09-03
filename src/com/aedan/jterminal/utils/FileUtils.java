@@ -1,10 +1,7 @@
 package com.aedan.jterminal.utils;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -31,6 +28,48 @@ public final class FileUtils {
                 return "Opened file " + file.getAbsolutePath();
             }
         } catch (Exception e) {
+            throw new FileIOException(e.getMessage());
+        }
+    }
+
+    /**
+     * Creates a File.
+     *
+     * @param file The File to make.
+     * @return The output of the function.
+     */
+    public static String createFile(File file) throws FileIOException {
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+                return "Created file at " + file.toString();
+            } catch (IOException e) {
+                throw new FileIOException("Could not create file (Unknown cause)");
+            }
+        } else {
+            throw new FileIOException("File " + file.toString() + " already exists");
+        }
+    }
+
+    /**
+     * Writes a String to a File.
+     *
+     * @param file The File to write to.
+     * @param s The String to write to the File.
+     * @return The output of the function.
+     * @throws FileIOException if the function fails.
+     */
+    public static String writeToFile(File file, String s) throws FileIOException {
+        String out = "";
+        if (!file.exists()){
+            out += createFile(file);
+        }
+        try {
+            PrintStream ps = new PrintStream(new FileOutputStream(file));
+            ps.println(s);
+            ps.close();
+            return out;
+        } catch (Exception e){
             throw new FileIOException(e.getMessage());
         }
     }

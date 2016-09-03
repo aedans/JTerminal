@@ -78,6 +78,7 @@ public class JTerminal implements Runnable {
             ArgumentParser parser = new ArgumentParser();
             parser.parseArguments(args);
 
+            // Handles -directory argument
             try {
                 if (parser.getString("directory") != null) {
                     commandHandler.setDirectory(new Directory(parser.getString("directory")));
@@ -87,6 +88,7 @@ public class JTerminal implements Runnable {
                 output.getPrintStreams().forEach(e::printStackTrace);
             }
 
+            // Handles -startup argument
             try {
                 if (parser.getString("startup") != null) {
                     for (String s : FileUtils.readFile(new File(parser.getString("startup"))).split("\n")) {

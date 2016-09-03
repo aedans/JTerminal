@@ -125,6 +125,7 @@ public class CommandOutput {
      */
     @SafeVarargs
     public final void printGrid(int space, ArrayList<String>... grid) {
+        // Validates grid
         int size = grid[0].size();
         for (ArrayList<String> ss : grid) {
             if (ss.size() != size) {
@@ -133,6 +134,7 @@ public class CommandOutput {
             }
         }
 
+        // Gets the length of the longest lines
         int[] longestLines = new int[grid.length];
         for (int i = 0; i < grid.length; i++) {
             int longestLine = 0;
@@ -143,6 +145,7 @@ public class CommandOutput {
             longestLines[i] = longestLine;
         }
 
+        // Prints the grid
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < grid.length; j++) {
                 print(grid[j].get(i) + getSpaces(longestLines[j] - grid[j].get(i).length() + space));

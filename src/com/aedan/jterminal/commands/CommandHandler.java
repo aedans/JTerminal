@@ -12,7 +12,6 @@ import com.sun.istack.internal.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -80,6 +79,7 @@ public class CommandHandler {
      */
     @NotNull
     public void handleInput(CommandInput input, String in, CommandOutput output) throws CommandHandlerException {
+        // Validates input
         if (in == null) {
             stringLiterals = new ArrayList<>();
             throw new CommandHandlerException("Input is null");
@@ -89,12 +89,14 @@ public class CommandHandler {
             return;
         }
 
+        // Tokenizes Strings
         Matcher m = Patterns.stringLiteralPattern.matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
             stringLiterals.add(m.group(1));
         }
 
+        // Handles CommandFormats
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
                 commandFormat.handleInput(this, input, in, output);
@@ -103,14 +105,18 @@ public class CommandHandler {
             }
         }
 
+        // Splits input
         String[] args = in.split(" ");
         String identifier = args[0].toLowerCase();
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
                 for (int i = 0; i < args.length; i++) {
+                    // Injects String literals
                     for (int j = 0; j < stringLiterals.size(); j++) {
                         args[i] = args[i].replace("&" + j, stringLiterals.get(j));
                     }
+
+                    // Injects Variables
                     for (Variable globalVariable : globalVariables) {
                         args[i] = args[i].replaceAll(
                                 "\\[" + globalVariable.name + "\\]",
@@ -119,6 +125,7 @@ public class CommandHandler {
                     }
                 }
 
+                // Handles command
                 command.parse(input, new CommandArgumentList(args), directory, output);
                 stringLiterals = new ArrayList<>();
                 return;

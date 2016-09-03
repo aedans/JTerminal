@@ -4,7 +4,9 @@ import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.utils.FileUtils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.regex.Matcher;
@@ -32,8 +34,9 @@ public class OutputToFileCommandFormat implements CommandFormat {
         try {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
-                PrintStream ps = new PrintStream(new FileOutputStream(commandHandler.getDirectory().getFile(m.group(2))));
-                output.println("Created file " + m.group(2));
+                File f = commandHandler.getDirectory().getFile(m.group(2));
+                output.println(FileUtils.createFile(f));
+                PrintStream ps = new PrintStream(new FileOutputStream(f));
                 output.setPrintStreams(ps);
                 commandHandler.handleInput(input, m.group(1), output);
                 ps.close();

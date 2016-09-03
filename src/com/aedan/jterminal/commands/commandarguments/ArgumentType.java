@@ -10,7 +10,7 @@ import com.aedan.jterminal.utils.Patterns;
 
 public enum ArgumentType {
 
-    STRING, BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, COMMANDIDENTIFIER;
+    BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, STRING, COMMANDIDENTIFIER;
 
     /**
      * Returns the ArgumentType of a given String.
@@ -38,6 +38,28 @@ public enum ArgumentType {
             return DOUBLE;
         }
         return STRING;
+    }
+
+    public boolean contains(ArgumentType argumentType){
+        switch (argumentType){
+            case BYTE:
+                return this == BYTE;
+            case SHORT:
+                return this == SHORT || this == BYTE;
+            case INTEGER:
+                return this == INTEGER || this == SHORT || this == BYTE;
+            case LONG:
+                return this == LONG || this == INTEGER || this == SHORT || this == BYTE;
+            case FLOAT:
+                return this == FLOAT;
+            case DOUBLE:
+                return this == DOUBLE || this == FLOAT;
+            case STRING:
+                return this == STRING;
+            case COMMANDIDENTIFIER:
+                return this == COMMANDIDENTIFIER;
+            default: return false;
+        }
     }
 
     @Override

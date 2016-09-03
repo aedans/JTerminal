@@ -43,22 +43,22 @@ public enum ArgumentType {
     public boolean contains(ArgumentType argumentType){
         switch (argumentType){
             case BYTE:
-                return this == BYTE;
+                if (this == BYTE) return true;
             case SHORT:
-                return this == SHORT || this == BYTE;
+                if (this == SHORT) return true;
             case INTEGER:
-                return this == INTEGER || this == SHORT || this == BYTE;
+                if (this == INTEGER) return true;
             case LONG:
-                return this == LONG || this == INTEGER || this == SHORT || this == BYTE;
+                if (this == LONG) return true;
             case FLOAT:
-                return this == FLOAT;
+                if (this == FLOAT) return true;
             case DOUBLE:
-                return this == DOUBLE || this == FLOAT;
+                return this != STRING;
             case STRING:
                 return this == STRING;
             case COMMANDIDENTIFIER:
                 return this == COMMANDIDENTIFIER;
-            default: return false;
+            default:return false;
         }
     }
 

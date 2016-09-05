@@ -14,12 +14,12 @@ import com.aedan.jterminal.output.CommandOutput;
  * Default Command.
  */
 
-public class SubtractionCommand extends Command {
+public class DivisionCommand extends Command {
 
-    public SubtractionCommand() {
-        super("-");
-        properties[0] = "Subtracts two numbers.";
-        properties[1] = "- [double-1] [double-2]: Outputs [double-1] - [double-2].";
+    public DivisionCommand() {
+        super("/");
+        properties[0] = "Divides two numbers.";
+        properties[1] = "/ [double-1] [double-2]: Outputs [double-1] / [double-2].";
     }
 
     @Override
@@ -27,6 +27,6 @@ public class SubtractionCommand extends Command {
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.DOUBLE, ArgumentType.DOUBLE);
 
-        output.println(Double.parseDouble(args.get(1).value) - Double.parseDouble(args.get(2).value));
+        output.println(Double.parseDouble(args.get(1).value) / Double.parseDouble(args.get(2).value));
     }
 }

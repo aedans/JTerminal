@@ -25,8 +25,8 @@ public class AdditionCommand extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        args.checkMatches(ArgumentType.INTEGER, ArgumentType.INTEGER);
+        args.checkMatches(ArgumentType.DOUBLE, ArgumentType.DOUBLE);
 
-        output.println(Integer.parseInt(args.get(1).value) + Integer.parseInt(args.get(2).value));
+        output.println(Double.parseDouble(args.get(1).value) + Double.parseDouble(args.get(2).value));
     }
 }

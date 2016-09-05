@@ -54,13 +54,13 @@ class JTKeyListener implements KeyListener, CommandInput {
             if (isEnterDown) {
                 try {
                     isEnterDown = false;
-                    recentCommands.add(stringList.currentString);
+                    recentCommands.add(stringList.getCurrentString());
                     commandIndex = recentCommands.size();
-                    stringList.lines += stringList.currentString + "\n";
+                    stringList.lines += stringList.getCurrentString() + "\n";
                     stringList.numLines++;
-                    return stringList.currentString;
+                    return stringList.getCurrentString();
                 } finally {
-                    stringList.currentString = "";
+                    stringList.setCurrentString("");
                 }
             }
         }
@@ -72,30 +72,40 @@ class JTKeyListener implements KeyListener, CommandInput {
         if (e.getKeyChar() == '\n') {
             isEnterDown = true;
         } else if (e.getKeyChar() == '\b') {
-            try {
-                this.stringList.currentString = stringList.currentString.substring(0, stringList.currentString.length() - 1);
-            } catch (StringIndexOutOfBoundsException ignored) {
-            }
+            stringList.removeCurrentStringLastChar();
+            stringList.decrementCursorIndex();
         } else {
-            stringList.currentString += e.getKeyChar();
+            stringList.insertCharAtCursor(e.getKeyChar());
+            stringList.incrementCursorIndex();
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if (commandIndex != 0) {
-                commandIndex--;
-                stringList.currentString = recentCommands.get(commandIndex);
-                stringList.snapToInput();
+        if (recentCommands.size() > 0) {
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                if (commandIndex > 0) {
+                    commandIndex--;
+                    stringList.setCurrentString(recentCommands.get(commandIndex));
+                    stringList.snapToInput();
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (commandIndex < recentCommands.size()-1) {
+                    commandIndex++;
+                    stringList.setCurrentString(recentCommands.get(commandIndex));
+                    stringList.snapToInput();
+                }
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            if (commandIndex < recentCommands.size()-1) {
-                commandIndex++;
-                stringList.currentString = recentCommands.get(commandIndex);
-                stringList.snapToInput();
-            }
+
+        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+            stringList.decrementCursorIndex();
+            stringList.snapToInput();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            stringList.incrementCursorIndex();
+            stringList.snapToInput();
         }
     }
 

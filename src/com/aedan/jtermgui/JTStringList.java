@@ -21,7 +21,12 @@ class JTStringList extends JComponent implements MouseWheelListener {
     /**
      * The current StringList string.
      */
-    String currentString = "";
+    private StringBuilder currentString = new StringBuilder();
+
+    /**
+     * The index of the cursor.
+     */
+    private int cursorIndex = 0;
 
     /**
      * The number of lines currently being displayed.
@@ -85,6 +90,34 @@ class JTStringList extends JComponent implements MouseWheelListener {
     void snapToInput() {
         fontTransY = -currentFontSize * numLines + jtDisplay.getHeight() - 35 - currentFontSize * 2;
         if (fontTransY > -3) fontTransY = -3;
+    }
+
+    void incrementCursorIndex(){
+        if (cursorIndex < currentString.length())
+            cursorIndex++;
+    }
+
+    void decrementCursorIndex(){
+        if (cursorIndex != 0)
+            cursorIndex--;
+    }
+
+    void insertCharAtCursor(char c){
+        currentString.insert(cursorIndex, c);
+    }
+
+    void setCurrentString(String s){
+        currentString = new StringBuilder(s);
+        cursorIndex = 0;
+    }
+
+    void removeCurrentStringLastChar() {
+        if (currentString.length() != 0)
+            currentString.deleteCharAt(cursorIndex - 1);
+    }
+
+    public String getCurrentString() {
+        return currentString.toString();
     }
 
     @Override

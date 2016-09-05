@@ -115,6 +115,7 @@ public class CommandHandler {
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
                 commandFormat.handleInput(this, input, in, output);
+                embeddedCommands = new ArrayList<>();
                 stringLiterals = new ArrayList<>();
                 return;
             }
@@ -131,6 +132,14 @@ public class CommandHandler {
                         args[i] = args[i].replace("&" + j, stringLiterals.get(j));
                     }
 
+                    // Injects Variables
+                    for (Variable globalVariable : globalVariables) {
+                        args[i] = args[i].replaceAll(
+                                "\\[" + globalVariable.name + "\\]",
+                                globalVariable.value
+                        );
+                    }
+
                     // Injects embedded Commands
                     final String[] s = {""};
                     OutputStream os = new OutputStream() {
@@ -144,27 +153,21 @@ public class CommandHandler {
                     for (int j = 0; j < embeddedCommands.size(); j++) {
                         if (args[i].contains("~" + j)) {
                             handleInput(input, embeddedCommands.get(j), o2);
-                            args[i] = args[i].replace("~" + j, s[0]);
+                            args[i] = args[i].replace("~" + j, s[0].trim());
                             s[0] = "";
                         }
-                    }
-
-                    // Injects Variables
-                    for (Variable globalVariable : globalVariables) {
-                        args[i] = args[i].replaceAll(
-                                "\\[" + globalVariable.name + "\\]",
-                                globalVariable.value
-                        );
                     }
                 }
 
                 // Handles command
                 command.parse(input, new CommandArgumentList(args), directory, output);
+                embeddedCommands = new ArrayList<>();
                 stringLiterals = new ArrayList<>();
                 return;
             }
         }
 
+        embeddedCommands = new ArrayList<>();
         stringLiterals = new ArrayList<>();
         throw new CommandHandlerException("Unrecognized Command \"" + identifier + "\"");
     }

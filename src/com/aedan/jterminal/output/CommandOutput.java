@@ -49,7 +49,7 @@ public class CommandOutput {
      * @param o The Object to print.
      */
     public void print(Object o) {
-        print(o.toString());
+        print(String.valueOf(o));
     }
 
     /**
@@ -58,7 +58,7 @@ public class CommandOutput {
      * @param o The Object to print.
      */
     public void println(Object o) {
-        println(o.toString());
+        println(String.valueOf(o));
     }
 
     /**

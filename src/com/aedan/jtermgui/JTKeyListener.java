@@ -4,6 +4,7 @@ import com.aedan.jterminal.input.CommandInput;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
@@ -14,9 +15,20 @@ import java.awt.event.KeyListener;
 class JTKeyListener implements KeyListener, CommandInput {
 
     /**
+     * The List of recent Commands given to the CommandHandler.
+     */
+    private ArrayList<String> recentCommands = new ArrayList<>();
+
+    /**
+     * The current selected index of recent Commands.
+     */
+    private int commandIndex = 0;
+
+    /**
      * The StringList for the KeyListener to modify.
      */
     private final JTStringList stringList;
+
     /**
      * If the enter key is currently down.
      */
@@ -42,6 +54,8 @@ class JTKeyListener implements KeyListener, CommandInput {
             if (isEnterDown) {
                 try {
                     isEnterDown = false;
+                    recentCommands.add(stringList.currentString);
+                    commandIndex = recentCommands.size();
                     stringList.lines += stringList.currentString + "\n";
                     stringList.numLines++;
                     return stringList.currentString;
@@ -69,7 +83,20 @@ class JTKeyListener implements KeyListener, CommandInput {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (commandIndex != 0) {
+                commandIndex--;
+                stringList.currentString = recentCommands.get(commandIndex);
+                stringList.snapToInput();
+            }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (commandIndex < recentCommands.size()-1) {
+                commandIndex++;
+                stringList.currentString = recentCommands.get(commandIndex);
+                stringList.snapToInput();
+            }
+        }
     }
 
     @Override

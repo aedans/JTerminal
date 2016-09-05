@@ -131,19 +131,6 @@ public class CommandHandler {
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
                 for (int i = 0; i < args.length; i++) {
-                    // Injects String literals
-                    for (int j = 0; j < stringLiterals.size(); j++) {
-                        args[i] = args[i].replace("&" + j, stringLiterals.get(j));
-                    }
-
-                    // Injects Variables
-                    for (Variable globalVariable : globalVariables) {
-                        args[i] = args[i].replaceAll(
-                                "\\[" + globalVariable.name + "\\]",
-                                globalVariable.value
-                        );
-                    }
-
                     // Injects embedded Commands
                     final String[] s = {""};
                     OutputStream os = new OutputStream() {
@@ -160,6 +147,19 @@ public class CommandHandler {
                             args[i] = args[i].replace("~" + j, s[0].trim());
                             s[0] = "";
                         }
+                    }
+
+                    // Injects Variables
+                    for (Variable globalVariable : globalVariables) {
+                        args[i] = args[i].replaceAll(
+                                "\\[" + globalVariable.name + "\\]",
+                                globalVariable.value
+                        );
+                    }
+
+                    // Injects String literals
+                    for (int j = 0; j < stringLiterals.size(); j++) {
+                        args[i] = args[i].replace("&" + j, stringLiterals.get(j));
                     }
                 }
 

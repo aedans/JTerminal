@@ -122,7 +122,7 @@ class JTStringList extends JComponent implements MouseWheelListener {
 
     void setCurrentString(String s){
         currentString = new StringBuilder(s);
-        cursorIndex = 0;
+        cursorIndex = s.length();
     }
 
     void removeCurrentStringLastChar() {

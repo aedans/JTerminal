@@ -4,6 +4,7 @@ import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.defaultpackage.executors.ExecutorsPackage;
 import com.aedan.jterminal.commands.defaultpackage.io.FileIOPackage;
+import com.aedan.jterminal.commands.defaultpackage.math.MathCommandPackage;
 import com.aedan.jterminal.commands.defaultpackage.utility.UtilityPackage;
 
 /**
@@ -18,6 +19,7 @@ public class DefaultPackage implements CommandPackage {
     public void addCommands(CommandHandler destCommandHandler) {
         new FileIOPackage().addCommands(destCommandHandler);
         new ExecutorsPackage().addCommands(destCommandHandler);
+        new MathCommandPackage().addCommands(destCommandHandler);
         new UtilityPackage().addCommands(destCommandHandler);
     }
 

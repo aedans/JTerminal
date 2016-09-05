@@ -9,6 +9,9 @@ import com.aedan.jterminal.utils.Patterns;
 import com.aedan.jterminal.variables.Variable;
 import com.sun.istack.internal.NotNull;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -40,6 +43,11 @@ public class CommandHandler {
      * The current List of String literals.
      */
     private ArrayList<String> stringLiterals = new ArrayList<>();
+
+    /**
+     * The current List of embedded Commands.
+     */
+    private ArrayList<String> embeddedCommands = new ArrayList<>();
 
     /**
      * The current Directory of the CommandHandler.
@@ -96,6 +104,13 @@ public class CommandHandler {
             stringLiterals.add(m.group(1));
         }
 
+        // Tokenizes Embedded Commands.
+        m = Patterns.embeddedCommandPattern.matcher(in);
+        while (m.find()) {
+            in = in.replace("{" + m.group(1) + "}", "~" + embeddedCommands.size());
+            embeddedCommands.add(m.group(1));
+        }
+
         // Handles CommandFormats
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
@@ -114,6 +129,24 @@ public class CommandHandler {
                     // Injects String literals
                     for (int j = 0; j < stringLiterals.size(); j++) {
                         args[i] = args[i].replace("&" + j, stringLiterals.get(j));
+                    }
+
+                    // Injects embedded Commands
+                    final String[] s = {""};
+                    OutputStream os = new OutputStream() {
+                        @Override
+                        public void write(int b) throws IOException {
+                            s[0] += (char) b;
+                        }
+                    };
+                    PrintStream ps = new PrintStream(os);
+                    CommandOutput o2 = new CommandOutput(ps);
+                    for (int j = 0; j < embeddedCommands.size(); j++) {
+                        if (args[i].contains("~" + j)) {
+                            handleInput(input, embeddedCommands.get(j), o2);
+                            args[i] = args[i].replace("~" + j, s[0]);
+                            s[0] = "";
+                        }
                     }
 
                     // Injects Variables

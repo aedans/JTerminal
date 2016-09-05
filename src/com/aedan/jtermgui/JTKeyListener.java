@@ -58,6 +58,7 @@ class JTKeyListener implements KeyListener, CommandInput {
                     commandIndex = recentCommands.size();
                     stringList.lines += stringList.getCurrentString() + "\n";
                     stringList.numLines++;
+                    stringList.snapToInput();
                     return stringList.getCurrentString();
                 } finally {
                     stringList.setCurrentString("");

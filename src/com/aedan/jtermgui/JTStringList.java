@@ -39,11 +39,6 @@ class JTStringList extends JComponent implements MouseWheelListener {
     public Color fontColor = Color.WHITE, backgroundColor = Color.BLACK;
 
     /**
-     * The current font size for the StringList.
-     */
-    private int currentFontSize = 18;
-
-    /**
      * The amount to translate the font Y.
      */
     private int fontTransY = -3;
@@ -51,7 +46,17 @@ class JTStringList extends JComponent implements MouseWheelListener {
     /**
      * The current font for the StringList.
      */
-    private Font currentFont = new Font("Monospaced", Font.PLAIN, currentFontSize);
+    private Font currentFont = new Font("Monospaced", Font.PLAIN, 18);
+
+    /**
+     * The current font size for the StringList.
+     */
+    private int currentFontSize = currentFont.getSize();
+
+    /**
+     * The current width of the font.
+     */
+    private int currentFontWidth;
 
     /**
      * The current Display for the StringList.
@@ -72,6 +77,9 @@ class JTStringList extends JComponent implements MouseWheelListener {
         Graphics2D g = ((Graphics2D)g1);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
+        currentFontWidth =
+                (int) currentFont.getStringBounds("0", g.getFontRenderContext()).getMaxX();
+
         g.setColor(backgroundColor);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -83,6 +91,12 @@ class JTStringList extends JComponent implements MouseWheelListener {
             g.drawString(lines[i], 5, currentFontSize + (i * currentFontSize) + fontTransY);
         }
         g.drawString(lines[i] + currentString, 5, currentFontSize + (i * currentFontSize) + fontTransY);
+        g.fillRect(
+                (int) (lines[i].length()*currentFontWidth + cursorIndex*currentFontWidth - currentFontWidth*.6f),
+                (i * currentFontSize) + fontTransY + 3,
+                2,
+                currentFontSize
+        );
 
         repaint();
     }
@@ -112,7 +126,7 @@ class JTStringList extends JComponent implements MouseWheelListener {
     }
 
     void removeCurrentStringLastChar() {
-        if (currentString.length() != 0)
+        if (currentString.length() > 0)
             currentString.deleteCharAt(cursorIndex - 1);
     }
 

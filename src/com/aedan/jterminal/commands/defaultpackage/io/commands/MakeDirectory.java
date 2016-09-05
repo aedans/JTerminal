@@ -20,7 +20,9 @@ public class MakeDirectory extends Command {
     public MakeDirectory() {
         super("mkdir");
         this.properties[0] = "Creates a directory with the given name.";
-        this.properties[1] = "mkdir [directory]: Creates a directory with the name [directory].";
+        this.properties[1] =
+                "mkdir [directory]:\n" +
+                "   Creates a directory with the name [directory].";
     }
 
     @Override

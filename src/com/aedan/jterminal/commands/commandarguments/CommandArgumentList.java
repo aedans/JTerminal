@@ -20,7 +20,7 @@ public class CommandArgumentList {
     /**
      * Default CommandArgumentList constructor.
      *
-     * @param strings The array of values for the CommandArgumentList
+     * @param strings The array of values for the CommandArgumentList.
      */
     public CommandArgumentList(String[] strings) {
         args = new CommandArgument[strings.length];

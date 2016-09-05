@@ -19,7 +19,9 @@ public class AdditionCommand extends Command {
     public AdditionCommand() {
         super("+");
         properties[0] = "Adds two numbers.";
-        properties[1] = "+ [double-1] [double-2]: Outputs [double-1] + [double-2].";
+        properties[1] =
+                "+ [double-1] [double-2]:\n" +
+                "   Outputs [double-1] + [double-2].";
     }
 
     @Override

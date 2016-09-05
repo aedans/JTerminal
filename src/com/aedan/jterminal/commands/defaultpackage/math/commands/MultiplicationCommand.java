@@ -19,7 +19,9 @@ public class MultiplicationCommand extends Command {
     public MultiplicationCommand() {
         super("*");
         properties[0] = "Multiplies two numbers.";
-        properties[1] = "* [double-1] [double-2]: Outputs [double-1] * [double-2].";
+        properties[1] =
+                "* [double-1] [double-2]:\n" +
+                "   Outputs [double-1] * [double-2].";
     }
 
     @Override

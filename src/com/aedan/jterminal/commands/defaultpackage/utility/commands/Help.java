@@ -25,8 +25,10 @@ public class Help extends Command {
         super("help");
         this.properties[0] = "Lists all commands and their simple descriptions.";
         this.properties[1] =
-                "help: Lists all commands and their simple descriptions.\n" +
-                "help [string]: Lists the detailed description of command [string].";
+                "help:\n" +
+                "   Lists all commands and their simple descriptions.\n" +
+                "help [string]:\n" +
+                "   Lists the detailed description of command [string].";
         this.commandHandler = commandHandler;
     }
 

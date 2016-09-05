@@ -20,7 +20,9 @@ public class Open extends Command {
     public Open() {
         super("open");
         this.properties[0] = "Opens a given file with the default application.";
-        this.properties[1] = "open [directory]: Opens the file at [directory].";
+        this.properties[1] =
+                "open [directory]:\n" +
+                "   Opens the file at [directory] with the OS default file opener.";
     }
 
     @Override

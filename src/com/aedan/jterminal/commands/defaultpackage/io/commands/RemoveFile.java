@@ -20,7 +20,9 @@ public class RemoveFile extends Command {
     public RemoveFile() {
         super("rm");
         this.properties[0] = "Removes the file with the given name.";
-        this.properties[1] = "rm [directory]: Removes the file at [directory]";
+        this.properties[1] =
+                "rm [directory]:\n" +
+                "   Removes the file at [directory]";
     }
 
     @Override

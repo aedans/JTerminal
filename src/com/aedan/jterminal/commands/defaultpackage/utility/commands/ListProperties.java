@@ -21,7 +21,9 @@ public class ListProperties extends Command {
     public ListProperties(CommandHandler commandHandler) {
         super("properties");
         this.properties[0] = "Lists all properties of a given command.";
-        this.properties[1] = "properties [string]: Lists all properties of command [string].";
+        this.properties[1] =
+                "properties [string]:\n" +
+                "   Lists all properties of command [string].";
         this.commandHandler = commandHandler;
     }
 

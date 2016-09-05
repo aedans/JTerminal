@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Matcher;
 
@@ -74,7 +75,12 @@ public class CommandHandler {
      */
     @NotNull
     public void handleInput(CommandInput input, CommandOutput output) throws CommandHandlerException {
-        handleInput(input, input.nextLine(), output);
+        try {
+            handleInput(input, input.nextLine(), output);
+        } finally {
+            embeddedCommands = new ArrayList<>();
+            stringLiterals = new ArrayList<>();
+        }
     }
 
     /**
@@ -115,8 +121,6 @@ public class CommandHandler {
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
                 commandFormat.handleInput(this, input, in, output);
-                embeddedCommands = new ArrayList<>();
-                stringLiterals = new ArrayList<>();
                 return;
             }
         }
@@ -161,14 +165,10 @@ public class CommandHandler {
 
                 // Handles command
                 command.parse(input, new CommandArgumentList(args), directory, output);
-                embeddedCommands = new ArrayList<>();
-                stringLiterals = new ArrayList<>();
                 return;
             }
         }
 
-        embeddedCommands = new ArrayList<>();
-        stringLiterals = new ArrayList<>();
         throw new CommandHandlerException("Unrecognized Command \"" + identifier + "\"");
     }
 

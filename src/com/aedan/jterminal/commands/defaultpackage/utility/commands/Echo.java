@@ -19,13 +19,16 @@ public class Echo extends Command {
     public Echo() {
         super("echo");
         this.properties[0] = "Outputs text.";
-        this.properties[1] = "echo [string]: Outputs [string].";
+        this.properties[1] =
+                "echo [string]:\n" +
+                "   Outputs [string].";
     }
 
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
+
         output.println(args.get(1));
     }
 

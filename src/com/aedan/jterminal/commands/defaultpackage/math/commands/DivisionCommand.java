@@ -19,7 +19,9 @@ public class DivisionCommand extends Command {
     public DivisionCommand() {
         super("/");
         properties[0] = "Divides two numbers.";
-        properties[1] = "/ [double-1] [double-2]: Outputs [double-1] / [double-2].";
+        properties[1] =
+                "/ [double-1] [double-2]:\n" +
+                "   Outputs [double-1] / [double-2].";
     }
 
     @Override

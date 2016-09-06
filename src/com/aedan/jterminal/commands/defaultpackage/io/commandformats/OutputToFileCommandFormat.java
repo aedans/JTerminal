@@ -34,7 +34,7 @@ public class OutputToFileCommandFormat implements CommandFormat {
         try {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
-                File f = commandHandler.getDirectory().getFile(m.group(2));
+                File f = commandHandler.getDirectory().getFile(commandHandler.compute(input, m.group(2)));
                 output.println(FileUtils.createFile(f));
                 PrintStream ps = new PrintStream(new FileOutputStream(f));
                 output.setPrintStreams(ps);

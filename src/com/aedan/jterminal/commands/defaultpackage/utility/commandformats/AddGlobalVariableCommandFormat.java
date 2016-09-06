@@ -36,7 +36,7 @@ public class AddGlobalVariableCommandFormat implements CommandFormat {
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 PrintStream ps = new PrintStream(os);
                 commandHandler.handleInput(input, m.group(1), new CommandOutput(ps));
-                commandHandler.addVariable(new Variable(m.group(2), os.toString("UTF8").trim()));
+                commandHandler.addVariable(new Variable(commandHandler.compute(input, m.group(2)), os.toString("UTF8").trim()));
                 output.println("Created variable " + m.group(2));
             } else {
                 throw new CommandHandler.CommandHandlerException(

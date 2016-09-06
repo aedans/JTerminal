@@ -119,10 +119,6 @@ public class CommandHandler {
         // Handles CommandFormats
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
-                // Computes input
-                in = compute(input, in);
-
-                // Handles CommandFormat.
                 commandFormat.handleInput(this, input, in, output);
                 return;
             }
@@ -155,7 +151,7 @@ public class CommandHandler {
      * @return The computer String.
      * @throws CommandHandlerException if there is an error computing the String.
      */
-    private String compute(CommandInput input, String command) throws CommandHandlerException {
+    public String compute(CommandInput input, String command) throws CommandHandlerException {
         // Injects embedded Commands
         final String[] s = {""};
         OutputStream os = new OutputStream() {

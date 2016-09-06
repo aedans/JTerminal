@@ -10,6 +10,7 @@ import com.aedan.jterminal.output.CommandOutput;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by Aedan Smith on 9/5/2016.
@@ -30,11 +31,15 @@ public class Match extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
+        try {
+            args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
 
-        Matcher m = Pattern.compile(args.get(2).value).matcher(args.get(1).value);
-        while (m.find()){
-            output.println(m.group(1));
+            Matcher m = Pattern.compile(args.get(2).value).matcher(args.get(1).value);
+            while (m.find()) {
+                output.println(m.group(1));
+            }
+        } catch (PatternSyntaxException e){
+            throw new CommandHandler.CommandHandlerException("Invalid pattern: " + e.getMessage());
         }
     }
 

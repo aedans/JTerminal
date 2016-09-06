@@ -1,7 +1,6 @@
-package com.aedan.jterminal;
+package com.aedan.jterminal.utils;
 
 import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
 import java.nio.file.InvalidPathException;

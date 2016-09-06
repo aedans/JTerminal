@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.math;
 
-import com.aedan.jterminal.CommandPackage;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.defaultpackage.math.commands.AdditionCommand;
 import com.aedan.jterminal.commands.defaultpackage.math.commands.DivisionCommand;

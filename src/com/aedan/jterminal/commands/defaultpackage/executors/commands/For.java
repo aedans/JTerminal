@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
-import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.utils.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
@@ -8,9 +8,6 @@ import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.variables.Variable;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/15/2016.

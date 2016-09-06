@@ -1,6 +1,4 @@
-package com.aedan.jterminal;
-
-import com.aedan.jterminal.commands.CommandHandler;
+package com.aedan.jterminal.commands;
 
 /**
  * Created by Aedan Smith on 8/15/2016.

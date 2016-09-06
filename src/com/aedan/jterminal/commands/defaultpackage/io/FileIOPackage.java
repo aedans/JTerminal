@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.io;
 
-import com.aedan.jterminal.CommandPackage;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.defaultpackage.io.commandformats.OutputToFileCommandFormat;
 import com.aedan.jterminal.commands.defaultpackage.io.commands.*;

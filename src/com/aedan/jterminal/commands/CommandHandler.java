@@ -1,7 +1,6 @@
 package com.aedan.jterminal.commands;
 
-import com.aedan.jterminal.CommandPackage;
-import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.utils.Directory;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Matcher;
 

@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.io.commands;
 
-import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.utils.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
@@ -41,7 +41,7 @@ public class Concatenate extends Command {
             output.print(out);
         } else if (args.length() == 2) {
             try {
-                output.println(FileUtils.readFile(directory.getFile(args.get(1).value)));
+                output.println(FileUtils.readFile(directory.getFile(args.get(1).value), true));
             } catch (FileUtils.FileIOException e) {
                 throw new CommandHandler.CommandHandlerException(e.getMessage());
             }
@@ -49,7 +49,7 @@ public class Concatenate extends Command {
             String s = "";
             for (int i = 1; i < args.length(); i++) {
                 try {
-                    s += FileUtils.readFile(directory.getFile(args.get(i).value));
+                    s += FileUtils.readFile(directory.getFile(args.get(i).value), true);
                 } catch (FileUtils.FileIOException e) {
                     throw new CommandHandler.CommandHandlerException(e.getMessage());
                 }

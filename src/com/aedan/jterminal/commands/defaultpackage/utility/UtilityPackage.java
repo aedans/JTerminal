@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.utility;
 
-import com.aedan.jterminal.CommandPackage;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.defaultpackage.utility.commandformats.AddGlobalVariableCommandFormat;
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.Echo;

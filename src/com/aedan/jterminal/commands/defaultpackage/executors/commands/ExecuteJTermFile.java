@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
-import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.utils.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
@@ -36,7 +36,11 @@ public class ExecuteJTermFile extends Command {
             String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(directory.getFile(dir));
             for (String s : lines.split("\\n")) {
-                commandHandler.handleInput(input, s, output);
+                try {
+                    commandHandler.handleInput(input, s, output);
+                } catch (CommandHandler.CommandHandlerException e){
+                    output.printf("Could not handle command \"%s\" (%s)\n", s, e.getMessage());
+                }
             }
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

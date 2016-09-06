@@ -1,6 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
-import com.aedan.jterminal.Directory;
+import com.aedan.jterminal.utils.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;

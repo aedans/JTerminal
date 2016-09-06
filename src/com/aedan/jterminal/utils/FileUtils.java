@@ -5,6 +5,8 @@ import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -85,18 +87,29 @@ public final class FileUtils {
      * @throws FileIOException if the File cannot be read.
      */
     public static String readFile(File file) throws FileIOException {
+        return FileUtils.readFile(file, false);
+    }
+
+    /**
+     * Returns the content of a File.
+     *
+     * @param file The File to read.
+     * @param bytes True if the reader should read raw byte data.
+     * @return The content of the File.
+     * @throws FileIOException if the File cannot be read.
+     */
+    public static String readFile(File file, boolean bytes) throws FileIOException {
         try {
             if (file.exists()) {
                 if (file.isFile()) {
                     if (file.canRead()) {
-                        String s = "";
-                        BufferedReader buffer = new BufferedReader(new FileReader(file));
-                        String line;
-                        while ((line = buffer.readLine()) != null) {
-                            s += line + "\n";
+                        if (!bytes) {
+                            final String[] content = {""};
+                            new BufferedReader(new FileReader(file)).lines().forEach(s -> content[0] += s + '\n');
+                            return content[0];
+                        } else {
+                            return new String(Files.readAllBytes(file.toPath()));
                         }
-                        buffer.close();
-                        return s;
                     } else {
                         throw new FileIOException(file.getAbsolutePath() + " is not readable");
                     }

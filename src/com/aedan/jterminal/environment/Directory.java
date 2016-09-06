@@ -93,7 +93,7 @@ public class Directory implements Variable {
 
     @Override
     public String getName() {
-        return "path";
+        return "PATH";
     }
 
     @Override

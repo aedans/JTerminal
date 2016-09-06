@@ -11,6 +11,7 @@ import com.aedan.jterminal.output.CommandOutput;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -56,6 +57,20 @@ public class Environment {
         this.commandHandler = new CommandHandler(this);
         for (CommandPackage c : commandPackages){
             this.addCommandPackage(c);
+        }
+        Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()){
+            environmentVariables.add(new Variable() {
+                @Override
+                public String getName() {
+                    return envName;
+                }
+
+                @Override
+                public String getValue() {
+                    return env.get(envName);
+                }
+            });
         }
     }
 

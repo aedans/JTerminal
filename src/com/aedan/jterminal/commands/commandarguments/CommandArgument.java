@@ -11,7 +11,8 @@ public class CommandArgument {
     /**
      * The ArgumentType of the CommandArgument.
      */
-    public final ArgumentType argumentType;
+    final ArgumentType argumentType;
+
     /**
      * The value of the CommandArgument.
      */
@@ -22,7 +23,7 @@ public class CommandArgument {
      *
      * @param value The value of the CommandArgument.
      */
-    public CommandArgument(String value) {
+    CommandArgument(String value) {
         this(value, ArgumentType.getArgumentType(value));
     }
 
@@ -32,7 +33,7 @@ public class CommandArgument {
      * @param value        The value of the CommandArgument.
      * @param argumentType The ArgumentType of the CommandArgument.
      */
-    public CommandArgument(String value, ArgumentType argumentType) {
+    CommandArgument(String value, ArgumentType argumentType) {
         this.value = value;
         this.argumentType = argumentType;
     }

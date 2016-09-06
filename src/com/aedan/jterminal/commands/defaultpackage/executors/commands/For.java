@@ -47,7 +47,6 @@ public class For extends Command {
                         args.get(2).value,
                         output
                 );
-                commandHandler.removeVariable("s");
             }
         } else {
             args.checkMatches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING);

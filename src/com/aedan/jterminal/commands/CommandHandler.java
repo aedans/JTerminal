@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Matcher;
 
@@ -97,7 +98,6 @@ public class CommandHandler {
             stringLiterals = new ArrayList<>();
             throw new CommandHandlerException("Input is null");
         }
-
         if (Objects.equals(in, "")) {
             return;
         }
@@ -183,7 +183,7 @@ public class CommandHandler {
             command = command.replace("&" + j, stringLiterals.get(j));
         }
 
-        return command;
+        return command.trim();
     }
 
     /**

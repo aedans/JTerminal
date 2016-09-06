@@ -28,7 +28,8 @@ public class ListProperties extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+            throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
 
         for (Command c : commandHandler.getCommands()){

@@ -22,7 +22,7 @@ public class ListSubdirectories extends Command {
         this.properties[0] = "Lists all subdirectories of the current folder.";
         this.properties[1] =
                 "ls:\n" +
-                "   Lists all subdirectories of the current folder.";
+                "    Lists all subdirectories of the current folder.";
     }
 
     @Override

@@ -53,7 +53,6 @@ public class Environment {
      * @param commandPackages The List of CommandPackages for the Environment.
      */
     public Environment(CommandPackage... commandPackages){
-        this.environmentVariables.add(new Directory());
         this.commandHandler = new CommandHandler(this);
         for (CommandPackage c : commandPackages){
             this.addCommandPackage(c);
@@ -72,6 +71,89 @@ public class Environment {
                 }
             });
         }
+        this.environmentVariables.add(0, new Directory());
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "COMMANDPROPERTIES";
+            }
+
+            @Override
+            public String getValue() {
+                String s = "";
+                for (Command c : getCommands()){
+                    s += "\n" + c.getIdentifier() + ":\n";
+                    for (int i = 0; i < Command.numProperties; i++) {
+                        try {
+                            s += "[" + i + "] " + c.getProperty(i).replace("\n", "\n    ") + "\n";
+                        } catch (Command.InvalidPropertyException e) {
+                            s += "[" + i + "] " + e.getMessage() + "\n";
+                        }
+                    }
+                }
+                return s;
+            }
+        });
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "COMMANDS";
+            }
+
+            @Override
+            public String getValue() {
+                String s = "";
+                for (Command c : getCommands()){
+                    s += c.getIdentifier() + "\n";
+                }
+                return s;
+            }
+        });
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "COMMANDFORMATS";
+            }
+
+            @Override
+            public String getValue() {
+                String s = "";
+                for (CommandFormat c : getCommandFormats()){
+                    s += c.getClass().getSimpleName() + "\n";
+                }
+                return s;
+            }
+        });
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "GLOBALVARS";
+            }
+
+            @Override
+            public String getValue() {
+                String s = "";
+                for (GlobalVariable v : getGlobalVariables()){
+                    s += v.getName() + "\n";
+                }
+                return s;
+            }
+        });
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "ENVVARS";
+            }
+
+            @Override
+            public String getValue() {
+                String s = "";
+                for (Variable v : getEnvironmentVariables()){
+                    s += v.getName() + "\n";
+                }
+                return s;
+            }
+        });
     }
 
     /**

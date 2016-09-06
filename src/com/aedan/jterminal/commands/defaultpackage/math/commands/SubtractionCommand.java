@@ -21,7 +21,7 @@ public class SubtractionCommand extends Command {
         properties[0] = "Subtracts two numbers.";
         properties[1] =
                 "- [double-1] [double-2]:\n" +
-                "   Outputs [double-1] - [double-2].";
+                "    Outputs [double-1] - [double-2].";
     }
 
     @Override

@@ -22,7 +22,7 @@ public class RemoveFile extends Command {
         this.properties[0] = "Removes the file with the given name.";
         this.properties[1] =
                 "rm [directory]:\n" +
-                "   Removes the file at [directory]";
+                "    Removes the file at [directory]";
     }
 
     @Override

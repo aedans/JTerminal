@@ -25,7 +25,7 @@ public class Match extends Command {
         properties[0] = "Outputs all matches in a String.";
         properties[1] =
                 "Match [string-content] [string-pattern]:\n" +
-                "   Outputs the group 1 of all matches of [string-pattern] in [string-content].";
+                "    Outputs the group 1 of all matches of [string-pattern] in [string-content].";
     }
 
     @Override

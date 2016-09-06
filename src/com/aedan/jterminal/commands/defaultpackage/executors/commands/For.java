@@ -25,11 +25,11 @@ public class For extends Command {
         this.properties[0] = "Iterates a command and stores the current iteration in a variable.";
         this.properties[1] =
                 "for [int-begin] [int-end] [string-varname] [string-command]:\n" +
-                "   Adds the variable [string-varname] to the CommandHandler, then executes [string-command] once\n" +
-                "   for each value between [int-begin] and [int-end].\n" +
+                "    Adds the variable [string-varname] to the CommandHandler, then executes [string-command] once\n" +
+                "    for each value between [int-begin] and [int-end].\n" +
                 "for [string-content] [string-command]:\n" +
-                "   Adds the variable s to the CommandHandler, then executes [string-command] once for each line\n" +
-                "   in [string-content], setting variable s to the content of the line.";
+                "    Adds the variable s to the CommandHandler, then executes [string-command] once for each line\n" +
+                "    in [string-content], setting variable s to the content of the line.";
         this.environment = environment;
     }
 

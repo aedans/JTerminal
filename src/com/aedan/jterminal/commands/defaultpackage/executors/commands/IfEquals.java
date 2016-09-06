@@ -26,7 +26,7 @@ public class IfEquals extends Command {
         this.properties[0] = "Executes a Command if two Strings are equal.";
         this.properties[1] =
                 "== [string-test1] [string-test2] [string-command]:\n" +
-                "   Executes [string-command] if [string-test1] and [string-test2] are equal.";
+                "    Executes [string-command] if [string-test1] and [string-test2] are equal.";
         this.environment = environment;
     }
 

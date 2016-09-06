@@ -34,7 +34,7 @@ public class JTerminal implements Runnable {
     private CommandOutput output;
 
     /**
-     * The CommandHandler for the JTerminal.
+     * The Environment for the JTerminal.
      */
     private Environment environment;
 

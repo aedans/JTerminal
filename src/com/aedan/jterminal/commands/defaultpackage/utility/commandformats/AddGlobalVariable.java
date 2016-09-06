@@ -18,21 +18,21 @@ import java.util.regex.Pattern;
  * Default CommandFormat.
  */
 
-public class AddGlobalVariableCommandFormat implements CommandFormat {
+public class AddGlobalVariable implements CommandFormat {
 
-    private final String addGlobalVariableCommandFormatRegex = "([^=]+)=> *(.+)";
-    private final Pattern addGlobalVariableCommandFormatPattern = Pattern.compile(addGlobalVariableCommandFormatRegex);
+    private final String addGlobalVariableRegex = "([^=]+)=> *(.+)";
+    private final Pattern addGlobalVariablePattern = Pattern.compile(addGlobalVariableRegex);
 
     @Override
     public boolean matches(String in) throws CommandHandler.CommandHandlerException {
-        return in.matches(addGlobalVariableCommandFormatRegex);
+        return in.matches(addGlobalVariableRegex);
     }
 
     @Override
     public void handleInput(Environment environment, CommandInput input, String in, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            Matcher m = addGlobalVariableCommandFormatPattern.matcher(in);
+            Matcher m = addGlobalVariablePattern.matcher(in);
             if (m.find()) {
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 PrintStream ps = new PrintStream(os);

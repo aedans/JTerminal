@@ -1,7 +1,7 @@
 package com.aedan.jterminal.commands.defaultpackage.utility;
 
 import com.aedan.jterminal.commands.CommandPackage;
-import com.aedan.jterminal.commands.defaultpackage.utility.commandformats.AddGlobalVariableCommandFormat;
+import com.aedan.jterminal.commands.defaultpackage.utility.commandformats.AddGlobalVariable;
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.Echo;
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.Help;
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.Match;
@@ -17,7 +17,7 @@ public class UtilityPackage implements CommandPackage {
 
     @Override
     public void addCommands(Environment environment) {
-        environment.addCommandFormat(new AddGlobalVariableCommandFormat());
+        environment.addCommandFormat(new AddGlobalVariable());
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));
         environment.addCommand(new Match());

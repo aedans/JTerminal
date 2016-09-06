@@ -3,13 +3,13 @@ package com.aedan.jterminal.environment.variables;
 /**
  * Created by Aedan Smith on 8/22/2016.
  * <p>
- * Class for the CommandHandler to use to handle Variables.
+ * Class for the Environment to use to handle Variables.
  */
 
 public class GlobalVariable implements Variable {
 
     /**
-     * The name of the variable
+     * The name of the Variable
      */
     private String name;
 

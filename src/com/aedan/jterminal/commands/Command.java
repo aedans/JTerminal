@@ -8,7 +8,7 @@ import com.aedan.jterminal.output.CommandOutput;
 /**
  * Created by Aedan Smith on 8/10/16.
  * <p>
- * Abstract class containing necessary functions for the CommandHandler to use.
+ * Abstract class containing necessary functions for the Environment to use.
  */
 
 public abstract class Command {
@@ -31,7 +31,7 @@ public abstract class Command {
     /**
      * The default Command constructor.
      *
-     * @param identifier       The identifier to identify the Command.
+     * @param identifier The identifier to identify the Command.
      */
     protected Command(String identifier) {
         this.identifier = identifier;
@@ -40,9 +40,9 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param input     The Input for the CommandHandler.
+     * @param input     The Input for the JTerminal.
      * @param args      The CommandArgumentList to parse.
-     * @param directory The directory of the CommandHandler.
+     * @param directory The directory of the Environment.
      * @param output    The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
@@ -67,6 +67,9 @@ public abstract class Command {
         return properties[id];
     }
 
+    /**
+     * Exception thrown if the JTerminal tries to access an invalid property.
+     */
     public static class InvalidPropertyException extends Exception {
 
         /**

@@ -40,7 +40,13 @@ public enum ArgumentType {
         return STRING;
     }
 
-    public boolean contains(ArgumentType argumentType){
+    /**
+     * Returns true if an ArgumentType is a subset of another ArgumentType.
+     *
+     * @param argumentType The ArgumentType to test.
+     * @return True if an ArgumentType is a subset of another ArgumentType
+     */
+    public boolean isSubset(ArgumentType argumentType){
         switch (argumentType){
             case BYTE:
                 if (this == BYTE) return true;

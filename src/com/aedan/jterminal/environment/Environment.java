@@ -23,22 +23,22 @@ import java.util.Objects;
 public class Environment {
 
     /**
-     * The List of Commands for the CommandHandler to handle.
+     * The List of Commands in the Environment.
      */
     private ArrayList<Command> commands = new ArrayList<>();
 
     /**
-     * The List of CommandFormats for the CommandHandler to handle.
+     * The List of CommandFormats in the Environment.
      */
     private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
 
     /**
-     * The List of Environment Variables for the CommandHandler to parse
+     * The List of Environment Variables in the Environment
      */
     private ArrayList<Variable> environmentVariables = new ArrayList<>();
 
     /**
-     * The List of Variables for the CommandHandler to parse.
+     * The List of Variables in the Environment.
      */
     private ArrayList<GlobalVariable> globalVariables = new ArrayList<>();
 

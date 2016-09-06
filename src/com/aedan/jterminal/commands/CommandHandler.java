@@ -135,6 +135,7 @@ public class CommandHandler {
      */
     public String compute(CommandInput input, String command) throws CommandHandlerException {
         command += " ";
+
         // Injects embedded Commands
         final String[] s = {""};
         OutputStream os = new OutputStream() {

@@ -19,21 +19,21 @@ import java.util.regex.Pattern;
  * Default CommandFormat.
  */
 
-public class OutputToFileCommandFormat implements CommandFormat {
+public class OutputToFile implements CommandFormat {
 
-    private final String outputToFileCommandFormatRegex = "([^>]+)>> *(.+)";
-    private final Pattern outputToFileCommandFormatPattern = Pattern.compile(outputToFileCommandFormatRegex);
+    private final String outputToFileRegex = "([^>]+)>> *(.+)";
+    private final Pattern outputToFilePattern = Pattern.compile(outputToFileRegex);
 
     @Override
     public boolean matches(String in) throws CommandHandler.CommandHandlerException {
-        return in.matches(outputToFileCommandFormatRegex);
+        return in.matches(outputToFileRegex);
     }
 
     @Override
     public void handleInput(Environment environment, CommandInput input, String in, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            Matcher m = outputToFileCommandFormatPattern.matcher(in);
+            Matcher m = outputToFilePattern.matcher(in);
             if (m.find()) {
                 File f = environment.getDirectory().getFile(environment.compute(input, m.group(2)));
                 output.println(FileUtils.createFile(f));

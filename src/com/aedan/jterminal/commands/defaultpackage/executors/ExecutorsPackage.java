@@ -4,6 +4,8 @@ import com.aedan.jterminal.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.defaultpackage.executors.commands.ExecuteJTermFile;
 import com.aedan.jterminal.commands.defaultpackage.executors.commands.For;
+import com.aedan.jterminal.commands.defaultpackage.executors.commands.IfEquals;
+import com.aedan.jterminal.commands.defaultpackage.executors.commands.IfNotEquals;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -17,6 +19,8 @@ public class ExecutorsPackage implements CommandPackage {
     public void addCommands(CommandHandler destCommandHandler) {
         destCommandHandler.addCommand(new ExecuteJTermFile(destCommandHandler));
         destCommandHandler.addCommand(new For(destCommandHandler));
+        destCommandHandler.addCommand(new IfEquals(destCommandHandler));
+        destCommandHandler.addCommand(new IfNotEquals(destCommandHandler));
     }
 
 }

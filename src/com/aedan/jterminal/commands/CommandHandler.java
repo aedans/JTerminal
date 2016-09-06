@@ -197,6 +197,7 @@ public class CommandHandler {
      */
     @NotNull
     public void addVariable(Variable variable) {
+        removeVariable(variable.name);
         globalVariables.add(variable);
     }
 

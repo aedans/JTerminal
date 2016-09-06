@@ -2,10 +2,11 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.environment.variables.GlobalVariable;
+import com.aedan.jterminal.environment.variables.Variable;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.Patterns;
-import com.aedan.jterminal.environment.variables.Variable;
 import com.sun.istack.internal.NotNull;
 
 import java.io.IOException;
@@ -153,18 +154,18 @@ public class CommandHandler {
         }
 
         // Injects global Variables
-        for (Variable variable : environment.getGlobalVariables()) {
+        for (GlobalVariable variable : environment.getGlobalVariables()) {
             command = command.replace(
-                    "[" + variable.name + "]",
-                    variable.value
+                    "[" + variable.getName() + "]",
+                    variable.getValue()
             );
         }
 
         // Injects environment Variables
         for (Variable variable : environment.getEnvironmentVariables()) {
             command = command.replace(
-                    "%" + variable.name + "%",
-                    variable.value
+                    "%" + variable.getName() + "%",
+                    variable.getValue()
             );
         }
 

@@ -4,6 +4,7 @@ import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
+import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.environment.variables.Variable;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -38,7 +39,7 @@ public class Environment {
     /**
      * The List of Variables for the CommandHandler to parse.
      */
-    private ArrayList<Variable> globalVariables = new ArrayList<>();
+    private ArrayList<GlobalVariable> globalVariables = new ArrayList<>();
 
     /**
      * The CommandHandler for the Environment.
@@ -59,25 +60,25 @@ public class Environment {
     }
 
     /**
-     * Adds a Variable to the Environment.
+     * Adds a GlobalVariable to the Environment.
      *
-     * @param variable The Variable to add.
+     * @param variable The GlobalVariable to add.
      */
     @NotNull
-    public void addGlobalVariable(Variable variable) {
-        removeGlobalVariable(variable.name);
+    public void addGlobalVariable(GlobalVariable variable) {
+        removeGlobalVariable(variable.getName());
         globalVariables.add(variable);
     }
 
     /**
-     * Removes a Variable from the Environment.
+     * Removes a GlobalVariable from the Environment.
      *
-     * @param name The name of the Variable to remove.
+     * @param name The name of the GlobalVariable to remove.
      */
     public void removeGlobalVariable(String name) {
-        Variable n = null;
-        for (Variable v : globalVariables) {
-            if (Objects.equals(v.name, name)) {
+        GlobalVariable n = null;
+        for (GlobalVariable v : globalVariables) {
+            if (Objects.equals(v.getName(), name)) {
                 n = v;
             }
         }
@@ -131,7 +132,7 @@ public class Environment {
 
     public void setDirectory(Directory directory) {
         for (int i = 0; i < environmentVariables.size(); i++) {
-            if (Objects.equals(environmentVariables.get(i).name, "cd")){
+            if (Objects.equals(environmentVariables.get(i).getName(), "cd")){
                 environmentVariables.set(i, directory);
             }
         }
@@ -158,7 +159,7 @@ public class Environment {
         return environmentVariables;
     }
 
-    public ArrayList<Variable> getGlobalVariables() {
+    public ArrayList<GlobalVariable> getGlobalVariables() {
         return globalVariables;
     }
 

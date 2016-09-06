@@ -5,7 +5,7 @@ import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.environment.variables.Variable;
+import com.aedan.jterminal.environment.variables.GlobalVariable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -37,11 +37,11 @@ public class AddGlobalVariableCommandFormat implements CommandFormat {
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 PrintStream ps = new PrintStream(os);
                 environment.handleInput(input, m.group(1), new CommandOutput(ps));
-                environment.addGlobalVariable(new Variable(environment.compute(input, m.group(2)), os.toString("UTF8").trim()));
+                environment.addGlobalVariable(new GlobalVariable(environment.compute(input, m.group(2)), os.toString("UTF8").trim()));
                 output.println("Created variable " + m.group(2));
             } else {
                 throw new CommandHandler.CommandHandlerException(
-                        "\"" + in + "\" does not match Add Global Variable format (command => destination).");
+                        "\"" + in + "\" does not match Add Global GlobalVariable format (command => destination).");
             }
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());

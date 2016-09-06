@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands.defaultpackage.io.commandformats;
 
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
@@ -29,16 +30,16 @@ public class OutputToFileCommandFormat implements CommandFormat {
     }
 
     @Override
-    public void handleInput(CommandHandler commandHandler, CommandInput input, String in, CommandOutput output)
+    public void handleInput(Environment environment, CommandInput input, String in, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
             Matcher m = outputToFileCommandFormatPattern.matcher(in);
             if (m.find()) {
-                File f = commandHandler.getDirectory().getFile(commandHandler.compute(input, m.group(2)));
+                File f = environment.getDirectory().getFile(environment.compute(input, m.group(2)));
                 output.println(FileUtils.createFile(f));
                 PrintStream ps = new PrintStream(new FileOutputStream(f));
                 output.setPrintStreams(ps);
-                commandHandler.handleInput(input, m.group(1), output);
+                environment.handleInput(input, m.group(1), output);
                 ps.close();
             } else {
                 throw new CommandHandler.CommandHandlerException(

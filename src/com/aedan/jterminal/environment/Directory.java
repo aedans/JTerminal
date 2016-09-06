@@ -1,6 +1,8 @@
-package com.aedan.jterminal.utils;
+package com.aedan.jterminal.environment;
 
 import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.environment.variables.Variable;
+import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
 import java.nio.file.InvalidPathException;
@@ -14,7 +16,7 @@ import java.util.Objects;
  * utility class for managing the CommandHandler directory.
  */
 
-public class Directory {
+public class Directory extends Variable {
 
     /**
      * The current Directory.
@@ -34,6 +36,10 @@ public class Directory {
      * @param directory The path of the Directory.
      */
     public Directory(String directory) {
+        super(
+                "cd",
+                String.valueOf(Paths.get(directory).toAbsolutePath())
+        );
         this.directory = new File(String.valueOf(Paths.get(directory).toAbsolutePath()));
     }
 
@@ -61,10 +67,6 @@ public class Directory {
         }
     }
 
-    public File getDirectory() {
-        return directory;
-    }
-
     /**
      * Goes to a Directory.
      *
@@ -81,6 +83,10 @@ public class Directory {
         } else {
             throw new DirectoryChangeException("Directory \"" + directory.getAbsolutePath() + "\" does not exist");
         }
+    }
+
+    public File getDirectory() {
+        return directory;
     }
 
     @Override

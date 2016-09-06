@@ -6,6 +6,7 @@ import com.aedan.jterminal.commands.defaultpackage.executors.commands.ExecuteJTe
 import com.aedan.jterminal.commands.defaultpackage.executors.commands.For;
 import com.aedan.jterminal.commands.defaultpackage.executors.commands.IfEquals;
 import com.aedan.jterminal.commands.defaultpackage.executors.commands.IfNotEquals;
+import com.aedan.jterminal.environment.Environment;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -16,11 +17,11 @@ import com.aedan.jterminal.commands.defaultpackage.executors.commands.IfNotEqual
 public class ExecutorsPackage implements CommandPackage {
 
     @Override
-    public void addCommands(CommandHandler destCommandHandler) {
-        destCommandHandler.addCommand(new ExecuteJTermFile(destCommandHandler));
-        destCommandHandler.addCommand(new For(destCommandHandler));
-        destCommandHandler.addCommand(new IfEquals(destCommandHandler));
-        destCommandHandler.addCommand(new IfNotEquals(destCommandHandler));
+    public void addCommands(Environment environment) {
+        environment.addCommand(new ExecuteJTermFile(environment));
+        environment.addCommand(new For(environment));
+        environment.addCommand(new IfEquals(environment));
+        environment.addCommand(new IfNotEquals(environment));
     }
 
 }

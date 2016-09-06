@@ -6,6 +6,7 @@ import com.aedan.jterminal.commands.defaultpackage.math.commands.AdditionCommand
 import com.aedan.jterminal.commands.defaultpackage.math.commands.DivisionCommand;
 import com.aedan.jterminal.commands.defaultpackage.math.commands.MultiplicationCommand;
 import com.aedan.jterminal.commands.defaultpackage.math.commands.SubtractionCommand;
+import com.aedan.jterminal.environment.Environment;
 
 /**
  * Created by Aedan Smith on 9/5/2016.
@@ -16,11 +17,11 @@ import com.aedan.jterminal.commands.defaultpackage.math.commands.SubtractionComm
 public class MathCommandPackage implements CommandPackage {
 
     @Override
-    public void addCommands(CommandHandler destCommandHandler) {
-        destCommandHandler.addCommand(new AdditionCommand());
-        destCommandHandler.addCommand(new DivisionCommand());
-        destCommandHandler.addCommand(new MultiplicationCommand());
-        destCommandHandler.addCommand(new SubtractionCommand());
+    public void addCommands(Environment environment) {
+        environment.addCommand(new AdditionCommand());
+        environment.addCommand(new DivisionCommand());
+        environment.addCommand(new MultiplicationCommand());
+        environment.addCommand(new SubtractionCommand());
     }
 
 }

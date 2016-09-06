@@ -1,11 +1,11 @@
 package com.aedan.jterminal.commands;
 
-import com.aedan.jterminal.utils.Directory;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.Patterns;
-import com.aedan.jterminal.variables.Variable;
+import com.aedan.jterminal.environment.variables.Variable;
 import com.sun.istack.internal.NotNull;
 
 import java.io.IOException;
@@ -24,21 +24,6 @@ import java.util.regex.Matcher;
 public class CommandHandler {
 
     /**
-     * The List of Commands for the CommandHandler to Handle.
-     */
-    private ArrayList<Command> commands = new ArrayList<>();
-
-    /**
-     * The List of CommandFormats for the CommandHandler to Handle.
-     */
-    private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
-
-    /**
-     * The List of Variables for the CommandHandler to Parse.
-     */
-    private ArrayList<Variable> globalVariables = new ArrayList<>();
-
-    /**
      * The current List of String literals.
      */
     private ArrayList<String> stringLiterals = new ArrayList<>();
@@ -49,19 +34,17 @@ public class CommandHandler {
     private ArrayList<String> embeddedCommands = new ArrayList<>();
 
     /**
-     * The current Directory of the CommandHandler.
+     * The Environment containing the CommandHandler.
      */
-    private Directory directory = new Directory();
+    private Environment environment;
 
     /**
-     * CommandHandler constructor for adding custom packages.
+     * Default CommandHandler constructor.
      *
-     * @param commandPackages The Packages to include.
+     * @param environment The Environment containing the CommandHandler.
      */
-    public CommandHandler(CommandPackage... commandPackages) {
-        for (CommandPackage commandPackage : commandPackages) {
-            addPackage(commandPackage);
-        }
+    public CommandHandler(Environment environment) {
+        this.environment = environment;
     }
 
     /**
@@ -115,9 +98,9 @@ public class CommandHandler {
         }
 
         // Handles CommandFormats
-        for (CommandFormat commandFormat : commandFormats) {
+        for (CommandFormat commandFormat : environment.getCommandFormats()) {
             if (commandFormat.matches(in)) {
-                commandFormat.handleInput(this, input, in, output);
+                commandFormat.handleInput(environment, input, in, output);
                 return;
             }
         }
@@ -125,7 +108,7 @@ public class CommandHandler {
         // Splits input
         String[] args = in.split(" ");
         String identifier = args[0].toLowerCase();
-        for (Command command : commands) {
+        for (Command command : environment.getCommands()) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
                 // Computes input
                 for (int i = 0; i < args.length; i++) {
@@ -133,7 +116,7 @@ public class CommandHandler {
                 }
 
                 // Handles command
-                command.parse(input, new CommandArgumentList(args), directory, output);
+                command.parse(input, new CommandArgumentList(args), environment.getDirectory(), output);
                 return;
             }
         }
@@ -169,11 +152,19 @@ public class CommandHandler {
             }
         }
 
-        // Injects Variables
-        for (Variable globalVariable : globalVariables) {
+        // Injects global Variables
+        for (Variable variable : environment.getGlobalVariables()) {
             command = command.replace(
-                    "[" + globalVariable.name + "]",
-                    globalVariable.value
+                    "[" + variable.name + "]",
+                    variable.value
+            );
+        }
+
+        // Injects environment Variables
+        for (Variable variable : environment.getEnvironmentVariables()) {
+            command = command.replace(
+                    "%" + variable.name + "%",
+                    variable.value
             );
         }
 
@@ -183,77 +174,6 @@ public class CommandHandler {
         }
 
         return command.trim();
-    }
-
-    /**
-     * Adds a Variable to the CommandHandler.
-     *
-     * @param variable The Variable to add.
-     */
-    @NotNull
-    public void addVariable(Variable variable) {
-        removeVariable(variable.name);
-        globalVariables.add(variable);
-    }
-
-    /**
-     * Removes a Variable from the CommandHandler.
-     *
-     * @param name The name of the Variable to remove.
-     */
-    public void removeVariable(String name) {
-        Variable n = null;
-        for (Variable v : globalVariables) {
-            if (Objects.equals(v.name, name)) {
-                n = v;
-            }
-        }
-        if (n != null)
-            globalVariables.remove(n);
-    }
-
-    /**
-     * Adds a CommandPackage to the CommandHandler.
-     *
-     * @param commandPackage The CommandPackage to add.
-     */
-    @NotNull
-    public void addPackage(CommandPackage commandPackage) {
-        commandPackage.addCommands(this);
-    }
-
-    /**
-     * Adds a Command to the CommandHandler.
-     *
-     * @param command The Command to add.
-     */
-    @NotNull
-    public void addCommand(Command command) {
-        commands.add(command);
-        commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
-    }
-
-    /**
-     * Adds a CommandFormat to the CommandHandler.
-     *
-     * @param commandFormat The CommandFormat to add.
-     */
-    @NotNull
-    public void addCommandFormat(CommandFormat commandFormat) {
-        commandFormats.add(commandFormat);
-    }
-
-    public Directory getDirectory() {
-        return directory;
-    }
-
-    @NotNull
-    public void setDirectory(Directory directory) {
-        this.directory = directory;
-    }
-
-    public ArrayList<Command> getCommands() {
-        return commands;
     }
 
     /**

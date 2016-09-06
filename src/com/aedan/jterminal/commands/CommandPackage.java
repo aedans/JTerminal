@@ -1,5 +1,7 @@
 package com.aedan.jterminal.commands;
 
+import com.aedan.jterminal.environment.Environment;
+
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
@@ -9,10 +11,10 @@ package com.aedan.jterminal.commands;
 public interface CommandPackage {
 
     /**
-     * Adds all Commands to a given CommandHandler
+     * Adds all Commands to an Environment.
      *
-     * @param destCommandHandler The CommandHandler to add the Commands to.
+     * @param environment The Environment to add the Commands to.
      */
-    void addCommands(CommandHandler destCommandHandler);
+    void addCommands(Environment environment);
 
 }

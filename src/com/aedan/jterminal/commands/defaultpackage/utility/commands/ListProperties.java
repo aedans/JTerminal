@@ -1,10 +1,11 @@
 package com.aedan.jterminal.commands.defaultpackage.utility.commands;
 
-import com.aedan.jterminal.utils.Directory;
+import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -16,15 +17,15 @@ import com.aedan.jterminal.output.CommandOutput;
 
 public class ListProperties extends Command {
 
-    private CommandHandler commandHandler;
+    private Environment environment;
 
-    public ListProperties(CommandHandler commandHandler) {
+    public ListProperties(Environment environment) {
         super("properties");
         this.properties[0] = "Lists all properties of a given command.";
         this.properties[1] =
                 "properties [string]:\n" +
                 "   Lists all properties of command [string].";
-        this.commandHandler = commandHandler;
+        this.environment = environment;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class ListProperties extends Command {
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
 
-        for (Command c : commandHandler.getCommands()){
+        for (Command c : environment.getCommands()){
             if (c.getIdentifier().equals(args.get(1).value)) {
                 for (int i = 0; i < c.properties.length; i++) {
                     output.printf("%d: %s\n", i, c.properties[i]);

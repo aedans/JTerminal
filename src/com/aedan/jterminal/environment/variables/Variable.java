@@ -1,4 +1,4 @@
-package com.aedan.jterminal.variables;
+package com.aedan.jterminal.environment.variables;
 
 /**
  * Created by Aedan Smith on 8/22/2016.
@@ -12,6 +12,7 @@ public class Variable {
      * The name of the variable
      */
     public final String name;
+
     /**
      * The value of the Variable.
      */

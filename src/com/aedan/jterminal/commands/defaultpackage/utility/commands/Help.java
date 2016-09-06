@@ -1,10 +1,11 @@
 package com.aedan.jterminal.commands.defaultpackage.utility.commands;
 
-import com.aedan.jterminal.utils.Directory;
+import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -18,9 +19,9 @@ import java.util.ArrayList;
 
 public class Help extends Command {
 
-    private final CommandHandler commandHandler;
+    private final Environment environment;
 
-    public Help(CommandHandler commandHandler) {
+    public Help(Environment environment) {
         super("help");
         this.properties[0] = "Lists all commands and their simple descriptions.";
         this.properties[1] =
@@ -28,7 +29,7 @@ public class Help extends Command {
                 "   Lists all commands and their simple descriptions.\n" +
                 "help [string]:\n" +
                 "   Lists the detailed description of command [string].";
-        this.commandHandler = commandHandler;
+        this.environment = environment;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class Help extends Command {
             throws CommandHandler.CommandHandlerException {
         if (args.length() == 1) {
             //noinspection unchecked
-            ArrayList<Command> sCommands = (ArrayList<Command>) commandHandler.getCommands().clone();
+            ArrayList<Command> sCommands = (ArrayList<Command>) environment.getCommands().clone();
             sCommands.sort((o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));
 
             ArrayList<String> sIdentifiers = new ArrayList<>();
@@ -54,7 +55,7 @@ public class Help extends Command {
             output.printGrid(4, sIdentifiers, sDescriptions);
         } else {
             args.checkMatches(ArgumentType.STRING);
-            for (Command c : commandHandler.getCommands()){
+            for (Command c : environment.getCommands()){
                 if (c.getIdentifier().equals(args.get(1).value)){
                     try {
                         output.println(c.getProperty(1));

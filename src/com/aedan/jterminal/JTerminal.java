@@ -5,10 +5,11 @@ import acklib.utils.misc.ArgumentParser;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commands.defaultpackage.DefaultPackage;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.utils.Directory;
+import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.utils.FileUtils;
 import com.sun.istack.internal.NotNull;
 
@@ -35,7 +36,7 @@ public class JTerminal implements Runnable {
     /**
      * The CommandHandler for the JTerminal.
      */
-    private CommandHandler commandHandler;
+    private Environment environment;
 
     /**
      * The default JTerminal constructor.
@@ -75,7 +76,7 @@ public class JTerminal implements Runnable {
     public JTerminal(String args, CommandInput input, CommandOutput output, CommandPackage... commandPackages) {
         this.input = input;
         this.output = output;
-        this.commandHandler = new CommandHandler(commandPackages);
+        this.environment = new Environment(commandPackages);
         try {
             ArgumentParser parser = new ArgumentParser();
             parser.parseArguments(args);
@@ -83,7 +84,7 @@ public class JTerminal implements Runnable {
             // Handles -directory argument
             try {
                 if (parser.getString("directory") != null) {
-                    commandHandler.setDirectory(new Directory(parser.getString("directory")));
+                    environment.setDirectory(new Directory(parser.getString("directory")));
                 }
             } catch (Exception e) {
                 output.print("Fatal error: ");
@@ -94,7 +95,7 @@ public class JTerminal implements Runnable {
             try {
                 if (parser.getString("startup") != null) {
                     for (String s : FileUtils.readFile(new File(parser.getString("startup"))).split("\n")) {
-                        commandHandler.handleInput(input, s, output.clone());
+                        environment.handleInput(input, s, output.clone());
                     }
                 }
             } catch (FileUtils.FileIOException e) {
@@ -121,8 +122,8 @@ public class JTerminal implements Runnable {
         //noinspection InfiniteLoopStatement
         while (true) {
             try {
-                output.print(commandHandler.getDirectory() + "> ");
-                commandHandler.handleInput(input, output.clone());
+                output.print(environment.getDirectory() + "> ");
+                environment.handleInput(input, output.clone());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.printf("Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e) {
@@ -132,13 +133,13 @@ public class JTerminal implements Runnable {
         }
     }
 
-    public CommandHandler getCommandHandler() {
-        return commandHandler;
+    public Environment getEnvironment() {
+        return environment;
     }
 
     @NotNull
-    public void setCommandHandler(CommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
     public CommandInput getInput() {

@@ -1,10 +1,11 @@
 package com.aedan.jterminal.commands.defaultpackage.executors.commands;
 
-import com.aedan.jterminal.utils.Directory;
+import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
@@ -17,15 +18,15 @@ import com.aedan.jterminal.utils.FileUtils;
 
 public class ExecuteJTermFile extends Command {
 
-    private final CommandHandler commandHandler;
+    private final Environment environment;
 
-    public ExecuteJTermFile(CommandHandler commandHandler) {
+    public ExecuteJTermFile(Environment environment) {
         super("exec");
         this.properties[0] = "Executes a .jterm file.";
         this.properties[1] =
                 "exec [string]:\n" +
                 "   Executes a file with the name [string].jterm, line by line.";
-        this.commandHandler = commandHandler;
+        this.environment = environment;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ExecuteJTermFile extends Command {
             String lines = FileUtils.readFile(directory.getFile(dir));
             for (String s : lines.split("\\n")) {
                 try {
-                    commandHandler.handleInput(input, s, output);
+                    environment.handleInput(input, s, output);
                 } catch (CommandHandler.CommandHandlerException e){
                     output.printf("Could not handle command \"%s\" (%s)\n", s, e.getMessage());
                 }

@@ -24,7 +24,7 @@ public class Concatenate extends Command {
         this.properties[1] =
                 "cat:\n" +
                 "   Prints all user input line by line. Exited by typing \"exit\"\n" +
-                "cat [directories]:\n" +
+                "cat [directories]...:\n" +
                 "   Reads each file at [directory] line by line.";
     }
 

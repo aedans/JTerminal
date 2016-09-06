@@ -34,7 +34,7 @@ public class CommandArgument {
      * @param argumentType The ArgumentType of the CommandArgument.
      */
     CommandArgument(String value, ArgumentType argumentType) {
-        this.value = value;
+        this.value = value.trim();
         this.argumentType = argumentType;
     }
 

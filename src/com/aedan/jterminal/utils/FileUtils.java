@@ -2,6 +2,9 @@ package com.aedan.jterminal.utils;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -124,7 +127,7 @@ public final class FileUtils {
                     throw new FileIOException("Could not delete file " + file.getAbsolutePath() + " (Unknown cause)");
                 }
             } else {
-                throw new FileIOException("Directory at " + file.getAbsolutePath() + " is not a file.");
+                throw new FileIOException("Directory at " + file.getAbsolutePath() + " is not a file");
             }
         } else {
             throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
@@ -162,7 +165,7 @@ public final class FileUtils {
             if (file.isDirectory()) {
                 return removeDirectoryR(file).trim();
             } else {
-                throw new FileIOException("File " + file.getAbsolutePath() + " is not a directory.");
+                throw new FileIOException("File " + file.getAbsolutePath() + " is not a directory");
             }
         } else {
             throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");

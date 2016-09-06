@@ -152,6 +152,7 @@ public class CommandHandler {
      * @throws CommandHandlerException if there is an error computing the String.
      */
     public String compute(CommandInput input, String command) throws CommandHandlerException {
+        command += " ";
         // Injects embedded Commands
         final String[] s = {""};
         OutputStream os = new OutputStream() {
@@ -165,22 +166,22 @@ public class CommandHandler {
         for (int j = 0; j < embeddedCommands.size(); j++) {
             if (command.contains("~" + j)) {
                 handleInput(input, embeddedCommands.get(j), o2);
-                command = command.replace("~" + j, s[0].trim());
+                command = command.replace("~" + j + " ", s[0].trim());
                 s[0] = "";
             }
         }
 
         // Injects Variables
         for (Variable globalVariable : globalVariables) {
-            command = command.replaceAll(
-                    "\\[" + globalVariable.name + "\\]",
+            command = command.replace(
+                    "[" + globalVariable.name + "]",
                     globalVariable.value
             );
         }
 
         // Injects String literals
         for (int j = 0; j < stringLiterals.size(); j++) {
-            command = command.replace("&" + j, stringLiterals.get(j));
+            command = command.replace("&" + j + " ", stringLiterals.get(j));
         }
 
         return command.trim();

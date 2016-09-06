@@ -29,29 +29,27 @@ public class For extends Command {
                 "for [int-begin] [int-end] [string-varname] [string-command]:\n" +
                 "   Adds the variable [string-varname] to the CommandHandler, then executes [string-command] once\n" +
                 "   for each value between [int-begin] and [int-end].\n" +
-                "for [string-content] [string-regex] [string-command]:\n" +
-                "   Adds the variable s to the CommandHandler, then executes [string-command] once for each match\n" +
-                "   of [string-regex] in [string-content]. Variable s is equal to group 1 of [string-regex]";
+                "for [string-content] [string-command]:\n" +
+                "   Adds the variable s to the CommandHandler, then executes [string-command] once for each line\n" +
+                "   in [string-content], setting variable s to the content of the line.";
         this.commandHandler = commandHandler;
     }
 
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        if (args.length() == 4) {
-            args.checkMatches(ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING);
-            Matcher m = Pattern.compile(args.get(2).value).matcher(args.get(1).value);
-            while (m.find()){
-                commandHandler.addVariable(new Variable("s", m.group(1)));
+        if (args.length() == 3) {
+            args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
+            for (String s : args.get(1).value.split("\n")){
+                commandHandler.addVariable(new Variable("s", s));
                 commandHandler.handleInput(
                         input,
-                        args.get(3).value,
+                        args.get(2).value,
                         output
                 );
                 commandHandler.removeVariable("s");
             }
-        }
-        else {
+        } else {
             args.checkMatches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING);
             for (int i = Integer.parseInt(args.get(1).value); i < Integer.parseInt(args.get(2).value); i++) {
                 commandHandler.addVariable(new Variable(args.get(3).value, String.valueOf(i)));

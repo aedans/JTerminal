@@ -6,6 +6,7 @@ import com.aedan.jterminal.commands.defaultpackage.utility.commandformats.AddGlo
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.Echo;
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.Help;
 import com.aedan.jterminal.commands.defaultpackage.utility.commands.ListProperties;
+import com.aedan.jterminal.commands.defaultpackage.utility.commands.Match;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -21,6 +22,7 @@ public class UtilityPackage implements CommandPackage {
         destCommandHandler.addCommand(new Echo());
         destCommandHandler.addCommand(new Help(destCommandHandler));
         destCommandHandler.addCommand(new ListProperties(destCommandHandler));
+        destCommandHandler.addCommand(new Match());
     }
 
 }

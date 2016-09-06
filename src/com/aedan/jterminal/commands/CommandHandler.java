@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Matcher;
 
@@ -120,6 +119,10 @@ public class CommandHandler {
         // Handles CommandFormats
         for (CommandFormat commandFormat : commandFormats) {
             if (commandFormat.matches(in)) {
+                // Computes input
+                in = compute(input, in);
+
+                // Handles CommandFormat.
                 commandFormat.handleInput(this, input, in, output);
                 return;
             }
@@ -130,37 +133,9 @@ public class CommandHandler {
         String identifier = args[0].toLowerCase();
         for (Command command : commands) {
             if (Objects.equals(command.getIdentifier(), identifier)) {
+                // Computes input
                 for (int i = 0; i < args.length; i++) {
-                    // Injects embedded Commands
-                    final String[] s = {""};
-                    OutputStream os = new OutputStream() {
-                        @Override
-                        public void write(int b) throws IOException {
-                            s[0] += (char) b;
-                        }
-                    };
-                    PrintStream ps = new PrintStream(os);
-                    CommandOutput o2 = new CommandOutput(ps);
-                    for (int j = 0; j < embeddedCommands.size(); j++) {
-                        if (args[i].contains("~" + j)) {
-                            handleInput(input, embeddedCommands.get(j), o2);
-                            args[i] = args[i].replace("~" + j, s[0].trim());
-                            s[0] = "";
-                        }
-                    }
-
-                    // Injects Variables
-                    for (Variable globalVariable : globalVariables) {
-                        args[i] = args[i].replaceAll(
-                                "\\[" + globalVariable.name + "\\]",
-                                globalVariable.value
-                        );
-                    }
-
-                    // Injects String literals
-                    for (int j = 0; j < stringLiterals.size(); j++) {
-                        args[i] = args[i].replace("&" + j, stringLiterals.get(j));
-                    }
+                    args[i] = compute(input, args[i]);
                 }
 
                 // Handles command
@@ -170,6 +145,49 @@ public class CommandHandler {
         }
 
         throw new CommandHandlerException("Unrecognized Command \"" + identifier + "\"");
+    }
+
+    /**
+     * Injects Embedded Commands, Variables, and String literals into a String.
+     *
+     * @param input The CommandInput for the CommandHandler.
+     * @param command The String to compute.
+     * @return The computer String.
+     * @throws CommandHandlerException if there is an error computing the String.
+     */
+    private String compute(CommandInput input, String command) throws CommandHandlerException {
+        // Injects embedded Commands
+        final String[] s = {""};
+        OutputStream os = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                s[0] += (char) b;
+            }
+        };
+        PrintStream ps = new PrintStream(os);
+        CommandOutput o2 = new CommandOutput(ps);
+        for (int j = 0; j < embeddedCommands.size(); j++) {
+            if (command.contains("~" + j)) {
+                handleInput(input, embeddedCommands.get(j), o2);
+                command = command.replace("~" + j, s[0].trim());
+                s[0] = "";
+            }
+        }
+
+        // Injects Variables
+        for (Variable globalVariable : globalVariables) {
+            command = command.replaceAll(
+                    "\\[" + globalVariable.name + "\\]",
+                    globalVariable.value
+            );
+        }
+
+        // Injects String literals
+        for (int j = 0; j < stringLiterals.size(); j++) {
+            command = command.replace("&" + j, stringLiterals.get(j));
+        }
+
+        return command;
     }
 
     /**

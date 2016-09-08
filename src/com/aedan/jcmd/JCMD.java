@@ -22,7 +22,7 @@ public class JCMD {
         Command.numProperties = 2;
         JTDisplay display = new JTDisplay(1279, 716);
         new JTerminal(
-                "",
+                "-directory jar -startup jar/test",
                 display.getJTKeyListener(),
                 new CommandOutput(new JTPrintStream(display.getJTStringList())),
                 new DefaultPackage()

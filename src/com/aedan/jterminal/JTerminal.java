@@ -14,6 +14,7 @@ import com.aedan.jterminal.utils.FileUtils;
 import com.sun.istack.internal.NotNull;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -84,7 +85,7 @@ public class JTerminal implements Runnable {
             // Handles -directory argument
             try {
                 if (parser.getString("directory") != null) {
-                    environment.setDirectory(new Directory(parser.getString("directory")));
+                    environment.getDirectory().setPath(environment.getDirectory().getPath(parser.getString("directory")));
                 }
             } catch (Exception e) {
                 output.print("Fatal error: ");
@@ -94,7 +95,7 @@ public class JTerminal implements Runnable {
             // Handles -startup argument
             try {
                 if (parser.getString("startup") != null) {
-                    for (String s : FileUtils.readFile(new File(parser.getString("startup"))).split("\n")) {
+                    for (String s : FileUtils.readFile(new File(parser.getString("startup") + ".jterm")).split("\n")) {
                         environment.handleInput(input, s, output.clone());
                     }
                 }

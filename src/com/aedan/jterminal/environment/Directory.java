@@ -54,7 +54,7 @@ public class Directory implements Variable {
     /**
      * Returns a Path of the given String relative to the Directory.
      *
-     * @param dir The String to get the Directory of.
+     * @param dir The String to get the Path of.
      * @return The Directory Path.
      * @throws DirectoryFormatException if the String is not a valid Directory.
      */
@@ -112,7 +112,7 @@ public class Directory implements Variable {
 
     @Override
     public String getValue() {
-        return this.toString();
+        return path.toString();
     }
 
     /**

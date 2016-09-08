@@ -18,9 +18,7 @@ import com.aedan.jterminal.output.CommandOutput;
 
 public class For extends Command {
 
-    private final Environment environment;
-
-    public For(Environment environment) {
+    public For() {
         super("for");
         this.properties[0] = "Iterates a command and stores the current iteration in a variable.";
         this.properties[1] =
@@ -30,11 +28,10 @@ public class For extends Command {
                 "for [string-content] [string-command]:\n" +
                 "    Adds the variable s to the CommandHandler, then executes [string-command] once for each line\n" +
                 "    in [string-content], setting variable s to the content of the line.";
-        this.environment = environment;
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         if (args.length() == 3) {
             args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);

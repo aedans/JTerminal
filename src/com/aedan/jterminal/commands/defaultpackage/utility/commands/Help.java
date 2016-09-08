@@ -33,7 +33,7 @@ public class Help extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         if (args.length() == 1) {
             //noinspection unchecked

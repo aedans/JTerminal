@@ -43,6 +43,11 @@ public class Environment {
     private ArrayList<GlobalVariable> globalVariables = new ArrayList<>();
 
     /**
+     * The Directory of the Environment.
+     */
+    private Directory directory;
+
+    /**
      * The CommandHandler for the Environment.
      */
     private CommandHandler commandHandler;
@@ -71,7 +76,8 @@ public class Environment {
                 }
             });
         }
-        this.environmentVariables.add(0, new Directory());
+        this.directory = new Directory();
+        this.environmentVariables.add(0, directory);
         this.environmentVariables.add(new Variable() {
             @Override
             public String getName() {
@@ -228,20 +234,11 @@ public class Environment {
     }
 
     public void setDirectory(Directory directory) {
-        for (int i = 0; i < environmentVariables.size(); i++) {
-            if (Objects.equals(environmentVariables.get(i).getName(), "cd")){
-                environmentVariables.set(i, directory);
-            }
-        }
+        this.directory = directory;
     }
 
     public Directory getDirectory(){
-        for (Variable v : environmentVariables){
-            if (v instanceof Directory){
-                return (Directory) v;
-            }
-        }
-        return null;
+        return directory;
     }
 
     public void addEnvironmentVariable(Variable v){

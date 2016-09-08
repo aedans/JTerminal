@@ -82,7 +82,7 @@ public class Directory implements Variable {
         }
     }
 
-    public File getDirectory() {
+    public File getFile() {
         return directory;
     }
 

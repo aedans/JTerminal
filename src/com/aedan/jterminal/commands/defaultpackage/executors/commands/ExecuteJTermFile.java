@@ -18,24 +18,21 @@ import com.aedan.jterminal.utils.FileUtils;
 
 public class ExecuteJTermFile extends Command {
 
-    private final Environment environment;
-
-    public ExecuteJTermFile(Environment environment) {
+    public ExecuteJTermFile() {
         super("exec");
         this.properties[0] = "Executes a .jterm file.";
         this.properties[1] =
                 "exec [string]:\n" +
                 "    Executes a file with the name [string].jterm, line by line.";
-        this.environment = environment;
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
             args.checkMatches(ArgumentType.STRING);
             String dir = args.get(1) + ".jterm";
-            String lines = FileUtils.readFile(directory.getFile(dir));
+            String lines = FileUtils.readFile(environment.getDirectory().getFile(dir));
             for (String s : lines.split("\\n")) {
                 try {
                     environment.handleInput(input, s, output);

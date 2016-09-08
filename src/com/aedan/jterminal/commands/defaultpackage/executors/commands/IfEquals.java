@@ -19,19 +19,16 @@ import java.util.Objects;
 
 public class IfEquals extends Command {
 
-    private final Environment environment;
-
-    public IfEquals(Environment environment) {
+    public IfEquals() {
         super("==");
         this.properties[0] = "Executes a Command if two Strings are equal.";
         this.properties[1] =
                 "== [string-test1] [string-test2] [string-command]:\n" +
                 "    Executes [string-command] if [string-test1] and [string-test2] are equal.";
-        this.environment = environment;
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
+    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING);
 

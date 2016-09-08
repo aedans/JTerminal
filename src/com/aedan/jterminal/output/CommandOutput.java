@@ -2,6 +2,7 @@ package com.aedan.jterminal.output;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
@@ -96,14 +97,15 @@ public class CommandOutput {
     }
 
     /**
-     * Prints an Array of ArrayLists of Objects in a grid format:
+     * Prints an Array of Collections of Objects in a grid format:
      * grid[0].get(0); grid[1].get(0);
      * grid[0].get(1); grid[1].get(1);
      *
      * @param space The number of spaces to put between each column.
-     * @param grid  The List of ArrayLists to print.
+     * @param grid  The array of Collections to print.
      */
-    public void printObjGrid(int space, ArrayList<?>... grid) {
+    @SafeVarargs
+    public final void printObjGrid(int space, Collection<Object>... grid) {
         //noinspection unchecked
         ArrayList<String>[] sGrid = new ArrayList[grid.length];
         for (int i = 0; i < grid.length; i++) {
@@ -127,7 +129,7 @@ public class CommandOutput {
     public final void printGrid(int space, ArrayList<String>... grid) {
         // Validates grid
         int size = grid[0].size();
-        for (ArrayList<String> ss : grid) {
+        for (Collection<String> ss : grid) {
             if (ss.size() != size) {
                 println("Could not print grid (Uneven sizes)");
                 return;
@@ -186,10 +188,6 @@ public class CommandOutput {
         this.printStreams.remove(printStreams);
     }
 
-    public ArrayList<PrintStream> getPrintStreams() {
-        return printStreams;
-    }
-
     /**
      * Sets the PrintStreams to the given PrintStreams.
      *
@@ -208,6 +206,10 @@ public class CommandOutput {
         ArrayList<PrintStream> printStreams = this.printStreams.stream().map(PrintStream::new)
                 .collect(Collectors.toCollection(ArrayList::new));
         return new CommandOutput(printStreams);
+    }
+
+    public ArrayList<PrintStream> getPrintStreams() {
+        return printStreams;
     }
 
 }

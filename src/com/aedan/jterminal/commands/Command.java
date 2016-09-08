@@ -2,6 +2,7 @@ package com.aedan.jterminal.commands;
 
 import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -40,14 +41,14 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param input     The Input for the JTerminal.
-     * @param args      The CommandArgumentList to parse.
-     * @param directory The directory of the Environment.
-     * @param output    The output to print to.
+     * @param input       The Input for the JTerminal.
+     * @param args        The CommandArgumentList to parse.
+     * @param environment The Environment of the Command.
+     * @param output      The output to print to.
      * @throws CommandHandler.CommandHandlerException if the String cannot be parsed.
      */
-    public abstract void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
-            throws CommandHandler.CommandHandlerException;
+    public abstract void parse(CommandInput input, CommandArgumentList args, Environment environment,
+                               CommandOutput output) throws CommandHandler.CommandHandlerException;
 
     @Override
     public String toString() {

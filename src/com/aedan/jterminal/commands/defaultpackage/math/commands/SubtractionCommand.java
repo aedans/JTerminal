@@ -1,5 +1,6 @@
 package com.aedan.jterminal.commands.defaultpackage.math.commands;
 
+import com.aedan.jterminal.commands.defaultpackage.math.MathCommand;
 import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandHandler;
@@ -14,21 +15,22 @@ import com.aedan.jterminal.output.CommandOutput;
  * Default Command.
  */
 
-public class SubtractionCommand extends Command {
+public class SubtractionCommand extends MathCommand {
 
     public SubtractionCommand() {
         super("-");
         properties[0] = "Subtracts two numbers.";
-        properties[1] =
-                "- [double-1] [double-2]:\n" +
-                "    Outputs [double-1] - [double-2].";
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
-            throws CommandHandler.CommandHandlerException {
-        args.checkMatches(ArgumentType.DOUBLE, ArgumentType.DOUBLE);
-
-        output.println(Double.parseDouble(args.get(1).value) - Double.parseDouble(args.get(2).value));
+    public long apply(long l1, long l2) {
+        return l1 * l2;
     }
+
+    @Override
+    public double apply(double d1, double d2) {
+        return d1 * d2;
+    }
+
+
 }

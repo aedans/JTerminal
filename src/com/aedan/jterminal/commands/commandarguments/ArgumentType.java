@@ -48,24 +48,24 @@ public enum ArgumentType {
      */
     public boolean isSubset(ArgumentType argumentType){
         switch (argumentType){
-            case BYTE:
-                if (this == BYTE) return true;
-            case SHORT:
-                if (this == SHORT) return true;
-            case INTEGER:
-                if (this == INTEGER) return true;
-            case LONG:
-                if (this == LONG) return true;
             case FLOAT:
                 if (this == FLOAT) return true;
             case DOUBLE:
-                return this != STRING;
+                if (this != STRING) return true;
+            case LONG:
+                if (this == LONG) return true;
+            case INTEGER:
+                if (this == INTEGER) return true;
+            case SHORT:
+                if (this == SHORT) return true;
+            case BYTE:
+                if (this == BYTE) return true;
             case STRING:
-                return this == STRING;
+                return this != COMMANDIDENTIFIER;
             case COMMANDIDENTIFIER:
                 return this == COMMANDIDENTIFIER;
-            default:return false;
         }
+        return false;
     }
 
     @Override

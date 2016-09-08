@@ -38,6 +38,10 @@ public class CommandArgument {
         this.argumentType = argumentType;
     }
 
+    public ArgumentType getArgumentType() {
+        return argumentType;
+    }
+
     @Override
     public String toString() {
         return value;

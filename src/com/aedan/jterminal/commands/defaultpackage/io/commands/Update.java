@@ -26,8 +26,8 @@ public class Update extends Command {
             throws CommandHandler.CommandHandlerException {
         output.println("Update command is currently not implemented.");
 
-//        File dir = directory.getFile(args[1]);
-//        dir = directory.getFile(dir.getAbsolutePath() + "/com/aedan/jterminal/");
+//        File dir = directory.getPath(args[1]);
+//        dir = directory.getPath(dir.getAbsolutePath() + "/com/aedan/jterminal/");
 //
 //        if (dir.exists()) {
 //            try {

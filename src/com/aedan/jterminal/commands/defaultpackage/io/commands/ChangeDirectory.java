@@ -9,6 +9,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
 import java.io.File;
+import java.nio.file.Path;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -30,9 +31,9 @@ public class ChangeDirectory extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING);
-        File f = environment.getDirectory().getFile(args.get(1).value);
-        if (f != null) {
-            environment.getDirectory().setDirectory(f);
+        Path path = environment.getDirectory().getPath(args.get(1).value);
+        if (path != null) {
+            environment.getDirectory().setPath(path);
         }
     }
 

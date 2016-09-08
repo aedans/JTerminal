@@ -2,11 +2,7 @@ package com.aedan.jterminal.utils;
 
 import java.awt.*;
 import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -46,6 +42,7 @@ public final class FileUtils {
     public static String createFile(File file) throws FileIOException {
         if (!file.exists()){
             try {
+                //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
                 return "Created file at " + file.toString();
             } catch (IOException e) {

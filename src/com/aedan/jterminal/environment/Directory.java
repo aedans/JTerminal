@@ -1,11 +1,11 @@
 package com.aedan.jterminal.environment;
 
 import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.environment.variables.Variable;
 import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
- * utility class for managing the CommandHandler directory.
+ * utility class for managing the CommandHandler path.
  */
 
 public class Directory implements Variable {
@@ -22,7 +22,7 @@ public class Directory implements Variable {
     /**
      * The current Directory.
      */
-    private File directory;
+    private Path path;
 
     /**
      * The default Directory constructor.
@@ -37,27 +37,37 @@ public class Directory implements Variable {
      * @param directory The path of the Directory.
      */
     public Directory(String directory) {
-        this.directory = new File(String.valueOf(Paths.get(directory).toAbsolutePath()));
+        this.path = Paths.get(directory).toAbsolutePath();
     }
 
     /**
-     * Returns a File with directory of the given String relative to the Directory.
+     * Returns the File of the given String relative to the Directory.
      *
      * @param dir The String to get the Directory of.
      * @return The Directory File.
      * @throws DirectoryFormatException if the String is not a valid Directory.
      */
     public File getFile(String dir) throws DirectoryFormatException {
+        return getPath(dir).toFile();
+    }
+
+    /**
+     * Returns a Path of the given String relative to the Directory.
+     *
+     * @param dir The String to get the Directory of.
+     * @return The Directory Path.
+     * @throws DirectoryFormatException if the String is not a valid Directory.
+     */
+    public Path getPath(String dir) throws DirectoryFormatException {
         if (Objects.equals(dir.trim(), "..")) {
-            return directory.getParentFile();
+            return path.getParent();
         } else if (Objects.equals(dir.trim(), ".")) {
-            return directory;
+            return path;
         } else if (dir.matches(Patterns.absoluteDirectoryPattern.pattern())) {
-            return new File(dir);
+            return Paths.get(dir);
         } else {
             try {
-                Path p = Paths.get(directory.getPath(), dir).toAbsolutePath();
-                return new File(p.toString());
+                return Paths.get(path.toString(), dir).toAbsolutePath();
             } catch (InvalidPathException e) {
                 throw new DirectoryFormatException("Invalid Directory format: " + dir);
             }
@@ -67,28 +77,32 @@ public class Directory implements Variable {
     /**
      * Goes to a Directory.
      *
-     * @param directory The Directory to go to.
+     * @param path The Directory to go to.
      * @throws DirectoryChangeException if the Directory cannot be changed to.
      */
-    public void setDirectory(File directory) throws DirectoryChangeException {
-        if (directory.exists()) {
-            if (directory.isDirectory()) {
-                this.directory = directory;
+    public void setPath(Path path) throws DirectoryChangeException {
+        if (Files.exists(path)) {
+            if (Files.isDirectory(path)) {
+                this.path = path;
             } else {
-                throw new DirectoryChangeException("File \"" + directory.getAbsolutePath() + "\" is not a directory");
+                throw new DirectoryChangeException("File \"" + this.path.toString() + "\" is not a path");
             }
         } else {
-            throw new DirectoryChangeException("Directory \"" + directory.getAbsolutePath() + "\" does not exist");
+            throw new DirectoryChangeException("Directory \"" + this.path.toString() + "\" does not exist");
         }
     }
 
-    public File getFile() {
-        return directory;
+    public Path getPath() {
+        return path;
+    }
+
+    public File getFile(){
+        return path.toFile();
     }
 
     @Override
     public String toString() {
-        return directory.toString();
+        return path.toString();
     }
 
     @Override

@@ -244,6 +244,10 @@ public class Environment {
         return null;
     }
 
+    public void addEnvironmentVariable(Variable v){
+        environmentVariables.add(v);
+    }
+
     public ArrayList<Command> getCommands() {
         return commands;
     }

@@ -25,6 +25,10 @@ public abstract class MathCommand extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Directory directory, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
+        if (args.length() != 3)
+            throw new CommandHandler.CommandHandlerException(
+                    "Wrong number of arguments given (given: 2, required: " + (args.length()-1) + ")");
+
         try {
             if (args.get(1).getArgumentType().isSubset(ArgumentType.LONG)
                     && args.get(2).getArgumentType().isSubset(ArgumentType.LONG))

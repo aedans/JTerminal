@@ -60,6 +60,7 @@ public enum ArgumentType {
                 if (this == SHORT) return true;
             case BYTE:
                 if (this == BYTE) return true;
+                break;
             case STRING:
                 return this != COMMANDIDENTIFIER;
             case COMMANDIDENTIFIER:

@@ -2,10 +2,7 @@ package com.aedan.jterminal.commands.defaultpackage.math;
 
 import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.commands.defaultpackage.math.commands.AdditionCommand;
-import com.aedan.jterminal.commands.defaultpackage.math.commands.DivisionCommand;
-import com.aedan.jterminal.commands.defaultpackage.math.commands.MultiplicationCommand;
-import com.aedan.jterminal.commands.defaultpackage.math.commands.SubtractionCommand;
+import com.aedan.jterminal.commands.defaultpackage.math.commands.*;
 import com.aedan.jterminal.environment.Environment;
 
 /**
@@ -21,6 +18,7 @@ public class MathCommandPackage implements CommandPackage {
         environment.addCommand(new AdditionCommand());
         environment.addCommand(new DivisionCommand());
         environment.addCommand(new MultiplicationCommand());
+        environment.addCommand(new PowerCommand());
         environment.addCommand(new SubtractionCommand());
     }
 

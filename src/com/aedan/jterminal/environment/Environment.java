@@ -10,6 +10,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.sun.istack.internal.NotNull;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
@@ -233,8 +234,12 @@ public class Environment {
         return commandHandler.compute(input, s);
     }
 
-    public void setDirectory(Directory directory) {
-        this.directory = directory;
+    public void setDirectoryPath(Path path) {
+        try {
+            this.directory.setPath(path);
+        } catch (Directory.DirectoryChangeException e) {
+            e.printStackTrace();
+        }
     }
 
     public Directory getDirectory(){

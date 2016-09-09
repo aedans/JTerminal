@@ -4,17 +4,15 @@ import acklib.utils.misc.ArgumentParseException;
 import acklib.utils.misc.ArgumentParser;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
-import com.aedan.jterminal.commands.defaultpackage.DefaultPackage;
+import com.aedan.jterminal.commandpackages.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.utils.FileUtils;
 import com.sun.istack.internal.NotNull;
 
 import java.io.File;
-import java.nio.file.Paths;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -85,7 +83,7 @@ public class JTerminal implements Runnable {
             // Handles -directory argument
             try {
                 if (parser.getString("directory") != null) {
-                    environment.getDirectory().setPath(environment.getDirectory().getPath(parser.getString("directory")));
+                    environment.setDirectoryPath(environment.getDirectory().getPath(parser.getString("directory")));
                 }
             } catch (Exception e) {
                 output.print("Fatal error: ");

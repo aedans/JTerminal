@@ -3,8 +3,8 @@ package com.aedan.jcmd;
 import com.aedan.jtermgui.JTDisplay;
 import com.aedan.jtermgui.JTPrintStream;
 import com.aedan.jterminal.JTerminal;
+import com.aedan.jterminal.commandpackages.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.commands.Command;
-import com.aedan.jterminal.commands.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.output.CommandOutput;
 
 /**
@@ -22,7 +22,7 @@ public class JCMD {
         Command.numProperties = 2;
         JTDisplay display = new JTDisplay(1279, 716);
         new JTerminal(
-                "-directory jar -startup jar/test",
+                "",
                 display.getJTKeyListener(),
                 new CommandOutput(new JTPrintStream(display.getJTStringList())),
                 new DefaultPackage()

@@ -10,6 +10,8 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.sun.istack.internal.NotNull;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
@@ -99,6 +101,21 @@ public class Environment {
                     }
                 }
                 return s;
+            }
+        });
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "IP";
+            }
+
+            @Override
+            public String getValue() {
+                try {
+                    return InetAddress.getLocalHost().toString();
+                } catch (UnknownHostException e) {
+                    return "Could not get IP address: " + e.getMessage();
+                }
             }
         });
         this.environmentVariables.add(new Variable() {

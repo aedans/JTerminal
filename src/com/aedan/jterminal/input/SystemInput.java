@@ -30,4 +30,14 @@ public class SystemInput implements CommandInput {
         return line;
     }
 
+    @Override
+    public long nextLong() {
+        return scanner.nextLong();
+    }
+
+    @Override
+    public double nextDouble() {
+        return scanner.nextDouble();
+    }
+
 }

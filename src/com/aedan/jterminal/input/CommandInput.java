@@ -13,4 +13,14 @@ public interface CommandInput {
      */
     String nextLine();
 
+    /**
+     * @return The next long for the JTerminal to handle.
+     */
+    long nextLong();
+
+    /**
+     * @return The next double for the JTerminal to handle.
+     */
+    double nextDouble();
+
 }

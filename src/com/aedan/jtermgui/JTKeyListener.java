@@ -4,6 +4,7 @@ import com.aedan.jterminal.input.CommandInput;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
@@ -64,6 +65,28 @@ class JTKeyListener implements KeyListener, CommandInput {
                     stringList.setCurrentString("");
                 }
             }
+        }
+    }
+
+    @Override
+    public long nextLong() {
+        String s;
+        while (true) {
+            s = nextLine();
+            try {
+                return Long.parseLong(s);
+            } catch (NumberFormatException ignored){}
+        }
+    }
+
+    @Override
+    public double nextDouble() {
+        String s;
+        while (true) {
+            s = nextLine();
+            try {
+                return Double.parseDouble(s);
+            } catch (NumberFormatException ignored){}
         }
     }
 

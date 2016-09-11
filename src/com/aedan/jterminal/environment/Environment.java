@@ -106,13 +106,28 @@ public class Environment {
         this.environmentVariables.add(new Variable() {
             @Override
             public String getName() {
-                return "IP";
+                return "HOST";
             }
 
             @Override
             public String getValue() {
                 try {
                     return InetAddress.getLocalHost().toString();
+                } catch (UnknownHostException e) {
+                    return "Could not get Host address: " + e.getMessage();
+                }
+            }
+        });
+        this.environmentVariables.add(new Variable() {
+            @Override
+            public String getName() {
+                return "IP";
+            }
+
+            @Override
+            public String getValue() {
+                try {
+                    return InetAddress.getLocalHost().getHostAddress();
                 } catch (UnknownHostException e) {
                     return "Could not get IP address: " + e.getMessage();
                 }

@@ -79,8 +79,7 @@ public class Environment {
                 }
             });
         }
-        this.directory = new Directory();
-        this.environmentVariables.add(0, directory);
+        this.environmentVariables.add(0, this.directory = new Directory());
         this.environmentVariables.add(new Variable() {
             @Override
             public String getName() {

@@ -88,7 +88,7 @@ public class CommandHandler {
         Matcher m = Patterns.stringLiteralPattern.matcher(in);
         while (m.find()) {
             in = in.replace(m.group(), "&" + stringLiterals.size());
-            stringLiterals.add(m.group(1));
+            stringLiterals.add(m.group(1).replaceAll("\'", "\""));
         }
 
         // Tokenizes Embedded Commands.

@@ -175,7 +175,7 @@ public class CommandHandler {
             command = command.replace("&" + j, stringLiterals.get(j));
         }
 
-        return command;
+        return command.substring(0, command.length()-1);
     }
 
     /**

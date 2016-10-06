@@ -5,6 +5,7 @@ import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.environment.variables.Variable;
 import com.aedan.jterminal.input.CommandInput;
+import com.aedan.jterminal.input.StringTokenizer;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.Patterns;
 import com.sun.istack.internal.NotNull;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.regex.Matcher;
 
@@ -27,7 +29,7 @@ public class CommandHandler {
     /**
      * The current List of String literals.
      */
-    private ArrayList<String> stringLiterals = new ArrayList<>();
+    private LinkedList<String> stringLiterals = new LinkedList<>();
 
     /**
      * The current List of embedded Commands.
@@ -61,7 +63,7 @@ public class CommandHandler {
             handleInput(input, input.nextLine(), output);
         } finally {
             embeddedCommands = new ArrayList<>();
-            stringLiterals = new ArrayList<>();
+            stringLiterals = new LinkedList<>();
         }
     }
 
@@ -77,7 +79,7 @@ public class CommandHandler {
     public void handleInput(CommandInput input, String in, CommandOutput output) throws CommandHandlerException {
         // Validates input
         if (in == null) {
-            stringLiterals = new ArrayList<>();
+            stringLiterals = new LinkedList<>();
             throw new CommandHandlerException("Input is null");
         }
         if (Objects.equals(in, "")) {
@@ -85,14 +87,15 @@ public class CommandHandler {
         }
 
         // Tokenizes Strings
-        Matcher m = Patterns.stringLiteralPattern.matcher(in);
-        while (m.find()) {
-            in = in.replace(m.group(), "&" + stringLiterals.size());
-            stringLiterals.add(m.group(1));
+        try {
+            stringLiterals = StringTokenizer.tokenizeStringLiterals(in);
+            in = stringLiterals.get(0);
+        } catch (Exception e) {
+            throw new CommandHandlerException("No closing \" found");
         }
 
         // Tokenizes Embedded Commands.
-        m = Patterns.embeddedCommandPattern.matcher(in);
+        Matcher m = Patterns.embeddedCommandPattern.matcher(in);
         while (m.find()) {
             in = in.replace("{" + m.group(1) + "}", "~" + embeddedCommands.size());
             embeddedCommands.add(m.group(1));
@@ -171,7 +174,7 @@ public class CommandHandler {
         }
 
         // Injects String literals
-        for (int j = 0; j < stringLiterals.size(); j++) {
+        for (int j = 1; j < stringLiterals.size(); j++) {
             command = command.replace("&" + j, stringLiterals.get(j));
         }
 

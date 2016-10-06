@@ -1,10 +1,7 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.executors;
 
+import com.aedan.jterminal.commandpackages.defaultpackage.executors.commands.*;
 import com.aedan.jterminal.commands.CommandPackage;
-import com.aedan.jterminal.commandpackages.defaultpackage.executors.commands.ExecuteJTermFile;
-import com.aedan.jterminal.commandpackages.defaultpackage.executors.commands.For;
-import com.aedan.jterminal.commandpackages.defaultpackage.executors.commands.IfEquals;
-import com.aedan.jterminal.commandpackages.defaultpackage.executors.commands.IfNotEquals;
 import com.aedan.jterminal.environment.Environment;
 
 /**
@@ -21,6 +18,7 @@ public class ExecutorsPackage implements CommandPackage {
         environment.addCommand(new For());
         environment.addCommand(new IfEquals());
         environment.addCommand(new IfNotEquals());
+        environment.addCommand(new TerminalExec());
     }
 
 }

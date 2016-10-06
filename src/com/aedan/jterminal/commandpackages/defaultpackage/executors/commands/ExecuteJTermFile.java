@@ -34,6 +34,7 @@ public class ExecuteJTermFile extends Command {
             String lines = FileUtils.readFile(environment.getDirectory().getFile(dir));
             for (String s : lines.split("\\n")) {
                 try {
+                    environment.prepareInput();
                     environment.handleInput(input, s, output);
                 } catch (CommandHandler.CommandHandlerException e){
                     output.printf("Could not handle command \"%s\" (%s)\n", s, e.getMessage());

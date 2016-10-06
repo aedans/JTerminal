@@ -252,6 +252,10 @@ public class Environment {
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
 
+    public void prepareInput(){
+        commandHandler.prepareInput();
+    }
+
     public void handleInput(CommandInput input, CommandOutput output) throws CommandHandler.CommandHandlerException {
         commandHandler.handleInput(input, output);
     }

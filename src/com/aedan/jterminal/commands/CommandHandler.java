@@ -60,10 +60,10 @@ public class CommandHandler {
     @NotNull
     public void handleInput(CommandInput input, CommandOutput output) throws CommandHandlerException {
         try {
+            prepareInput();
             handleInput(input, input.nextLine(), output);
         } finally {
-            embeddedCommands = new ArrayList<>();
-            stringLiterals = new LinkedList<>();
+            prepareInput();
         }
     }
 
@@ -79,7 +79,6 @@ public class CommandHandler {
     public void handleInput(CommandInput input, String in, CommandOutput output) throws CommandHandlerException {
         // Validates input
         if (in == null) {
-            stringLiterals = new LinkedList<>();
             throw new CommandHandlerException("Input is null");
         }
         if (Objects.equals(in, "")) {
@@ -180,6 +179,11 @@ public class CommandHandler {
         }
 
         return (command.charAt(command.length()-1) == ' ') ? command.substring(0, command.length()-1) : command;
+    }
+
+    public void prepareInput() {
+        stringLiterals = new LinkedList<>();
+        embeddedCommands = new ArrayList<>();
     }
 
     /**

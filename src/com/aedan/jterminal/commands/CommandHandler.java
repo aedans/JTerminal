@@ -88,8 +88,9 @@ public class CommandHandler {
 
         // Tokenizes Strings
         try {
-            stringLiterals = StringTokenizer.tokenizeStringLiterals(in);
-            in = stringLiterals.get(0);
+            int i = stringLiterals.size();
+            stringLiterals.addAll(StringTokenizer.tokenizeStringLiterals(in));
+            in = stringLiterals.get(i);
         } catch (Exception e) {
             throw new CommandHandlerException("No closing \" found");
         }
@@ -178,7 +179,7 @@ public class CommandHandler {
             command = command.replace("&" + j, stringLiterals.get(j));
         }
 
-        return command.substring(0, command.length()-1);
+        return (command.charAt(command.length()-1) == ' ') ? command.substring(0, command.length()-1) : command;
     }
 
     /**

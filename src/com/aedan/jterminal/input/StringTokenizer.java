@@ -39,7 +39,6 @@ public final class StringTokenizer {
             strings.set(0, strings.get(0).replace("\"" + strings.get(i) + "\"", "&" + i));
             strings.set(i, strings.get(i).replaceAll("\\\\(.)", "$1"));
         }
-        System.out.println(strings);
         return strings;
     }
 

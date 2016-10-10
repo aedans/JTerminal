@@ -2,7 +2,7 @@ package com.aedan.jterminal.environment.variables;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
- *
+ * <p>
  * Interface containing necessary methods for a Variable.
  */
 

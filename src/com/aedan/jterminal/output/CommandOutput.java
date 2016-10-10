@@ -189,16 +189,6 @@ public class CommandOutput {
     }
 
     /**
-     * Sets the PrintStreams to the given PrintStreams.
-     *
-     * @param printStreams The PrintStreams to set to.
-     */
-    public void setPrintStreams(PrintStream... printStreams) {
-        this.printStreams = new ArrayList<>();
-        Collections.addAll(this.printStreams, printStreams);
-    }
-
-    /**
      * @return Returns a deep clone of the CommandOutput.
      */
     @SuppressWarnings("CloneDoesntCallSuperClone")
@@ -210,6 +200,16 @@ public class CommandOutput {
 
     public ArrayList<PrintStream> getPrintStreams() {
         return printStreams;
+    }
+
+    /**
+     * Sets the PrintStreams to the given PrintStreams.
+     *
+     * @param printStreams The PrintStreams to set to.
+     */
+    public void setPrintStreams(PrintStream... printStreams) {
+        this.printStreams = new ArrayList<>();
+        Collections.addAll(this.printStreams, printStreams);
     }
 
 }

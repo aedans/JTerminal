@@ -22,7 +22,7 @@ public class ExecuteJTermFile extends Command {
         this.properties[0] = "Executes a .jterm file.";
         this.properties[1] =
                 "exec [string]:\n" +
-                "    Executes a file with the name [string].jterm, line by line.";
+                        "    Executes a file with the name [string].jterm, line by line.";
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ExecuteJTermFile extends Command {
                 try {
                     environment.prepareInput();
                     environment.handleInput(input, s, output);
-                } catch (CommandHandler.CommandHandlerException e){
+                } catch (CommandHandler.CommandHandlerException e) {
                     output.printf("Could not handle command \"%s\" (%s)\n", s, e.getMessage());
                 }
             }

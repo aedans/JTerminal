@@ -1,11 +1,11 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.utility;
 
-import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Alias;
-import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.utility.commandformats.AddGlobalVariable;
+import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Alias;
 import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Echo;
 import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Help;
 import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Match;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.environment.Environment;
 
 /**

@@ -40,7 +40,7 @@ public final class FileUtils {
      * @return The output of the function.
      */
     public static String createFile(File file) throws FileIOException {
-        if (!file.exists()){
+        if (!file.exists()) {
             try {
                 //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
@@ -57,13 +57,13 @@ public final class FileUtils {
      * Writes a String to a File.
      *
      * @param file The File to write to.
-     * @param s The String to write to the File.
+     * @param s    The String to write to the File.
      * @return The output of the function.
      * @throws FileIOException if the function fails.
      */
     public static String writeToFile(File file, String s) throws FileIOException {
         String out = "";
-        if (!file.exists()){
+        if (!file.exists()) {
             out += createFile(file);
         }
         try {
@@ -71,7 +71,7 @@ public final class FileUtils {
             ps.println(s);
             ps.close();
             return out;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new FileIOException(e.getMessage());
         }
     }
@@ -90,7 +90,7 @@ public final class FileUtils {
     /**
      * Returns the content of a File.
      *
-     * @param file The File to read.
+     * @param file  The File to read.
      * @param bytes True if the reader should read raw byte data.
      * @return The content of the File.
      * @throws FileIOException if the File cannot be read.

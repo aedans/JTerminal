@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 
 /**
  * Created by Aedan Smith on 10/6/2016.
- *
+ * <p>
  * Default command.
  */
 
@@ -40,12 +40,12 @@ public class TerminalExec extends Command {
                 new Thread(new SyncPipe(process.getInputStream(), p)).start();
             }
             PrintWriter stdin = new PrintWriter(process.getOutputStream());
-            for (String s : args.get(1).value.split("(?<!\\\\);")){
+            for (String s : args.get(1).value.split("(?<!\\\\);")) {
                 stdin.println(s);
             }
             stdin.close();
             output.println("\n\nReturn code: " + process.waitFor());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
@@ -53,6 +53,9 @@ public class TerminalExec extends Command {
 }
 
 class SyncPipe implements Runnable {
+    private final OutputStream ostrm_;
+    private final InputStream istrm_;
+
     public SyncPipe(InputStream istrm, OutputStream ostrm) {
         istrm_ = istrm;
         ostrm_ = ostrm;
@@ -68,7 +71,4 @@ class SyncPipe implements Runnable {
             e.printStackTrace();
         }
     }
-
-    private final OutputStream ostrm_;
-    private final InputStream istrm_;
 }

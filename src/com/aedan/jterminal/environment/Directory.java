@@ -74,6 +74,10 @@ public class Directory implements Variable {
         }
     }
 
+    public Path getPath() {
+        return path;
+    }
+
     /**
      * Goes to a Directory.
      *
@@ -92,11 +96,7 @@ public class Directory implements Variable {
         }
     }
 
-    public Path getPath() {
-        return path;
-    }
-
-    public File getFile(){
+    public File getFile() {
         return path.toFile();
     }
 

@@ -29,10 +29,6 @@ public class GlobalVariable implements Variable {
         this.value = value;
     }
 
-    public void setValue(String newValue){
-        this.value = newValue;
-    }
-
     @Override
     public String getName() {
         return name;
@@ -41,6 +37,10 @@ public class GlobalVariable implements Variable {
     @Override
     public String getValue() {
         return value;
+    }
+
+    public void setValue(String newValue) {
+        this.value = newValue;
     }
 
 }

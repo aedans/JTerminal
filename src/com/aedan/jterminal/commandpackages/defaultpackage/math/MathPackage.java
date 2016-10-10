@@ -1,12 +1,12 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.math;
 
-import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.math.commands.*;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.environment.Environment;
 
 /**
  * Created by Aedan Smith on 9/5/2016.
- *
+ * <p>
  * Default Command Package.
  */
 

@@ -14,7 +14,7 @@ import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by Aedan Smith on 9/5/2016.
- *
+ * <p>
  * Default Command.
  */
 
@@ -25,7 +25,7 @@ public class Match extends Command {
         properties[0] = "Outputs all matches in a String.";
         properties[1] =
                 "Match [string-content] [string-pattern]:\n" +
-                "    Outputs the group 1 of all matches of [string-pattern] in [string-content].";
+                        "    Outputs the group 1 of all matches of [string-pattern] in [string-content].";
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Match extends Command {
             while (m.find()) {
                 output.println(m.group(1));
             }
-        } catch (PatternSyntaxException e){
+        } catch (PatternSyntaxException e) {
             throw new CommandHandler.CommandHandlerException("Invalid pattern: " + e.getMessage());
         }
     }

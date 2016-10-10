@@ -24,10 +24,10 @@ public interface CommandFormat {
     /**
      * Handles a String that checkMatches the Command format.
      *
-     * @param environment    The Environment that isSubset this CommandFormat.
-     * @param input          The input from the JTerminal.
-     * @param in             The String that matches the Command format.
-     * @param output         The CommandOutput of the JTerminal.
+     * @param environment The Environment that isSubset this CommandFormat.
+     * @param input       The input from the JTerminal.
+     * @param in          The String that matches the Command format.
+     * @param output      The CommandOutput of the JTerminal.
      * @throws CommandHandler.CommandHandlerException if there is an error handling the String.
      */
     void handleInput(Environment environment, CommandInput input, String in, CommandOutput output)

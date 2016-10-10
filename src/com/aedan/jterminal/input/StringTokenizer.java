@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * Created by Aedan Smith on 10/5/2016.
- *
+ * <p>
  * Class for tokenizing Strings.
  */
 
@@ -20,18 +20,22 @@ public final class StringTokenizer {
         LinkedList<String> strings = new LinkedList<>();
         strings.add(s);
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '\"'){
+            if (s.charAt(i) == '\\') {
+                i++;
+                continue;
+            }
+            if (s.charAt(i) == '\"') {
                 int j;
-                for (j = i+1; true; j++){
-                    if (s.charAt(j) == '\\'){
+                for (j = i + 1; true; j++) {
+                    if (s.charAt(j) == '\\') {
                         j++;
                         continue;
                     }
-                    if (s.charAt(j) == '\"'){
+                    if (s.charAt(j) == '\"') {
                         break;
                     }
                 }
-                strings.add(s.substring(i+1, j));
+                strings.add(s.substring(i + 1, j));
                 i = j;
             }
         }

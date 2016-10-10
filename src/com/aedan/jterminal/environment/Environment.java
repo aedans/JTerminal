@@ -19,7 +19,7 @@ import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
- *
+ * <p>
  * Class containing the Environment of the JTerminal.
  */
 
@@ -60,13 +60,13 @@ public class Environment {
      *
      * @param commandPackages The List of CommandPackages for the Environment.
      */
-    public Environment(CommandPackage... commandPackages){
+    public Environment(CommandPackage... commandPackages) {
         this.commandHandler = new CommandHandler(this);
-        for (CommandPackage c : commandPackages){
+        for (CommandPackage c : commandPackages) {
             this.addCommandPackage(c);
         }
         Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()){
+        for (String envName : env.keySet()) {
             environmentVariables.add(new Variable() {
                 @Override
                 public String getName() {
@@ -89,7 +89,7 @@ public class Environment {
             @Override
             public String getValue() {
                 String s = "";
-                for (Command c : getCommands()){
+                for (Command c : getCommands()) {
                     s += "\n" + c.getIdentifier() + ":\n";
                     for (int i = 0; i < Command.numProperties; i++) {
                         try {
@@ -141,7 +141,7 @@ public class Environment {
             @Override
             public String getValue() {
                 String s = "";
-                for (Command c : getCommands()){
+                for (Command c : getCommands()) {
                     s += c.getIdentifier() + "\n";
                 }
                 return s;
@@ -156,7 +156,7 @@ public class Environment {
             @Override
             public String getValue() {
                 String s = "";
-                for (CommandFormat c : getCommandFormats()){
+                for (CommandFormat c : getCommandFormats()) {
                     s += c.getClass().getSimpleName() + "\n";
                 }
                 return s;
@@ -171,7 +171,7 @@ public class Environment {
             @Override
             public String getValue() {
                 String s = "";
-                for (GlobalVariable v : getGlobalVariables()){
+                for (GlobalVariable v : getGlobalVariables()) {
                     s += v.getName() + "\n";
                 }
                 return s;
@@ -186,7 +186,7 @@ public class Environment {
             @Override
             public String getValue() {
                 String s = "";
-                for (Variable v : getEnvironmentVariables()){
+                for (Variable v : getEnvironmentVariables()) {
                     s += v.getName() + "\n";
                 }
                 return s;
@@ -252,7 +252,7 @@ public class Environment {
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
 
-    public void prepareInput(){
+    public void prepareInput() {
         commandHandler.prepareInput();
     }
 
@@ -277,11 +277,11 @@ public class Environment {
         }
     }
 
-    public Directory getDirectory(){
+    public Directory getDirectory() {
         return directory;
     }
 
-    public void addEnvironmentVariable(Variable v){
+    public void addEnvironmentVariable(Variable v) {
         environmentVariables.add(v);
     }
 

@@ -21,7 +21,7 @@ public class Echo extends Command {
         this.properties[0] = "Outputs text.";
         this.properties[1] =
                 "echo [string]:\n" +
-                "    Outputs [string].";
+                        "    Outputs [string].";
     }
 
     @Override

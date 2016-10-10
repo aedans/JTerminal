@@ -3,9 +3,9 @@ package com.aedan.jterminal.commandpackages.defaultpackage.utility.commandformat
 import com.aedan.jterminal.commands.CommandFormat;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.environment.variables.GlobalVariable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

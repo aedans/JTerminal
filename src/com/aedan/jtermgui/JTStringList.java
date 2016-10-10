@@ -14,9 +14,19 @@ import java.awt.event.MouseWheelListener;
 class JTStringList extends JComponent implements MouseWheelListener {
 
     /**
+     * The Colors for the StringList to draw.
+     */
+    public Color fontColor = Color.WHITE, backgroundColor = Color.BLACK;
+
+    /**
      * The lines for the StringList to render.
      */
     String lines = "";
+
+    /**
+     * The number of lines currently being displayed.
+     */
+    int numLines = 0;
 
     /**
      * The current StringList string.
@@ -27,16 +37,6 @@ class JTStringList extends JComponent implements MouseWheelListener {
      * The index of the cursor.
      */
     private int cursorIndex = 0;
-
-    /**
-     * The number of lines currently being displayed.
-     */
-    int numLines = 0;
-
-    /**
-     * The Colors for the StringList to draw.
-     */
-    public Color fontColor = Color.WHITE, backgroundColor = Color.BLACK;
 
     /**
      * The amount to translate the font Y.
@@ -74,7 +74,7 @@ class JTStringList extends JComponent implements MouseWheelListener {
 
     @Override
     public void paint(Graphics g1) {
-        Graphics2D g = ((Graphics2D)g1);
+        Graphics2D g = ((Graphics2D) g1);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
         currentFontWidth =
@@ -92,7 +92,7 @@ class JTStringList extends JComponent implements MouseWheelListener {
         }
         g.drawString(lines[i] + currentString, 5, currentFontSize + (i * currentFontSize) + fontTransY);
         g.fillRect(
-                (int) (lines[i].length()*currentFontWidth + cursorIndex*currentFontWidth - currentFontWidth*.6f),
+                (int) (lines[i].length() * currentFontWidth + cursorIndex * currentFontWidth - currentFontWidth * .6f),
                 (i * currentFontSize) + fontTransY + 3,
                 2,
                 currentFontSize
@@ -106,23 +106,18 @@ class JTStringList extends JComponent implements MouseWheelListener {
         if (fontTransY > -3) fontTransY = -3;
     }
 
-    void incrementCursorIndex(){
+    void incrementCursorIndex() {
         if (cursorIndex < currentString.length())
             cursorIndex++;
     }
 
-    void decrementCursorIndex(){
+    void decrementCursorIndex() {
         if (cursorIndex != 0)
             cursorIndex--;
     }
 
-    void insertCharAtCursor(char c){
+    void insertCharAtCursor(char c) {
         currentString.insert(cursorIndex, c);
-    }
-
-    void setCurrentString(String s){
-        currentString = new StringBuilder(s);
-        cursorIndex = s.length();
     }
 
     void removeCurrentStringLastChar() {
@@ -132,6 +127,11 @@ class JTStringList extends JComponent implements MouseWheelListener {
 
     public String getCurrentString() {
         return currentString.toString();
+    }
+
+    void setCurrentString(String s) {
+        currentString = new StringBuilder(s);
+        cursorIndex = s.length();
     }
 
     @Override

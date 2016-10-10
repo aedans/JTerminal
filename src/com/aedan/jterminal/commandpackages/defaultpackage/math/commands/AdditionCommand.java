@@ -10,7 +10,7 @@ import com.aedan.jterminal.output.CommandOutput;
 
 /**
  * Created by Aedan Smith on 9/5/2016.
- *
+ * <p>
  * Default Command.
  */
 
@@ -26,7 +26,7 @@ public class AdditionCommand extends MathCommand {
             throws CommandHandler.CommandHandlerException {
         if (args.length() != 3)
             throw new CommandHandler.CommandHandlerException(
-                    "Wrong number of arguments given (given: 2, required: " + (args.length()-1) + ")");
+                    "Wrong number of arguments given (given: 2, required: " + (args.length() - 1) + ")");
 
         try {
             if (args.get(1).getArgumentType().isSubset(ArgumentType.LONG)
@@ -37,7 +37,7 @@ public class AdditionCommand extends MathCommand {
                 output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
             else
                 output.println(args.get(1).value + args.get(2).value);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new CommandHandler.CommandHandlerException(
                     "I" + e.getMessage().substring(5) + " is not a number");
         }

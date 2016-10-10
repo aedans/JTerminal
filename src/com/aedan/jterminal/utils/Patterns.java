@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 9/2/2016.
- *
+ * <p>
  * Class containing Regexes to determine what a String is.
  */
 

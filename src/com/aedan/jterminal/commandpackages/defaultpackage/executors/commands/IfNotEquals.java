@@ -23,7 +23,7 @@ public class IfNotEquals extends Command {
         this.properties[0] = "Executes a Command if two Strings are not equal.";
         this.properties[1] =
                 "!= [string-test1] [string-test2] [string-command]:\n" +
-                "    Executes [string-command] if [string-test1] and [string-test2] are not equal.";
+                        "    Executes [string-command] if [string-test1] and [string-test2] are not equal.";
     }
 
     @Override
@@ -31,7 +31,7 @@ public class IfNotEquals extends Command {
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING);
 
-        if (!Objects.equals(args.get(1).value, args.get(2).value)){
+        if (!Objects.equals(args.get(1).value, args.get(2).value)) {
             environment.handleInput(input, args.get(3).value, output);
         }
     }

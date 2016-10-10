@@ -23,7 +23,7 @@ public class ChangeDirectory extends Command {
         this.properties[0] = "Changes the active directory.";
         this.properties[1] =
                 "cd [directory]:\n" +
-                "    Changes the active directory to [directory].";
+                        "    Changes the active directory to [directory].";
     }
 
     @Override

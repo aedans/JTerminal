@@ -1,7 +1,7 @@
 package com.aedan.jterminal.commands;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.environment.variables.Variable;
 import com.aedan.jterminal.input.CommandInput;
@@ -131,7 +131,7 @@ public class CommandHandler {
     /**
      * Injects Embedded Commands, Variables, and String literals into a String.
      *
-     * @param input The CommandInput for the CommandHandler.
+     * @param input   The CommandInput for the CommandHandler.
      * @param command The String to compute.
      * @return The computer String.
      * @throws CommandHandlerException if there is an error computing the String.
@@ -178,7 +178,7 @@ public class CommandHandler {
             command = command.replace("&" + j, stringLiterals.get(j));
         }
 
-        return (command.charAt(command.length()-1) == ' ') ? command.substring(0, command.length()-1) : command;
+        return (command.charAt(command.length() - 1) == ' ') ? command.substring(0, command.length() - 1) : command;
     }
 
     public void prepareInput() {

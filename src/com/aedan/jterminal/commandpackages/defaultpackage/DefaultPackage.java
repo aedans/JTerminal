@@ -1,10 +1,10 @@
 package com.aedan.jterminal.commandpackages.defaultpackage;
 
-import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.executors.ExecutorsPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.io.FileIOPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.math.MathPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.utility.UtilityPackage;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.environment.Environment;
 
 /**

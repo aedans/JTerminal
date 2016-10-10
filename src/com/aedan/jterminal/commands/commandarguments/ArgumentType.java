@@ -19,19 +19,19 @@ public enum ArgumentType {
      * @return The ArgumentType of the String.
      */
     public static ArgumentType getArgumentType(String value) {
-        if (value.trim().matches(Patterns.bytePattern.pattern())){
+        if (value.trim().matches(Patterns.bytePattern.pattern())) {
             return BYTE;
         }
-        if (value.trim().matches(Patterns.shortPattern.pattern())){
+        if (value.trim().matches(Patterns.shortPattern.pattern())) {
             return SHORT;
         }
         if (value.trim().matches(Patterns.integerPattern.pattern())) {
             return INTEGER;
         }
-        if (value.trim().matches(Patterns.longPattern.pattern())){
+        if (value.trim().matches(Patterns.longPattern.pattern())) {
             return LONG;
         }
-        if (value.trim().matches(Patterns.floatPattern.pattern())){
+        if (value.trim().matches(Patterns.floatPattern.pattern())) {
             return FLOAT;
         }
         if (value.trim().matches(Patterns.doublePattern.pattern())) {
@@ -46,8 +46,8 @@ public enum ArgumentType {
      * @param argumentType The ArgumentType to test.
      * @return True if an ArgumentType is a subset of another ArgumentType
      */
-    public boolean isSubset(ArgumentType argumentType){
-        switch (argumentType){
+    public boolean isSubset(ArgumentType argumentType) {
+        switch (argumentType) {
             case FLOAT:
                 if (this == FLOAT) return true;
             case DOUBLE:

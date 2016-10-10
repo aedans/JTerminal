@@ -4,7 +4,7 @@ import com.aedan.jterminal.commandpackages.defaultpackage.math.MathCommand;
 
 /**
  * Created by Aedan Smith on 9/8/2016.
- *
+ * <p>
  * Default Command.
  */
 

@@ -1,8 +1,8 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.io;
 
-import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.commandpackages.defaultpackage.io.commandformats.OutputToFile;
 import com.aedan.jterminal.commandpackages.defaultpackage.io.commands.*;
+import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.environment.Environment;
 
 /**

@@ -2,9 +2,9 @@ package com.aedan.jterminal;
 
 import acklib.utils.misc.ArgumentParseException;
 import acklib.utils.misc.ArgumentParser;
+import com.aedan.jterminal.commandpackages.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.commands.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
-import com.aedan.jterminal.commandpackages.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;

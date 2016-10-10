@@ -19,7 +19,7 @@ public class Alias extends Command {
         properties[0] = "Aliases a command to another command.";
         properties[1] =
                 "alias [string-name] [string-command]:\n" +
-                "    Creates command [string-name] that executes [string-command].";
+                        "    Creates command [string-name] that executes [string-command].";
     }
 
     @Override

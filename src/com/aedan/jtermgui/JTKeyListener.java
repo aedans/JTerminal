@@ -4,7 +4,6 @@ import com.aedan.jterminal.input.CommandInput;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
@@ -75,7 +74,8 @@ class JTKeyListener implements KeyListener, CommandInput {
             s = nextLine();
             try {
                 return Long.parseLong(s);
-            } catch (NumberFormatException ignored){}
+            } catch (NumberFormatException ignored) {
+            }
         }
     }
 
@@ -86,7 +86,8 @@ class JTKeyListener implements KeyListener, CommandInput {
             s = nextLine();
             try {
                 return Double.parseDouble(s);
-            } catch (NumberFormatException ignored){}
+            } catch (NumberFormatException ignored) {
+            }
         }
     }
 
@@ -115,7 +116,7 @@ class JTKeyListener implements KeyListener, CommandInput {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                if (commandIndex < recentCommands.size()-1) {
+                if (commandIndex < recentCommands.size() - 1) {
                     commandIndex++;
                     stringList.setCurrentString(recentCommands.get(commandIndex));
                     stringList.snapToInput();
@@ -123,11 +124,11 @@ class JTKeyListener implements KeyListener, CommandInput {
             }
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             stringList.decrementCursorIndex();
             stringList.snapToInput();
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             stringList.incrementCursorIndex();
             stringList.snapToInput();
         }

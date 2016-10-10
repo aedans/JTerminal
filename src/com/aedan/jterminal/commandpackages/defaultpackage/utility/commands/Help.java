@@ -25,9 +25,9 @@ public class Help extends Command {
         this.properties[0] = "Lists all commands and their simple descriptions.";
         this.properties[1] =
                 "help:\n" +
-                "    Lists all commands and their simple descriptions.\n" +
-                "help [string]:\n" +
-                "    Lists the detailed description of command [string].";
+                        "    Lists all commands and their simple descriptions.\n" +
+                        "help [string]:\n" +
+                        "    Lists the detailed description of command [string].";
         this.environment = environment;
     }
 
@@ -54,8 +54,8 @@ public class Help extends Command {
             output.printGrid(4, sIdentifiers, sDescriptions);
         } else {
             args.checkMatches(ArgumentType.STRING);
-            for (Command c : environment.getCommands()){
-                if (c.getIdentifier().equals(args.get(1).value)){
+            for (Command c : environment.getCommands()) {
+                if (c.getIdentifier().equals(args.get(1).value)) {
                     try {
                         output.println(c.getProperty(1));
                         return;

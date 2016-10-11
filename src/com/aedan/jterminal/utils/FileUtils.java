@@ -3,6 +3,7 @@ package com.aedan.jterminal.utils;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
+import java.util.stream.Stream;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -87,6 +88,32 @@ public final class FileUtils {
     public static String readFile(File file) throws FileIOException {
         return FileUtils.readFile(file, false);
     }
+
+    /**
+     * Returns a stream of lines
+     *
+     * @param file file to read lines from
+     * @return a stream of lines
+     * @throws FileIOException if file cannot be read
+     */
+    public static Stream<String> readLines(File file) throws FileIOException {
+        try {
+            if(!file.exists()){
+                throw new FileIOException("File does not exist");
+            }
+            if(!file.isFile()){
+                throw new FileIOException("Cannot read lines from a directory");
+            }
+            if(!file.canRead()){
+                throw new FileIOException(String.format("Unable to read from file \" \""));
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            return reader.lines();
+        } catch (FileNotFoundException fnfe){
+            throw new FileIOException("Unable to open file, does not exist");
+        }
+    }
+
 
     /**
      * Returns the content of a File.

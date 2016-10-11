@@ -29,7 +29,7 @@ public class CommandArgumentList {
      * @param tokens The List of values for the CommandArgumentList.
      */
     public CommandArgumentList(List<String> tokens) {
-        args.add(new CommandArgument(tokens.get(0), ArgumentType.COMMANDIDENTIFIER));
+        args.add(new CommandArgument(tokens.get(0), ArgumentType.COMMAND_IDENTIFIER));
         for (int i = 1; i < tokens.size(); i++) {
             if (Objects.equals(tokens.get(i), "-")) {
                 i++;

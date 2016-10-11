@@ -6,6 +6,8 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
+import java.util.Arrays;
+
 /**
  * Created by Aedan Smith on 8/10/16.
  * <p>
@@ -36,6 +38,11 @@ public abstract class Command {
      */
     protected Command(String identifier) {
         this.identifier = identifier;
+    }
+
+    protected Command(String identifier, String...properties) {
+        this(identifier);
+        this.properties = Arrays.copyOf(properties, numProperties);
     }
 
     /**

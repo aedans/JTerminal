@@ -29,7 +29,7 @@ public class ListSubdirectories extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         if (args.matches() != 0)
-            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
 
         //noinspection ConstantConditions
         for (File f : environment.getDirectory().getFile().listFiles()) {

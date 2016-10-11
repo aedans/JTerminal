@@ -24,9 +24,9 @@ public class AdditionCommand extends MathCommand {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        if (args.length() != 3)
+        if (args.size() != 3)
             throw new CommandHandler.CommandHandlerException(
-                    "Wrong number of arguments given (given: 2, required: " + (args.length() - 1) + ")");
+                    "Wrong number of arguments given (given: 2, required: " + (args.size() - 1) + ")");
 
         try {
             if (args.get(1).getArgumentType().isSubset(ArgumentType.LONG)

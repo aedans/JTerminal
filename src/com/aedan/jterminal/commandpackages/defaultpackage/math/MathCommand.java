@@ -31,7 +31,7 @@ public abstract class MathCommand extends Command {
             else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == 0)
                 output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
             else
-                throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+                throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
         } catch (NumberFormatException e) {
             throw new CommandHandler.CommandHandlerException(
                     "I" + e.getMessage().substring(5) + " is not a number");

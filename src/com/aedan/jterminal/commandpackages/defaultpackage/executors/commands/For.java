@@ -40,10 +40,10 @@ public class For extends Command {
             for (int i = Integer.parseInt(args.get(1).value); i < Integer.parseInt(args.get(2).value); i++) {
                 environment.addGlobalVariable(args.get(3).value, String.valueOf(i));
                 environment.getCommandHandler().handleInput(args.get(4).value);
-                environment.removeGlobalVariable(args.get(3).value);
             }
+            environment.removeGlobalVariable(args.get(3).value);
         } else {
-            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
         }
     }
 

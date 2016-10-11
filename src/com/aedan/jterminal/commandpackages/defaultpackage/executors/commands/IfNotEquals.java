@@ -30,7 +30,7 @@ public class IfNotEquals extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         if (args.matches(ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING) != 0)
-            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
 
         if (!Objects.equals(args.get(1).value, args.get(2).value)) {
             environment.getCommandHandler().handleInput(args.get(3).value);

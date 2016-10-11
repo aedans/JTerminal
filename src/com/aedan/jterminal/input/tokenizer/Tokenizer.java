@@ -18,6 +18,10 @@ public class Tokenizer {
      */
     private LinkedList<Character> reservedChars = new LinkedList<>();
 
+    {
+        addReservedChar('-');
+    }
+
     /**
      * The List of TokenizerRules.
      */

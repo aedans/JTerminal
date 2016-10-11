@@ -30,7 +30,7 @@ public class RemoveFile extends Command {
             throws CommandHandler.CommandHandlerException {
         try {
             if (args.matches(ArgumentType.STRING) != 0)
-                throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+                throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
 
             output.println(FileUtils.removeFile(environment.getDirectory().getFile(args.get(1).value)));
         } catch (FileUtils.FileIOException e) {

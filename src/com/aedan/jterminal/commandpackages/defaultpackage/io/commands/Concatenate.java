@@ -48,7 +48,7 @@ public class Concatenate extends Command {
             }
         } else {
             String s = "";
-            for (int i = 1; i < args.length(); i++) {
+            for (int i = 1; i < args.size(); i++) {
                 try {
                     s += FileUtils.readFile(environment.getDirectory().getFile(args.get(i).value), true);
                 } catch (FileUtils.FileIOException e) {

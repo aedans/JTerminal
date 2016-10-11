@@ -1,7 +1,9 @@
 package com.aedan.jterminal.commands.commandarguments;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
@@ -14,7 +16,12 @@ public class CommandArgumentList {
     /**
      * The value of the CommandArgumentList.
      */
-    private final CommandArgument[] args;
+    private final ArrayList<CommandArgument> args = new ArrayList<>();
+
+    /**
+     * The List of flags in the CommandArgumenList.
+     */
+    private final LinkedList<String> flags = new LinkedList<>();
 
     /**
      * Default CommandArgumentList constructor.
@@ -22,10 +29,13 @@ public class CommandArgumentList {
      * @param tokens The List of values for the CommandArgumentList.
      */
     public CommandArgumentList(List<String> tokens) {
-        args = new CommandArgument[tokens.size()];
-        args[0] = new CommandArgument(tokens.get(0), ArgumentType.COMMANDIDENTIFIER);
-        for (int i = 1; i < args.length; i++) {
-            args[i] = new CommandArgument(tokens.get(i));
+        args.add(new CommandArgument(tokens.get(0), ArgumentType.COMMANDIDENTIFIER));
+        for (int i = 1; i < tokens.size(); i++) {
+            if (Objects.equals(tokens.get(i), "-")) {
+                i++;
+                flags.add(tokens.get(i));
+            } else
+                args.add(new CommandArgument(tokens.get(i)));
         }
     }
 
@@ -37,31 +47,38 @@ public class CommandArgumentList {
      *                  0 if the arguments match, and 1 if there are too many arguments.
      */
     public int matches(ArgumentType... argumentTypes) {
-        if (args.length > argumentTypes.length + 1)
+        if (args.size() > argumentTypes.length + 1)
             return 1;
 
-        if (args.length < argumentTypes.length + 1)
+        if (args.size() < argumentTypes.length + 1)
             return -1;
 
-        for (int i = 1; i < args.length; i++) {
-            if (argumentTypes[i - 1] != ArgumentType.STRING && !args[i].argumentType.isSubset(argumentTypes[i - 1]))
+        for (int i = 1; i < args.size(); i++) {
+            if (argumentTypes[i - 1] != ArgumentType.STRING && !args.get(i).argumentType.isSubset(argumentTypes[i - 1]))
                 return -2;
         }
 
         return 0;
     }
 
-    public int length() {
-        return args.length;
+    public boolean isFlagPresent(String flag){
+        return flags.contains(flag);
+    }
+
+    public int size() {
+        return args.size();
     }
 
     public CommandArgument get(int i) {
-        return args[i];
+        return args.get(i);
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(args);
+    public ArrayList<CommandArgument> getArgs() {
+        return args;
+    }
+
+    public LinkedList<String> getFlags() {
+        return flags;
     }
 
 }

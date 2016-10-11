@@ -68,7 +68,7 @@ public class Help extends Command {
 
             output.printf("Could not find command \"%s\"\n", args.get(1).value);
         } else {
-            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
         }
     }
 

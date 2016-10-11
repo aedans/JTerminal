@@ -30,7 +30,7 @@ public class ExecuteJTermFile extends Command {
             throws CommandHandler.CommandHandlerException {
         try {
             if (args.matches(ArgumentType.STRING)  != 0)
-                throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
+                throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
 
             String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(environment.getDirectory().getFile(dir));

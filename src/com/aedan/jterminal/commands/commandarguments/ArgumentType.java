@@ -22,22 +22,22 @@ public enum ArgumentType {
      */
     public static ArgumentType getArgumentType(String value) {
         Matcher m = Patterns.bytePattern.matcher(value);
-        if (m.find())
+        if (m.matches())
             return BYTE;
         m = Patterns.shortPattern.matcher(value);
-        if (m.find())
+        if (m.matches())
             return SHORT;
         m = Patterns.integerPattern.matcher(value);
-        if (m.find())
+        if (m.matches())
             return INTEGER;
         m = Patterns.longPattern.matcher(value);
-        if (m.find())
+        if (m.matches())
             return LONG;
         m = Patterns.doublePattern.matcher(value);
-        if (m.find())
+        if (m.matches())
             return FLOAT;
         m = Patterns.floatPattern.matcher(value);
-        if (m.find())
+        if (m.matches())
             return DOUBLE;
         return STRING;
     }
@@ -51,10 +51,10 @@ public enum ArgumentType {
     @SuppressWarnings("Duplicates")
     public boolean isSubset(ArgumentType argumentType) {
         switch (argumentType) {
-            case FLOAT:
-                if (this == FLOAT) return true;
             case DOUBLE:
                 if (this != STRING) return true;
+            case FLOAT:
+                if (this == FLOAT) return true;
             case LONG:
                 if (this == LONG) return true;
             case INTEGER:

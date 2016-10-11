@@ -1,7 +1,7 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.commands.Command;
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
@@ -34,8 +34,7 @@ public class ExecuteJTermFile extends Command {
             String lines = FileUtils.readFile(environment.getDirectory().getFile(dir));
             for (String s : lines.split("\\n")) {
                 try {
-                    environment.prepareInput();
-                    environment.handleInput(input, s, output);
+                    environment.getCommandHandler().handleInput(s);
                 } catch (CommandHandler.CommandHandlerException e) {
                     output.printf("Could not handle command \"%s\" (%s)\n", s, e.getMessage());
                 }

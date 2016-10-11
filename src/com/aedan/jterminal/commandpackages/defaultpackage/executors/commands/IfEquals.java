@@ -1,7 +1,7 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.commands.Command;
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
@@ -32,7 +32,7 @@ public class IfEquals extends Command {
         args.checkMatches(ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING);
 
         if (Objects.equals(args.get(1).value, args.get(2).value)) {
-            environment.handleInput(input, args.get(3).value, output);
+            environment.getCommandHandler().handleInput(args.get(3).value);
         }
     }
 

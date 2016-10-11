@@ -1,8 +1,11 @@
 package com.aedan.jterminal.commands;
 
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+
+import java.util.List;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -13,24 +16,24 @@ import com.aedan.jterminal.output.CommandOutput;
 public interface CommandFormat {
 
     /**
-     * Returns if the String matches the Command format.
+     * Returns if the tokens match the Command format.
      *
-     * @param in The String to test.
-     * @return True if the String matches the Command format.
-     * @throws CommandHandler.CommandHandlerException if there is an error matching the String.
+     * @param tokens The tokens to test.
+     * @return True if the tokens matche the Command format.
+     * @throws CommandHandler.CommandHandlerException if there is an error matching the tokens.
      */
-    boolean matches(String in) throws CommandHandler.CommandHandlerException;
+    boolean matches(List<String> tokens) throws CommandHandler.CommandHandlerException;
 
     /**
-     * Handles a String that checkMatches the Command format.
+     * Handles tokens that matches the Command format.
      *
-     * @param environment The Environment that isSubset this CommandFormat.
+     * @param environment The Environment of this CommandFormat.
      * @param input       The input from the JTerminal.
-     * @param in          The String that matches the Command format.
-     * @param output      The CommandOutput of the JTerminal.
-     * @throws CommandHandler.CommandHandlerException if there is an error handling the String.
+     * @param output      The output of the JTerminal.
+     * @param tokens          The tokens that match the Command format.
+     * @throws CommandHandler.CommandHandlerException if there is an error handling the tokens.
      */
-    void handleInput(Environment environment, CommandInput input, String in, CommandOutput output)
+    void handleInput(Environment environment, CommandInput input, CommandOutput output, List<String> tokens)
             throws CommandHandler.CommandHandlerException;
 
 }

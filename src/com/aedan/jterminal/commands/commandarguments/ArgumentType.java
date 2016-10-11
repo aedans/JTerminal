@@ -46,6 +46,7 @@ public enum ArgumentType {
      * @param argumentType The ArgumentType to test.
      * @return True if an ArgumentType is a subset of another ArgumentType
      */
+    @SuppressWarnings("Duplicates")
     public boolean isSubset(ArgumentType argumentType) {
         switch (argumentType) {
             case FLOAT:

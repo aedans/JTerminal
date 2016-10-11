@@ -2,20 +2,19 @@ package com.aedan.jterminal.environment;
 
 import com.aedan.jterminal.commands.Command;
 import com.aedan.jterminal.commands.CommandFormat;
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
-import com.aedan.jterminal.environment.variables.GlobalVariable;
-import com.aedan.jterminal.environment.variables.Variable;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.sun.istack.internal.NotNull;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
@@ -36,14 +35,14 @@ public class Environment {
     private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
 
     /**
-     * The List of Environment Variables in the Environment
+     * The HashMap of environment variables in the Environment.
      */
-    private ArrayList<Variable> environmentVariables = new ArrayList<>();
+    private HashMap<String, Supplier<String>> environmentVariables = new HashMap<>();
 
     /**
-     * The List of Variables in the Environment.
+     * The HashMap of global variables in the Environment.
      */
-    private ArrayList<GlobalVariable> globalVariables = new ArrayList<>();
+    private HashMap<String, String> globalVariables = new HashMap<>();
 
     /**
      * The Directory of the Environment.
@@ -60,149 +59,28 @@ public class Environment {
      *
      * @param commandPackages The List of CommandPackages for the Environment.
      */
-    public Environment(CommandPackage... commandPackages) {
-        this.commandHandler = new CommandHandler(this);
+    public Environment(CommandInput commandInput, CommandOutput commandOutput, CommandPackage... commandPackages) {
+        this.commandHandler = new CommandHandler(this, commandInput, commandOutput);
         for (CommandPackage c : commandPackages) {
             this.addCommandPackage(c);
         }
         Map<String, String> env = System.getenv();
         for (String envName : env.keySet()) {
-            environmentVariables.add(new Variable() {
-                @Override
-                public String getName() {
-                    return envName;
-                }
-
-                @Override
-                public String getValue() {
-                    return env.get(envName);
-                }
-            });
+            environmentVariables.put(envName, () -> env.get(envName));
         }
-        this.environmentVariables.add(0, this.directory = new Directory());
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "COMMANDPROPERTIES";
-            }
-
-            @Override
-            public String getValue() {
-                String s = "";
-                for (Command c : getCommands()) {
-                    s += "\n" + c.getIdentifier() + ":\n";
-                    for (int i = 0; i < Command.numProperties; i++) {
-                        try {
-                            s += "[" + i + "] " + c.getProperty(i).replace("\n", "\n    ") + "\n";
-                        } catch (Command.InvalidPropertyException e) {
-                            s += "[" + i + "] " + e.getMessage() + "\n";
-                        }
-                    }
-                }
-                return s;
-            }
-        });
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "HOST";
-            }
-
-            @Override
-            public String getValue() {
-                try {
-                    return InetAddress.getLocalHost().toString();
-                } catch (UnknownHostException e) {
-                    return "Could not get Host address: " + e.getMessage();
-                }
-            }
-        });
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "IP";
-            }
-
-            @Override
-            public String getValue() {
-                try {
-                    return InetAddress.getLocalHost().getHostAddress();
-                } catch (UnknownHostException e) {
-                    return "Could not get IP address: " + e.getMessage();
-                }
-            }
-        });
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "COMMANDS";
-            }
-
-            @Override
-            public String getValue() {
-                String s = "";
-                for (Command c : getCommands()) {
-                    s += c.getIdentifier() + "\n";
-                }
-                return s;
-            }
-        });
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "COMMANDFORMATS";
-            }
-
-            @Override
-            public String getValue() {
-                String s = "";
-                for (CommandFormat c : getCommandFormats()) {
-                    s += c.getClass().getSimpleName() + "\n";
-                }
-                return s;
-            }
-        });
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "GLOBALVARS";
-            }
-
-            @Override
-            public String getValue() {
-                String s = "";
-                for (GlobalVariable v : getGlobalVariables()) {
-                    s += v.getName() + "\n";
-                }
-                return s;
-            }
-        });
-        this.environmentVariables.add(new Variable() {
-            @Override
-            public String getName() {
-                return "ENVVARS";
-            }
-
-            @Override
-            public String getValue() {
-                String s = "";
-                for (Variable v : getEnvironmentVariables()) {
-                    s += v.getName() + "\n";
-                }
-                return s;
-            }
-        });
+        this.environmentVariables.put("DIR", this.directory = new Directory());
     }
 
     /**
      * Adds a GlobalVariable to the Environment.
      *
-     * @param variable The GlobalVariable to add.
+     * @param name The name of the variable.
+     * @param value The value of the variable.
      */
     @NotNull
-    public void addGlobalVariable(GlobalVariable variable) {
-        removeGlobalVariable(variable.getName());
-        globalVariables.add(variable);
+    public void addGlobalVariable(String name, String value) {
+        removeGlobalVariable(name);
+        globalVariables.put(name, value);
     }
 
     /**
@@ -211,14 +89,7 @@ public class Environment {
      * @param name The name of the GlobalVariable to remove.
      */
     public void removeGlobalVariable(String name) {
-        GlobalVariable n = null;
-        for (GlobalVariable v : globalVariables) {
-            if (Objects.equals(v.getName(), name)) {
-                n = v;
-            }
-        }
-        if (n != null)
-            globalVariables.remove(n);
+        globalVariables.remove(name);
     }
 
     /**
@@ -252,23 +123,6 @@ public class Environment {
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
 
-    public void prepareInput() {
-        commandHandler.prepareInput();
-    }
-
-    public void handleInput(CommandInput input, CommandOutput output) throws CommandHandler.CommandHandlerException {
-        commandHandler.handleInput(input, output);
-    }
-
-    public void handleInput(CommandInput input, String s, CommandOutput output)
-            throws CommandHandler.CommandHandlerException {
-        commandHandler.handleInput(input, s, output);
-    }
-
-    public String compute(CommandInput input, String s) throws CommandHandler.CommandHandlerException {
-        return commandHandler.compute(input, s);
-    }
-
     public void setDirectoryPath(Path path) {
         try {
             this.directory.setPath(path);
@@ -281,23 +135,23 @@ public class Environment {
         return directory;
     }
 
-    public void addEnvironmentVariable(Variable v) {
-        environmentVariables.add(v);
-    }
-
     public ArrayList<Command> getCommands() {
         return commands;
+    }
+
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
     }
 
     public ArrayList<CommandFormat> getCommandFormats() {
         return commandFormats;
     }
 
-    public ArrayList<Variable> getEnvironmentVariables() {
+    public HashMap<String, Supplier<String>> getEnvironmentVariables() {
         return environmentVariables;
     }
 
-    public ArrayList<GlobalVariable> getGlobalVariables() {
+    public HashMap<String, String> getGlobalVariables() {
         return globalVariables;
     }
 

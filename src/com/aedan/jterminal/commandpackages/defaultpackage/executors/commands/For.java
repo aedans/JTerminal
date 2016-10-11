@@ -1,11 +1,10 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.commands.Command;
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.commands.commandarguments.ArgumentType;
 import com.aedan.jterminal.commands.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -35,22 +34,14 @@ public class For extends Command {
         if (args.length() == 3) {
             args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
             for (String s : args.get(1).value.split("\n")) {
-                environment.addGlobalVariable(new GlobalVariable("s", s));
-                environment.handleInput(
-                        input,
-                        args.get(2).value,
-                        output
-                );
+                environment.addGlobalVariable("s", s);
+                environment.getCommandHandler().handleInput(args.get(2).value);
             }
         } else {
             args.checkMatches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING);
             for (int i = Integer.parseInt(args.get(1).value); i < Integer.parseInt(args.get(2).value); i++) {
-                environment.addGlobalVariable(new GlobalVariable(args.get(3).value, String.valueOf(i)));
-                environment.handleInput(
-                        input,
-                        args.get(4).value,
-                        output
-                );
+                environment.addGlobalVariable(args.get(3).value, String.valueOf(i));
+                environment.getCommandHandler().handleInput(args.get(4).value);
                 environment.removeGlobalVariable(args.get(3).value);
             }
         }

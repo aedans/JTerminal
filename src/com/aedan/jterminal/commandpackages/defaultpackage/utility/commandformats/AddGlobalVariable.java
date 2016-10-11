@@ -1,16 +1,15 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.utility.commandformats;
 
 import com.aedan.jterminal.commands.CommandFormat;
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.environment.variables.GlobalVariable;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
-import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 /**
  * Created by Aedan Smith on 8/22/2016.
@@ -20,32 +19,35 @@ import java.util.regex.Pattern;
 
 public class AddGlobalVariable implements CommandFormat {
 
-    private final String addGlobalVariableRegex = "([^=]+)=> *(.+)";
-    private final Pattern addGlobalVariablePattern = Pattern.compile(addGlobalVariableRegex);
-
-    @Override
-    public boolean matches(String in) throws CommandHandler.CommandHandlerException {
-        return in.matches(addGlobalVariableRegex);
+    public AddGlobalVariable(Environment environment){
+        environment.getCommandHandler().getTokenizer().addReservedChar('=');
     }
 
     @Override
-    public void handleInput(Environment environment, CommandInput input, String in, CommandOutput output)
+    public boolean matches(List<String> tokens) throws CommandHandler.CommandHandlerException {
+        return tokens.contains("=");
+    }
+
+    @Override
+    public void handleInput(Environment environment, CommandInput input, CommandOutput output, List<String> tokens)
             throws CommandHandler.CommandHandlerException {
-        try {
-            Matcher m = addGlobalVariablePattern.matcher(in);
-            if (m.find()) {
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                PrintStream ps = new PrintStream(os);
-                environment.handleInput(input, m.group(1), new CommandOutput(ps));
-                environment.addGlobalVariable(new GlobalVariable(environment.compute(input, m.group(2)), os.toString("UTF8").trim()));
-                output.println("Created variable " + m.group(2));
-            } else {
-                throw new CommandHandler.CommandHandlerException(
-                        "\"" + in + "\" does not match Add Global GlobalVariable format (command => destination).");
+        int setIndex = tokens.indexOf("=");
+
+        final String[] varValue = new String[]{""};
+        CommandOutput varOutput = new CommandOutput(new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                varValue[0] += (char) b;
             }
-        } catch (Exception e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
-        }
+        }));
+        environment.getCommandHandler().handleInput(input, varOutput, tokens.subList(setIndex+1, tokens.size()));
+
+        List<String> varTokens = tokens.subList(0, setIndex);
+        String varName = "";
+        for (String s : varTokens)
+            varName += s;
+
+        environment.addGlobalVariable(varName, varValue[0].trim());
     }
 
 }

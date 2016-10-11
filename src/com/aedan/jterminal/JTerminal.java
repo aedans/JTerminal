@@ -3,7 +3,7 @@ package com.aedan.jterminal;
 import acklib.utils.misc.ArgumentParseException;
 import acklib.utils.misc.ArgumentParser;
 import com.aedan.jterminal.commandpackages.defaultpackage.DefaultPackage;
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -75,7 +75,7 @@ public class JTerminal implements Runnable {
     public JTerminal(String args, CommandInput input, CommandOutput output, CommandPackage... commandPackages) {
         this.input = input;
         this.output = output;
-        this.environment = new Environment(commandPackages);
+        this.environment = new Environment(input, output, commandPackages);
         try {
             ArgumentParser parser = new ArgumentParser();
             parser.parseArguments(args);
@@ -94,7 +94,7 @@ public class JTerminal implements Runnable {
             try {
                 if (parser.getString("startup") != null) {
                     for (String s : FileUtils.readFile(new File(parser.getString("startup") + ".jterm")).split("\n")) {
-                        environment.handleInput(input, s, output.clone());
+                        environment.getCommandHandler().handleInput(s);
                     }
                 }
             } catch (FileUtils.FileIOException e) {
@@ -122,7 +122,7 @@ public class JTerminal implements Runnable {
         while (true) {
             try {
                 output.print(environment.getDirectory() + "> ");
-                environment.handleInput(input, output.clone());
+                environment.getCommandHandler().handleInput(input.nextLine());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.printf("Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e) {
@@ -130,6 +130,10 @@ public class JTerminal implements Runnable {
                 output.getPrintStreams().forEach(e::printStackTrace);
             }
         }
+    }
+
+    public static void main(String[] args){
+        new JTerminal("").run();
     }
 
     public Environment getEnvironment() {

@@ -1,5 +1,4 @@
 package com.aedan.jterminal.commandpackages.defaultpackage.io;
-
 import com.aedan.jterminal.commandpackages.defaultpackage.io.commandformats.OutputToFile;
 import com.aedan.jterminal.commandpackages.defaultpackage.io.commands.*;
 import com.aedan.jterminal.commands.CommandPackage;
@@ -23,7 +22,7 @@ public class FileIOPackage implements CommandPackage {
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
         environment.addCommand(new Update());
-        environment.addCommandFormat(new OutputToFile());
+        environment.addCommandFormat(new OutputToFile(environment));
     }
 
 }

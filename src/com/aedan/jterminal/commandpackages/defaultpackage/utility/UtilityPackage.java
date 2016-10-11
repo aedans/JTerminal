@@ -18,7 +18,7 @@ public class UtilityPackage implements CommandPackage {
 
     @Override
     public void addCommands(Environment environment) {
-        environment.addCommandFormat(new AddGlobalVariable());
+        environment.addCommandFormat(new AddGlobalVariable(environment));
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));

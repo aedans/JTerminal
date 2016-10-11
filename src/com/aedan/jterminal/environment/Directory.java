@@ -1,7 +1,6 @@
 package com.aedan.jterminal.environment;
 
-import com.aedan.jterminal.commands.CommandHandler;
-import com.aedan.jterminal.environment.variables.Variable;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
@@ -10,6 +9,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -17,7 +17,7 @@ import java.util.Objects;
  * utility class for managing the CommandHandler path.
  */
 
-public class Directory implements Variable {
+public class Directory implements Supplier<String> {
 
     /**
      * The current Directory.
@@ -106,12 +106,7 @@ public class Directory implements Variable {
     }
 
     @Override
-    public String getName() {
-        return "PATH";
-    }
-
-    @Override
-    public String getValue() {
+    public String get() {
         return path.toString();
     }
 

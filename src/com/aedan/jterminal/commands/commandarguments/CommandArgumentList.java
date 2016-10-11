@@ -1,8 +1,9 @@
 package com.aedan.jterminal.commands.commandarguments;
 
-import com.aedan.jterminal.commands.CommandHandler;
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
@@ -20,13 +21,13 @@ public class CommandArgumentList {
     /**
      * Default CommandArgumentList constructor.
      *
-     * @param strings The array of values for the CommandArgumentList.
+     * @param tokens The List of values for the CommandArgumentList.
      */
-    public CommandArgumentList(String[] strings) {
-        args = new CommandArgument[strings.length];
-        args[0] = new CommandArgument(strings[0], ArgumentType.COMMANDIDENTIFIER);
+    public CommandArgumentList(List<String> tokens) {
+        args = new CommandArgument[tokens.size()];
+        args[0] = new CommandArgument(tokens.get(0), ArgumentType.COMMANDIDENTIFIER);
         for (int i = 1; i < args.length; i++) {
-            args[i] = new CommandArgument(strings[i]);
+            args[i] = new CommandArgument(tokens.get(i));
         }
     }
 

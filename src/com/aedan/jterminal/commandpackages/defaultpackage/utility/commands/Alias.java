@@ -19,7 +19,7 @@ public class Alias extends Command {
         properties[0] = "Aliases a command to another command.";
         properties[1] =
                 "alias [string-name] [string-command]:\n" +
-                        "    Creates command [string-name] that executes [string-command].";
+                "    Creates command [string-name] that executes [string-command].";
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Alias extends Command {
 
         String s = args.get(2).value;
 
-        environment.addCommand(new Command(args.get(1).value) {
+        environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {
             @Override
             public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
                     throws CommandHandler.CommandHandlerException {

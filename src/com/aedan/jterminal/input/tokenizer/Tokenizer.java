@@ -3,6 +3,7 @@ package com.aedan.jterminal.input.tokenizer;
 import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
@@ -16,7 +17,7 @@ public class Tokenizer {
     /**
      * The List of reserved characters for the Tokenizer.
      */
-    private LinkedList<Character> reservedChars = new LinkedList<>();
+    private HashSet<Character> reservedChars = new HashSet<>();
 
     {
         addReservedChar('-');

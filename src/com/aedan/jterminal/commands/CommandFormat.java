@@ -30,7 +30,7 @@ public interface CommandFormat {
      * @param environment The Environment of this CommandFormat.
      * @param input       The input from the JTerminal.
      * @param output      The output of the JTerminal.
-     * @param tokens          The tokens that match the Command format.
+     * @param tokens      The tokens that match the Command format.
      * @throws CommandHandler.CommandHandlerException if there is an error handling the tokens.
      */
     void handleInput(Environment environment, CommandInput input, CommandOutput output, List<String> tokens)

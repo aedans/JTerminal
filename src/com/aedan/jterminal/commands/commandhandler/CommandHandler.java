@@ -12,6 +12,7 @@ import com.aedan.jterminal.commands.commandhandler.tokenizerrules.EmbeddedComman
 import com.aedan.jterminal.commands.commandhandler.tokenizerrules.StringLiteralRule;
 import com.aedan.jterminal.output.CommandOutput;
 import com.sun.istack.internal.NotNull;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,7 @@ public class CommandHandler {
      * @throws CommandHandlerException If there was an error handling the input.
      */
     public void handleInput(String s) throws CommandHandlerException {
-        handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
     }
 
     /**
@@ -79,7 +80,7 @@ public class CommandHandler {
      * @throws CommandHandlerException If there was an error handling the input.
      */
     public void handleInput(CommandInput commandInput, String s) throws CommandHandlerException {
-        handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
     }
 
     /**
@@ -90,7 +91,7 @@ public class CommandHandler {
      * @throws CommandHandlerException If there was an error handling the input.
      */
     public void handleInput(CommandOutput commandOutput, String s) throws CommandHandlerException {
-        handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
     }
 
     /**
@@ -103,14 +104,14 @@ public class CommandHandler {
      */
     public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s)
             throws CommandHandlerException {
-        handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
     }
 
     @NotNull
     public void handleInput(CommandInput commandInput, CommandOutput commandOutput, List<String> tokens)
             throws CommandHandlerException {
-        if (tokens == null) {
-            throw new CommandHandlerException("Input is null");
+        if (tokens == null || commandInput == null || commandOutput == null) {
+            throw new IllegalArgumentException("Input is null");
         }
         if (tokens.size() == 0){
             return;
@@ -162,7 +163,5 @@ public class CommandHandler {
         public CommandHandlerException(String message) {
             super(message);
         }
-
     }
-
 }

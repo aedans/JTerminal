@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 
 public enum ArgumentType {
 
-    BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, STRING, COMMANDIDENTIFIER;
+    BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, STRING, COMMAND_IDENTIFIER;
 
     /**
      * Returns the ArgumentType of a given String.
@@ -65,9 +65,9 @@ public enum ArgumentType {
                 if (this == BYTE) return true;
                 break;
             case STRING:
-                return this != COMMANDIDENTIFIER;
-            case COMMANDIDENTIFIER:
-                return this == COMMANDIDENTIFIER;
+                return this != COMMAND_IDENTIFIER;
+            case COMMAND_IDENTIFIER:
+                return this == COMMAND_IDENTIFIER;
         }
         return false;
     }

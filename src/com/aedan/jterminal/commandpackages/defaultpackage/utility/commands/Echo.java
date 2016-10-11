@@ -27,7 +27,8 @@ public class Echo extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        args.checkMatches(ArgumentType.STRING);
+        if (args.matches(ArgumentType.STRING) != 0)
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
 
         output.println(args.get(1));
     }

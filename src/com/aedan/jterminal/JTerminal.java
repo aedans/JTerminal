@@ -80,6 +80,7 @@ public class JTerminal implements Runnable {
             ArgumentParser parser = new ArgumentParser();
             parser.parseArguments(args);
 
+            // TODO: Modularize this.
             // Handles -directory argument
             try {
                 if (parser.getString("directory") != null) {

@@ -34,7 +34,7 @@ public class Help extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        if (args.length() == 1) {
+        if (args.matches() == 0) {
             //noinspection unchecked
             ArrayList<Command> sCommands = (ArrayList<Command>) environment.getCommands().clone();
             sCommands.sort((o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));
@@ -52,8 +52,7 @@ public class Help extends Command {
             }
 
             output.printGrid(4, sIdentifiers, sDescriptions);
-        } else {
-            args.checkMatches(ArgumentType.STRING);
+        } else if (args.matches(ArgumentType.STRING) == 0){
             for (Command c : environment.getCommands()) {
                 if (c.getIdentifier().equals(args.get(1).value)) {
                     try {
@@ -68,6 +67,8 @@ public class Help extends Command {
             }
 
             output.printf("Could not find command \"%s\"\n", args.get(1).value);
+        } else {
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
         }
     }
 

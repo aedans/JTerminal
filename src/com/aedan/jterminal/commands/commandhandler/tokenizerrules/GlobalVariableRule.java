@@ -41,6 +41,8 @@ public class GlobalVariableRule implements TokenizerRule {
         int j = i + 1, depth = 1;
         label:
         for (; true; j++) {
+            if (j >= s.length())
+                throw new CommandHandler.CommandHandlerException("Could not find matching ]");
             switch (s.charAt(j)) {
                 case '\\':
                     j++;

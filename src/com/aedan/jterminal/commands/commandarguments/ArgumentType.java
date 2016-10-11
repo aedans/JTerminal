@@ -1,10 +1,8 @@
 package com.aedan.jterminal.commands.commandarguments;
 
-import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Match;
 import com.aedan.jterminal.utils.Patterns;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/28/2016.

@@ -45,7 +45,7 @@ public class AddGlobalVariable implements CommandFormat {
         List<String> varTokens = tokens.subList(0, setIndex);
         String varName = "";
         for (String s : varTokens)
-            varName += s;
+            varName += s + "_";
 
         environment.addGlobalVariable(varName, varValue[0].trim());
     }

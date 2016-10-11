@@ -1,5 +1,6 @@
 package com.aedan.jterminal.commands.commandhandler.tokenizerrules;
 
+import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.input.tokenizer.TokenList;
 import com.aedan.jterminal.input.tokenizer.TokenizerRule;
 
@@ -17,10 +18,12 @@ public class StringLiteralRule implements TokenizerRule {
     }
 
     @Override
-    public int process(TokenList tokenList, String s, int i) {
+    public int process(TokenList tokenList, String s, int i) throws CommandHandler.CommandHandlerException {
         int j = i+1;
         label:
         for (; true; j++) {
+            if (j >= s.length())
+                throw new CommandHandler.CommandHandlerException("Could not find matching \"");
             switch (s.charAt(j)) {
                 case '\\':
                     j++;

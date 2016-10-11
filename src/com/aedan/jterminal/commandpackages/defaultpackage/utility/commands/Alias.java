@@ -25,7 +25,8 @@ public class Alias extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
+        if (args.matches(ArgumentType.STRING, ArgumentType.STRING) != 0)
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given.");
 
         String s = args.get(2).value;
 

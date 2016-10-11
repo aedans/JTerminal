@@ -1,7 +1,5 @@
 package com.aedan.jterminal.commands.commandarguments;
 
-import com.aedan.jterminal.commands.commandhandler.CommandHandler;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,26 +33,22 @@ public class CommandArgumentList {
      * Checks to see if the CommandArgumentList matches the given format.
      *
      * @param argumentTypes The format for the CommandArgumentList.
-     * @throws CommandHandler.CommandHandlerException If the format for the CommandArgumentList does not match.
+     * @return The return code of the function, -2 if there is an illegal type, -1 if there are too few arguments,
+     *                  0 if the arguments match, and 1 if there are too many arguments.
      */
-    public void checkMatches(ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
-        cCheckMatches(argumentTypes[0] == ArgumentType.COMMANDIDENTIFIER, argumentTypes);
-    }
+    public int matches(ArgumentType... argumentTypes) {
+        if (args.length > argumentTypes.length + 1)
+            return 1;
 
-    private void cCheckMatches(boolean ci, ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
-        if (args.length > (ci ? argumentTypes.length : argumentTypes.length + 1))
-            throw new CommandHandler.CommandHandlerException("More arguments given then required " +
-                    "(given: " + (args.length - 1) + ", required: " + (ci ? argumentTypes.length - 1 : argumentTypes.length) + ")");
+        if (args.length < argumentTypes.length + 1)
+            return -1;
 
-        if (args.length < (ci ? argumentTypes.length : argumentTypes.length + 1))
-            throw new CommandHandler.CommandHandlerException("Less arguments given then required " +
-                    "(given: " + (args.length - 1) + ", required: " + (ci ? argumentTypes.length - 1 : argumentTypes.length) + ")");
-
-        for (int i = ci ? 0 : 1; i < args.length; i++) {
-            if (argumentTypes[ci ? i : i - 1] != ArgumentType.STRING && !args[i].argumentType.isSubset(argumentTypes[ci ? i : i - 1]))
-                throw new CommandHandler.CommandHandlerException(
-                        "Found " + args[i].argumentType + ", expected " + argumentTypes[ci ? i : i - 1]);
+        for (int i = 1; i < args.length; i++) {
+            if (argumentTypes[i - 1] != ArgumentType.STRING && !args[i].argumentType.isSubset(argumentTypes[i - 1]))
+                return -2;
         }
+
+        return 0;
     }
 
     public int length() {

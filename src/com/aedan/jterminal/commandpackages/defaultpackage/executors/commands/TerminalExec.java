@@ -24,7 +24,7 @@ public class TerminalExec extends Command {
     public TerminalExec() {
         super("exect");
         this.properties[0] = "Executes a command via the terminal.";
-        this.properties[1] = "exect [string-command]:" +
+        this.properties[1] = "exect [string-command]:\n" +
                 "    Executes command [string-command] in the System terminal (currently only Windows).";
     }
 
@@ -32,7 +32,7 @@ public class TerminalExec extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            args.checkMatches(ArgumentType.STRING);
+            args.matches(ArgumentType.STRING);
 
             Process process = Runtime.getRuntime().exec("cmd");
             for (PrintStream p : output.getPrintStreams()) {

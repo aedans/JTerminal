@@ -10,6 +10,7 @@ import java.nio.file.Files;
  * utility class for accessing files.
  */
 
+@SuppressWarnings("Duplicates")
 public final class FileUtils {
 
     /**

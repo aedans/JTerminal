@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
 public final class Patterns {
 
     public static Pattern absoluteDirectoryPattern = Pattern.compile("\\w:.+|/.+|\\\\.+");
-    public static Pattern stringLiteralPattern = Pattern.compile("\"([^\"]*)\"");
-    public static Pattern embeddedCommandPattern = Pattern.compile("\\{([^{]*\\{.+\\}[^}]*|[^}]+)\\}");
 
     public static Pattern bytePattern = Pattern.compile("[-+0123456789]{1,3}");
     public static Pattern shortPattern = Pattern.compile("[-+0123456789]{1,5}");

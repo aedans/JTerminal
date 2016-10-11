@@ -1,6 +1,10 @@
 package com.aedan.jterminal.commands.commandarguments;
 
+import com.aedan.jterminal.commandpackages.defaultpackage.utility.commands.Match;
 import com.aedan.jterminal.utils.Patterns;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
@@ -19,24 +23,24 @@ public enum ArgumentType {
      * @return The ArgumentType of the String.
      */
     public static ArgumentType getArgumentType(String value) {
-        if (value.trim().matches(Patterns.bytePattern.pattern())) {
+        Matcher m = Patterns.bytePattern.matcher(value);
+        if (m.find())
             return BYTE;
-        }
-        if (value.trim().matches(Patterns.shortPattern.pattern())) {
+        m = Patterns.shortPattern.matcher(value);
+        if (m.find())
             return SHORT;
-        }
-        if (value.trim().matches(Patterns.integerPattern.pattern())) {
+        m = Patterns.integerPattern.matcher(value);
+        if (m.find())
             return INTEGER;
-        }
-        if (value.trim().matches(Patterns.longPattern.pattern())) {
+        m = Patterns.longPattern.matcher(value);
+        if (m.find())
             return LONG;
-        }
-        if (value.trim().matches(Patterns.floatPattern.pattern())) {
+        m = Patterns.doublePattern.matcher(value);
+        if (m.find())
             return FLOAT;
-        }
-        if (value.trim().matches(Patterns.doublePattern.pattern())) {
+        m = Patterns.floatPattern.matcher(value);
+        if (m.find())
             return DOUBLE;
-        }
         return STRING;
     }
 

@@ -26,7 +26,7 @@ public abstract class MathCommand extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            if (args.matches(ArgumentType.FLOAT, ArgumentType.FLOAT) == 0)
+            if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == 0)
                 output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
             else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == 0)
                 output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));

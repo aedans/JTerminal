@@ -28,19 +28,20 @@ public class AdditionCommand extends MathCommand {
             throw new CommandHandler.CommandHandlerException(
                     "Wrong number of arguments given (given: 2, required: " + (args.size() - 1) + ")");
 
-        try {
-            if (args.get(1).getArgumentType().isSubset(ArgumentType.LONG)
-                    && args.get(2).getArgumentType().isSubset(ArgumentType.LONG))
-                output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
-            else if (args.get(1).getArgumentType().isSubset(ArgumentType.DOUBLE)
-                    && args.get(2).getArgumentType().isSubset(ArgumentType.DOUBLE))
-                output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
-            else
+
+        if (args.get(1).getArgumentType().isSubset(ArgumentType.LONG)
+                && args.get(2).getArgumentType().isSubset(ArgumentType.LONG))
+            output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
+        else if (args.get(1).getArgumentType().isSubset(ArgumentType.DOUBLE)
+                && args.get(2).getArgumentType().isSubset(ArgumentType.DOUBLE))
+            output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
+        else
+            try {
                 output.println(args.get(1).value + args.get(2).value);
-        } catch (NumberFormatException e) {
-            throw new CommandHandler.CommandHandlerException(
-                    "I" + e.getMessage().substring(5) + " is not a number");
-        }
+            } catch (NumberFormatException e) {
+                throw new CommandHandler.CommandHandlerException(
+                        "I" + e.getMessage().substring(5) + " is not a number");
+            }
     }
 
     @Override

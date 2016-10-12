@@ -12,9 +12,8 @@ import com.aedan.jterminal.commands.commandhandler.tokenizerrules.EmbeddedComman
 import com.aedan.jterminal.commands.commandhandler.tokenizerrules.StringLiteralRule;
 import com.aedan.jterminal.output.CommandOutput;
 import com.sun.istack.internal.NotNull;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 

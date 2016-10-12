@@ -16,8 +16,6 @@ public class ExecutorsPackage implements CommandPackage {
     public void addCommands(Environment environment) {
         environment.addCommand(new ExecuteJTermFile());
         environment.addCommand(new For());
-        environment.addCommand(new IfEquals());
-        environment.addCommand(new IfNotEquals());
         environment.addCommand(new TerminalExec());
     }
 

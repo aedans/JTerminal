@@ -43,10 +43,7 @@ public class JTerminal implements Runnable {
      * @param args The list of arguments for the JTerminal.
      */
     public JTerminal(String args) {
-        this(
-                args == null ? "" : args,
-                new DefaultPackage()
-        );
+        this(args == null ? "" : args, new DefaultPackage());
     }
 
     /**

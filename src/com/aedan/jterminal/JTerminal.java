@@ -120,7 +120,7 @@ public class JTerminal implements Runnable {
         while (true) {
             try {
                 output.print(environment.getDirectory() + "> ");
-                environment.getCommandHandler().handleInput(input.nextLine());
+                handleString(input.nextLine());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.printf("Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e) {
@@ -128,6 +128,15 @@ public class JTerminal implements Runnable {
                 output.getPrintStreams().forEach(e::printStackTrace);
             }
         }
+    }
+
+    /**
+     * Handles a given String.
+     *
+     * @param s The String to handle.
+     */
+    public void handleString(String s) throws CommandHandler.CommandHandlerException {
+        environment.getCommandHandler().handleInput(s);
     }
 
     public static void main(String[] args){

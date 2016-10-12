@@ -125,24 +125,21 @@ public final class FileUtils {
      */
     public static String readFile(File file, boolean bytes) throws FileIOException {
         try {
-            if (file.exists()) {
-                if (file.isFile()) {
-                    if (file.canRead()) {
-                        if (!bytes) {
-                            final String[] content = {""};
-                            new BufferedReader(new FileReader(file)).lines().forEach(s -> content[0] += s + '\n');
-                            return content[0];
-                        } else {
-                            return new String(Files.readAllBytes(file.toPath()));
-                        }
-                    } else {
-                        throw new FileIOException(file.getAbsolutePath() + " is not readable");
-                    }
-                } else {
-                    throw new FileIOException(file.getAbsolutePath() + " is not a file");
-                }
-            } else {
+            if (!file.exists()) {
                 throw new FileIOException("File " + file.getAbsolutePath() + " does not exist");
+            }
+            if (!file.isFile()) {
+                throw new FileIOException(file.getAbsolutePath() + " is not a file");
+            }
+            if (!file.canRead()) {
+                throw new FileIOException(file.getAbsolutePath() + " is not readable");
+            }
+            if (!bytes) {
+                final String[] content = {""};
+                new BufferedReader(new FileReader(file)).lines().forEach(s -> content[0] += s + '\n');
+                return content[0];
+            } else {
+                return new String(Files.readAllBytes(file.toPath()));
             }
         } catch (Exception e) {
             throw new FileIOException(e.getMessage());

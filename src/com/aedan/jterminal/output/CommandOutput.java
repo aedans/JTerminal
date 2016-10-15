@@ -193,7 +193,6 @@ public class CommandOutput {
     /**
      * @return Returns a deep clone of the CommandOutput.
      */
-    @SuppressWarnings("CloneDoesntCallSuperClone")
     public CommandOutput clone() {
         ArrayList<PrintStream> printStreams = this.printStreams.stream().map(PrintStream::new)
                 .collect(Collectors.toCollection(ArrayList::new));

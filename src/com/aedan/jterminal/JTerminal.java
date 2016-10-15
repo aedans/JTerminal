@@ -10,7 +10,6 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
-import com.sun.istack.internal.NotNull;
 
 import java.io.File;
 
@@ -147,7 +146,6 @@ public class JTerminal implements Runnable {
         return environment;
     }
 
-    @NotNull
     public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
@@ -156,7 +154,6 @@ public class JTerminal implements Runnable {
         return input;
     }
 
-    @NotNull
     public void setInput(CommandInput input) {
         this.input = input;
     }
@@ -165,7 +162,6 @@ public class JTerminal implements Runnable {
         return output;
     }
 
-    @NotNull
     public void setOutput(CommandOutput output) {
         this.output = output;
     }

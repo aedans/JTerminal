@@ -11,7 +11,6 @@ import java.util.stream.Stream;
  * utility class for accessing files.
  */
 
-@SuppressWarnings("Duplicates")
 public final class FileUtils {
 
     /**

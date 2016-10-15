@@ -6,9 +6,6 @@ import com.aedan.jterminal.commands.commandhandler.CommandHandler;
 import com.aedan.jterminal.commands.CommandPackage;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.sun.istack.internal.NotNull;
-import com.sun.org.apache.xpath.internal.operations.Variable;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Path;
@@ -77,7 +74,6 @@ public class Environment {
      * @param name The name of the variable.
      * @param value The value of the variable.
      */
-    @NotNull
     public void addGlobalVariable(String name, String value) {
         removeGlobalVariable(name);
         globalVariables.put(name, value);
@@ -97,7 +93,6 @@ public class Environment {
      *
      * @param commandPackage The CommandPackage to add.
      */
-    @NotNull
     public void addCommandPackage(CommandPackage commandPackage) {
         commandPackage.addCommands(this);
     }
@@ -107,7 +102,6 @@ public class Environment {
      *
      * @param commandFormat The CommandFormat to add.
      */
-    @NotNull
     public void addCommandFormat(CommandFormat commandFormat) {
         commandFormats.add(commandFormat);
     }
@@ -117,7 +111,6 @@ public class Environment {
      *
      * @param command The Command to add.
      */
-    @NotNull
     public void addCommand(Command command) {
         commands.add(command);
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());

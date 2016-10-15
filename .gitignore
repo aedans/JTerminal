@@ -1,3 +1,5 @@
 .idea/
 JTerminal.iml
 out/
+project.jterm
+cmds/

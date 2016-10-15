@@ -11,7 +11,6 @@ import com.aedan.jterminal.input.tokenizer.Tokenizer;
 import com.aedan.jterminal.commands.commandhandler.tokenizerrules.EmbeddedCommandsRule;
 import com.aedan.jterminal.commands.commandhandler.tokenizerrules.StringLiteralRule;
 import com.aedan.jterminal.output.CommandOutput;
-import com.sun.istack.internal.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -106,7 +105,6 @@ public class CommandHandler {
         this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
     }
 
-    @NotNull
     public void handleInput(CommandInput commandInput, CommandOutput commandOutput, List<String> tokens)
             throws CommandHandlerException {
         if (tokens == null || commandInput == null || commandOutput == null) {

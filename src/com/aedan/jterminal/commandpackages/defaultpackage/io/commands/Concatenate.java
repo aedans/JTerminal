@@ -24,9 +24,10 @@ public class Concatenate extends Command {
         this.properties[0] = "Concatenates any number of files.";
         this.properties[1] =
                 "cat:\n" +
-                        "    Prints all user input line by line. Exited by typing \"exit\"\n" +
-                        "cat [directories]...:\n" +
-                        "    Reads each file at [directory] line by line.";
+                "    Prints all user input line by line. Exited by typing \"exit\".\n" +
+                "    -l: Auto-exits after one line.\n" +
+                "cat [directories]...:\n" +
+                "    Reads each file at [directory] line by line.";
     }
 
     @Override
@@ -37,6 +38,8 @@ public class Concatenate extends Command {
             String in = input.nextLine();
             while (!Objects.equals(in.trim().toLowerCase(), "exit")) {
                 out += in + "\n";
+                if (args.isFlagPresent("l"))
+                    break;
                 in = input.nextLine();
             }
             output.print(out);

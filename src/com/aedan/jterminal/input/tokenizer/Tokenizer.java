@@ -41,6 +41,9 @@ public class Tokenizer {
             switch (s.charAt(i)){
                 case '\\':
                     i++;
+                    if (i == s.length()){
+                        throw new CommandHandler.CommandHandlerException("Could not find character to escape");
+                    }
                     tokenList.append(s.charAt(i));
                     break;
                 case ' ':

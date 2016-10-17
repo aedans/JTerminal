@@ -19,7 +19,7 @@ public abstract class Command {
     /**
      * The number of properties a Command should have.
      */
-    public static int numProperties = 4;
+    public static int numProperties = 2;
 
     /**
      * The identifier to identify the command.

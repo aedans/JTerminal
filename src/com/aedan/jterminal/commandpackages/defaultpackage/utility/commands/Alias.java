@@ -29,6 +29,8 @@ public class Alias extends Command {
             throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
 
         String s = args.get(2).value;
+        
+        environment.removeCommand(args.get(1).value);
 
         environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {
             @Override

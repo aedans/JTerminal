@@ -118,7 +118,7 @@ public class JTerminal implements Runnable {
         //noinspection InfiniteLoopStatement
         while (true) {
             try {
-                output.print(environment.getDirectory() + "> ");
+                output.print(environment.getDirectory() + ">");
                 handleString(input.nextLine());
             } catch (CommandHandler.CommandHandlerException e) {
                 output.printf("Could not handle command (%s)\n", e.getMessage());

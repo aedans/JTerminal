@@ -115,6 +115,21 @@ public class Environment {
         commands.add(command);
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
+    
+    /**
+     * Removes a Command from the Environment.
+     *
+     * @param s The name of the Command.
+     */
+    public void removeCommand(String s){
+        LinkedList<Command> toRemove = new LinkedList<>();
+        for (Command c : commands){
+            if (Objects.equals(c.getIdentifier(), s)){
+                toRemove.add(c);
+            }
+        }
+        commands.removeAll(toRemove);
+    }
 
     public void setDirectoryPath(Path path) {
         try {

@@ -14,9 +14,6 @@ public class TokenList {
      */
     private ArrayList<String> tokens = new ArrayList<>();
 
-    /**
-     * The current Token.
-     */
     private String currentToken = "";
 
     /**
@@ -29,7 +26,7 @@ public class TokenList {
     }
 
     /**
-     * Ends the current token.
+     * Ends the current token and begins the next one.
      */
     public void nextToken(){
         if (!Objects.equals(currentToken, "")) {
@@ -38,26 +35,19 @@ public class TokenList {
         }
     }
 
-    /**
-     * Adds a token to the TokenList.
-     *
-     * @param s The token to add.
-     */
     public void addToken(String s) {
         nextToken();
         tokens.add(s);
     }
 
-    /**
-     * Adds a token to the TokenList.
-     *
-     * @param c The token to add.
-     */
     public void addToken(char c) {
         nextToken();
         tokens.add(String.valueOf(c));
     }
 
+    /**
+     * Trims the current token.
+     */
     public void trimToken() {
         currentToken = currentToken.trim();
     }

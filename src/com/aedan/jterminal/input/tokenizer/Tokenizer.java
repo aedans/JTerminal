@@ -1,6 +1,6 @@
 package com.aedan.jterminal.input.tokenizer;
 
-import com.aedan.jterminal.commands.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.commandhandler.CommandHandler;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,10 +18,6 @@ public class Tokenizer {
      * The List of reserved characters for the Tokenizer.
      */
     private HashSet<Character> reservedChars = new HashSet<>();
-
-    {
-        addReservedChar('-');
-    }
 
     /**
      * The List of TokenizerRules.

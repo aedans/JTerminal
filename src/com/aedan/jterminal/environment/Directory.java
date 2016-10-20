@@ -1,6 +1,6 @@
 package com.aedan.jterminal.environment;
 
-import com.aedan.jterminal.commands.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class Directory implements Supplier<String> {
     private Path path;
 
     /**
-     * The default Directory constructor.
+     * Creates a directory at the current Java path.
      */
     public Directory() {
         this("");

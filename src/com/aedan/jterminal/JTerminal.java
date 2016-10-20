@@ -2,13 +2,13 @@ package com.aedan.jterminal;
 
 import acklib.utils.misc.ArgumentParseException;
 import acklib.utils.misc.ArgumentParser;
-import com.aedan.jterminal.commandpackages.defaultpackage.DefaultPackage;
-import com.aedan.jterminal.commands.commandhandler.CommandHandler;
-import com.aedan.jterminal.commands.CommandPackage;
+import com.aedan.jterminal.command.Package;
+import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 import com.aedan.jterminal.utils.FileUtils;
 
 import java.io.File;
@@ -51,7 +51,7 @@ public class JTerminal implements Runnable {
      * @param args            The list of arguments for the JTerminal.
      * @param commandPackages The CommandPackages to use.
      */
-    public JTerminal(String args, CommandPackage... commandPackages) {
+    public JTerminal(String args, Package... commandPackages) {
         this(
                 args == null ? "" : args,
                 new SystemInput(),
@@ -68,7 +68,7 @@ public class JTerminal implements Runnable {
      * @param output          The CommandOutput for the JTerminal to use.
      * @param commandPackages The CommandPackages for the JTerminal to use.
      */
-    public JTerminal(String args, CommandInput input, CommandOutput output, CommandPackage... commandPackages) {
+    public JTerminal(String args, CommandInput input, CommandOutput output, Package... commandPackages) {
         this.input = input;
         this.output = output;
         this.environment = new Environment(input, output, commandPackages);
@@ -111,6 +111,10 @@ public class JTerminal implements Runnable {
         }
     }
 
+    public static void main(String[] args) {
+        new JTerminal("").run();
+    }
+
     /**
      * Starts the JTerminal.
      */
@@ -136,10 +140,6 @@ public class JTerminal implements Runnable {
      */
     public void handleString(String s) throws CommandHandler.CommandHandlerException {
         environment.getCommandHandler().handleInput(s);
-    }
-
-    public static void main(String[] args){
-        new JTerminal("").run();
     }
 
     public Environment getEnvironment() {

@@ -1,6 +1,6 @@
 package com.aedan.jterminal.input.tokenizer;
 
-import com.aedan.jterminal.commands.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.commandhandler.CommandHandler;
 
 /**
  * Created by Aedan Smith on 10/10/2016.

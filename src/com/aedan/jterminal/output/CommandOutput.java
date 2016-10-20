@@ -1,7 +1,5 @@
 package com.aedan.jterminal.output;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +20,7 @@ public class CommandOutput {
     private ArrayList<PrintStream> printStreams = new ArrayList<>();
 
     /**
-     * The default CommandOutput constructor.
+     * Creates a CommandOutput to the System output.
      */
     public CommandOutput() {
         this(System.out);
@@ -172,21 +170,11 @@ public class CommandOutput {
         return s;
     }
 
-    /**
-     * Adds a PrintStream to the List of PrintStreams.
-     *
-     * @param printStreams The PrintStream to add.
-     */
-    public void addOutput(PrintStream printStreams) {
+    public void addPrintStream(PrintStream printStreams) {
         this.printStreams.add(printStreams);
     }
 
-    /**
-     * Removes a PrintStream from the List of PrintStreams.
-     *
-     * @param printStreams The PrintStream to remove.
-     */
-    public void removeOutput(PrintStream printStreams) {
+    public void removePrintStream(PrintStream printStreams) {
         this.printStreams.remove(printStreams);
     }
 
@@ -203,11 +191,6 @@ public class CommandOutput {
         return printStreams;
     }
 
-    /**
-     * Sets the PrintStreams to the given PrintStreams.
-     *
-     * @param printStreams The PrintStreams to set to.
-     */
     public void setPrintStreams(PrintStream... printStreams) {
         this.printStreams = new ArrayList<>();
         Collections.addAll(this.printStreams, printStreams);

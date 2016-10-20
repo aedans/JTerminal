@@ -1,17 +1,11 @@
 package com.aedan.jterminal;
 
-import acklib.utils.misc.ArgumentParseException;
-import acklib.utils.misc.ArgumentParser;
-import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.SystemInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
-import com.aedan.jterminal.utils.FileUtils;
-
-import java.io.File;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -40,24 +34,10 @@ public class JTerminal implements Runnable {
      * The default JTerminal constructor.
      *
      * @param args The list of arguments for the JTerminal.
+     * @throws Exception If there was an error whilst initializing the JTerminal.
      */
-    public JTerminal(String args) {
-        this(args == null ? "" : args, new DefaultPackage());
-    }
-
-    /**
-     * JTerminal constructor for custom CommandPackages.
-     *
-     * @param args            The list of arguments for the JTerminal.
-     * @param commandPackages The CommandPackages to use.
-     */
-    public JTerminal(String args, Package... commandPackages) {
-        this(
-                args == null ? "" : args,
-                new SystemInput(),
-                new CommandOutput(System.out),
-                commandPackages
-        );
+    public JTerminal(String args) throws Exception {
+        this(args == null ? "" : args, null, null, null);
     }
 
     /**
@@ -66,53 +46,31 @@ public class JTerminal implements Runnable {
      * @param args            The list of arguments for the JTerminal.
      * @param input           The CommandInput for the JTerminal to use.
      * @param output          The CommandOutput for the JTerminal to use.
-     * @param commandPackages The CommandPackages for the JTerminal to use.
+     * @param environment     The Environment for the JTerminal to use.
+     * @throws Exception If there was an error whilst initializing the JTerminal.
      */
-    public JTerminal(String args, CommandInput input, CommandOutput output, Package... commandPackages) {
+    public JTerminal(String args, CommandInput input, CommandOutput output, Environment environment)
+            throws Exception {
+        if (args == null)
+            args = "";
+        if (input == null)
+            input = new SystemInput();
+        if (output == null)
+            output = new CommandOutput();
+        if (environment == null)
+            environment = new Environment(args, new DefaultPackage());
+
         this.input = input;
         this.output = output;
-        this.environment = new Environment(input, output, commandPackages);
-        try {
-            ArgumentParser parser = new ArgumentParser();
-            parser.parseArguments(args);
-
-            // TODO: Modularize this.
-            // Handles -directory argument
-            try {
-                if (parser.getString("directory") != null) {
-                    environment.setDirectoryPath(environment.getDirectory().getPath(parser.getString("directory")));
-                }
-            } catch (Exception e) {
-                output.print("Fatal error: ");
-                output.getPrintStreams().forEach(e::printStackTrace);
-            }
-
-            // Handles -startup argument
-            try {
-                if (parser.getString("startup") != null) {
-                    for (String s : FileUtils.readFile(new File(parser.getString("startup") + ".jterm")).split("\n")) {
-                        environment.getCommandHandler().handleInput(s);
-                    }
-                }
-            } catch (FileUtils.FileIOException e) {
-                output.printf("(Startup error) %s\n", e.getMessage());
-            } catch (CommandHandler.CommandHandlerException e) {
-                output.printf("(Startup error) Could not handle command (%s)\n", e.getMessage());
-            } catch (Exception e) {
-                output.print("Fatal error: ");
-                output.getPrintStreams().forEach(e::printStackTrace);
-            }
-
-        } catch (ArgumentParseException e) {
-            output.printf("Could not parse args \"%s\": %s\n", args, e.getMessage());
-        } catch (Exception e) {
-            output.println("Fatal error: Could not parse arguments: ");
-            output.getPrintStreams().forEach(e::printStackTrace);
-        }
+        this.environment = environment;
     }
 
-    public static void main(String[] args) {
-        new JTerminal("").run();
+    public static void main(String[] args) throws Exception {
+        String s = "";
+        for (String arg : args) {
+            s += arg + " ";
+        }
+        new JTerminal(s).run();
     }
 
     /**

@@ -1,5 +1,4 @@
 .idea/
 JTerminal.iml
 out/
-project.jterm
-cmds/
+src/META-INF

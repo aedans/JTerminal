@@ -39,13 +39,14 @@ public class OutputToFile implements CommandFormat {
             List<String> fileTokens = tokens.subList(setIndex + 1, tokens.size());
             String fileName = "";
             for (String s : fileTokens)
-                fileName += s + "_";
+                fileName += s + " ";
+            fileName = fileName.trim();
 
             File f = environment.getDirectory().getFile(fileName);
             FileUtils.createFile(f);
             CommandOutput fileOut = new CommandOutput(new PrintStream(new FileOutputStream(f)));
 
-            environment.getCommandHandler().handleInput(input, output, tokens.subList(0, setIndex));
+            environment.getCommandHandler().handleInput(input, fileOut, tokens.subList(0, setIndex));
 
             fileOut.getPrintStreams().forEach(PrintStream::close);
         } catch (Exception e){

@@ -10,6 +10,7 @@ import com.aedan.jterminal.output.CommandOutput;
 /**
  * Created by kaden on 10/11/16.
  */
+
 public class Exit extends Command {
     public Exit() {
         super("exit", "Exits the terminal");
@@ -18,6 +19,6 @@ public class Exit extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-            System.exit(0);
+        System.exit(0);
     }
 }

@@ -29,8 +29,7 @@ public class ChangeDirectory extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        if (args.matches(ArgumentType.STRING) != 0)
-            throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
+        args.checkMatches(ArgumentType.STRING);
 
         Path path = environment.getDirectory().getPath(args.get(1).value);
         if (path != null) {

@@ -3,6 +3,7 @@ package com.aedan.jterminal.packages.defaultpackage.io.commands;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -33,7 +34,7 @@ public class Concatenate extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        if (args.matches() == 0) {
+        if (args.matches() == MatchResult.CORRECT_ARGS) {
             String out = "";
             String in = input.nextLine();
             while (!Objects.equals(in.trim().toLowerCase(), "exit")) {
@@ -43,7 +44,7 @@ public class Concatenate extends Command {
                 in = input.nextLine();
             }
             output.print(out);
-        } else if (args.matches(ArgumentType.STRING) == 0) {
+        } else if (args.matches(ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             try {
                 output.println(FileUtils.readFile(environment.getDirectory().getFile(args.get(1).value), true));
             } catch (FileUtils.FileIOException e) {

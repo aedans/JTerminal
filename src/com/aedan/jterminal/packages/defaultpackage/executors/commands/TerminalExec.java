@@ -32,7 +32,7 @@ public class TerminalExec extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            args.matches(ArgumentType.STRING);
+            args.checkMatches(ArgumentType.STRING);
 
             Process process = Runtime.getRuntime().exec("cmd");
             for (PrintStream p : output.getPrintStreams()) {

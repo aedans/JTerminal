@@ -32,8 +32,7 @@ public class Match extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            if (args.matches(ArgumentType.STRING, ArgumentType.STRING) != 0)
-                throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
+            args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
 
             Matcher m = Pattern.compile(args.get(2).value).matcher(args.get(1).value);
             while (m.find()) {

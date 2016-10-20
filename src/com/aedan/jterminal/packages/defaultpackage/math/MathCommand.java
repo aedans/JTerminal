@@ -3,6 +3,7 @@ package com.aedan.jterminal.packages.defaultpackage.math;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -26,9 +27,9 @@ public abstract class MathCommand extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == 0)
+            if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == MatchResult.CORRECT_ARGS)
                 output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
-            else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == 0)
+            else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == MatchResult.CORRECT_ARGS)
                 output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
             else
                 throw new CommandHandler.CommandHandlerException("Incorrect arguments given");

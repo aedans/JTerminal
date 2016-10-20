@@ -1,5 +1,7 @@
 package com.aedan.jterminal.command.commandarguments;
 
+import com.aedan.jterminal.command.commandhandler.CommandHandler;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,25 +42,37 @@ public class CommandArgumentList {
     }
 
     /**
+     * Checks to see if the CommandArgumentList matches the given format, and errors with the correct message if it doesn't.
+     *
+     * @param argumentTypes The format for the CommandArgumentList.
+     * @throws CommandHandler.CommandHandlerException If the format does not match.
+     */
+    public void checkMatches(ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
+        MatchResult matchResult = matches(argumentTypes);
+        if (matchResult == MatchResult.CORRECT_ARGS)
+            return;
+        throw new CommandHandler.CommandHandlerException(matchResult.getMessage());
+    }
+
+    /**
      * Checks to see if the CommandArgumentList matches the given format.
      *
      * @param argumentTypes The format for the CommandArgumentList.
-     * @return The return code of the function, -2 if there is an illegal type, -1 if there are too few arguments,
-     *                  0 if the arguments match, and 1 if there are too many arguments.
+     * @return The MatchResult.
      */
-    public int matches(ArgumentType... argumentTypes) {
+    public MatchResult matches(ArgumentType... argumentTypes) {
         if (args.size() > argumentTypes.length + 1)
-            return 1;
+            return MatchResult.MORE_ARGS;
 
         if (args.size() < argumentTypes.length + 1)
-            return -1;
+            return MatchResult.LESS_ARGS;
 
         for (int i = 1; i < args.size(); i++) {
-            if (argumentTypes[i - 1] != ArgumentType.STRING && !args.get(i).argumentType.isSubset(argumentTypes[i - 1]))
-                return -2;
+            if (argumentTypes[i - 1] != ArgumentType.STRING && !args.get(i).getArgumentType().isSubset(argumentTypes[i - 1]))
+                return MatchResult.INCORRECT_ARGS;
         }
 
-        return 0;
+        return MatchResult.CORRECT_ARGS;
     }
 
     public boolean isFlagPresent(String flag){

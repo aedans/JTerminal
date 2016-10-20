@@ -9,14 +9,13 @@ package com.aedan.jterminal.command.commandarguments;
 public class CommandArgument {
 
     /**
-     * The ArgumentType of the CommandArgument.
-     */
-    final ArgumentType argumentType;
-
-    /**
      * The value of the CommandArgument.
      */
     public String value;
+    /**
+     * The ArgumentType of the CommandArgument.
+     */
+    private ArgumentType argumentType;
 
     /**
      * Default CommandArgument constructor.
@@ -24,7 +23,7 @@ public class CommandArgument {
      * @param value The value of the CommandArgument.
      */
     CommandArgument(String value) {
-        this(value, ArgumentType.getArgumentType(value));
+        this(value, null);
     }
 
     /**
@@ -39,6 +38,8 @@ public class CommandArgument {
     }
 
     public ArgumentType getArgumentType() {
+        if (argumentType == null)
+            argumentType = ArgumentType.getArgumentType(value);
         return argumentType;
     }
 

@@ -29,8 +29,7 @@ public class MakeDirectory extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            if (args.matches(ArgumentType.STRING) != 0)
-                throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
+            args.checkMatches(ArgumentType.STRING);
 
             output.println(FileUtils.createDirectory(environment.getDirectory().getFile(args.get(1).value)));
         } catch (FileUtils.FileIOException e) {

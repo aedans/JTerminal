@@ -3,6 +3,7 @@ package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -31,12 +32,12 @@ public class For extends Command {
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        if (args.matches(ArgumentType.STRING, ArgumentType.STRING) == 0) {
+        if (args.matches(ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             for (String s : args.get(1).value.split("\n")) {
                 environment.addGlobalVariable("s", s);
                 environment.getCommandHandler().handleInput(args.get(2).value);
             }
-        } else if (args.matches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING) == 0){
+        } else if (args.matches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             for (int i = Integer.parseInt(args.get(1).value); i < Integer.parseInt(args.get(2).value); i++) {
                 environment.addGlobalVariable(args.get(3).value, String.valueOf(i));
                 environment.getCommandHandler().handleInput(args.get(4).value);

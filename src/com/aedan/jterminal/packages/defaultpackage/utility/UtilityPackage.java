@@ -18,7 +18,7 @@ import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.String
 public class UtilityPackage implements Package {
 
     @Override
-    public void add(Environment environment) {
+    public void addTo(Environment environment) {
         environment.getCommandHandler().getTokenizer().addTokenizerRule(
                 new EmbeddedCommandsRule(environment.getCommandHandler())
         );

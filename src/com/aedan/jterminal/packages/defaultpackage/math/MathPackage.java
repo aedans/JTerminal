@@ -13,7 +13,7 @@ import com.aedan.jterminal.packages.defaultpackage.math.commands.*;
 public class MathPackage implements Package {
 
     @Override
-    public void add(Environment environment) {
+    public void addTo(Environment environment) {
         environment.addCommand(new AdditionCommand());
         environment.addCommand(new DivisionCommand());
         environment.addCommand(new MultiplicationCommand());

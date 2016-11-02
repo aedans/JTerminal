@@ -16,10 +16,10 @@ import com.aedan.jterminal.packages.defaultpackage.utility.UtilityPackage;
 public class DefaultPackage implements Package {
 
     @Override
-    public void add(Environment environment) {
-        new FileIOPackage().add(environment);
-        new ExecutorsPackage().add(environment);
-        new MathPackage().add(environment);
-        new UtilityPackage().add(environment);
+    public void addTo(Environment environment) {
+        new FileIOPackage().addTo(environment);
+        new ExecutorsPackage().addTo(environment);
+        new MathPackage().addTo(environment);
+        new UtilityPackage().addTo(environment);
     }
 }

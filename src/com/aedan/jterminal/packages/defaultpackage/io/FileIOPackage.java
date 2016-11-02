@@ -14,7 +14,7 @@ import com.aedan.jterminal.packages.defaultpackage.io.commands.*;
 public class FileIOPackage implements Package {
 
     @Override
-    public void add(Environment environment) {
+    public void addTo(Environment environment) {
         environment.addCommand(new Concatenate());
         environment.addCommand(new ChangeDirectory());
         environment.addCommand(new ListSubdirectories());

@@ -15,7 +15,7 @@ import com.aedan.jterminal.packages.defaultpackage.executors.commands.TerminalEx
 public class ExecutorsPackage implements Package {
 
     @Override
-    public void add(Environment environment) {
+    public void addTo(Environment environment) {
         environment.addCommand(new ExecuteJTermFile());
         environment.addCommand(new For());
         environment.addCommand(new TerminalExec());

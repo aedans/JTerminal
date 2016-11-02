@@ -58,7 +58,7 @@ public class JTerminal implements Runnable {
         if (output == null)
             output = new CommandOutput();
         if (environment == null)
-            environment = new Environment(args, new DefaultPackage());
+            environment = new Environment(args, input, output, new DefaultPackage());
 
         this.input = input;
         this.output = output;

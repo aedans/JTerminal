@@ -79,7 +79,7 @@ public class Tokenizer {
     /**
      * Adds a TokenizerRule to the List of TokenizerRules.
      *
-     * @param tokenizerRule The TokenizerRule to add.
+     * @param tokenizerRule The TokenizerRule to addTo.
      */
     public void addTokenizerRule(TokenizerRule tokenizerRule){
         tokenizerRules.add(tokenizerRule);

@@ -13,7 +13,7 @@ public interface Package {
     /**
      * Adds the package to the Environment
      *
-     * @param environment The Environment to add to.
+     * @param environment The Environment to addTo to.
      */
-    void add(Environment environment);
+    void addTo(Environment environment);
 }

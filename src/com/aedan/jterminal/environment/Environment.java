@@ -36,6 +36,13 @@ public class Environment {
 
     private CommandHandler commandHandler;
 
+    /**
+     * Default Environment constructor.
+     *
+     * @param args     The arguments for the Environment.
+     * @param packages The List of Packages for the Environment.
+     * @throws Exception If there was an error handling the arguments.
+     */
     public Environment(String args, Package... packages) throws Exception {
         this(args, new ScannerInput(), new CommandOutput(), new StartupArgument[]{
                 new SetDirectory(),
@@ -46,6 +53,24 @@ public class Environment {
     /**
      * Default Environment constructor.
      *
+     * @param args The arguments for the Environment.
+     * @param commandInput The CommandInput for the Environment to read from.
+     * @param commandOutput The CommandOutput for the Environment to print to.
+     * @param packages The List of Packages for the Environment.
+     * @throws Exception If there was an error handling the arguments.
+     */
+    public Environment(String args, CommandInput commandInput, CommandOutput commandOutput, Package... packages)
+            throws Exception {
+        this(args, commandInput, commandOutput, new StartupArgument[]{
+                new SetDirectory(),
+                new ExecuteJTermFile()
+        }, packages);
+    }
+
+    /**
+     * Default Environment constructor.
+     *
+     * @param args The arguments for the Environment.
      * @param commandInput The CommandInput for the Environment to read from.
      * @param commandOutput The CommandOutput for the Environment to print to.
      * @param packages The List of Packages for the Environment.
@@ -91,7 +116,7 @@ public class Environment {
     }
 
     public void addPackage(Package aPackage) {
-        aPackage.add(this);
+        aPackage.addTo(this);
     }
 
     public void removeCommand(String s){

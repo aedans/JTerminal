@@ -9,7 +9,7 @@ import com.aedan.jterminal.environment.startup.ExecuteJTermFile;
 import com.aedan.jterminal.environment.startup.SetDirectory;
 import com.aedan.jterminal.environment.startup.StartupArgument;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.SystemInput;
+import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
 
 import java.nio.file.Path;
@@ -37,7 +37,7 @@ public class Environment {
     private CommandHandler commandHandler;
 
     public Environment(String args, Package... packages) throws Exception {
-        this(args, new SystemInput(), new CommandOutput(), new StartupArgument[]{
+        this(args, new ScannerInput(), new CommandOutput(), new StartupArgument[]{
                 new SetDirectory(),
                 new ExecuteJTermFile()
         }, packages);
@@ -135,5 +135,4 @@ public class Environment {
     public HashMap<String, String> getGlobalVariables() {
         return globalVariables;
     }
-
 }

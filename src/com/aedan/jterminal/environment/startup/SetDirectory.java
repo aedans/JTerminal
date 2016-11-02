@@ -17,5 +17,4 @@ public class SetDirectory implements StartupArgument {
         if (path != null)
             environment.setDirectoryPath(Paths.get(path));
     }
-
 }

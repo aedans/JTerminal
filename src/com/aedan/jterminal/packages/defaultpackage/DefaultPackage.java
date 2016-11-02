@@ -22,5 +22,4 @@ public class DefaultPackage implements Package {
         new MathPackage().add(environment);
         new UtilityPackage().add(environment);
     }
-
 }

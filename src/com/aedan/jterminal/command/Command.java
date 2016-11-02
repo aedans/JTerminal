@@ -85,7 +85,5 @@ public abstract class Command {
         public InvalidPropertyException(String message) {
             super(message);
         }
-
     }
-
 }

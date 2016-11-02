@@ -70,5 +70,4 @@ public class Help extends Command {
             output.printf("Could not find command \"%s\"\n", args.get(1).value);
         }
     }
-
 }

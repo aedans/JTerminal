@@ -20,5 +20,4 @@ public class MathPackage implements Package {
         environment.addCommand(new PowerCommand());
         environment.addCommand(new SubtractionCommand());
     }
-
 }

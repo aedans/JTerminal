@@ -36,5 +36,4 @@ public class UtilityPackage implements Package {
         environment.addCommand(new Match());
         environment.addCommand(new Exit());
     }
-
 }

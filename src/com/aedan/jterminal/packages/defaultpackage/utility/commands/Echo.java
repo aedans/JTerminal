@@ -31,5 +31,4 @@ public class Echo extends Command {
 
         output.println(args.get(1));
     }
-
 }

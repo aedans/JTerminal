@@ -195,5 +195,4 @@ public class CommandOutput {
         this.printStreams = new ArrayList<>();
         Collections.addAll(this.printStreams, printStreams);
     }
-
 }

@@ -94,5 +94,4 @@ public class CommandArgumentList {
     public LinkedList<String> getFlags() {
         return flags;
     }
-
 }

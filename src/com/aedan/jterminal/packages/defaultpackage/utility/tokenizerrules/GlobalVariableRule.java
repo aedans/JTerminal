@@ -60,5 +60,4 @@ public class GlobalVariableRule implements TokenizerRule {
             tokenList.addToken(value);
         return j;
     }
-
 }

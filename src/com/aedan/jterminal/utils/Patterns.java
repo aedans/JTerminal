@@ -9,14 +9,11 @@ import java.util.regex.Pattern;
  */
 
 public final class Patterns {
-
     public static Pattern absoluteDirectoryPattern = Pattern.compile("\\w:.+|/.+|\\\\.+");
-
     public static Pattern bytePattern = Pattern.compile("[-+0123456789]{1,3}");
     public static Pattern shortPattern = Pattern.compile("[-+0123456789]{1,5}");
     public static Pattern integerPattern = Pattern.compile("[-+0123456789]{1,10}");
     public static Pattern longPattern = Pattern.compile("$[-+0123456789]{1,19}");
     public static Pattern floatPattern = Pattern.compile("[-+0123456789.]{1,40}");
     public static Pattern doublePattern = Pattern.compile("[-+0123456789.]{1,310}");
-
 }

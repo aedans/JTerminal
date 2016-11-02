@@ -62,5 +62,4 @@ public class Concatenate extends Command {
             output.println(s);
         }
     }
-
 }

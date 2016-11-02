@@ -19,5 +19,4 @@ public interface StartupArgument {
      * @throws Exception If there was an error whilst handling the argument.
      */
     void handle(Environment environment, ArgumentParser parser) throws Exception;
-
 }

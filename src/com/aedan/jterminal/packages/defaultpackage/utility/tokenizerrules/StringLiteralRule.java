@@ -39,5 +39,4 @@ public class StringLiteralRule implements TokenizerRule {
         tokenList.nextToken();
         return j;
     }
-
 }

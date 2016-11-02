@@ -54,5 +54,4 @@ public final class URLUtils {
         URL url = new URL(sUrl);
         return url.openConnection();
     }
-
 }

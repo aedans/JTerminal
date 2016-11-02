@@ -76,5 +76,4 @@ public enum ArgumentType {
     public String toString() {
         return super.toString().toLowerCase();
     }
-
 }

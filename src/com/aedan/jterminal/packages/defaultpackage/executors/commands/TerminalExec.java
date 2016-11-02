@@ -40,32 +40,30 @@ public class TerminalExec extends Command {
                 new Thread(new SyncPipe(process.getInputStream(), p)).start();
             }
             PrintWriter stdin = new PrintWriter(process.getOutputStream());
-            for (String s : args.get(1).value.split("(?<!\\\\);")) {
-                stdin.println(s);
-            }
+            stdin.println(args.get(1));
             stdin.close();
             output.println("\n\nReturn code: " + process.waitFor());
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
-
 }
 
 class SyncPipe implements Runnable {
-    private final OutputStream ostrm_;
-    private final InputStream istrm_;
+
+    private final OutputStream out;
+    private final InputStream in;
 
     public SyncPipe(InputStream istrm, OutputStream ostrm) {
-        istrm_ = istrm;
-        ostrm_ = ostrm;
+        in = istrm;
+        out = ostrm;
     }
 
     public void run() {
         try {
             final byte[] buffer = new byte[1024];
-            for (int length = 0; (length = istrm_.read(buffer)) != -1; ) {
-                ostrm_.write(buffer, 0, length);
+            for (int length = 0; (length = in.read(buffer)) != -1; ) {
+                out.write(buffer, 0, length);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -24,5 +24,4 @@ public class FileIOPackage implements Package {
         environment.addCommand(new RemoveFile());
         environment.addCommandFormat(new OutputToFile(environment));
     }
-
 }

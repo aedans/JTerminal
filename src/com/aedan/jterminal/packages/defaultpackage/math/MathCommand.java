@@ -42,5 +42,4 @@ public abstract class MathCommand extends Command {
     public abstract long apply(long l1, long l2);
 
     public abstract double apply(double d1, double d2);
-
 }

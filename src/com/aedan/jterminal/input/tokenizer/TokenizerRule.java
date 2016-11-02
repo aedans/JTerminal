@@ -25,5 +25,4 @@ public interface TokenizerRule {
      * @throws CommandHandler.CommandHandlerException If there is an error parsing the TokenList.
      */
     int process(TokenList tokenList, String s, int i) throws CommandHandler.CommandHandlerException;
-
 }

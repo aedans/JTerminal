@@ -36,5 +36,4 @@ public class RemoveFile extends Command {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
-
 }

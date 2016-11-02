@@ -35,5 +35,4 @@ public interface CommandFormat {
      */
     void handleInput(Environment environment, CommandInput input, CommandOutput output, List<String> tokens)
             throws CommandHandler.CommandHandlerException;
-
 }

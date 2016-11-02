@@ -16,5 +16,4 @@ public interface Package {
      * @param environment The Environment to add to.
      */
     void add(Environment environment);
-
 }

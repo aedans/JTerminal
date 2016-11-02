@@ -47,5 +47,4 @@ public class For extends Command {
             throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
         }
     }
-
 }

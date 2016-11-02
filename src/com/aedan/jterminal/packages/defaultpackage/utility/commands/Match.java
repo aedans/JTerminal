@@ -42,5 +42,4 @@ public class Match extends Command {
             throw new CommandHandler.CommandHandlerException("Invalid pattern: " + e.getMessage());
         }
     }
-
 }

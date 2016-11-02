@@ -41,5 +41,4 @@ public class Alias extends Command {
 
         output.printf("Aliased \"%s\" to \"%s\"\n", args.get(1).value, args.get(2).value);
     }
-
 }

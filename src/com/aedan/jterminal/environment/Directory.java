@@ -123,7 +123,6 @@ public class Directory implements Supplier<String> {
         DirectoryFormatException(String message) {
             super(message);
         }
-
     }
 
     /**
@@ -139,7 +138,5 @@ public class Directory implements Supplier<String> {
         DirectoryChangeException(String message) {
             super(message);
         }
-
     }
-
 }

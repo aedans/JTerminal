@@ -16,5 +16,4 @@ public class ExecuteJTermFile implements StartupArgument {
             environment.getCommandHandler().handleInput("exec \"" + path + "\"");
         }
     }
-
 }

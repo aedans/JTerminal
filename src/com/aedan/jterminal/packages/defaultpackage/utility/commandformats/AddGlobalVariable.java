@@ -50,5 +50,4 @@ public class AddGlobalVariable implements CommandFormat {
 
         environment.addGlobalVariable(varName, varValue[0].trim());
     }
-
 }

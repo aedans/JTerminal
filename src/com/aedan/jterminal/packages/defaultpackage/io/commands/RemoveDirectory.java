@@ -36,5 +36,4 @@ public class RemoveDirectory extends Command {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
-
 }

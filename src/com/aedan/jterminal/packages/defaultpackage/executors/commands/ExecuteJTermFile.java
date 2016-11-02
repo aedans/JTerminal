@@ -44,5 +44,4 @@ public class ExecuteJTermFile extends Command {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
-
 }

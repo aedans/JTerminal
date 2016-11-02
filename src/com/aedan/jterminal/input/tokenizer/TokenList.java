@@ -59,5 +59,4 @@ public class TokenList {
     public String getCurrentToken() {
         return currentToken;
     }
-
 }

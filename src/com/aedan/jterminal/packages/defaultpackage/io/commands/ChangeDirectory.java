@@ -36,5 +36,4 @@ public class ChangeDirectory extends Command {
             environment.getDirectory().setPath(path);
         }
     }
-
 }

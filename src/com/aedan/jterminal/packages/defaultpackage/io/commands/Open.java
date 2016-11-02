@@ -36,5 +36,4 @@ public class Open extends Command {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
-
 }

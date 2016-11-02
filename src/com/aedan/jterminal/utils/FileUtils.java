@@ -113,7 +113,6 @@ public final class FileUtils {
         }
     }
 
-
     /**
      * Returns the content of a File.
      *
@@ -246,7 +245,5 @@ public final class FileUtils {
         FileIOException(String message) {
             super(message);
         }
-
     }
-
 }

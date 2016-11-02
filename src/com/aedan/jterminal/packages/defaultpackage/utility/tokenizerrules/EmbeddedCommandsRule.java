@@ -72,5 +72,4 @@ public class EmbeddedCommandsRule implements TokenizerRule {
         tokenList.nextToken();
         return j;
     }
-
 }

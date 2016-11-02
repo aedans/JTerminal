@@ -84,5 +84,4 @@ public class Tokenizer {
     public void addTokenizerRule(TokenizerRule tokenizerRule){
         tokenizerRules.add(tokenizerRule);
     }
-
 }

@@ -24,12 +24,28 @@ public class CommandHandler {
      */
     private Environment environment;
 
+    /**
+     * The CommandInput for the CommandHandler.
+     */
     private CommandInput commandInput;
 
+    /**
+     * The CommandOutput for the CommandHandler.
+     */
     private CommandOutput commandOutput;
 
+    /**
+     * The Tokenizer for the CommandHandler.
+     */
     private Tokenizer tokenizer = new Tokenizer();
 
+    /**
+     * Default CommandHandler constructor.
+     *
+     * @param environment   The Environment containing the CommandHandler.
+     * @param commandInput  The CommandInput for the CommandHandler.
+     * @param commandOutput The CommandOutput for the CommandHandler.
+     */
     public CommandHandler(Environment environment, CommandInput commandInput, CommandOutput commandOutput) {
         this.environment = environment;
         this.commandInput = commandInput;

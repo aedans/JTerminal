@@ -22,5 +22,4 @@ public interface CommandInput {
      * @return The next double for the JTerminal to handle.
      */
     double nextDouble();
-
 }

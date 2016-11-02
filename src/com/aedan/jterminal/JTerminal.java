@@ -3,7 +3,7 @@ package com.aedan.jterminal;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.SystemInput;
+import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 
@@ -54,7 +54,7 @@ public class JTerminal implements Runnable {
         if (args == null)
             args = "";
         if (input == null)
-            input = new SystemInput();
+            input = new ScannerInput();
         if (output == null)
             output = new CommandOutput();
         if (environment == null)
@@ -65,6 +65,12 @@ public class JTerminal implements Runnable {
         this.environment = environment;
     }
 
+    /**
+     * Main function for the JTerminal.jar.
+     *
+     * @param args The arguments for the JTerminal.
+     * @throws Exception If there was an error with the JTerminal.
+     */
     public static void main(String[] args) throws Exception {
         String s = "";
         for (String arg : args) {
@@ -123,5 +129,4 @@ public class JTerminal implements Runnable {
     public void setOutput(CommandOutput output) {
         this.output = output;
     }
-
 }

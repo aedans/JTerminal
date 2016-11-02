@@ -61,5 +61,4 @@ public class EnvironmentVariableRule implements TokenizerRule {
             tokenList.addToken(value.get());
         return j;
     }
-
 }

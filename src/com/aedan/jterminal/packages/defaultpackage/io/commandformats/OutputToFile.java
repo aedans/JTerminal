@@ -48,9 +48,8 @@ public class OutputToFile implements CommandFormat {
             environment.getCommandHandler().handleInput(input, fileOut, tokens.subList(0, setIndex));
 
             fileOut.getPrintStreams().forEach(PrintStream::close);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
-
 }

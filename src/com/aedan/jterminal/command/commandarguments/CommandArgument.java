@@ -47,5 +47,4 @@ public class CommandArgument {
     public String toString() {
         return value;
     }
-
 }

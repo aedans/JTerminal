@@ -20,5 +20,4 @@ public class ExecutorsPackage implements Package {
         environment.addCommand(new For());
         environment.addCommand(new TerminalExec());
     }
-
 }

@@ -29,7 +29,7 @@ public class JServerTerminal extends JTerminal {
      * @throws Exception If there was an error connecting to the socket.
      */
     public JServerTerminal(ServerSocket socket) throws Exception {
-        this(socket.accept());
+        this(socket.accept(), null);
     }
 
     /**

@@ -6,7 +6,7 @@ import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.CommandFormat;
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
-import com.aedan.jterminal.environment.startup.ExecuteJTermFile;
+import com.aedan.jterminal.environment.startup.Execute;
 import com.aedan.jterminal.environment.startup.SetDirectory;
 import com.aedan.jterminal.environment.startup.StartupArgument;
 import com.aedan.jterminal.input.CommandInput;
@@ -47,7 +47,7 @@ public class Environment {
     public Environment(String args[], Package... packages) throws Exception {
         this(args, new ScannerInput(), new CommandOutput(), new StartupArgument[]{
                 new SetDirectory(),
-                new ExecuteJTermFile()
+                new Execute()
         }, packages);
     }
 
@@ -64,7 +64,7 @@ public class Environment {
             throws Exception {
         this(args, commandInput, commandOutput, new StartupArgument[]{
                 new SetDirectory(),
-                new ExecuteJTermFile()
+                new Execute()
         }, packages);
     }
 

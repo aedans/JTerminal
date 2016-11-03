@@ -8,7 +8,7 @@ import com.aedan.jterminal.environment.Environment;
  * Created by Aedan Smith.
  */
 
-public class ExecuteJTermFile implements StartupArgument {
+public class Execute implements StartupArgument {
 
     @Override
     public void addTo(ArgumentParser argumentParser) {
@@ -18,6 +18,8 @@ public class ExecuteJTermFile implements StartupArgument {
     @Override
     public void handle(Environment environment, ParseResult parseResult) throws Exception {
         String command = parseResult.getKeyValue("exec");
-        environment.getCommandHandler().handleInput(command);
+        if (command != null) {
+            environment.getCommandHandler().handleInput(command);
+        }
     }
 }

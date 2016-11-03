@@ -1,6 +1,7 @@
 package com.aedan.jterminal.environment;
 
-import acklib.utils.misc.ArgumentParser;
+import com.aedan.argparser.ArgumentParser;
+import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.CommandFormat;
 import com.aedan.jterminal.command.Package;
@@ -43,7 +44,7 @@ public class Environment {
      * @param packages The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String args, Package... packages) throws Exception {
+    public Environment(String args[], Package... packages) throws Exception {
         this(args, new ScannerInput(), new CommandOutput(), new StartupArgument[]{
                 new SetDirectory(),
                 new ExecuteJTermFile()
@@ -59,7 +60,7 @@ public class Environment {
      * @param packages The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String args, CommandInput commandInput, CommandOutput commandOutput, Package... packages)
+    public Environment(String args[], CommandInput commandInput, CommandOutput commandOutput, Package... packages)
             throws Exception {
         this(args, commandInput, commandOutput, new StartupArgument[]{
                 new SetDirectory(),
@@ -76,7 +77,7 @@ public class Environment {
      * @param packages The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String args, CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
+    public Environment(String args[], CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
                        Package... packages)
             throws Exception {
         this.commandHandler = new CommandHandler(this, commandInput, commandOutput);
@@ -90,10 +91,12 @@ public class Environment {
         this.environmentVariables.put("DIR", this.directory = new Directory());
 
         ArgumentParser parser = new ArgumentParser();
-        parser.parseArguments(args);
-
-        for (StartupArgument argument : arguments) {
-            argument.handle(this, parser);
+        for (StartupArgument startupArgument : arguments) {
+            startupArgument.addTo(parser);
+        }
+        ParseResult parseResult = parser.parse(args);
+        for (StartupArgument startupArgument : arguments) {
+            startupArgument.handle(this, parseResult);
         }
     }
 

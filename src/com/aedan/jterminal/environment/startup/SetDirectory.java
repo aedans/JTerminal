@@ -1,6 +1,7 @@
 package com.aedan.jterminal.environment.startup;
 
-import acklib.utils.misc.ArgumentParser;
+import com.aedan.argparser.ArgumentParser;
+import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.environment.Environment;
 
 import java.nio.file.Paths;
@@ -12,8 +13,13 @@ import java.nio.file.Paths;
 public class SetDirectory implements StartupArgument {
 
     @Override
-    public void handle(Environment environment, ArgumentParser parser) throws Exception {
-        String path = parser.getString("directory");
+    public void addTo(ArgumentParser argumentParser) {
+        argumentParser.addKey("dir");
+    }
+
+    @Override
+    public void handle(Environment environment, ParseResult parseResult) throws Exception {
+        String path = parseResult.getKeyValue("dir");
         if (path != null)
             environment.setDirectoryPath(Paths.get(path));
     }

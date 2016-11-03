@@ -1,6 +1,7 @@
 package com.aedan.jterminal.environment.startup;
 
-import acklib.utils.misc.ArgumentParser;
+import com.aedan.argparser.ArgumentParser;
+import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.environment.Environment;
 
 /**
@@ -12,11 +13,18 @@ import com.aedan.jterminal.environment.Environment;
 public interface StartupArgument {
 
     /**
+     * Adds the StartupArgument to an ArgumentParser.
+     *
+     * @param argumentParser The ArgumentParser to add to.
+     */
+    void addTo(ArgumentParser argumentParser);
+
+    /**
      * Handles the argument.
      *
      * @param environment The Environment invoking the function.
-     * @param parser      The ArgumentParser for accessing the Arguments.
+     * @param parseResult The ParseResult of the ArgumentParser.
      * @throws Exception If there was an error whilst handling the argument.
      */
-    void handle(Environment environment, ArgumentParser parser) throws Exception;
+    void handle(Environment environment, ParseResult parseResult) throws Exception;
 }

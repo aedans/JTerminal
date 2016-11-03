@@ -1,6 +1,7 @@
 package com.aedan.jterminal.environment.startup;
 
-import acklib.utils.misc.ArgumentParser;
+import com.aedan.argparser.ArgumentParser;
+import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.environment.Environment;
 
 /**
@@ -10,10 +11,13 @@ import com.aedan.jterminal.environment.Environment;
 public class ExecuteJTermFile implements StartupArgument {
 
     @Override
-    public void handle(Environment environment, ArgumentParser parser) throws Exception {
-        String path = parser.getString("exec");
-        if (path != null) {
-            environment.getCommandHandler().handleInput("exec \"" + path + "\"");
-        }
+    public void addTo(ArgumentParser argumentParser) {
+        argumentParser.addKey("exec");
+    }
+
+    @Override
+    public void handle(Environment environment, ParseResult parseResult) throws Exception {
+        String command = parseResult.getKeyValue("exec");
+        environment.getCommandHandler().handleInput(command);
     }
 }

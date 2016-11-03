@@ -36,8 +36,8 @@ public class JTerminal implements Runnable {
      * @param args The list of arguments for the JTerminal.
      * @throws Exception If there was an error whilst initializing the JTerminal.
      */
-    public JTerminal(String args) throws Exception {
-        this(args == null ? "" : args, null, null, null);
+    public JTerminal(String... args) throws Exception {
+        this(args == null ? new String[]{} : args, null, null, null);
     }
 
     /**
@@ -49,10 +49,10 @@ public class JTerminal implements Runnable {
      * @param environment     The Environment for the JTerminal to use.
      * @throws Exception If there was an error whilst initializing the JTerminal.
      */
-    public JTerminal(String args, CommandInput input, CommandOutput output, Environment environment)
+    public JTerminal(String[] args, CommandInput input, CommandOutput output, Environment environment)
             throws Exception {
         if (args == null)
-            args = "";
+            args = new String[]{};
         if (input == null)
             input = new ScannerInput();
         if (output == null)
@@ -72,11 +72,7 @@ public class JTerminal implements Runnable {
      * @throws Exception If there was an error with the JTerminal.
      */
     public static void main(String[] args) throws Exception {
-        String s = "";
-        for (String arg : args) {
-            s += arg + " ";
-        }
-        new JTerminal(s).run();
+        new JTerminal(args).run();
     }
 
     /**

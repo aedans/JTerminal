@@ -62,7 +62,7 @@ public class JServerTerminal extends JTerminal {
      */
     public JServerTerminal(Socket socket, Environment environment) throws Exception {
         super(
-                "",
+                new String[]{},
                 new ScannerInput(new Scanner(socket.getInputStream())),
                 new CommandOutput(new PrintStream(socket.getOutputStream())),
                 environment

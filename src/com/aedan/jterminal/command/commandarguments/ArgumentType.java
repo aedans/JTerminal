@@ -1,9 +1,5 @@
 package com.aedan.jterminal.command.commandarguments;
 
-import com.aedan.jterminal.utils.Patterns;
-
-import java.util.regex.Matcher;
-
 /**
  * Created by Aedan Smith on 8/28/2016.
  * <p>
@@ -21,23 +17,22 @@ public enum ArgumentType {
      * @return The ArgumentType of the String.
      */
     public static ArgumentType getArgumentType(String value) {
-        Matcher m = Patterns.bytePattern.matcher(value);
-        if (m.matches())
+        for (int i = 0; i < value.length(); i++) {
+            if ((value.charAt(i) < '0' || value.charAt(i) > '9') && value.charAt(i) != '.') {
+                return STRING;
+            }
+        }
+        if (value.length() <= 3)
             return BYTE;
-        m = Patterns.shortPattern.matcher(value);
-        if (m.matches())
+        if (value.length() <= 5)
             return SHORT;
-        m = Patterns.integerPattern.matcher(value);
-        if (m.matches())
+        if (value.length() <= 10)
             return INTEGER;
-        m = Patterns.longPattern.matcher(value);
-        if (m.matches())
+        if (value.length() <= 19)
             return LONG;
-        m = Patterns.doublePattern.matcher(value);
-        if (m.matches())
+        if (value.length() <= 40)
             return FLOAT;
-        m = Patterns.floatPattern.matcher(value);
-        if (m.matches())
+        if (value.length() <= 310)
             return DOUBLE;
         return STRING;
     }

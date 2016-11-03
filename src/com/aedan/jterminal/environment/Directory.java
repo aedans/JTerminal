@@ -1,7 +1,6 @@
 package com.aedan.jterminal.environment;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
-import com.aedan.jterminal.utils.Patterns;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -10,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -18,6 +18,8 @@ import java.util.function.Supplier;
  */
 
 public class Directory implements Supplier<String> {
+
+    public static Pattern absoluteDirectoryPattern = Pattern.compile("\\w:.+|/.+|\\\\.+");
 
     /**
      * The current Directory.
@@ -63,7 +65,7 @@ public class Directory implements Supplier<String> {
             return path.getParent();
         } else if (Objects.equals(dir.trim(), ".")) {
             return path;
-        } else if (dir.matches(Patterns.absoluteDirectoryPattern.pattern())) {
+        } else if (dir.matches(absoluteDirectoryPattern.pattern())) {
             return Paths.get(dir);
         } else {
             try {

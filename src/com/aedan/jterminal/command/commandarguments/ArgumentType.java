@@ -17,19 +17,33 @@ public enum ArgumentType {
      * @return The ArgumentType of the String.
      */
     public static ArgumentType getArgumentType(String value) {
+        boolean decimal = false, big = false;
         for (int i = 0; i < value.length(); i++) {
-            if ((value.charAt(i) < '0' || value.charAt(i) > '9') && value.charAt(i) != '.') {
-                return STRING;
+            if (value.charAt(i) < '0' || value.charAt(i) > '9') {
+                if (value.charAt(i) != '.') {
+                    if (value.charAt(i) != 'E') {
+                        return STRING;
+                    } else {
+                        big = true;
+                    }
+                } else {
+                    decimal = true;
+                }
             }
         }
-        if (value.length() <= 3)
-            return BYTE;
-        if (value.length() <= 5)
-            return SHORT;
-        if (value.length() <= 10)
-            return INTEGER;
-        if (value.length() <= 19)
-            return LONG;
+        if (big) {
+            return DOUBLE;
+        }
+        if (!decimal) {
+            if (value.length() <= 3)
+                return BYTE;
+            if (value.length() <= 5)
+                return SHORT;
+            if (value.length() <= 10)
+                return INTEGER;
+            if (value.length() <= 19)
+                return LONG;
+        }
         if (value.length() <= 40)
             return FLOAT;
         if (value.length() <= 310)

@@ -1,11 +1,11 @@
-package com.aedan.jterminal.bash;
+package com.aedan.jterminal.jterm;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 
 /**
  * Created by Aedan Smith.
  * <p>
- * Class for creating functions to be used in the BashRuntime.
+ * Class for creating functions to be used in the JTermRuntime.
  */
 
 public interface Function {

@@ -1,11 +1,11 @@
 package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
-import com.aedan.jterminal.bash.BashRuntime;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
+import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
 
@@ -31,9 +31,9 @@ public class ExecuteJTermFile extends Command {
         try {
             String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(environment.getDirectory().getFile(dir));
-            BashRuntime runtime;
+            JTermRuntime runtime;
             try {
-                runtime = new BashRuntime(lines, input, output);
+                runtime = new JTermRuntime(lines, input, output);
             } catch (Exception e) {
                 throw new CommandHandler.CommandHandlerException(e.getMessage());
             }

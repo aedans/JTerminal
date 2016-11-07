@@ -1,4 +1,4 @@
-package com.aedan.jterminal.bash;
+package com.aedan.jterminal.jterm;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 
@@ -28,7 +28,7 @@ final class Parser {
      * @return The list of functions in the file.
      * @throws CommandHandler.CommandHandlerException If there was an error parsing the file.
      */
-    public static ArrayList<Function> parse(String s, BashRuntime runtime) throws CommandHandler.CommandHandlerException {
+    public static ArrayList<Function> parse(String s, JTermRuntime runtime) throws CommandHandler.CommandHandlerException {
         ArrayList<Function> functions = new ArrayList<>();
         Matcher m = functionPattern.matcher(s);
         while (m.find()) {
@@ -57,7 +57,7 @@ final class Parser {
      * @return The parsed function.
      * @throws CommandHandler.CommandHandlerException If there was an error parsing the function.
      */
-    private static Function parseFunction(String src, String name, String arguments, BashRuntime runtime)
+    private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
             throws CommandHandler.CommandHandlerException {
         return new Function() {
             @Override
@@ -70,6 +70,8 @@ final class Parser {
                 HashMap<String, String> sVars = runtime.getEnvironment().getGlobalVariables();
                 runtime.getEnvironment().setGlobalVariables(new HashMap<>());
                 String[] args = arguments.split(",");
+                if (arguments.isEmpty())
+                    args = new String[0];
                 for (int i = 0; i < args.length; i++) {
                     runtime.getEnvironment().addGlobalVariable(args[i].trim(), o[i].toString());
                 }

@@ -1,4 +1,4 @@
-package com.aedan.jterminal.bash.bashcommandpackage;
+package com.aedan.jterminal.jterm.bashcommandpackage;
 
 import com.aedan.jterminal.command.CommandFormat;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;

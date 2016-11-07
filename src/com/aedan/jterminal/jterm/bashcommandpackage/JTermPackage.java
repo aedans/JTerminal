@@ -1,18 +1,18 @@
-package com.aedan.jterminal.bash.bashcommandpackage;
+package com.aedan.jterminal.jterm.bashcommandpackage;
 
-import com.aedan.jterminal.bash.BashRuntime;
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 
 /**
  * Created by Aedan Smith.
  */
 
-public class BashPackage implements Package {
-    private BashRuntime bashRuntime;
+public class JTermPackage implements Package {
+    private JTermRuntime bashRuntime;
 
-    public BashPackage(BashRuntime bashRuntime) {
+    public JTermPackage(JTermRuntime bashRuntime) {
         this.bashRuntime = bashRuntime;
     }
 

@@ -60,7 +60,7 @@ public class Environment {
      * @param packages The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String args[], CommandInput commandInput, CommandOutput commandOutput, Package... packages)
+    public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, Package... packages)
             throws Exception {
         this(args, commandInput, commandOutput, new StartupArgument[]{
                 new SetDirectory(),
@@ -77,7 +77,7 @@ public class Environment {
      * @param packages The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String args[], CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
+    public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
                        Package... packages)
             throws Exception {
         this.commandHandler = new CommandHandler(this, commandInput, commandOutput);
@@ -96,7 +96,11 @@ public class Environment {
         }
         ParseResult parseResult = parser.parse(args);
         for (StartupArgument startupArgument : arguments) {
-            startupArgument.handle(this, parseResult);
+            try {
+                startupArgument.handle(this, parseResult);
+            } catch (Exception e) {
+                System.out.println("Exception in initialization: " + e.getMessage());
+            }
         }
     }
 
@@ -115,7 +119,7 @@ public class Environment {
     }
 
     public void addCommandFormat(CommandFormat commandFormat) {
-        commandFormats.add(commandFormat);
+        commandFormats.add(0, commandFormat);
     }
 
     public void addPackage(Package aPackage) {
@@ -160,7 +164,15 @@ public class Environment {
         return environmentVariables;
     }
 
+    public void setEnvironmentVariables(HashMap<String, Supplier<String>> environmentVariables) {
+        this.environmentVariables = environmentVariables;
+    }
+
     public HashMap<String, String> getGlobalVariables() {
         return globalVariables;
+    }
+
+    public void setGlobalVariables(HashMap<String, String> globalVariables) {
+        this.globalVariables = globalVariables;
     }
 }

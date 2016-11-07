@@ -98,7 +98,17 @@ public class CommandHandler {
     }
 
     /**
-     * Handles a pre-parsed lines of input.
+     * Handles a pre-parsed line of input.
+     *
+     * @param tokens        The list of parsed Tokens.
+     * @throws CommandHandlerException If there was an error handling the input.
+     */
+    public void handleInput(List<String> tokens) throws CommandHandlerException {
+        this.handleInput(commandInput, commandOutput, tokens);
+    }
+
+    /**
+     * Handles a pre-parsed line of input.
      *
      * @param commandInput  The CommandInput to read the input from.
      * @param commandOutput The CommandOutput to write the output to.
@@ -139,12 +149,24 @@ public class CommandHandler {
         return tokenizer;
     }
 
+    public void setTokenizer(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
+    }
+
     public CommandInput getCommandInput() {
         return commandInput;
     }
 
+    public void setCommandInput(CommandInput commandInput) {
+        this.commandInput = commandInput;
+    }
+
     public CommandOutput getCommandOutput() {
         return commandOutput;
+    }
+
+    public void setCommandOutput(CommandOutput commandOutput) {
+        this.commandOutput = commandOutput;
     }
 
     /**

@@ -1,10 +1,10 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.tokenizer.TokenList;
 import com.aedan.jterminal.input.tokenizer.TokenizerRule;
 
-import java.util.HashMap;
 import java.util.function.Supplier;
 
 /**
@@ -15,18 +15,13 @@ import java.util.function.Supplier;
 
 public class EnvironmentVariableRule implements TokenizerRule {
 
-    /**
-     * The HashMap of environment variables.
-     */
-    private HashMap<String, Supplier<String>> environmentVariables = new HashMap<>();
+    private Environment environment;
 
     /**
      * Default EnvironmentVariableRule constructor.
-     *
-     * @param environmentVariables The HashMap of environment variables.
      */
-    public EnvironmentVariableRule(HashMap<String, Supplier<String>> environmentVariables) {
-        this.environmentVariables = environmentVariables;
+    public EnvironmentVariableRule(Environment environment) {
+        this.environment = environment;
     }
 
     @Override
@@ -54,7 +49,7 @@ public class EnvironmentVariableRule implements TokenizerRule {
                     break;
             }
         }
-        Supplier<String> value = environmentVariables.get(varName);
+        Supplier<String> value = environment.getEnvironmentVariables().get(varName);
         if (value == null)
             throw new CommandHandler.CommandHandlerException("Could not find environment variable with name " + varName);
         else

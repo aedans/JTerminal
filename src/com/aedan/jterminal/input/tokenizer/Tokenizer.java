@@ -24,6 +24,10 @@ public class Tokenizer {
      */
     private LinkedList<TokenizerRule> tokenizerRules = new LinkedList<>();
 
+    {
+        reservedChars.add('-');
+    }
+
     /**
      * Tokenizes a String.
      *

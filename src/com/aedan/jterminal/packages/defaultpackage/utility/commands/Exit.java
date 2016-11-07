@@ -13,7 +13,7 @@ import com.aedan.jterminal.output.CommandOutput;
 
 public class Exit extends Command {
     public Exit() {
-        super("exit", "Exits the terminal");
+        super("exit", "Exits the terminal.");
     }
 
     @Override

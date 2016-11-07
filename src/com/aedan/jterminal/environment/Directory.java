@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class Directory implements Supplier<String> {
 
-    public static Pattern absoluteDirectoryPattern = Pattern.compile("\\w:.+|/.+|\\\\.+");
+    public static Pattern absoluteDirectoryPattern = Pattern.compile("\\w:.+|/*+|\\\\*+");
 
     /**
      * The current Directory.
@@ -71,7 +71,7 @@ public class Directory implements Supplier<String> {
             try {
                 return Paths.get(path.toString(), dir).toAbsolutePath();
             } catch (InvalidPathException e) {
-                throw new DirectoryFormatException("Invalid Directory format: " + dir);
+                throw new DirectoryFormatException("Invalid Directory format: " + path + dir);
             }
         }
     }

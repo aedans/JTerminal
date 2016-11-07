@@ -1,6 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.tokenizer.TokenList;
 import com.aedan.jterminal.input.tokenizer.TokenizerRule;
 import com.aedan.jterminal.output.CommandOutput;
@@ -17,18 +18,13 @@ import java.io.PrintStream;
 
 public class EmbeddedCommandsRule implements TokenizerRule {
 
-    /**
-     * The CommandHandler to handle the embedded command.
-     */
-    private CommandHandler commandHandler;
+    private Environment environment;
 
     /**
      * Default EmbeddedCommandsRule constructor.
-     *
-     * @param commandHandler The CommandHandler to handle the embedded command.
      */
-    public EmbeddedCommandsRule(CommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
+    public EmbeddedCommandsRule(Environment environment) {
+        this.environment = environment;
     }
 
     @Override
@@ -62,7 +58,7 @@ public class EmbeddedCommandsRule implements TokenizerRule {
                     break;
             }
         }
-        commandHandler.handleInput(new CommandOutput(new PrintStream(new OutputStream() {
+        environment.getCommandHandler().handleInput(new CommandOutput(new PrintStream(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 tokenList.append((char) b);

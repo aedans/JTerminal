@@ -104,7 +104,7 @@ public final class FileUtils {
                 throw new FileIOException("Cannot read lines from a directory");
             }
             if(!file.canRead()){
-                throw new FileIOException(String.format("Unable to read from file \" \""));
+                throw new FileIOException("Unable to read from file \"" + file + "\"");
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             return reader.lines();

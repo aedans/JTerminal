@@ -1,10 +1,9 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.tokenizer.TokenList;
 import com.aedan.jterminal.input.tokenizer.TokenizerRule;
-
-import java.util.HashMap;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -14,18 +13,13 @@ import java.util.HashMap;
 
 public class GlobalVariableRule implements TokenizerRule {
 
-    /**
-     * The HashMap of global variables.
-     */
-    private HashMap<String, String> globalVariables;
+    private Environment environment;
 
     /**
      * Default GlobalVariableRule constructor.
-     *
-     * @param globalVariables The HashMap of global variables.
      */
-    public GlobalVariableRule(HashMap<String, String> globalVariables) {
-        this.globalVariables = globalVariables;
+    public GlobalVariableRule(Environment environment) {
+        this.environment = environment;
     }
 
     @Override
@@ -53,7 +47,7 @@ public class GlobalVariableRule implements TokenizerRule {
                     break;
             }
         }
-        String value = globalVariables.get(varName);
+        String value = environment.getGlobalVariables().get(varName);
         if (value == null)
             throw new CommandHandler.CommandHandlerException("Could not find global variable with name " + varName);
         else

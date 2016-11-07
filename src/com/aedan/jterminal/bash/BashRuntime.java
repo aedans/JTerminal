@@ -51,6 +51,10 @@ public class BashRuntime {
         functions.get("main").apply(args);
     }
 
+    public void add(Function function) {
+        this.functions.put(function.getIdentifier(), function);
+    }
+
     public HashMap<String, Function> getFunctions() {
         return functions;
     }

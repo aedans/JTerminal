@@ -29,6 +29,6 @@ public class CallFunction extends Command {
             arguments[i] = args.get(i + 2).value;
         }
 
-        bashRuntime.getFunctions().get(args.get(1).value).apply(arguments);
+        output.print(bashRuntime.getFunctions().get(args.get(1).value).apply(arguments));
     }
 }

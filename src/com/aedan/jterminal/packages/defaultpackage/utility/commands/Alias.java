@@ -22,7 +22,7 @@ public class Alias extends Command {
         properties[0] = "Aliases a command to another command.";
         properties[1] =
                 "alias [string-name] [string-command]:\n" +
-                "    Creates command [string-name] that executes [string-command].";
+                        "    Creates command [string-name] that executes [string-command].";
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Alias extends Command {
         args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
 
         String s = args.get(2).value;
-        
+
         environment.removeCommand(args.get(1).value);
 
         environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {

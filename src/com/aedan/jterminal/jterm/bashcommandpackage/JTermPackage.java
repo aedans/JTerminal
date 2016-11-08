@@ -6,7 +6,6 @@ import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
@@ -27,19 +26,8 @@ public class JTermPackage implements Package {
         environment.addPackage(new DefaultPackage());
         environment.addCommand(new CallFunction(jTermRuntime));
         environment.addCommand(new IfCommand());
+        environment.addCommand(new WhileCommand());
         environment.addCommandFormat(new InitializeVariableFormat());
-
-        jTermRuntime.add(new Function() {
-            @Override
-            public String getIdentifier() {
-                return "lol";
-            }
-
-            @Override
-            public Object apply(Object[] args) throws CommandHandler.CommandHandlerException {
-                return "kek";
-            }
-        });
 
         environment.addCommand(new Command("false") {
             @Override

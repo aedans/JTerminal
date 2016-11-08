@@ -20,6 +20,8 @@ final class Parser {
      */
     private static Pattern functionPattern = Pattern.compile("([a-zA-Z]+)\\(([^()]*)\\) *\\{");
 
+    private static Pattern ifPattern = Pattern.compile("if *\\([^()]*\\) *\\{");
+
     /**
      * Parsers a .jterm file.
      *
@@ -70,8 +72,9 @@ final class Parser {
                 HashMap<String, Object> sVars = runtime.getEnvironment().getGlobalVariables();
                 runtime.getEnvironment().setGlobalVariables(new HashMap<>());
                 String[] args = arguments.split(",");
-                if (arguments.isEmpty())
+                if (arguments.isEmpty()) {
                     args = new String[0];
+                }
                 for (int i = 0; i < args.length; i++) {
                     runtime.getEnvironment().addGlobalVariable(args[i].trim(), o[i].toString());
                 }

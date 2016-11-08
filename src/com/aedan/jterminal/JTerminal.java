@@ -5,6 +5,7 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 
 /**
@@ -56,7 +57,7 @@ public class JTerminal implements Runnable {
         if (input == null)
             input = new ScannerInput();
         if (output == null)
-            output = new CommandOutput();
+            output = new PrintStreamOutput(System.out);
         if (environment == null)
             environment = new Environment(args, input, output, new DefaultPackage());
 
@@ -88,7 +89,9 @@ public class JTerminal implements Runnable {
                 output.printf("Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e) {
                 output.print("Fatal error: ");
-                output.getPrintStreams().forEach(e::printStackTrace);
+                for (StackTraceElement s : e.getStackTrace()) {
+                    output.println(s);
+                }
             }
         }
     }

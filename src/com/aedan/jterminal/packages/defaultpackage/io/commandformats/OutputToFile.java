@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.utils.FileUtils;
 
 import java.io.File;
@@ -43,11 +44,11 @@ public class OutputToFile implements CommandFormat {
 
             File f = environment.getDirectory().getFile(fileName);
             FileUtils.createFile(f);
-            CommandOutput fileOut = new CommandOutput(new PrintStream(new FileOutputStream(f)));
+            CommandOutput fileOut = new PrintStreamOutput(new PrintStream(new FileOutputStream(f)));
 
             environment.getCommandHandler().handleInput(input, fileOut, tokens.subList(0, setIndex));
 
-            fileOut.getPrintStreams().forEach(PrintStream::close);
+            fileOut.close();
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }

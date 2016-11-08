@@ -12,6 +12,7 @@ import com.aedan.jterminal.environment.startup.StartupArgument;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.PrintStreamOutput;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -44,7 +45,7 @@ public class Environment {
      * @throws Exception If there was an error handling the arguments.
      */
     public Environment(String args[], Package... packages) throws Exception {
-        this(args, new ScannerInput(), new CommandOutput(), new StartupArgument[]{
+        this(args, new ScannerInput(), new PrintStreamOutput(System.out), new StartupArgument[]{
                 new SetDirectory(),
                 new Execute()
         }, packages);

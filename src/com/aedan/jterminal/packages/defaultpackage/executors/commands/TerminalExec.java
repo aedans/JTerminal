@@ -9,8 +9,6 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
@@ -35,10 +33,7 @@ public class TerminalExec extends Command {
             args.checkMatches(ArgumentType.STRING);
 
             Process process = Runtime.getRuntime().exec("cmd");
-            for (PrintStream p : output.getPrintStreams()) {
-                new Thread(new SyncPipe(process.getErrorStream(), p)).start();
-                new Thread(new SyncPipe(process.getInputStream(), p)).start();
-            }
+            new Thread(new SyncPipe(process.getErrorStream(), output)).start();
             PrintWriter stdin = new PrintWriter(process.getOutputStream());
             stdin.println(args.get(1));
             stdin.close();
@@ -51,10 +46,10 @@ public class TerminalExec extends Command {
 
 class SyncPipe implements Runnable {
 
-    private final OutputStream out;
+    private final CommandOutput out;
     private final InputStream in;
 
-    public SyncPipe(InputStream istrm, OutputStream ostrm) {
+    public SyncPipe(InputStream istrm, CommandOutput ostrm) {
         in = istrm;
         out = ostrm;
     }
@@ -62,8 +57,8 @@ class SyncPipe implements Runnable {
     public void run() {
         try {
             final byte[] buffer = new byte[1024];
-            for (int length = 0; (length = in.read(buffer)) != -1; ) {
-                out.write(buffer, 0, length);
+            for (; in.read(buffer) != -1; ) {
+                out.print(new String(buffer));
             }
         } catch (Exception e) {
             e.printStackTrace();

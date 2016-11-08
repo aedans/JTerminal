@@ -7,6 +7,7 @@ import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.PrintStreamOutput;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +31,7 @@ class IfCommand extends Command {
 
         final String[] s = {""};
         environment.getCommandHandler().handleInput(input,
-                new CommandOutput(new PrintStream(new OutputStream() {
+                new PrintStreamOutput(new PrintStream(new OutputStream() {
                     @Override
                     public void write(int b) throws IOException {
                         s[0] += (char) b;

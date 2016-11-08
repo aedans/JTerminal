@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.PrintStreamOutput;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,7 +35,7 @@ public class AddGlobalVariable implements CommandFormat {
         int setIndex = tokens.indexOf("=");
 
         final String[] varValue = new String[]{""};
-        CommandOutput varOutput = new CommandOutput(new PrintStream(new OutputStream() {
+        CommandOutput varOutput = new PrintStreamOutput(new PrintStream(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 varValue[0] += (char) b;

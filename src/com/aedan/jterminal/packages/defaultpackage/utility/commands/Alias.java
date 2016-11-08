@@ -2,11 +2,14 @@ package com.aedan.jterminal.packages.defaultpackage.utility.commands;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
+import com.aedan.jterminal.command.commandarguments.CommandArgument;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+
+import java.util.ArrayList;
 
 /**
  * Created by Aedan Smith on 9/13/2016.
@@ -35,7 +38,14 @@ public class Alias extends Command {
             @Override
             public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
                     throws CommandHandler.CommandHandlerException {
-                environment.getCommandHandler().handleInput(s);
+                String command = s;
+                ArrayList<CommandArgument> args1 = args.getArgs();
+                for (int i = 1; i < args1.size(); i++) {
+                    CommandArgument commandArgument = args1.get(i);
+                    command += " \"" + commandArgument.value + "\"";
+                }
+
+                environment.getCommandHandler().handleInput(command);
             }
         });
 

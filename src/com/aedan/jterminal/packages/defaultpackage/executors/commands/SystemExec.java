@@ -32,15 +32,15 @@ public class SystemExec extends Command {
 
             Process process = Runtime.getRuntime().exec(args.get(1).value);
             final byte[] buffer = new byte[1024];
-            for (; process.getInputStream().read(buffer) != -1; ) {
+            while (process.getInputStream().read(buffer) != -1) {
                 for (byte b : buffer) {
                     output.print((char) b);
                 }
             }
             output.println("");
+            process.destroy();
         } catch (Exception e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage());
         }
     }
 }
-

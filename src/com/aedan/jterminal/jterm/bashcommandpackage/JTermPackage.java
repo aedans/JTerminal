@@ -6,6 +6,7 @@ import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
+import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
@@ -15,18 +16,30 @@ import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
  */
 
 public class JTermPackage implements Package {
-    private JTermRuntime bashRuntime;
+    private JTermRuntime jTermRuntime;
 
-    public JTermPackage(JTermRuntime bashRuntime) {
-        this.bashRuntime = bashRuntime;
+    public JTermPackage(JTermRuntime jTermRuntime) {
+        this.jTermRuntime = jTermRuntime;
     }
 
     @Override
     public void addTo(Environment environment) {
         environment.addPackage(new DefaultPackage());
-        environment.addCommand(new CallFunction(bashRuntime));
+        environment.addCommand(new CallFunction(jTermRuntime));
         environment.addCommand(new IfCommand());
         environment.addCommandFormat(new InitializeVariableFormat());
+
+        jTermRuntime.add(new Function() {
+            @Override
+            public String getIdentifier() {
+                return "lol";
+            }
+
+            @Override
+            public Object apply(Object[] args) throws CommandHandler.CommandHandlerException {
+                return "kek";
+            }
+        });
 
         environment.addCommand(new Command("false") {
             @Override

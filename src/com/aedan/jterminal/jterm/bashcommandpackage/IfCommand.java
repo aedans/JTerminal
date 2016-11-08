@@ -7,11 +7,8 @@ import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.output.PrintStreamOutput;
+import com.aedan.jterminal.output.StringOutput;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.Objects;
 
 /**
@@ -29,18 +26,10 @@ class IfCommand extends Command {
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
 
-        final String[] s = {""};
-        environment.getCommandHandler().handleInput(input,
-                new PrintStreamOutput(new PrintStream(new OutputStream() {
-                    @Override
-                    public void write(int b) throws IOException {
-                        s[0] += (char) b;
-                    }
-                })),
-                args.get(1).value
-        );
+        StringOutput stringOutput = new StringOutput();
+        environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
 
-        if (Objects.equals(s[0].trim(), "true")) {
+        if (Objects.equals(stringOutput.getString().trim(), "true")) {
             environment.getCommandHandler().handleInput(input, output, args.get(2).value);
         }
     }

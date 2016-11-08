@@ -15,7 +15,6 @@ import com.aedan.jterminal.output.CommandOutput;
 
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.Supplier;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
@@ -29,9 +28,9 @@ public class Environment {
 
     private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
 
-    private HashMap<String, Supplier<String>> environmentVariables = new HashMap<>();
+    private HashMap<String, Object> environmentVariables = new HashMap<>();
 
-    private HashMap<String, String> globalVariables = new HashMap<>();
+    private HashMap<String, Object> globalVariables = new HashMap<>();
 
     private Directory directory;
 
@@ -86,7 +85,7 @@ public class Environment {
         }
         Map<String, String> env = System.getenv();
         for (String envName : env.keySet()) {
-            environmentVariables.put(envName, () -> env.get(envName));
+            environmentVariables.put(envName, env.get(envName));
         }
         this.environmentVariables.put("DIR", this.directory = new Directory());
 
@@ -160,19 +159,19 @@ public class Environment {
         return commandFormats;
     }
 
-    public HashMap<String, Supplier<String>> getEnvironmentVariables() {
+    public HashMap<String, Object> getEnvironmentVariables() {
         return environmentVariables;
     }
 
-    public void setEnvironmentVariables(HashMap<String, Supplier<String>> environmentVariables) {
+    public void setEnvironmentVariables(HashMap<String, Object> environmentVariables) {
         this.environmentVariables = environmentVariables;
     }
 
-    public HashMap<String, String> getGlobalVariables() {
+    public HashMap<String, Object> getGlobalVariables() {
         return globalVariables;
     }
 
-    public void setGlobalVariables(HashMap<String, String> globalVariables) {
+    public void setGlobalVariables(HashMap<String, Object> globalVariables) {
         this.globalVariables = globalVariables;
     }
 }

@@ -47,11 +47,11 @@ public class GlobalVariableRule implements TokenizerRule {
                     break;
             }
         }
-        String value = environment.getGlobalVariables().get(varName);
+        Object value = environment.getGlobalVariables().get(varName);
         if (value == null)
             throw new CommandHandler.CommandHandlerException("Could not find global variable with name " + varName);
         else
-            tokenList.addToken(value);
+            tokenList.addToken(value.toString());
         return j;
     }
 }

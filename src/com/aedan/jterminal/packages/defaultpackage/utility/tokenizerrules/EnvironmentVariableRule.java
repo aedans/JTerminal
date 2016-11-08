@@ -5,8 +5,6 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.tokenizer.TokenList;
 import com.aedan.jterminal.input.tokenizer.TokenizerRule;
 
-import java.util.function.Supplier;
-
 /**
  * Created by Aedan Smith on 10/10/2016.
  *
@@ -49,11 +47,11 @@ public class EnvironmentVariableRule implements TokenizerRule {
                     break;
             }
         }
-        Supplier<String> value = environment.getEnvironmentVariables().get(varName);
+        Object value = environment.getEnvironmentVariables().get(varName);
         if (value == null)
             throw new CommandHandler.CommandHandlerException("Could not find environment variable with name " + varName);
         else
-            tokenList.addToken(value.get());
+            tokenList.addToken(value.toString());
         return j;
     }
 }

@@ -67,7 +67,7 @@ final class Parser {
 
             @Override
             public Object apply(Object[] o) throws CommandHandler.CommandHandlerException {
-                HashMap<String, String> sVars = runtime.getEnvironment().getGlobalVariables();
+                HashMap<String, Object> sVars = runtime.getEnvironment().getGlobalVariables();
                 runtime.getEnvironment().setGlobalVariables(new HashMap<>());
                 String[] args = arguments.split(",");
                 if (arguments.isEmpty())

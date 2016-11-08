@@ -32,6 +32,5 @@ class CallFunction extends Command {
         Object o = bashRuntime.getFunctions().get(args.get(1).value).apply(arguments);
         if (o != null)
             output.print(o);
-        output.println("");
     }
 }

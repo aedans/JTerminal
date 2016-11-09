@@ -26,6 +26,7 @@ public class JTermPackage implements Package {
         environment.addPackage(new DefaultPackage());
         environment.addCommand(new CallFunction(jTermRuntime));
         environment.addCommand(new IfCommand());
+        environment.addCommand(new IfElseCommand());
         environment.addCommand(new WhileCommand());
         environment.addCommand(new IfEqual());
         environment.addCommand(new IfNotEqual());

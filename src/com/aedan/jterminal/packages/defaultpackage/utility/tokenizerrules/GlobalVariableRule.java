@@ -29,6 +29,7 @@ public class GlobalVariableRule implements TokenizerRule {
 
     @Override
     public int process(TokenList tokenList, String s, int i) throws CommandHandler.CommandHandlerException {
+        tokenList.nextToken();
         String varName = "";
         int j = i + 1;
         label:

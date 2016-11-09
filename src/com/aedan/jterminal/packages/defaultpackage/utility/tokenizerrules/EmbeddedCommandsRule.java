@@ -34,6 +34,7 @@ public class EmbeddedCommandsRule implements TokenizerRule {
 
     @Override
     public int process(TokenList tokenList, String s, int i) throws CommandHandler.CommandHandlerException {
+        tokenList.nextToken();
         String command = "";
         int j = i + 1, depth = 1;
         label:

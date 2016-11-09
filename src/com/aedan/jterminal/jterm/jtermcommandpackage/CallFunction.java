@@ -14,11 +14,11 @@ import com.aedan.jterminal.output.CommandOutput;
 
 class CallFunction extends Command {
 
-    private JTermRuntime bashRuntime;
+    private JTermRuntime runtime;
 
-    CallFunction(JTermRuntime bashRuntime) {
+    CallFunction(JTermRuntime runtime) {
         super("call", "Calls a function.");
-        this.bashRuntime = bashRuntime;
+        this.runtime = runtime;
     }
 
     @Override
@@ -29,7 +29,7 @@ class CallFunction extends Command {
             arguments[i] = args.get(i + 2).value;
         }
 
-        Object o = bashRuntime.getFunctions().get(args.get(1).value).apply(arguments);
+        Object o = runtime.getFunction(args.get(1).value).apply(arguments);
         if (o != null)
             output.print(o);
     }

@@ -48,15 +48,19 @@ public class JTermRuntime {
      * @throws CommandHandler.CommandHandlerException If there was an error running the JTermRuntime.
      */
     public void run(String... args) throws CommandHandler.CommandHandlerException {
-        functions.get("main").apply(args);
+        environment.getCommandHandler().getCommandOutput().print(getFunction("main").apply(args));
     }
 
     public void add(Function function) {
         this.functions.put(function.getIdentifier(), function);
     }
 
-    public HashMap<String, Function> getFunctions() {
-        return functions;
+    public Function getFunction(String name) throws CommandHandler.CommandHandlerException {
+        Function f = functions.get(name);
+        if (f == null)
+            throw new CommandHandler.CommandHandlerException("No function found with name \"" + name + "\"", this);
+        else
+            return functions.get(name);
     }
 
     public Environment getEnvironment() {

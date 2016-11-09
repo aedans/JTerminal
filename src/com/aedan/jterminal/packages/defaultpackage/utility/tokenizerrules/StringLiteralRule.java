@@ -19,6 +19,7 @@ public class StringLiteralRule implements TokenizerRule {
 
     @Override
     public int process(TokenList tokenList, String s, int i) throws CommandHandler.CommandHandlerException {
+        tokenList.nextToken();
         int j = i+1;
         label:
         for (; true; j++) {

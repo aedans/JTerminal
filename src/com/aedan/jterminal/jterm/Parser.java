@@ -1,6 +1,8 @@
 package com.aedan.jterminal.jterm;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.StringOutput;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +20,7 @@ final class Parser {
     /**
      * Pattern for finding functions in .jterm files.
      */
-    private static Pattern functionPattern = Pattern.compile("([a-zA-Z]+)\\(([^()]*)\\) *\\{");
-
-    private static Pattern ifPattern = Pattern.compile("if *\\([^()]*\\) *\\{");
+    private static Pattern functionPattern = Pattern.compile("([!a-zA-Z]+)\\(([^()]*)\\) *\\{");
 
     /**
      * Parsers a .jterm file.
@@ -61,28 +61,46 @@ final class Parser {
      */
     private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
             throws CommandHandler.CommandHandlerException {
+        CommandOutput commandOutput = runtime.getEnvironment().getCommandHandler().getCommandOutput();
+        if (name.startsWith("!")) {
+            name = name.substring(1);
+            commandOutput = new StringOutput();
+        }
+        String finalName = name;
+        CommandOutput finalCommandOutput = commandOutput;
         return new Function() {
             @Override
             public String getIdentifier() {
-                return name;
+                return finalName;
             }
 
             @Override
             public Object apply(Object[] o) throws CommandHandler.CommandHandlerException {
                 HashMap<String, Object> sVars = runtime.getEnvironment().getGlobalVariables();
                 runtime.getEnvironment().setGlobalVariables(new HashMap<>());
+                // Gets function arguments
                 String[] args = arguments.split(",");
                 if (arguments.isEmpty()) {
                     args = new String[0];
                 }
+                // Adds function arguments to the stack
                 for (int i = 0; i < args.length; i++) {
-                    runtime.getEnvironment().addGlobalVariable(args[i].trim(), o[i].toString());
+                    try {
+                        runtime.getEnvironment().addGlobalVariable(args[i].trim(), o[i].toString());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new CommandHandler.CommandHandlerException("Not enough arguments given for function " + finalName);
+                    }
                 }
+                // Execute statements
                 for (String statement : src.split("\n")) {
-                    runtime.getEnvironment().getCommandHandler().handleInput(statement);
+                    runtime.getEnvironment().getCommandHandler().handleInput(finalCommandOutput, statement);
                 }
+                // Ends scope
                 runtime.getEnvironment().setGlobalVariables(sVars);
-                return null;
+                if (finalCommandOutput instanceof StringOutput)
+                    return ((StringOutput) finalCommandOutput).getString();
+                else
+                    return null;
             }
         };
     }

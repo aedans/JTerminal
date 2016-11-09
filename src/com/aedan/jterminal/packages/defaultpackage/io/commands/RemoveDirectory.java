@@ -29,11 +29,11 @@ public class RemoveDirectory extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            args.checkMatches(ArgumentType.STRING);
+            args.checkMatches(this, ArgumentType.STRING);
 
             output.println(FileUtils.removeDirectory(environment.getDirectory().getFile(args.get(1).value)));
         } catch (FileUtils.FileIOException e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
+            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
         }
     }
 }

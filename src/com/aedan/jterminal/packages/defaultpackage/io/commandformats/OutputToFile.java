@@ -50,7 +50,7 @@ public class OutputToFile implements CommandFormat {
 
             fileOut.close();
         } catch (Exception e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
+            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
         }
     }
 }

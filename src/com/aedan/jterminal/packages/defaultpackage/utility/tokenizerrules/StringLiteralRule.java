@@ -23,7 +23,7 @@ public class StringLiteralRule implements TokenizerRule {
         label:
         for (; true; j++) {
             if (j >= s.length())
-                throw new CommandHandler.CommandHandlerException("Could not find matching \"");
+                throw new CommandHandler.CommandHandlerException("Could not find matching \"", this);
             switch (s.charAt(j)) {
                 case '\\':
                     j++;

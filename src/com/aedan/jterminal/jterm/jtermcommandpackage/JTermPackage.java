@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.bashcommandpackage;
+package com.aedan.jterminal.jterm.jtermcommandpackage;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.Package;
@@ -27,6 +27,7 @@ public class JTermPackage implements Package {
         environment.addCommand(new CallFunction(jTermRuntime));
         environment.addCommand(new IfCommand());
         environment.addCommand(new WhileCommand());
+        environment.addCommand(new IfEquals());
         environment.addCommandFormat(new InitializeVariableFormat());
 
         environment.addCommand(new Command("false") {

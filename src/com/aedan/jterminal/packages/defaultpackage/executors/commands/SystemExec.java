@@ -28,7 +28,7 @@ public class SystemExec extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         try {
-            args.checkMatches(ArgumentType.STRING);
+            args.checkMatches(this, ArgumentType.STRING);
 
             Process process = Runtime.getRuntime().exec(args.get(1).value);
             final byte[] buffer = new byte[1024];
@@ -40,7 +40,7 @@ public class SystemExec extends Command {
             output.println("");
             process.destroy();
         } catch (Exception e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
+            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
         }
     }
 }

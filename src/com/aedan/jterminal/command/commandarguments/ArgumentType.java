@@ -18,7 +18,7 @@ public enum ArgumentType {
      */
     public static ArgumentType getArgumentType(String value) {
         boolean decimal = false, big = false;
-        for (int i = 0; i < value.length(); i++) {
+        for (int i = value.charAt(0) != '-' ? 0 : 1; i < value.length(); i++) {
             if (value.charAt(i) < '0' || value.charAt(i) > '9') {
                 if (value.charAt(i) != '.') {
                     if (value.charAt(i) != 'E') {

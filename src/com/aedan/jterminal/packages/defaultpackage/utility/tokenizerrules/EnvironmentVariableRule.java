@@ -34,7 +34,7 @@ public class EnvironmentVariableRule implements TokenizerRule {
         label:
         for (; true; j++) {
             if (j >= s.length())
-                throw new CommandHandler.CommandHandlerException("Could not find matching %");
+                throw new CommandHandler.CommandHandlerException("Could not find matching %", this);
             switch (s.charAt(j)) {
                 case '\\':
                     j++;
@@ -49,7 +49,7 @@ public class EnvironmentVariableRule implements TokenizerRule {
         }
         Object value = environment.getEnvironmentVariables().get(varName);
         if (value == null)
-            throw new CommandHandler.CommandHandlerException("Could not find environment variable with name " + varName);
+            throw new CommandHandler.CommandHandlerException("Could not find environment variable with name " + varName, this);
         else
             tokenList.addToken(value.toString());
         return j;

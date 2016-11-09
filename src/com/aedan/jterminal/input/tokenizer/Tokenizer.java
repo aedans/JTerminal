@@ -24,10 +24,6 @@ public class Tokenizer {
      */
     private LinkedList<TokenizerRule> tokenizerRules = new LinkedList<>();
 
-    {
-        reservedChars.add('-');
-    }
-
     /**
      * Tokenizes a String.
      *
@@ -42,7 +38,7 @@ public class Tokenizer {
                 case '\\':
                     i++;
                     if (i == s.length()){
-                        throw new CommandHandler.CommandHandlerException("Could not find character to escape");
+                        throw new CommandHandler.CommandHandlerException("Could not find character to escape", this);
                     }
                     tokenList.append(s.charAt(i));
                     break;

@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.bashcommandpackage;
+package com.aedan.jterminal.jterm.jtermcommandpackage;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
@@ -15,21 +15,20 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-class IfCommand extends Command {
+class WhileCommand extends Command {
 
-    IfCommand() {
-        super("if", "Executes a command if a command returns true.");
+    WhileCommand() {
+        super("while", "Executes a command until a command returns false.");
     }
 
     @Override
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
-        args.checkMatches(ArgumentType.STRING, ArgumentType.STRING);
+        args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
         StringOutput stringOutput = new StringOutput();
-        environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
-
-        if (Objects.equals(stringOutput.getString().trim(), "true")) {
+        while (!Objects.equals(stringOutput.getString().trim(), "false")) {
+            environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
             environment.getCommandHandler().handleInput(input, output, args.get(2).value);
         }
     }

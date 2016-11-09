@@ -138,7 +138,7 @@ public class CommandHandler {
             }
         }
 
-        throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"");
+        throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
     }
 
     public Environment getEnvironment() {
@@ -179,8 +179,8 @@ public class CommandHandler {
          *
          * @param message The error message to display.
          */
-        public CommandHandlerException(String message) {
-            super(message);
+        public CommandHandlerException(String message, Object source) {
+            super(message + " (" + source + ")");
         }
     }
 }

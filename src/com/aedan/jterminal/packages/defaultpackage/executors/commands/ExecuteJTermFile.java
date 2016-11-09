@@ -35,7 +35,7 @@ public class ExecuteJTermFile extends Command {
             try {
                 runtime = new JTermRuntime(lines, input, output);
             } catch (Exception e) {
-                throw new CommandHandler.CommandHandlerException(e.getMessage());
+                throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
             }
             String[] arguments = new String[args.getArgs().size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
@@ -43,7 +43,7 @@ public class ExecuteJTermFile extends Command {
             }
             runtime.run(arguments);
         } catch (FileUtils.FileIOException e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage());
+            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
         }
     }
 }

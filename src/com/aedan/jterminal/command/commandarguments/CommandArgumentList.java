@@ -1,11 +1,11 @@
 package com.aedan.jterminal.command.commandarguments;
 
+import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
@@ -33,8 +33,7 @@ public class CommandArgumentList {
     public CommandArgumentList(List<String> tokens) {
         args.add(new CommandArgument(tokens.get(0), ArgumentType.COMMAND_IDENTIFIER));
         for (int i = 1; i < tokens.size(); i++) {
-            if (Objects.equals(tokens.get(i), "-")) {
-                i++;
+            if (tokens.get(i).charAt(0) == '-' && !Character.isDigit(tokens.get(i).charAt(1))) {
                 flags.add(tokens.get(i));
             } else
                 args.add(new CommandArgument(tokens.get(i)));
@@ -47,11 +46,11 @@ public class CommandArgumentList {
      * @param argumentTypes The format for the CommandArgumentList.
      * @throws CommandHandler.CommandHandlerException If the format does not match.
      */
-    public void checkMatches(ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
+    public void checkMatches(Command command, ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
         MatchResult matchResult = matches(argumentTypes);
         if (matchResult == MatchResult.CORRECT_ARGS)
             return;
-        throw new CommandHandler.CommandHandlerException(matchResult.getMessage());
+        throw new CommandHandler.CommandHandlerException(matchResult.getMessage(), command);
     }
 
     /**

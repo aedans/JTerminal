@@ -29,7 +29,7 @@ public class EmbeddedCommandsRule implements TokenizerRule {
 
     @Override
     public char getIdentifier() {
-        return '{';
+        return '[';
     }
 
     @Override
@@ -39,17 +39,17 @@ public class EmbeddedCommandsRule implements TokenizerRule {
         label:
         for (; true; j++) {
             if (j >= s.length())
-                throw new CommandHandler.CommandHandlerException("Could not find matching }");
+                throw new CommandHandler.CommandHandlerException("Could not find matching }", this);
             switch (s.charAt(j)) {
                 case '\\':
                     j++;
                     command += s.charAt(j);
                     break;
-                case '{':
+                case '[':
                     depth++;
-                    command += '{';
+                    command += '[';
                     break;
-                case '}':
+                case ']':
                     depth--;
                     if (depth == 0)
                         break label;

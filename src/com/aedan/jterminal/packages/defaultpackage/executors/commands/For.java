@@ -44,7 +44,7 @@ public class For extends Command {
             }
             environment.removeGlobalVariable(args.get(3).value);
         } else {
-            throw new CommandHandler.CommandHandlerException("Incorrect arguments given");
+            throw new CommandHandler.CommandHandlerException("Incorrect arguments given", this);
         }
     }
 }

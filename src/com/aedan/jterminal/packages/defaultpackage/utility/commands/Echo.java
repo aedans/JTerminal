@@ -27,7 +27,7 @@ public class Echo extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         if (args.size() <= 1)
-            throw new CommandHandler.CommandHandlerException("No arguments given");
+            throw new CommandHandler.CommandHandlerException("No arguments given", this);
 
         output.println(args.get(1));
     }

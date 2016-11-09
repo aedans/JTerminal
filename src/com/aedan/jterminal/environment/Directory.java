@@ -123,7 +123,7 @@ public class Directory implements Supplier<String> {
          * @param message The error message to display.
          */
         DirectoryFormatException(String message) {
-            super(message);
+            super(message, Directory.this);
         }
     }
 
@@ -138,7 +138,7 @@ public class Directory implements Supplier<String> {
          * @param message The error message to display.
          */
         DirectoryChangeException(String message) {
-            super(message);
+            super(message, Directory.this);
         }
     }
 }

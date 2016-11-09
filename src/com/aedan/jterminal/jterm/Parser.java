@@ -88,7 +88,7 @@ final class Parser {
                     try {
                         runtime.getEnvironment().addGlobalVariable(args[i].trim(), o[i].toString());
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new CommandHandler.CommandHandlerException("Not enough arguments given for function " + finalName);
+                        throw new CommandHandler.CommandHandlerException("Not enough arguments given for function " + finalName, this);
                     }
                 }
                 // Execute statements

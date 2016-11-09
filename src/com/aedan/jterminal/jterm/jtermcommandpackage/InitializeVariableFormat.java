@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.bashcommandpackage;
+package com.aedan.jterminal.jterm.jtermcommandpackage;
 
 import com.aedan.jterminal.command.CommandFormat;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
@@ -13,7 +13,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class InitializeVariableFormat implements CommandFormat {
+class InitializeVariableFormat implements CommandFormat {
     @Override
     public boolean matches(List<String> tokens) throws CommandHandler.CommandHandlerException {
         return tokens.size() >= 2 && Objects.equals(tokens.get(1), "=");

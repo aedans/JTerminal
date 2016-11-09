@@ -49,7 +49,7 @@ public class GlobalVariableRule implements TokenizerRule {
         }
         Object value = environment.getGlobalVariables().get(varName);
         if (value == null)
-            throw new CommandHandler.CommandHandlerException("Could not find global variable with name " + varName);
+            throw new CommandHandler.CommandHandlerException("Could not find global variable with name " + varName, this);
         else
             tokenList.addToken(value.toString());
         return j;

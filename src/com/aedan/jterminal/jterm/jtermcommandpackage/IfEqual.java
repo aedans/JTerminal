@@ -14,10 +14,10 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-class IfEquals extends Command {
+class IfEqual extends Command {
 
-    IfEquals() {
-        super("equals", "Returns true if two values are equal");
+    IfEqual() {
+        super("equal", "Returns true if two values are equal");
     }
 
     @Override

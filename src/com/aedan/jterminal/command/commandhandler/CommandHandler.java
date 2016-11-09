@@ -180,7 +180,7 @@ public class CommandHandler {
          * @param message The error message to display.
          */
         public CommandHandlerException(String message, Object source) {
-            super(message + " (" + source + ")");
+            super(message + " (" + source.getClass().getSimpleName() + ")");
         }
     }
 }

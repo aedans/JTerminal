@@ -19,6 +19,10 @@ public class StringOutput implements CommandOutput {
         closed = true;
     }
 
+    public void flush() {
+        string = "";
+    }
+
     public String getString() {
         return string;
     }

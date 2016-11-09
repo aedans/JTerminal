@@ -97,8 +97,13 @@ final class Parser {
                 }
                 // Ends scope
                 runtime.getEnvironment().setGlobalVariables(sVars);
-                if (finalCommandOutput instanceof StringOutput)
-                    return ((StringOutput) finalCommandOutput).getString();
+                if (finalCommandOutput instanceof StringOutput) {
+                    try {
+                        return ((StringOutput) finalCommandOutput).getString();
+                    } finally {
+                        ((StringOutput) finalCommandOutput).flush();
+                    }
+                }
                 else
                     return null;
             }

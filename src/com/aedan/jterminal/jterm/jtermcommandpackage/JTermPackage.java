@@ -27,17 +27,20 @@ public class JTermPackage implements Package {
         environment.addCommand(new CallFunction(jTermRuntime));
         environment.addCommand(new IfCommand());
         environment.addCommand(new WhileCommand());
-        environment.addCommand(new IfEquals());
+        environment.addCommand(new IfEqual());
+        environment.addCommand(new IfNotEqual());
+        environment.addCommand(new LessThan());
+        environment.addCommand(new GreaterThan());
         environment.addCommandFormat(new InitializeVariableFormat());
 
-        environment.addCommand(new Command("false") {
+        environment.addCommand(new Command("false", "Literal false") {
             @Override
             public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
                     throws CommandHandler.CommandHandlerException {
                 output.println("false");
             }
         });
-        environment.addCommand(new Command("true") {
+        environment.addCommand(new Command("true", "Literal true") {
             @Override
             public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
                     throws CommandHandler.CommandHandlerException {

@@ -67,7 +67,7 @@ public class Help extends Command {
                 }
             }
 
-            output.printf("Could not find command \"%s\"\n", args.get(1).value);
+            throw new CommandHandler.CommandHandlerException("Could not find command \"" + args.get(1).value + "\"", this);
         }
     }
 }

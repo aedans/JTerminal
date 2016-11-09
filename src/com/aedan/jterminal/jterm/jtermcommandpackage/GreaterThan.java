@@ -15,7 +15,7 @@ import com.aedan.jterminal.output.CommandOutput;
 public class GreaterThan extends Command {
 
     protected GreaterThan() {
-        super("greaterthan", "Returns true if a number is greater than another number.");
+        super("gt", "Returns true if a number is greater than another number.");
     }
 
     @Override

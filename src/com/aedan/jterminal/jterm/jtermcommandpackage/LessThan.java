@@ -15,7 +15,7 @@ import com.aedan.jterminal.output.CommandOutput;
 public class LessThan extends Command {
 
     protected LessThan() {
-        super("lessthan", "Returns true if a number is less than another number.");
+        super("lt", "Returns true if a number is less than another number.");
     }
 
     @Override

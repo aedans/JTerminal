@@ -20,7 +20,7 @@ final class Parser {
     /**
      * Pattern for finding functions in .jterm files.
      */
-    private static Pattern functionPattern = Pattern.compile("([!a-zA-Z]+)\\(([^()]*)\\) *\\{");
+    private static Pattern functionPattern = Pattern.compile("([ !a-zA-Z]+)\\(([^()]*)\\) *\\{");
 
     /**
      * Parsers a .jterm file.
@@ -68,6 +68,12 @@ final class Parser {
         }
         String finalName = name;
         CommandOutput finalCommandOutput = commandOutput;
+        String[] args = arguments.split(",");
+        if (arguments.isEmpty()) {
+            args = new String[0];
+        }
+        String[] finalArgs = args;
+        String[] statements = src.split("\n");
         return new Function() {
             @Override
             public String getIdentifier() {
@@ -78,21 +84,16 @@ final class Parser {
             public Object apply(Object[] o) throws CommandHandler.CommandHandlerException {
                 HashMap<String, Object> sVars = runtime.getEnvironment().getGlobalVariables();
                 runtime.getEnvironment().setGlobalVariables(new HashMap<>());
-                // Gets function arguments
-                String[] args = arguments.split(",");
-                if (arguments.isEmpty()) {
-                    args = new String[0];
-                }
                 // Adds function arguments to the stack
-                for (int i = 0; i < args.length; i++) {
+                for (int i = 0; i < finalArgs.length; i++) {
                     try {
-                        runtime.getEnvironment().addGlobalVariable(args[i].trim(), o[i].toString());
+                        runtime.getEnvironment().addGlobalVariable(finalArgs[i].trim(), o[i].toString());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new CommandHandler.CommandHandlerException("Not enough arguments given for function " + finalName, this);
                     }
                 }
                 // Execute statements
-                for (String statement : src.split("\n")) {
+                for (String statement : statements) {
                     runtime.getEnvironment().getCommandHandler().handleInput(finalCommandOutput, statement);
                 }
                 // Ends scope
@@ -103,9 +104,13 @@ final class Parser {
                     } finally {
                         ((StringOutput) finalCommandOutput).flush();
                     }
-                }
-                else
+                } else
                     return null;
+            }
+
+            @Override
+            public String toString() {
+                return finalName;
             }
         };
     }

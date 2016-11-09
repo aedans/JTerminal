@@ -104,7 +104,7 @@ public class Environment {
         }
     }
 
-    public void addGlobalVariable(String name, String value) {
+    public void addGlobalVariable(String name, Object value) {
         removeGlobalVariable(name);
         globalVariables.put(name, value);
     }

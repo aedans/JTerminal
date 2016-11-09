@@ -120,7 +120,7 @@ public class CommandHandler {
         if (tokens == null || commandInput == null || commandOutput == null) {
             throw new IllegalArgumentException("Input is null");
         }
-        if (tokens.size() == 0){
+        if (tokens.isEmpty()) {
             return;
         }
 

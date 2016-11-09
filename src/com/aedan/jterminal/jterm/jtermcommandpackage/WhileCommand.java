@@ -18,7 +18,7 @@ import java.util.Objects;
 class WhileCommand extends Command {
 
     WhileCommand() {
-        super("while", "Executes a command until a command returns false.");
+        super("whl", "Executes a command until a command returns false.");
     }
 
     @Override

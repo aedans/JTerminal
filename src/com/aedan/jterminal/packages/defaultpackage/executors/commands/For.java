@@ -33,18 +33,64 @@ public class For extends Command {
     public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
             throws CommandHandler.CommandHandlerException {
         if (args.matches(ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
+            StringHolder holder = new StringHolder("");
+            environment.addGlobalVariable("s", holder);
             for (String s : args.get(1).value.split("\n")) {
-                environment.addGlobalVariable("s", s);
+                holder.setS(s);
                 environment.getCommandHandler().handleInput(args.get(2).value);
             }
         } else if (args.matches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
-            for (int i = Integer.parseInt(args.get(1).value); i < Integer.parseInt(args.get(2).value); i++) {
-                environment.addGlobalVariable(args.get(3).value, String.valueOf(i));
+            IntegerHolder i = new IntegerHolder(Integer.parseInt(args.get(1).value));
+            int max = Integer.parseInt(args.get(2).value);
+            environment.addGlobalVariable(args.get(3).value, i);
+            for (; i.getI() < max; i.increment()) {
                 environment.getCommandHandler().handleInput(args.get(4).value);
             }
             environment.removeGlobalVariable(args.get(3).value);
         } else {
             throw new CommandHandler.CommandHandlerException("Incorrect arguments given", this);
         }
+    }
+}
+
+class StringHolder {
+    private String s;
+
+    StringHolder(String s) {
+        this.s = s;
+    }
+
+    public String getS() {
+        return s;
+    }
+
+    public void setS(String s) {
+        this.s = s;
+    }
+
+    @Override
+    public String toString() {
+        return s;
+    }
+}
+
+class IntegerHolder {
+    private int i;
+
+    IntegerHolder(int i) {
+        this.i = i;
+    }
+
+    public int getI() {
+        return i;
+    }
+
+    void increment() {
+        ++i;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(i);
     }
 }

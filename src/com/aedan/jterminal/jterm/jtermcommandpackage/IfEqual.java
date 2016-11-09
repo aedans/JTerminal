@@ -17,7 +17,7 @@ import java.util.Objects;
 class IfEqual extends Command {
 
     IfEqual() {
-        super("equal", "Returns true if two values are equal");
+        super("eq", "Returns true if two values are equal");
     }
 
     @Override

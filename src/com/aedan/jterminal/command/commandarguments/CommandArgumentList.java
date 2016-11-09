@@ -33,7 +33,8 @@ public class CommandArgumentList {
     public CommandArgumentList(List<String> tokens) {
         args.add(new CommandArgument(tokens.get(0), ArgumentType.COMMAND_IDENTIFIER));
         for (int i = 1; i < tokens.size(); i++) {
-            if (tokens.get(i).charAt(0) == '-' && !Character.isDigit(tokens.get(i).charAt(1))) {
+            if (tokens.get(i).length() > 1 && tokens.get(i).charAt(0) == '-'
+                    && Character.isAlphabetic(tokens.get(i).charAt(1))) {
                 flags.add(tokens.get(i));
             } else
                 args.add(new CommandArgument(tokens.get(i)));

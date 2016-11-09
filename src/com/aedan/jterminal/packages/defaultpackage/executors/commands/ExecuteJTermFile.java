@@ -9,6 +9,8 @@ import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
 
+import java.util.List;
+
 /**
  * Created by Aedan Smith on 8/16/2016.
  * <p>
@@ -25,8 +27,13 @@ public class ExecuteJTermFile extends Command {
                         "    Executes a file with the name [string].jterm, line by line.";
     }
 
-    @Override
-    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
+    public static void execute(List<String> args, CommandInput input, CommandOutput output, Environment environment)
+            throws CommandHandler.CommandHandlerException {
+        args.add(0, "exec");
+        execute(new CommandArgumentList(args), input, output, environment);
+    }
+
+    public static void execute(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         try {
             String dir = args.get(1) + ".jterm";
@@ -35,7 +42,7 @@ public class ExecuteJTermFile extends Command {
             try {
                 runtime = new JTermRuntime(lines, input, output);
             } catch (Exception e) {
-                throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
+                throw new CommandHandler.CommandHandlerException(e.getMessage(), ExecuteJTermFile.class);
             }
             String[] arguments = new String[args.getArgs().size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
@@ -43,7 +50,12 @@ public class ExecuteJTermFile extends Command {
             }
             runtime.run(arguments);
         } catch (FileUtils.FileIOException e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
+            throw new CommandHandler.CommandHandlerException(e.getMessage(), ExecuteJTermFile.class);
         }
+    }
+
+    @Override
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws CommandHandler.CommandHandlerException {
+        execute(args, input, output, environment);
     }
 }

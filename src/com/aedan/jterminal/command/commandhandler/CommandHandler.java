@@ -7,7 +7,9 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.tokenizer.Tokenizer;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -131,7 +133,15 @@ public class CommandHandler {
 
         for (Command command : environment.getCommands()){
             if (Objects.equals(command.getIdentifier(), tokens.get(0))){
-                command.parse(commandInput, new CommandArgumentList(tokens), environment, commandOutput);
+                command.parse(new CommandArgumentList(tokens), commandInput, commandOutput, environment);
+                return;
+            }
+        }
+
+        String id = tokens.get(0) + ".jterm";
+        for (File file : environment.getDirectory().getFile().listFiles()){
+            if (Objects.equals(file.getName(), id)){
+                ExecuteJTermFile.execute(tokens, commandInput, commandOutput, environment);
                 return;
             }
         }

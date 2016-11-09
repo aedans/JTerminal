@@ -24,7 +24,7 @@ public abstract class MathCommand extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         try {
             if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == MatchResult.CORRECT_ARGS)

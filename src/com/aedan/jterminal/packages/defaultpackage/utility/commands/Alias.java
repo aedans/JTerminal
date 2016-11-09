@@ -26,7 +26,7 @@ public class Alias extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
@@ -36,7 +36,7 @@ public class Alias extends Command {
 
         environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {
             @Override
-            public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
+            public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
                     throws CommandHandler.CommandHandlerException {
                 String command = s;
                 ArrayList<CommandArgument> args1 = args.getArgs();

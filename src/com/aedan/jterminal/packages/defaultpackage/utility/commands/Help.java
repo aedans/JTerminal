@@ -32,7 +32,7 @@ public class Help extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         if (args.size() == 1) {
             //noinspection unchecked

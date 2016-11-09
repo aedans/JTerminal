@@ -22,7 +22,7 @@ class IfElseCommand extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output)
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING);
 

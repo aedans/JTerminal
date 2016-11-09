@@ -89,12 +89,6 @@ public class Environment {
             environmentVariables.put(envName, env.get(envName));
         }
         this.environmentVariables.put("DIR", this.directory = new Directory());
-        this.environmentVariables.put("RAND", new Object(){
-            @Override
-            public String toString() {
-                return String.valueOf(new Random().nextInt());
-            }
-        });
 
         ArgumentParser parser = new ArgumentParser();
         for (StartupArgument startupArgument : arguments) {

@@ -19,7 +19,7 @@ class GreaterThan extends Command {
     }
 
     @Override
-    public void parse(CommandInput input, CommandArgumentList args, Environment environment, CommandOutput output) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws CommandHandler.CommandHandlerException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
         output.println(Double.parseDouble(args.get(1).value) > Double.parseDouble(args.get(2).value));

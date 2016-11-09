@@ -12,9 +12,9 @@ import com.aedan.jterminal.output.CommandOutput;
  * Created by Aedan Smith.
  */
 
-public class GreaterThan extends Command {
+class GreaterThan extends Command {
 
-    protected GreaterThan() {
+    GreaterThan() {
         super("gt", "Returns true if a number is greater than another number.");
     }
 

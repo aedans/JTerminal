@@ -15,7 +15,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class IfElseCommand extends Command {
+class IfElseCommand extends Command {
 
     IfElseCommand() {
         super("elif", "Executes a command if a command returns true, otherwise executes the second command.");

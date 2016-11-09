@@ -22,6 +22,6 @@ public class FileIOPackage implements Package {
         environment.addCommand(new Open());
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
-        environment.addCommandFormat(new OutputToFile(environment));
+        environment.addOperand(new OutputToFile(environment));
     }
 }

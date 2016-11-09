@@ -3,7 +3,7 @@ package com.aedan.jterminal.environment;
 import com.aedan.argparser.ArgumentParser;
 import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.CommandFormat;
+import com.aedan.jterminal.command.Operand;
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.startup.Execute;
@@ -27,7 +27,7 @@ public class Environment {
 
     private ArrayList<Command> commands = new ArrayList<>();
 
-    private ArrayList<CommandFormat> commandFormats = new ArrayList<>();
+    private ArrayList<Operand> operands = new ArrayList<>();
 
     private HashMap<String, Object> environmentVariables = new HashMap<>();
 
@@ -89,6 +89,12 @@ public class Environment {
             environmentVariables.put(envName, env.get(envName));
         }
         this.environmentVariables.put("DIR", this.directory = new Directory());
+        this.environmentVariables.put("RAND", new Object(){
+            @Override
+            public String toString() {
+                return String.valueOf(new Random().nextInt());
+            }
+        });
 
         ArgumentParser parser = new ArgumentParser();
         for (StartupArgument startupArgument : arguments) {
@@ -118,8 +124,8 @@ public class Environment {
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
 
-    public void addCommandFormat(CommandFormat commandFormat) {
-        commandFormats.add(0, commandFormat);
+    public void addOperand(Operand operand) {
+        operands.add(0, operand);
     }
 
     public void addPackage(Package aPackage) {
@@ -156,8 +162,8 @@ public class Environment {
         return commandHandler;
     }
 
-    public ArrayList<CommandFormat> getCommandFormats() {
-        return commandFormats;
+    public ArrayList<Operand> getOperands() {
+        return operands;
     }
 
     public HashMap<String, Object> getEnvironmentVariables() {

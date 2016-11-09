@@ -1,7 +1,7 @@
 package com.aedan.jterminal.command.commandhandler;
 
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.CommandFormat;
+import com.aedan.jterminal.command.Operand;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -124,11 +124,9 @@ public class CommandHandler {
             return;
         }
 
-        for (CommandFormat commandFormat : environment.getCommandFormats()){
-            if (commandFormat.matches(tokens)){
-                commandFormat.handleInput(environment, commandInput, commandOutput, tokens);
+        for (Operand operand : environment.getOperands()){
+            if (operand.handleInput(environment, commandInput, commandOutput, tokens))
                 return;
-            }
         }
 
         for (Command command : environment.getCommands()){
@@ -136,6 +134,11 @@ public class CommandHandler {
                 command.parse(commandInput, new CommandArgumentList(tokens), environment, commandOutput);
                 return;
             }
+        }
+
+        if (tokens.size() == 1){
+            commandOutput.println(tokens.get(0));
+            return;
         }
 
         throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"", this);

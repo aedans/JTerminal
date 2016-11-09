@@ -12,9 +12,9 @@ import com.aedan.jterminal.output.CommandOutput;
  * Created by Aedan Smith.
  */
 
-public class LessThan extends Command {
+class LessThan extends Command {
 
-    protected LessThan() {
+    LessThan() {
         super("lt", "Returns true if a number is less than another number.");
     }
 

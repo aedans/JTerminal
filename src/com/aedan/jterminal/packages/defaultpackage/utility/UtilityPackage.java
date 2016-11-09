@@ -2,7 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.utility;
 
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.packages.defaultpackage.utility.commandformats.AddGlobalVariable;
+import com.aedan.jterminal.packages.defaultpackage.utility.operands.AddGlobalVariable;
 import com.aedan.jterminal.packages.defaultpackage.utility.commands.Alias;
 import com.aedan.jterminal.packages.defaultpackage.utility.commands.Echo;
 import com.aedan.jterminal.packages.defaultpackage.utility.commands.Exit;
@@ -26,7 +26,7 @@ public class UtilityPackage implements Package {
         environment.getCommandHandler().getTokenizer().addTokenizerRule(new EnvironmentVariableRule(environment));
         environment.getCommandHandler().getTokenizer().addTokenizerRule(new GlobalVariableRule(environment));
         environment.getCommandHandler().getTokenizer().addTokenizerRule(new StringLiteralRule());
-        environment.addCommandFormat(new AddGlobalVariable(environment));
+        environment.addOperand(new AddGlobalVariable(environment));
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));

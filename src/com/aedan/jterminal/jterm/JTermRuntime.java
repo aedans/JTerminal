@@ -1,7 +1,7 @@
 package com.aedan.jterminal.jterm;
 
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermcommandpackage.JTermPackage;
 import com.aedan.jterminal.output.CommandOutput;
@@ -45,9 +45,9 @@ public class JTermRuntime {
      * Runs the JTermRuntime.
      *
      * @param args An array of arguments for the JTermRuntime main function.
-     * @throws CommandHandler.CommandHandlerException If there was an error running the JTermRuntime.
+     * @throws JTerminalException If there was an error running the JTermRuntime.
      */
-    public void run(String... args) throws CommandHandler.CommandHandlerException {
+    public void run(String... args) throws JTerminalException {
         environment.getCommandHandler().getOutput().print(getFunction("main").apply(args));
     }
 
@@ -55,10 +55,10 @@ public class JTermRuntime {
         this.functions.put(function.getIdentifier(), function);
     }
 
-    public Function getFunction(String name) throws CommandHandler.CommandHandlerException {
+    public Function getFunction(String name) throws JTerminalException {
         Function f = functions.get(name);
         if (f == null)
-            throw new CommandHandler.CommandHandlerException("No function found with name \"" + name + "\"", this);
+            throw new JTerminalException("No function found with name \"" + name + "\"", this);
         else
             return functions.get(name);
     }

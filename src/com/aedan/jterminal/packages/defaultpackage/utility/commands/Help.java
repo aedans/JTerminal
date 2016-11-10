@@ -3,8 +3,8 @@ package com.aedan.jterminal.packages.defaultpackage.utility.commands;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -33,7 +33,7 @@ public class Help extends Command {
 
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         if (args.size() == 1) {
             //noinspection unchecked
             ArrayList<Command> sCommands = (ArrayList<Command>) environment.getCommands().clone();
@@ -67,7 +67,7 @@ public class Help extends Command {
                 }
             }
 
-            throw new CommandHandler.CommandHandlerException("Could not find command \"" + args.get(1).value + "\"", this);
+            throw new JTerminalException("Could not find command \"" + args.get(1).value + "\"", this);
         }
     }
 }

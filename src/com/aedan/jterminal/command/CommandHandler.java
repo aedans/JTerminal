@@ -2,6 +2,7 @@ package com.aedan.jterminal.command;
 
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.input.parser.TokenList;
@@ -60,7 +61,7 @@ public class CommandHandler {
     public void handleInput(String s) {
         try {
             this.handleInput(input, output, parser.parse(environment, s));
-        } catch (CommandHandler.CommandHandlerException e) {
+        } catch (JTerminalException e) {
             output.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
@@ -74,7 +75,7 @@ public class CommandHandler {
     public void handleInput(CommandInput commandInput, String s) {
         try {
             this.handleInput(commandInput, output, parser.parse(environment, s));
-        } catch (CommandHandler.CommandHandlerException e) {
+        } catch (JTerminalException e) {
             output.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
@@ -88,7 +89,7 @@ public class CommandHandler {
     public void handleInput(CommandOutput commandOutput, String s) {
         try {
             this.handleInput(input, commandOutput, parser.parse(environment, s));
-        } catch (CommandHandler.CommandHandlerException e) {
+        } catch (JTerminalException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
@@ -103,7 +104,7 @@ public class CommandHandler {
     public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s) {
         try {
             this.handleInput(commandInput, commandOutput, parser.parse(environment, s));
-        } catch (CommandHandler.CommandHandlerException e) {
+        } catch (JTerminalException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
@@ -151,8 +152,8 @@ public class CommandHandler {
                 return;
             }
 
-            throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
-        } catch (CommandHandlerException e) {
+            throw new JTerminalException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
+        } catch (JTerminalException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
@@ -185,18 +186,4 @@ public class CommandHandler {
         this.output = output;
     }
 
-    /**
-     * An Exception thrown when there is an error handling a Command.
-     */
-    public static class CommandHandlerException extends Exception {
-
-        /**
-         * The default CommandHandlerException constructor.
-         *
-         * @param message The error message to display.
-         */
-        public CommandHandlerException(String message, Object source) {
-            super(message + " (" + source.getClass().getSimpleName() + ")");
-        }
-    }
 }

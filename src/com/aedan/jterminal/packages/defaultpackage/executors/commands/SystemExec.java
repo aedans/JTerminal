@@ -3,8 +3,8 @@ package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -26,7 +26,7 @@ public class SystemExec extends Command {
 
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         try {
             args.checkMatches(this, ArgumentType.STRING);
 
@@ -40,7 +40,7 @@ public class SystemExec extends Command {
             output.println("");
             process.destroy();
         } catch (Exception e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
+            throw new JTerminalException(e.getMessage(), this);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.aedan.jterminal.jterm;
 
-import com.aedan.jterminal.command.CommandHandler;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.output.StringOutput;
 
@@ -28,9 +28,9 @@ final class Parser {
      * @param s       The file to parse.
      * @param runtime The runtime requesting the parser.
      * @return The list of functions in the file.
-     * @throws CommandHandler.CommandHandlerException If there was an error parsing the file.
+     * @throws JTerminalException If there was an error parsing the file.
      */
-    public static ArrayList<Function> parse(String s, JTermRuntime runtime) throws CommandHandler.CommandHandlerException {
+    public static ArrayList<Function> parse(String s, JTermRuntime runtime) throws JTerminalException {
         ArrayList<Function> functions = new ArrayList<>();
         Matcher m = functionPattern.matcher(s);
         while (m.find()) {
@@ -57,10 +57,10 @@ final class Parser {
      * @param arguments The arguments of the function.
      * @param runtime   The runtime requesting the parse.
      * @return The parsed function.
-     * @throws CommandHandler.CommandHandlerException If there was an error parsing the function.
+     * @throws JTerminalException If there was an error parsing the function.
      */
     private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         CommandOutput commandOutput = runtime.getEnvironment().getCommandHandler().getOutput();
         if (name.startsWith("!")) {
             name = name.substring(1);
@@ -81,7 +81,7 @@ final class Parser {
             }
 
             @Override
-            public Object apply(Object[] o) throws CommandHandler.CommandHandlerException {
+            public Object apply(Object[] o) throws JTerminalException {
                 HashMap<String, Object> sVars = runtime.getEnvironment().getGlobalVariables();
                 runtime.getEnvironment().setGlobalVariables(new HashMap<>());
                 // Adds function arguments to the stack
@@ -89,7 +89,7 @@ final class Parser {
                     try {
                         runtime.getEnvironment().addGlobalVariable(finalArgs[i].trim(), o[i].toString());
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new CommandHandler.CommandHandlerException("Not enough arguments given for function " + finalName, this);
+                        throw new JTerminalException("Not enough arguments given for function " + finalName, this);
                     }
                 }
                 // Execute statements

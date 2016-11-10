@@ -4,12 +4,10 @@ import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgument;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-
-import java.util.ArrayList;
 
 /**
  * Created by Aedan Smith on 9/13/2016.
@@ -27,7 +25,7 @@ public class Alias extends Command {
 
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
         String s = args.get(2).value;
@@ -37,7 +35,7 @@ public class Alias extends Command {
         environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {
             @Override
             public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-                    throws CommandHandler.CommandHandlerException {
+                    throws JTerminalException {
                 String command = s;
                 for (int i = 1; i < args.size(); i++) {
                     CommandArgument commandArgument = args.get(i);

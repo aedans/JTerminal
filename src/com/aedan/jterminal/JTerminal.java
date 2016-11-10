@@ -1,6 +1,5 @@
 package com.aedan.jterminal;
 
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.ScannerInput;
@@ -105,7 +104,7 @@ public class JTerminal implements Runnable {
      *
      * @param s The String to handle.
      */
-    public void handleString(String s) throws CommandHandler.CommandHandlerException {
+    public void handleString(String s) throws JTerminalException {
         environment.getCommandHandler().handleInput(s);
     }
 

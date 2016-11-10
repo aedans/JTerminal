@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.io.parserules;
 
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.CommandOutput;
@@ -27,7 +27,7 @@ public class OutputToFile implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, TokenList tokenList) throws CommandHandler.CommandHandlerException {
+    public int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException {
         try {
             StringOutput fileName = new StringOutput();
             environment.getCommandHandler().handleInput(fileName, s.substring(i + 1));
@@ -43,7 +43,7 @@ public class OutputToFile implements ParseRule {
             tokenList.clear();
             return s.length();
         } catch (Exception e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
+            throw new JTerminalException(e.getMessage(), this);
         }
     }
 }

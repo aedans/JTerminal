@@ -4,8 +4,8 @@ import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandarguments.MatchResult;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -25,17 +25,16 @@ public abstract class MathCommand extends Command {
 
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         try {
             if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == MatchResult.CORRECT_ARGS)
                 output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
             else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == MatchResult.CORRECT_ARGS)
                 output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
             else
-                throw new CommandHandler.CommandHandlerException("Incorrect arguments given", this);
+                throw new JTerminalException("Incorrect arguments given", this);
         } catch (NumberFormatException e) {
-            throw new CommandHandler.CommandHandlerException(
-                    "I" + e.getMessage().substring(5) + " is not a number", this);
+            throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
         }
     }
 

@@ -2,8 +2,8 @@ package com.aedan.jterminal.jterm.jtermcommandpackage;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
@@ -23,7 +23,7 @@ class CallFunction extends Command {
 
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         String[] arguments = new String[args.size() - 2];
         for (int i = 0; i < args.size() - 2; i++) {
             arguments[i] = args.get(i + 2).value;

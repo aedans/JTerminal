@@ -1,7 +1,7 @@
 package com.aedan.jterminal.input.parser;
 
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 
 import java.util.LinkedList;
 
@@ -30,7 +30,7 @@ public class Parser {
      * @param s           The String to parse.
      * @return The List of Tokens.
      */
-    public TokenList parse(Environment environment, String s) throws CommandHandler.CommandHandlerException {
+    public TokenList parse(Environment environment, String s) throws JTerminalException {
         TokenList tokenList = new TokenList();
         for (int i = 0; i < s.length(); i++) {
             charSwitch:
@@ -38,7 +38,7 @@ public class Parser {
                 case '\\':
                     i++;
                     if (i == s.length()) {
-                        throw new CommandHandler.CommandHandlerException("Could not find character to escape", this);
+                        throw new JTerminalException("Could not find character to escape", this);
                     }
                     tokenList.append(s.charAt(i));
                     break;

@@ -2,8 +2,8 @@ package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.jterm.JTermRuntime;
@@ -27,13 +27,13 @@ public class ExecuteJTermFile extends Command {
     }
 
     public static void execute(TokenList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         args.add(0, "exec");
         execute(new CommandArgumentList(args), input, output, environment);
     }
 
     public static void execute(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         try {
             String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(environment.getDirectory().subFile(dir));
@@ -41,7 +41,7 @@ public class ExecuteJTermFile extends Command {
             try {
                 runtime = new JTermRuntime(lines, input, output);
             } catch (Exception e) {
-                throw new CommandHandler.CommandHandlerException(e.getMessage(), ExecuteJTermFile.class);
+                throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
             }
             String[] arguments = new String[args.size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
@@ -49,12 +49,13 @@ public class ExecuteJTermFile extends Command {
             }
             runtime.run(arguments);
         } catch (FileUtils.FileIOException e) {
-            throw new CommandHandler.CommandHandlerException(e.getMessage(), ExecuteJTermFile.class);
+            throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
         }
     }
 
     @Override
-    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws CommandHandler.CommandHandlerException {
+    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+            throws JTerminalException {
         execute(args, input, output, environment);
     }
 }

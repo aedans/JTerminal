@@ -1,6 +1,6 @@
 package com.aedan.jterminal.jterm;
 
-import com.aedan.jterminal.command.CommandHandler;
+import com.aedan.jterminal.JTerminalException;
 
 /**
  * Created by Aedan Smith.
@@ -20,7 +20,7 @@ public interface Function {
      *
      * @param args The arguments of the function.
      * @return The return value of the Function.
-     * @throws CommandHandler.CommandHandlerException If there was an error applying the function.
+     * @throws JTerminalException If there was an error applying the function.
      */
-    Object apply(Object[] args) throws CommandHandler.CommandHandlerException;
+    Object apply(Object[] args) throws JTerminalException;
 }

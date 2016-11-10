@@ -1,7 +1,7 @@
 package com.aedan.jterminal.input.parser;
 
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -24,7 +24,7 @@ public interface ParseRule {
      * @param i           The current index of the Parser.
      * @param tokenList   The TokenList to process.
      * @return The index for the Parser to resume.
-     * @throws CommandHandler.CommandHandlerException If there is an error parsing the TokenList.
+     * @throws JTerminalException If there is an error parsing the TokenList.
      */
-    int process(Environment environment, String s, int i, TokenList tokenList) throws CommandHandler.CommandHandlerException;
+    int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException;
 }

@@ -2,8 +2,8 @@ package com.aedan.jterminal.packages.defaultpackage.utility.commands;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -25,9 +25,9 @@ public class Echo extends Command {
 
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
-            throws CommandHandler.CommandHandlerException {
+            throws JTerminalException {
         if (args.size() <= 1)
-            throw new CommandHandler.CommandHandlerException("No arguments given", this);
+            throw new JTerminalException("No arguments given", this);
 
         output.println(args.get(1));
     }

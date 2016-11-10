@@ -1,6 +1,6 @@
 package com.aedan.jterminal.environment;
 
-import com.aedan.jterminal.command.CommandHandler;
+import com.aedan.jterminal.JTerminalException;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -130,7 +130,7 @@ public class Directory implements Supplier<String> {
     /**
      * Exception thrown if a Directory is in an invalid format.
      */
-    public class DirectoryFormatException extends CommandHandler.CommandHandlerException {
+    public class DirectoryFormatException extends JTerminalException {
 
         /**
          * The default DirectoryFormatException constructor.
@@ -145,7 +145,7 @@ public class Directory implements Supplier<String> {
     /**
      * Exception thrown if an error occurs whilst changing Directory.
      */
-    public class DirectoryChangeException extends CommandHandler.CommandHandlerException {
+    public class DirectoryChangeException extends JTerminalException {
 
         /**
          * The default DirectoryChangeException constructor.

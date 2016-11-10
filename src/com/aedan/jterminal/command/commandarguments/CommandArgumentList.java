@@ -1,7 +1,7 @@
 package com.aedan.jterminal.command.commandarguments;
 
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.CommandHandler;
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.parser.TokenList;
 
 import java.util.ArrayList;
@@ -40,13 +40,13 @@ public class CommandArgumentList extends ArrayList<CommandArgument> {
      * Checks to see if the CommandArgumentList matches the given format, and errors with the correct message if it doesn't.
      *
      * @param argumentTypes The format for the CommandArgumentList.
-     * @throws CommandHandler.CommandHandlerException If the format does not match.
+     * @throws JTerminalException If the format does not match.
      */
-    public void checkMatches(Command command, ArgumentType... argumentTypes) throws CommandHandler.CommandHandlerException {
+    public void checkMatches(Command command, ArgumentType... argumentTypes) throws JTerminalException {
         MatchResult matchResult = matches(argumentTypes);
         if (matchResult == MatchResult.CORRECT_ARGS)
             return;
-        throw new CommandHandler.CommandHandlerException(matchResult.getMessage(), command);
+        throw new JTerminalException(matchResult.getMessage(), command);
     }
 
     /**

@@ -80,7 +80,7 @@ public class JTerminal implements Runnable {
      * Starts the JTerminal.
      */
     public void run() {
-        //set CARET "echo \"\";+ [+ %USERNAME% @] %USERDOMAIN_ROAMINGPROFILE%;echo \"$\""
+        //set CARET "echo \"\";+ [+ %USERNAME% @] [+ %USERDOMAIN_ROAMINGPROFILE% \" ~\"];echo \\$"
         environment.getEnvironmentVariables().put("CARET", "+ %DIR% \">\"");
         StringOutput caret = new StringOutput();
         //noinspection InfiniteLoopStatement

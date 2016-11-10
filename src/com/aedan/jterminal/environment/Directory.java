@@ -1,9 +1,8 @@
 package com.aedan.jterminal.environment;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -61,8 +60,8 @@ public class Directory implements Supplier<String> {
      * @return The file with the given name.
      */
     public File getFile(String name) {
-        for (File file : path.toFile().listFiles()){
-            if (Objects.equals(file.getName(), name)){
+        for (File file : path.toFile().listFiles()) {
+            if (Objects.equals(file.getName(), name)) {
                 return file;
             }
         }

@@ -1,6 +1,6 @@
 package com.aedan.jterminal.packages.defaultpackage.io.parserules;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
@@ -30,7 +30,7 @@ public class OutputToFile implements ParseRule {
     public int process(Environment environment, String s, int i, TokenList tokenList) throws CommandHandler.CommandHandlerException {
         try {
             StringOutput fileName = new StringOutput();
-            environment.getCommandHandler().handleInput(fileName, s.substring(i+1));
+            environment.getCommandHandler().handleInput(fileName, s.substring(i + 1));
 
             File f = environment.getDirectory().subFile(fileName.getString().trim());
             if (f.exists())

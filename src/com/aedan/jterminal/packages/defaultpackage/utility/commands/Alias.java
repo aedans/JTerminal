@@ -4,7 +4,7 @@ import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgument;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -39,9 +39,8 @@ public class Alias extends Command {
             public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
                     throws CommandHandler.CommandHandlerException {
                 String command = s;
-                ArrayList<CommandArgument> args1 = args.getArgs();
-                for (int i = 1; i < args1.size(); i++) {
-                    CommandArgument commandArgument = args1.get(i);
+                for (int i = 1; i < args.size(); i++) {
+                    CommandArgument commandArgument = args.get(i);
                     command += " \"" + commandArgument.value + "\"";
                 }
 

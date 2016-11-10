@@ -1,6 +1,6 @@
 package com.aedan.jterminal;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.ScannerInput;
@@ -45,10 +45,10 @@ public class JTerminal implements Runnable {
     /**
      * JTerminal constructor for custom CommandPackages, Inputs and Outputs.
      *
-     * @param args            The list of arguments for the JTerminal.
-     * @param input           The CommandInput for the JTerminal to use.
-     * @param output          The CommandOutput for the JTerminal to use.
-     * @param environment     The Environment for the JTerminal to use.
+     * @param args        The list of arguments for the JTerminal.
+     * @param input       The CommandInput for the JTerminal to use.
+     * @param output      The CommandOutput for the JTerminal to use.
+     * @param environment The Environment for the JTerminal to use.
      * @throws Exception If there was an error whilst initializing the JTerminal.
      */
     public JTerminal(String[] args, CommandInput input, CommandOutput output, Environment environment)
@@ -81,6 +81,7 @@ public class JTerminal implements Runnable {
      * Starts the JTerminal.
      */
     public void run() {
+        //set CARET "echo \"\";+ [+ %USERNAME% @] %USERDOMAIN_ROAMINGPROFILE%;echo \"$\""
         environment.getEnvironmentVariables().put("CARET", "+ %DIR% \">\"");
         StringOutput caret = new StringOutput();
         //noinspection InfiniteLoopStatement

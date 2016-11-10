@@ -1,6 +1,6 @@
 package com.aedan.jterminal.jterm;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 
 /**
  * Created by Aedan Smith.

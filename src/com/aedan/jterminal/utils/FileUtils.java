@@ -97,18 +97,18 @@ public final class FileUtils {
      */
     public static Stream<String> readLines(File file) throws FileIOException {
         try {
-            if(!file.exists()){
+            if (!file.exists()) {
                 throw new FileIOException("File does not exist");
             }
-            if(!file.isFile()){
+            if (!file.isFile()) {
                 throw new FileIOException("Cannot read lines from a directory");
             }
-            if(!file.canRead()){
+            if (!file.canRead()) {
                 throw new FileIOException("Unable to read from file \"" + file + "\"");
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             return reader.lines();
-        } catch (FileNotFoundException fnfe){
+        } catch (FileNotFoundException fnfe) {
             throw new FileIOException("Unable to open file, does not exist");
         }
     }

@@ -1,6 +1,6 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
@@ -12,7 +12,7 @@ import java.io.PrintStream;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
- *
+ * <p>
  * ParseRule for embedded command.
  */
 

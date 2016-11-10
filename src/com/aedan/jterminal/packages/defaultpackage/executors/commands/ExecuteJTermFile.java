@@ -2,7 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.parser.TokenList;
@@ -43,7 +43,7 @@ public class ExecuteJTermFile extends Command {
             } catch (Exception e) {
                 throw new CommandHandler.CommandHandlerException(e.getMessage(), ExecuteJTermFile.class);
             }
-            String[] arguments = new String[args.getArgs().size() - 2];
+            String[] arguments = new String[args.size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
                 arguments[i] = args.get(i + 2).value;
             }

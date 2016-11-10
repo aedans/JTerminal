@@ -4,7 +4,7 @@ import com.aedan.argparser.ArgumentParser;
 import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.startup.Execute;
 import com.aedan.jterminal.environment.startup.SetDirectory;
 import com.aedan.jterminal.environment.startup.StartupArgument;
@@ -15,7 +15,6 @@ import com.aedan.jterminal.output.PrintStreamOutput;
 
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.BiConsumer;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
@@ -54,10 +53,10 @@ public class Environment {
     /**
      * Default Environment constructor.
      *
-     * @param args The arguments for the Environment.
-     * @param commandInput The CommandInput for the Environment to read from.
+     * @param args          The arguments for the Environment.
+     * @param commandInput  The CommandInput for the Environment to read from.
      * @param commandOutput The CommandOutput for the Environment to print to.
-     * @param packages The List of Packages for the Environment.
+     * @param packages      The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
     public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, Package... packages)
@@ -71,10 +70,10 @@ public class Environment {
     /**
      * Default Environment constructor.
      *
-     * @param args The arguments for the Environment.
-     * @param commandInput The CommandInput for the Environment to read from.
+     * @param args          The arguments for the Environment.
+     * @param commandInput  The CommandInput for the Environment to read from.
      * @param commandOutput The CommandOutput for the Environment to print to.
-     * @param packages The List of Packages for the Environment.
+     * @param packages      The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
     public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
@@ -125,10 +124,10 @@ public class Environment {
         aPackage.addTo(this);
     }
 
-    public void removeCommand(String s){
+    public void removeCommand(String s) {
         LinkedList<Command> toRemove = new LinkedList<>();
-        for (Command c : commands){
-            if (Objects.equals(c.getIdentifier(), s)){
+        for (Command c : commands) {
+            if (Objects.equals(c.getIdentifier(), s)) {
                 toRemove.add(c);
             }
         }

@@ -1,6 +1,5 @@
-package com.aedan.jterminal.command.commandhandler;
+package com.aedan.jterminal.command;
 
-import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -43,9 +42,9 @@ public class CommandHandler {
     /**
      * Default CommandHandler constructor.
      *
-     * @param environment   The Environment containing the CommandHandler.
-     * @param input  The CommandInput for the CommandHandler.
-     * @param output The CommandOutput for the CommandHandler.
+     * @param environment The Environment containing the CommandHandler.
+     * @param input       The CommandInput for the CommandHandler.
+     * @param output      The CommandOutput for the CommandHandler.
      */
     public CommandHandler(Environment environment, CommandInput input, CommandOutput output) {
         this.environment = environment;
@@ -69,7 +68,7 @@ public class CommandHandler {
     /**
      * Handles a line of input with a custom CommandInput.
      *
-     * @param s The String to handle.
+     * @param s            The String to handle.
      * @param commandInput The CommandInput to read the input from.
      */
     public void handleInput(CommandInput commandInput, String s) {
@@ -83,7 +82,7 @@ public class CommandHandler {
     /**
      * Handles a line of input with a custom CommandOutput.
      *
-     * @param s The String to handle.
+     * @param s             The String to handle.
      * @param commandOutput The CommandOutput to write the output to.
      */
     public void handleInput(CommandOutput commandOutput, String s) {
@@ -97,11 +96,11 @@ public class CommandHandler {
     /**
      * Handles a line of input with a custom CommandInput and CommandOutput
      *
-     * @param s The String to handle.
-     * @param commandInput The CommandInput to read the input from.
+     * @param s             The String to handle.
+     * @param commandInput  The CommandInput to read the input from.
      * @param commandOutput The CommandOutput to write the output to.
      */
-    public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s){
+    public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s) {
         try {
             this.handleInput(commandInput, commandOutput, parser.parse(environment, s));
         } catch (CommandHandler.CommandHandlerException e) {
@@ -112,7 +111,7 @@ public class CommandHandler {
     /**
      * Handles a pre-parsed line of input.
      *
-     * @param tokens        The list of parsed Tokens.
+     * @param tokens The list of parsed Tokens.
      */
     public void handleInput(TokenList tokens) {
         this.handleInput(input, output, tokens);
@@ -153,7 +152,7 @@ public class CommandHandler {
             }
 
             throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
-        } catch (CommandHandlerException e){
+        } catch (CommandHandlerException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }

@@ -1,6 +1,6 @@
 package com.aedan.jterminal.jterm;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermcommandpackage.JTermPackage;

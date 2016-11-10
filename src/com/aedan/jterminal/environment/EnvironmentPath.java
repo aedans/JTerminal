@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 /**
  * Created by Aedan Smith.
- *
+ * <p>
  * Class for managinc the Environment's path.
  */
 
@@ -17,17 +17,17 @@ public class EnvironmentPath {
 
     private HashMap<String, File> files = new HashMap<>();
 
-    public EnvironmentPath(Directory directory){
+    public EnvironmentPath(Directory directory) {
         this.directory = directory;
     }
 
-    public void add(File file){
+    public void add(File file) {
         files.put(file.getName(), file);
     }
 
     public File get(String fileName) {
         File file = files.get(fileName);
-        if (file != null){
+        if (file != null) {
             return file;
         } else {
             return directory.getFile(fileName);

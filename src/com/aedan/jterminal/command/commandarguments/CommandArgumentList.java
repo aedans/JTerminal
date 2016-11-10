@@ -1,7 +1,7 @@
 package com.aedan.jterminal.command.commandarguments;
 
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.input.parser.TokenList;
 
 import java.util.ArrayList;
@@ -13,12 +13,7 @@ import java.util.LinkedList;
  * Class for passing arguments to Commands.
  */
 
-public class CommandArgumentList {
-
-    /**
-     * The value of the CommandArgumentList.
-     */
-    private final ArrayList<CommandArgument> args = new ArrayList<>();
+public class CommandArgumentList extends ArrayList<CommandArgument> {
 
     /**
      * The List of flags in the CommandArgumenList.
@@ -31,13 +26,13 @@ public class CommandArgumentList {
      * @param tokens The List of values for the CommandArgumentList.
      */
     public CommandArgumentList(TokenList tokens) {
-        args.add(new CommandArgument(tokens.get(0).toString(), ArgumentType.COMMAND_IDENTIFIER));
+        add(new CommandArgument(tokens.get(0), ArgumentType.COMMAND_IDENTIFIER));
         for (int i = 1; i < tokens.size(); i++) {
-            if (tokens.get(i).toString().length() > 1 && tokens.get(i).toString().charAt(0) == '-'
-                    && Character.isAlphabetic(tokens.get(i).toString().charAt(1))) {
-                flags.add(tokens.get(i).toString());
+            if (tokens.get(i).length() > 1 && tokens.get(i).charAt(0) == '-'
+                    && Character.isAlphabetic(tokens.get(i).charAt(1))) {
+                flags.add(tokens.get(i));
             } else
-                args.add(new CommandArgument(tokens.get(i).toString()));
+                add(new CommandArgument(tokens.get(i)));
         }
     }
 
@@ -61,34 +56,22 @@ public class CommandArgumentList {
      * @return The MatchResult.
      */
     public MatchResult matches(ArgumentType... argumentTypes) {
-        if (args.size() > argumentTypes.length + 1)
+        if (size() > argumentTypes.length + 1)
             return MatchResult.MORE_ARGS;
 
-        if (args.size() < argumentTypes.length + 1)
+        if (size() < argumentTypes.length + 1)
             return MatchResult.LESS_ARGS;
 
-        for (int i = 1; i < args.size(); i++) {
-            if (argumentTypes[i - 1] != ArgumentType.STRING && !args.get(i).getArgumentType().isSubset(argumentTypes[i - 1]))
+        for (int i = 1; i < size(); i++) {
+            if (argumentTypes[i - 1] != ArgumentType.STRING && !get(i).getArgumentType().isSubset(argumentTypes[i - 1]))
                 return MatchResult.INCORRECT_ARGS;
         }
 
         return MatchResult.CORRECT_ARGS;
     }
 
-    public boolean isFlagPresent(String flag){
+    public boolean isFlagPresent(String flag) {
         return flags.contains(flag);
-    }
-
-    public int size() {
-        return args.size();
-    }
-
-    public CommandArgument get(int i) {
-        return args.get(i);
-    }
-
-    public ArrayList<CommandArgument> getArgs() {
-        return args;
     }
 
     public LinkedList<String> getFlags() {

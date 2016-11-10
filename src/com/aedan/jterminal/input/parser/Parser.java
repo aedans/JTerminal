@@ -1,13 +1,13 @@
 package com.aedan.jterminal.input.parser;
 
-import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 
 import java.util.LinkedList;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
- *
+ * <p>
  * tokenizer for the CommandHandler.
  */
 
@@ -27,17 +27,17 @@ public class Parser {
      * Tokenizes a String.
      *
      * @param environment The Environment to parse for.
-     * @param s The String to parse.
+     * @param s           The String to parse.
      * @return The List of Tokens.
      */
     public TokenList parse(Environment environment, String s) throws CommandHandler.CommandHandlerException {
         TokenList tokenList = new TokenList();
         for (int i = 0; i < s.length(); i++) {
             charSwitch:
-            switch (s.charAt(i)){
+            switch (s.charAt(i)) {
                 case '\\':
                     i++;
-                    if (i == s.length()){
+                    if (i == s.length()) {
                         throw new CommandHandler.CommandHandlerException("Could not find character to escape", this);
                     }
                     tokenList.append(s.charAt(i));
@@ -52,7 +52,7 @@ public class Parser {
                             break charSwitch;
                         }
                     }
-                    if (reservedChars.contains(s.charAt(i))){
+                    if (reservedChars.contains(s.charAt(i))) {
                         tokenList.addToken(s.charAt(i));
                         break;
                     } else {
@@ -71,7 +71,7 @@ public class Parser {
      *
      * @param c The character to reserve.
      */
-    public void addReservedChar(char c){
+    public void addReservedChar(char c) {
         if (!reservedChars.contains(c))
             reservedChars.add(c);
     }
@@ -81,7 +81,7 @@ public class Parser {
      *
      * @param parseRule The ParseRule to addTo.
      */
-    public void addTokenizerRule(ParseRule parseRule){
+    public void addTokenizerRule(ParseRule parseRule) {
         parseRules.add(parseRule);
     }
 }

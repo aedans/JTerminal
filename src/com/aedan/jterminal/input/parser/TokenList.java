@@ -15,7 +15,8 @@ public class TokenList extends ArrayList<String> {
      */
     private String currentToken = "";
 
-    public TokenList() {}
+    public TokenList() {
+    }
 
     public TokenList(List<String> objects) {
         this.addAll(objects);
@@ -26,14 +27,14 @@ public class TokenList extends ArrayList<String> {
      *
      * @param c The character to append.
      */
-    public void append(char c){
+    public void append(char c) {
         currentToken += c;
     }
 
     /**
      * Ends the current token and begins the next one.
      */
-    public void nextToken(){
+    public void nextToken() {
         if (!Objects.equals(currentToken, "")) {
             add(currentToken);
             currentToken = "";

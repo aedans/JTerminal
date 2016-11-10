@@ -2,8 +2,8 @@ package com.aedan.jterminal.packages.defaultpackage.io;
 
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.packages.defaultpackage.io.parserules.OutputToFile;
 import com.aedan.jterminal.packages.defaultpackage.io.commands.*;
+import com.aedan.jterminal.packages.defaultpackage.io.parserules.OutputToFile;
 
 /**
  * Created by Aedan Smith on 8/15/2016.

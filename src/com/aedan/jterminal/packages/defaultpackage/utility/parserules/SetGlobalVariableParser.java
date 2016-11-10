@@ -12,7 +12,7 @@ import com.aedan.jterminal.output.StringOutput;
  * Default Operand.
  */
 
-public class AddGlobalVariable implements ParseRule {
+public class SetGlobalVariableParser implements ParseRule {
     @Override
     public char getIdentifier() {
         return '=';

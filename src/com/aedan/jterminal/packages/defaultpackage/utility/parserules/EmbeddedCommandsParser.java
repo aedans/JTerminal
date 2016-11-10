@@ -16,7 +16,7 @@ import java.io.PrintStream;
  * ParseRule for embedded command.
  */
 
-public class EmbeddedCommandsRule implements ParseRule {
+public class EmbeddedCommandsParser implements ParseRule {
 
     @Override
     public char getIdentifier() {

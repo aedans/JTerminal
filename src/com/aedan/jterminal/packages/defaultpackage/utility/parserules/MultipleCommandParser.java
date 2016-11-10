@@ -9,7 +9,7 @@ import com.aedan.jterminal.input.parser.TokenList;
  * Created by Aedan Smith.
  */
 
-public class MultipleCommandRule implements ParseRule {
+public class MultipleCommandParser implements ParseRule {
     @Override
     public char getIdentifier() {
         return ';';

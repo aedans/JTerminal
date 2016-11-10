@@ -28,29 +28,29 @@ public class CommandHandler {
     /**
      * The CommandInput for the CommandHandler.
      */
-    private CommandInput commandInput;
+    private CommandInput input;
 
     /**
      * The CommandOutput for the CommandHandler.
      */
-    private CommandOutput commandOutput;
+    private CommandOutput output;
 
     /**
      * The Parser for the CommandHandler.
      */
-    private Parser tokenizer = new Parser();
+    private Parser parser = new Parser();
 
     /**
      * Default CommandHandler constructor.
      *
      * @param environment   The Environment containing the CommandHandler.
-     * @param commandInput  The CommandInput for the CommandHandler.
-     * @param commandOutput The CommandOutput for the CommandHandler.
+     * @param input  The CommandInput for the CommandHandler.
+     * @param output The CommandOutput for the CommandHandler.
      */
-    public CommandHandler(Environment environment, CommandInput commandInput, CommandOutput commandOutput) {
+    public CommandHandler(Environment environment, CommandInput input, CommandOutput output) {
         this.environment = environment;
-        this.commandInput = commandInput;
-        this.commandOutput = commandOutput;
+        this.input = input;
+        this.output = output;
     }
 
     /**
@@ -60,9 +60,9 @@ public class CommandHandler {
      */
     public void handleInput(String s) {
         try {
-            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+            this.handleInput(input, output, parser.parse(environment, s));
         } catch (CommandHandler.CommandHandlerException e) {
-            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+            output.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
 
@@ -74,9 +74,9 @@ public class CommandHandler {
      */
     public void handleInput(CommandInput commandInput, String s) {
         try {
-            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+            this.handleInput(commandInput, output, parser.parse(environment, s));
         } catch (CommandHandler.CommandHandlerException e) {
-            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+            output.printf("Could not handle command (%s)\n", e.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class CommandHandler {
      */
     public void handleInput(CommandOutput commandOutput, String s) {
         try {
-            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+            this.handleInput(input, commandOutput, parser.parse(environment, s));
         } catch (CommandHandler.CommandHandlerException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }
@@ -103,7 +103,7 @@ public class CommandHandler {
      */
     public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s){
         try {
-            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+            this.handleInput(commandInput, commandOutput, parser.parse(environment, s));
         } catch (CommandHandler.CommandHandlerException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }
@@ -115,7 +115,7 @@ public class CommandHandler {
      * @param tokens        The list of parsed Tokens.
      */
     public void handleInput(TokenList tokens) {
-        this.handleInput(commandInput, commandOutput, tokens);
+        this.handleInput(input, output, tokens);
     }
 
     /**
@@ -162,28 +162,28 @@ public class CommandHandler {
         return environment;
     }
 
-    public Parser getTokenizer() {
-        return tokenizer;
+    public Parser getParser() {
+        return parser;
     }
 
-    public void setTokenizer(Parser tokenizer) {
-        this.tokenizer = tokenizer;
+    public void setParser(Parser parser) {
+        this.parser = parser;
     }
 
-    public CommandInput getCommandInput() {
-        return commandInput;
+    public CommandInput getInput() {
+        return input;
     }
 
-    public void setCommandInput(CommandInput commandInput) {
-        this.commandInput = commandInput;
+    public void setInput(CommandInput input) {
+        this.input = input;
     }
 
-    public CommandOutput getCommandOutput() {
-        return commandOutput;
+    public CommandOutput getOutput() {
+        return output;
     }
 
-    public void setCommandOutput(CommandOutput commandOutput) {
-        this.commandOutput = commandOutput;
+    public void setOutput(CommandOutput output) {
+        this.output = output;
     }
 
     /**

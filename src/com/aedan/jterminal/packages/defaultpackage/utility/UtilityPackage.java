@@ -3,11 +3,7 @@ package com.aedan.jterminal.packages.defaultpackage.utility;
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.packages.defaultpackage.utility.commands.*;
-import com.aedan.jterminal.packages.defaultpackage.utility.operands.AddGlobalVariable;
-import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.EmbeddedCommandsRule;
-import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.EnvironmentVariableRule;
-import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.GlobalVariableRule;
-import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.StringLiteralRule;
+import com.aedan.jterminal.packages.defaultpackage.utility.parserules.*;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -19,11 +15,12 @@ public class UtilityPackage implements Package {
 
     @Override
     public void addTo(Environment environment) {
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new EmbeddedCommandsRule());
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new EnvironmentVariableRule());
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new GlobalVariableRule());
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new StringLiteralRule());
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new AddGlobalVariable());
+        environment.getCommandHandler().getParser().addTokenizerRule(new EmbeddedCommandsRule());
+        environment.getCommandHandler().getParser().addTokenizerRule(new EnvironmentVariableRule());
+        environment.getCommandHandler().getParser().addTokenizerRule(new GlobalVariableRule());
+        environment.getCommandHandler().getParser().addTokenizerRule(new StringLiteralRule());
+        environment.getCommandHandler().getParser().addTokenizerRule(new AddGlobalVariable());
+        environment.getCommandHandler().getParser().addTokenizerRule(new MultipleCommandRule());
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));

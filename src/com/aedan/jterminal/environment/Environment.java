@@ -3,7 +3,6 @@ package com.aedan.jterminal.environment;
 import com.aedan.argparser.ArgumentParser;
 import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.Operand;
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.startup.Execute;
@@ -16,6 +15,7 @@ import com.aedan.jterminal.output.PrintStreamOutput;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
@@ -90,6 +90,8 @@ public class Environment {
         }
         this.environmentVariables.put("DIR", this.directory = new Directory());
         this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
+        this.environmentVariables.put("VARS", this.globalVariables);
+        this.environmentVariables.put("ENVVARS", this.environmentVariables);
 
         ArgumentParser parser = new ArgumentParser();
         for (StartupArgument startupArgument : arguments) {
@@ -159,10 +161,6 @@ public class Environment {
 
     public HashMap<String, Object> getEnvironmentVariables() {
         return environmentVariables;
-    }
-
-    public void setEnvironmentVariables(HashMap<String, Object> environmentVariables) {
-        this.environmentVariables = environmentVariables;
     }
 
     public HashMap<String, Object> getGlobalVariables() {

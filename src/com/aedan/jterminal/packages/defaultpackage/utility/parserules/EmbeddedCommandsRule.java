@@ -1,4 +1,4 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;

@@ -61,7 +61,7 @@ final class Parser {
      */
     private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
             throws CommandHandler.CommandHandlerException {
-        CommandOutput commandOutput = runtime.getEnvironment().getCommandHandler().getCommandOutput();
+        CommandOutput commandOutput = runtime.getEnvironment().getCommandHandler().getOutput();
         if (name.startsWith("!")) {
             name = name.substring(1);
             commandOutput = new StringOutput();

@@ -48,7 +48,7 @@ public class JTermRuntime {
      * @throws CommandHandler.CommandHandlerException If there was an error running the JTermRuntime.
      */
     public void run(String... args) throws CommandHandler.CommandHandlerException {
-        environment.getCommandHandler().getCommandOutput().print(getFunction("main").apply(args));
+        environment.getCommandHandler().getOutput().print(getFunction("main").apply(args));
     }
 
     public void add(Function function) {

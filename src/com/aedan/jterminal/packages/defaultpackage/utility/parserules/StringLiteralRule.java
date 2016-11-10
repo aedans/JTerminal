@@ -1,49 +1,44 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.TokenList;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
  *
- * ParseRule for global variables.
+ * ParseRule for String Literals
  */
 
-public class GlobalVariableRule implements ParseRule {
+public class StringLiteralRule implements ParseRule {
 
     @Override
     public char getIdentifier() {
-        return '$';
+        return '\"';
     }
 
     @Override
     public int process(Environment environment, String s, int i, TokenList tokenList) throws CommandHandler.CommandHandlerException {
         tokenList.nextToken();
-        String varName = "";
-        int j = i + 1;
+        int j = i+1;
         label:
         for (; true; j++) {
             if (j >= s.length())
-                break;
+                throw new CommandHandler.CommandHandlerException("Could not find matching \"", this);
             switch (s.charAt(j)) {
                 case '\\':
                     j++;
-                    varName += s.charAt(j);
+                    tokenList.append(s.charAt(j));
                     break;
-                case ' ':
+                case '\"':
                     break label;
                 default:
-                    varName += s.charAt(j);
+                    tokenList.append(s.charAt(j));
                     break;
             }
         }
-        Object value = environment.getGlobalVariables().get(varName);
-        if (value == null)
-            throw new CommandHandler.CommandHandlerException("Could not find global variable with name " + varName, this);
-        else
-            tokenList.addToken(value.toString());
+        tokenList.nextToken();
         return j;
     }
 }

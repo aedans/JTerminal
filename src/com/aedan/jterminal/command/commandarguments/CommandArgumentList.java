@@ -2,13 +2,10 @@ package com.aedan.jterminal.command.commandarguments;
 
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
-import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.input.parser.TokenList;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Aedan Smith on 8/28/2016.
@@ -33,14 +30,14 @@ public class CommandArgumentList {
      *
      * @param tokens The List of values for the CommandArgumentList.
      */
-    public CommandArgumentList(List<String> tokens) {
-        args.add(new CommandArgument(tokens.get(0), ArgumentType.COMMAND_IDENTIFIER));
+    public CommandArgumentList(TokenList tokens) {
+        args.add(new CommandArgument(tokens.get(0).toString(), ArgumentType.COMMAND_IDENTIFIER));
         for (int i = 1; i < tokens.size(); i++) {
-            if (tokens.get(i).length() > 1 && tokens.get(i).charAt(0) == '-'
-                    && Character.isAlphabetic(tokens.get(i).charAt(1))) {
-                flags.add(tokens.get(i));
+            if (tokens.get(i).toString().length() > 1 && tokens.get(i).toString().charAt(0) == '-'
+                    && Character.isAlphabetic(tokens.get(i).toString().charAt(1))) {
+                flags.add(tokens.get(i).toString());
             } else
-                args.add(new CommandArgument(tokens.get(i)));
+                args.add(new CommandArgument(tokens.get(i).toString()));
         }
     }
 

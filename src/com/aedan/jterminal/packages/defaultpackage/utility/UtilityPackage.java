@@ -19,11 +19,11 @@ public class UtilityPackage implements Package {
 
     @Override
     public void addTo(Environment environment) {
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new EmbeddedCommandsRule(environment));
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new EnvironmentVariableRule(environment));
-        environment.getCommandHandler().getTokenizer().addTokenizerRule(new GlobalVariableRule(environment));
+        environment.getCommandHandler().getTokenizer().addTokenizerRule(new EmbeddedCommandsRule());
+        environment.getCommandHandler().getTokenizer().addTokenizerRule(new EnvironmentVariableRule());
+        environment.getCommandHandler().getTokenizer().addTokenizerRule(new GlobalVariableRule());
         environment.getCommandHandler().getTokenizer().addTokenizerRule(new StringLiteralRule());
-        environment.addOperand(new AddGlobalVariable(environment));
+        environment.getCommandHandler().getTokenizer().addTokenizerRule(new AddGlobalVariable());
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));

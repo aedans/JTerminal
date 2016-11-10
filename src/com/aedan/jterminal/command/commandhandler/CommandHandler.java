@@ -1,16 +1,15 @@
 package com.aedan.jterminal.command.commandhandler;
 
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.Operand;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.tokenizer.Tokenizer;
+import com.aedan.jterminal.input.parser.Parser;
+import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
 
 import java.io.File;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,9 +36,9 @@ public class CommandHandler {
     private CommandOutput commandOutput;
 
     /**
-     * The Tokenizer for the CommandHandler.
+     * The Parser for the CommandHandler.
      */
-    private Tokenizer tokenizer = new Tokenizer();
+    private Parser tokenizer = new Parser();
 
     /**
      * Default CommandHandler constructor.
@@ -58,10 +57,13 @@ public class CommandHandler {
      * Handles a line of input.
      *
      * @param s The String to handle.
-     * @throws CommandHandlerException If there was an error handling the input.
      */
-    public void handleInput(String s) throws CommandHandlerException {
-        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+    public void handleInput(String s) {
+        try {
+            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+        } catch (CommandHandler.CommandHandlerException e) {
+            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+        }
     }
 
     /**
@@ -69,10 +71,13 @@ public class CommandHandler {
      *
      * @param s The String to handle.
      * @param commandInput The CommandInput to read the input from.
-     * @throws CommandHandlerException If there was an error handling the input.
      */
-    public void handleInput(CommandInput commandInput, String s) throws CommandHandlerException {
-        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+    public void handleInput(CommandInput commandInput, String s) {
+        try {
+            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+        } catch (CommandHandler.CommandHandlerException e) {
+            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+        }
     }
 
     /**
@@ -80,10 +85,13 @@ public class CommandHandler {
      *
      * @param s The String to handle.
      * @param commandOutput The CommandOutput to write the output to.
-     * @throws CommandHandlerException If there was an error handling the input.
      */
-    public void handleInput(CommandOutput commandOutput, String s) throws CommandHandlerException {
-        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+    public void handleInput(CommandOutput commandOutput, String s) {
+        try {
+            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+        } catch (CommandHandler.CommandHandlerException e) {
+            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+        }
     }
 
     /**
@@ -92,20 +100,21 @@ public class CommandHandler {
      * @param s The String to handle.
      * @param commandInput The CommandInput to read the input from.
      * @param commandOutput The CommandOutput to write the output to.
-     * @throws CommandHandlerException If there was an error handling the input.
      */
-    public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s)
-            throws CommandHandlerException {
-        this.handleInput(commandInput, commandOutput, tokenizer.tokenize(s));
+    public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s){
+        try {
+            this.handleInput(commandInput, commandOutput, tokenizer.parse(environment, s));
+        } catch (CommandHandler.CommandHandlerException e) {
+            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+        }
     }
 
     /**
      * Handles a pre-parsed line of input.
      *
      * @param tokens        The list of parsed Tokens.
-     * @throws CommandHandlerException If there was an error handling the input.
      */
-    public void handleInput(List<String> tokens) throws CommandHandlerException {
+    public void handleInput(TokenList tokens) {
         this.handleInput(commandInput, commandOutput, tokens);
     }
 
@@ -115,52 +124,49 @@ public class CommandHandler {
      * @param commandInput  The CommandInput to read the input from.
      * @param commandOutput The CommandOutput to write the output to.
      * @param tokens        The list of parsed Tokens.
-     * @throws CommandHandlerException If there was an error handling the input.
      */
-    public void handleInput(CommandInput commandInput, CommandOutput commandOutput, List<String> tokens)
-            throws CommandHandlerException {
-        if (tokens == null || commandInput == null || commandOutput == null) {
-            throw new IllegalArgumentException("Input is null");
-        }
-        if (tokens.isEmpty()) {
-            return;
-        }
-
-        for (Operand operand : environment.getOperands()) {
-            if (operand.handleInput(environment, commandInput, commandOutput, tokens))
-                return;
-        }
-
-        for (Command command : environment.getCommands()) {
-            if (Objects.equals(command.getIdentifier(), tokens.get(0))) {
-                command.parse(new CommandArgumentList(tokens), commandInput, commandOutput, environment);
+    public void handleInput(CommandInput commandInput, CommandOutput commandOutput, TokenList tokens) {
+        try {
+            if (tokens == null || commandInput == null || commandOutput == null) {
+                throw new IllegalArgumentException("Input is null");
+            }
+            if (tokens.isEmpty()) {
                 return;
             }
-        }
 
-        File file = environment.getPath().get(tokens.get(0) + ".jterm");
-        if (file != null) {
-            ExecuteJTermFile.execute(tokens, commandInput, commandOutput, environment);
-            return;
-        }
+            for (Command command : environment.getCommands()) {
+                if (Objects.equals(command.getIdentifier(), tokens.get(0))) {
+                    command.parse(new CommandArgumentList(tokens), commandInput, commandOutput, environment);
+                    return;
+                }
+            }
 
-        if (tokens.size() == 1) {
-            commandOutput.println(tokens.get(0));
-            return;
-        }
+            File file = environment.getPath().get(tokens.get(0) + ".jterm");
+            if (file != null) {
+                ExecuteJTermFile.execute(tokens, commandInput, commandOutput, environment);
+                return;
+            }
 
-        throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
+            if (tokens.size() == 1) {
+                commandOutput.println(tokens.get(0));
+                return;
+            }
+
+            throw new CommandHandlerException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
+        } catch (CommandHandlerException e){
+            commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
+        }
     }
 
     public Environment getEnvironment() {
         return environment;
     }
 
-    public Tokenizer getTokenizer() {
+    public Parser getTokenizer() {
         return tokenizer;
     }
 
-    public void setTokenizer(Tokenizer tokenizer) {
+    public void setTokenizer(Parser tokenizer) {
         this.tokenizer = tokenizer;
     }
 

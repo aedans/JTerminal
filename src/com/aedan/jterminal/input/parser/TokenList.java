@@ -1,20 +1,25 @@
-package com.aedan.jterminal.input.tokenizer;
+package com.aedan.jterminal.input.parser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Class for maintaining a List of Tokens
  */
 
-public class TokenList {
+public class TokenList extends ArrayList<String> {
 
     /**
-     * The current List of Tokens.
+     * The current token
      */
-    private ArrayList<String> tokens = new ArrayList<>();
-
     private String currentToken = "";
+
+    public TokenList() {}
+
+    public TokenList(List<String> objects) {
+        this.addAll(objects);
+    }
 
     /**
      * Appends a character to the current token.
@@ -30,19 +35,24 @@ public class TokenList {
      */
     public void nextToken(){
         if (!Objects.equals(currentToken, "")) {
-            tokens.add(currentToken);
+            add(currentToken);
             currentToken = "";
         }
     }
 
     public void addToken(String s) {
         nextToken();
-        tokens.add(s);
+        add(s);
     }
 
     public void addToken(char c) {
         nextToken();
-        tokens.add(String.valueOf(c));
+        add(String.valueOf(c));
+    }
+
+    @Override
+    public TokenList subList(int fromIndex, int toIndex) {
+        return new TokenList(super.subList(fromIndex, toIndex));
     }
 
     /**
@@ -50,10 +60,6 @@ public class TokenList {
      */
     public void trimToken() {
         currentToken = currentToken.trim();
-    }
-
-    public ArrayList<String> getTokens() {
-        return tokens;
     }
 
     public String getCurrentToken() {

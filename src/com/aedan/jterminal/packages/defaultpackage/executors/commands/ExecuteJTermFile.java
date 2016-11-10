@@ -5,11 +5,10 @@ import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
+import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
-
-import java.util.List;
 
 /**
  * Created by Aedan Smith on 8/16/2016.
@@ -27,7 +26,7 @@ public class ExecuteJTermFile extends Command {
                         "    Executes a file with the name [string].jterm, line by line.";
     }
 
-    public static void execute(List<String> args, CommandInput input, CommandOutput output, Environment environment)
+    public static void execute(TokenList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         args.add(0, "exec");
         execute(new CommandArgumentList(args), input, output, environment);

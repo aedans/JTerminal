@@ -2,7 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.io;
 
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.packages.defaultpackage.io.commandformats.OutputToFile;
+import com.aedan.jterminal.packages.defaultpackage.io.parserules.OutputToFile;
 import com.aedan.jterminal.packages.defaultpackage.io.commands.*;
 
 /**
@@ -22,6 +22,6 @@ public class FileIOPackage implements Package {
         environment.addCommand(new Open());
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
-        environment.addOperand(new OutputToFile(environment));
+        environment.getCommandHandler().getTokenizer().addTokenizerRule(new OutputToFile());
     }
 }

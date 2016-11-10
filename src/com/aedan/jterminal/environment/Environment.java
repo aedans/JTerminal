@@ -27,8 +27,6 @@ public class Environment {
 
     private ArrayList<Command> commands = new ArrayList<>();
 
-    private ArrayList<Operand> operands = new ArrayList<>();
-
     private HashMap<String, Object> environmentVariables = new HashMap<>();
 
     private HashMap<String, Object> globalVariables = new HashMap<>();
@@ -121,10 +119,6 @@ public class Environment {
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
     }
 
-    public void addOperand(Operand operand) {
-        operands.add(0, operand);
-    }
-
     public void addPackage(Package aPackage) {
         aPackage.addTo(this);
     }
@@ -161,10 +155,6 @@ public class Environment {
 
     public CommandHandler getCommandHandler() {
         return commandHandler;
-    }
-
-    public ArrayList<Operand> getOperands() {
-        return operands;
     }
 
     public HashMap<String, Object> getEnvironmentVariables() {

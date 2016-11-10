@@ -1,9 +1,8 @@
-package com.aedan.jterminal.input.tokenizer;
+package com.aedan.jterminal.input.parser;
 
 import com.aedan.jterminal.command.commandhandler.CommandHandler;
+import com.aedan.jterminal.environment.Environment;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
@@ -12,25 +11,26 @@ import java.util.LinkedList;
  * tokenizer for the CommandHandler.
  */
 
-public class Tokenizer {
+public class Parser {
 
     /**
-     * The List of reserved characters for the Tokenizer.
+     * The List of reserved characters for the Parser.
      */
-    private HashSet<Character> reservedChars = new HashSet<>();
+    private LinkedList<Character> reservedChars = new LinkedList<>();
 
     /**
      * The List of TokenizerRules.
      */
-    private LinkedList<TokenizerRule> tokenizerRules = new LinkedList<>();
+    private LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     /**
      * Tokenizes a String.
      *
-     * @param s The String to tokenize.
+     * @param environment The Environment to parse for.
+     * @param s The String to parse.
      * @return The List of Tokens.
      */
-    public ArrayList<String> tokenize(String s) throws CommandHandler.CommandHandlerException {
+    public TokenList parse(Environment environment, String s) throws CommandHandler.CommandHandlerException {
         TokenList tokenList = new TokenList();
         for (int i = 0; i < s.length(); i++) {
             charSwitch:
@@ -46,9 +46,9 @@ public class Tokenizer {
                     tokenList.nextToken();
                     break;
                 default:
-                    for (TokenizerRule tokenizerRule : tokenizerRules) {
-                        if (tokenizerRule.getIdentifier() == s.charAt(i)) {
-                            i = tokenizerRule.process(tokenList, s, i);
+                    for (ParseRule parseRule : parseRules) {
+                        if (parseRule.getIdentifier() == s.charAt(i)) {
+                            i = parseRule.process(environment, s, i, tokenList);
                             break charSwitch;
                         }
                     }
@@ -63,7 +63,7 @@ public class Tokenizer {
         }
         tokenList.nextToken();
 
-        return tokenList.getTokens();
+        return tokenList;
     }
 
     /**
@@ -77,11 +77,11 @@ public class Tokenizer {
     }
 
     /**
-     * Adds a TokenizerRule to the List of TokenizerRules.
+     * Adds a ParseRule to the List of TokenizerRules.
      *
-     * @param tokenizerRule The TokenizerRule to addTo.
+     * @param parseRule The ParseRule to addTo.
      */
-    public void addTokenizerRule(TokenizerRule tokenizerRule){
-        tokenizerRules.add(tokenizerRule);
+    public void addTokenizerRule(ParseRule parseRule){
+        parseRules.add(parseRule);
     }
 }

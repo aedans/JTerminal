@@ -6,6 +6,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.output.PrintStreamOutput;
+import com.aedan.jterminal.output.StringOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 
 /**
@@ -81,12 +82,14 @@ public class JTerminal implements Runnable {
      */
     public void run() {
         //noinspection InfiniteLoopStatement
+        environment.getEnvironmentVariables().put("CARET", "+ %DIR% \">\"");
+        StringOutput caret = new StringOutput();
         while (true) {
             try {
-                output.print(environment.getDirectory() + ">");
+                environment.getCommandHandler().handleInput(caret, environment.getEnvironmentVariables().get("CARET").toString());
+                output.print(caret.getString().trim());
+                caret.flush();
                 handleString(input.nextLine());
-            } catch (CommandHandler.CommandHandlerException e) {
-                output.printf("Could not handle command (%s)\n", e.getMessage());
             } catch (Exception e) {
                 output.print("Fatal error: ");
                 for (StackTraceElement s : e.getStackTrace()) {

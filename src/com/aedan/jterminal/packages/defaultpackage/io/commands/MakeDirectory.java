@@ -31,7 +31,7 @@ public class MakeDirectory extends Command {
         try {
             args.checkMatches(this, ArgumentType.STRING);
 
-            output.println(FileUtils.createDirectory(environment.getDirectory().getFile(args.get(1).value)));
+            output.println(FileUtils.createDirectory(environment.getDirectory().subFile(args.get(1).value)));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
         }

@@ -2,11 +2,8 @@ package com.aedan.jterminal.packages.defaultpackage.utility;
 
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.packages.defaultpackage.utility.commands.*;
 import com.aedan.jterminal.packages.defaultpackage.utility.operands.AddGlobalVariable;
-import com.aedan.jterminal.packages.defaultpackage.utility.commands.Alias;
-import com.aedan.jterminal.packages.defaultpackage.utility.commands.Echo;
-import com.aedan.jterminal.packages.defaultpackage.utility.commands.Exit;
-import com.aedan.jterminal.packages.defaultpackage.utility.commands.Help;
 import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.EmbeddedCommandsRule;
 import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.EnvironmentVariableRule;
 import com.aedan.jterminal.packages.defaultpackage.utility.tokenizerrules.GlobalVariableRule;
@@ -31,5 +28,6 @@ public class UtilityPackage implements Package {
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));
         environment.addCommand(new Exit());
+        environment.addCommand(new Set());
     }
 }

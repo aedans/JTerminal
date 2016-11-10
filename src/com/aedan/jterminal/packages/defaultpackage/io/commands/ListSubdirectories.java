@@ -29,7 +29,7 @@ public class ListSubdirectories extends Command {
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws CommandHandler.CommandHandlerException {
         //noinspection ConstantConditions
-        for (File f : environment.getDirectory().getFile().listFiles()) {
+        for (File f : environment.getDirectory().subFile().listFiles()) {
             output.println(f.getName());
         }
     }

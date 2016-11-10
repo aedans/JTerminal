@@ -35,6 +35,8 @@ public class Environment {
 
     private Directory directory;
 
+    private EnvironmentPath path;
+
     private CommandHandler commandHandler;
 
     /**
@@ -89,6 +91,7 @@ public class Environment {
             environmentVariables.put(envName, env.get(envName));
         }
         this.environmentVariables.put("DIR", this.directory = new Directory());
+        this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
 
         ArgumentParser parser = new ArgumentParser();
         for (StartupArgument startupArgument : arguments) {
@@ -146,6 +149,10 @@ public class Environment {
 
     public Directory getDirectory() {
         return directory;
+    }
+
+    public EnvironmentPath getPath() {
+        return path;
     }
 
     public ArrayList<Command> getCommands() {

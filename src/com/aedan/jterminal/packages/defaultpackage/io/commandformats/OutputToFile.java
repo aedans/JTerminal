@@ -38,7 +38,7 @@ public class OutputToFile implements Operand {
                 fileName += s + " ";
             fileName = fileName.trim();
 
-            File f = environment.getDirectory().getFile(fileName);
+            File f = environment.getDirectory().subFile(fileName);
             FileUtils.createFile(f);
             CommandOutput fileOut = new PrintStreamOutput(new PrintStream(new FileOutputStream(f)));
 

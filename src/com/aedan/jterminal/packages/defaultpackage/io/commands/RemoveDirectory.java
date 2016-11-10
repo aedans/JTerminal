@@ -31,7 +31,7 @@ public class RemoveDirectory extends Command {
         try {
             args.checkMatches(this, ArgumentType.STRING);
 
-            output.println(FileUtils.removeDirectory(environment.getDirectory().getFile(args.get(1).value)));
+            output.println(FileUtils.removeDirectory(environment.getDirectory().subFile(args.get(1).value)));
         } catch (FileUtils.FileIOException e) {
             throw new CommandHandler.CommandHandlerException(e.getMessage(), this);
         }

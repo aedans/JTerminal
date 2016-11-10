@@ -126,27 +126,25 @@ public class CommandHandler {
             return;
         }
 
-        for (Operand operand : environment.getOperands()){
+        for (Operand operand : environment.getOperands()) {
             if (operand.handleInput(environment, commandInput, commandOutput, tokens))
                 return;
         }
 
-        for (Command command : environment.getCommands()){
-            if (Objects.equals(command.getIdentifier(), tokens.get(0))){
+        for (Command command : environment.getCommands()) {
+            if (Objects.equals(command.getIdentifier(), tokens.get(0))) {
                 command.parse(new CommandArgumentList(tokens), commandInput, commandOutput, environment);
                 return;
             }
         }
 
-        String id = tokens.get(0) + ".jterm";
-        for (File file : environment.getDirectory().getFile().listFiles()){
-            if (Objects.equals(file.getName(), id)){
-                ExecuteJTermFile.execute(tokens, commandInput, commandOutput, environment);
-                return;
-            }
+        File file = environment.getPath().get(tokens.get(0) + ".jterm");
+        if (file != null) {
+            ExecuteJTermFile.execute(tokens, commandInput, commandOutput, environment);
+            return;
         }
 
-        if (tokens.size() == 1){
+        if (tokens.size() == 1) {
             commandOutput.println(tokens.get(0));
             return;
         }

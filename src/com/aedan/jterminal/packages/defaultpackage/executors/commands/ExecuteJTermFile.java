@@ -37,7 +37,7 @@ public class ExecuteJTermFile extends Command {
             throws CommandHandler.CommandHandlerException {
         try {
             String dir = args.get(1) + ".jterm";
-            String lines = FileUtils.readFile(environment.getDirectory().getFile(dir));
+            String lines = FileUtils.readFile(environment.getDirectory().subFile(dir));
             JTermRuntime runtime;
             try {
                 runtime = new JTermRuntime(lines, input, output);

@@ -16,8 +16,7 @@ public class MultipleCommandParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, TokenList tokenList)
-            throws JTerminalException {
+    public int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException {
         tokenList.nextToken();
         environment.getCommandHandler().handleInput(tokenList);
         tokenList.clear();

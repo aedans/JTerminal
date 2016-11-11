@@ -31,7 +31,7 @@ public class EmbeddedCommandsParser implements ParseRule {
         label:
         for (; true; j++) {
             if (j >= s.length())
-                throw new JTerminalException("Could not find matching }", this);
+                throw new JTerminalException("Could not find matching ]", this);
             switch (s.charAt(j)) {
                 case '\\':
                     j++;

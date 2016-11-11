@@ -35,6 +35,9 @@ public class ExecuteJTermFile extends Command {
     public static void execute(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
+            if (args.size() == 1)
+                throw new JTerminalException("No arguments given", ExecuteJTermFile.class);
+
             String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(environment.getDirectory().subFile(dir));
             JTermRuntime runtime;

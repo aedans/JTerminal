@@ -39,9 +39,9 @@ public class For extends Command {
                 holder.setS(s);
                 environment.getCommandHandler().handleInput(input, output, args.get(2).value);
             }
-        } else if (args.matches(ArgumentType.INTEGER, ArgumentType.INTEGER, ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
-            IntegerHolder i = new IntegerHolder(Integer.parseInt(args.get(1).value));
-            int max = Integer.parseInt(args.get(2).value);
+        } else if (args.matches(ArgumentType.LONG, ArgumentType.LONG, ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
+            LongHolder i = new LongHolder(Long.parseLong(args.get(1).value));
+            long max = Long.parseLong(args.get(2).value);
             environment.addGlobalVariable(args.get(3).value, i);
             for (; i.getI() < max; i.increment()) {
                 environment.getCommandHandler().handleInput(input, output, args.get(4).value);
@@ -74,14 +74,14 @@ class StringHolder {
     }
 }
 
-class IntegerHolder {
-    private int i;
+class LongHolder {
+    private long i;
 
-    IntegerHolder(int i) {
+    LongHolder(long i) {
         this.i = i;
     }
 
-    public int getI() {
+    public long getI() {
         return i;
     }
 
@@ -91,6 +91,6 @@ class IntegerHolder {
 
     @Override
     public String toString() {
-        return Integer.toString(i);
+        return Long.toString(i);
     }
 }

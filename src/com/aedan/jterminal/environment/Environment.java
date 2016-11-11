@@ -36,6 +36,10 @@ public class Environment {
 
     private CommandHandler commandHandler;
 
+    public Environment(Package... packages) throws Exception {
+        this(new String[]{""}, packages);
+    }
+
     /**
      * Default Environment constructor.
      *
@@ -79,10 +83,6 @@ public class Environment {
     public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
                        Package... packages)
             throws Exception {
-        this.commandHandler = new CommandHandler(this, commandInput, commandOutput);
-        for (Package p : packages) {
-            this.addPackage(p);
-        }
         Map<String, String> env = System.getenv();
         for (String envName : env.keySet()) {
             environmentVariables.put(envName, env.get(envName));
@@ -91,6 +91,12 @@ public class Environment {
         this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
         this.environmentVariables.put("VARS", this.globalVariables);
         this.environmentVariables.put("ENVVARS", this.environmentVariables);
+        this.environmentVariables.put("CARET", "echo \"\";+ %DIR% \\>");
+
+        this.commandHandler = new CommandHandler(this, commandInput, commandOutput);
+        for (Package p : packages) {
+            this.addPackage(p);
+        }
 
         ArgumentParser parser = new ArgumentParser();
         for (StartupArgument startupArgument : arguments) {

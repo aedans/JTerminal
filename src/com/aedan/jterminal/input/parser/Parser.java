@@ -43,6 +43,8 @@ public class Parser {
                     tokenList.append(s.charAt(i));
                     break;
                 case ' ':
+                case '\n':
+                case '\t':
                     tokenList.nextToken();
                     break;
                 default:
@@ -81,7 +83,7 @@ public class Parser {
      *
      * @param parseRule The ParseRule to addTo.
      */
-    public void addTokenizerRule(ParseRule parseRule) {
+    public void addParseRule(ParseRule parseRule) {
         parseRules.add(parseRule);
     }
 }

@@ -27,9 +27,9 @@ public class SystemExec extends Command {
     @Override
     public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        try {
-            args.checkMatches(this, ArgumentType.STRING);
+        args.checkMatches(this, ArgumentType.STRING);
 
+        try {
             Process process = Runtime.getRuntime().exec(args.get(1).value);
             final byte[] buffer = new byte[1024];
             while (process.getInputStream().read(buffer) != -1) {

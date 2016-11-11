@@ -81,7 +81,6 @@ public class JTerminal implements Runnable {
      */
     public void run() {
         //set CARET "echo \"\";+ [+ %USERNAME% @] [+ %USERDOMAIN_ROAMINGPROFILE% \" ~\"];echo \\$"
-        environment.getEnvironmentVariables().put("CARET", "+ %DIR% \">\"");
         StringOutput caret = new StringOutput();
         //noinspection InfiniteLoopStatement
         while (true) {
@@ -90,7 +89,7 @@ public class JTerminal implements Runnable {
                 output.print(caret.getString().trim());
                 caret.flush();
                 handleString(input.nextLine());
-            } catch (Exception e) {
+            } catch (Exception | VirtualMachineError e) {
                 output.print("Fatal error: ");
                 for (StackTraceElement s : e.getStackTrace()) {
                     output.println(s);

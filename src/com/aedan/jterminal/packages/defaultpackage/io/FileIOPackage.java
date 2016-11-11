@@ -22,6 +22,6 @@ public class FileIOPackage implements Package {
         environment.addCommand(new Open());
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
-        environment.getCommandHandler().getParser().addTokenizerRule(new OutputToFile());
+        environment.getCommandHandler().getParser().addParseRule(new OutputToFile());
     }
 }

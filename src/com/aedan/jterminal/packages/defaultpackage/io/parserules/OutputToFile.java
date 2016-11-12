@@ -30,7 +30,7 @@ public class OutputToFile implements ParseRule {
     public int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException {
         try {
             StringOutput fileName = new StringOutput();
-            environment.getCommandHandler().handleInput(fileName, s.substring(i + 1));
+            environment.getCommandHandler().handleInput(environment.getInput(), fileName, s.substring(i + 1));
 
             File f = environment.getDirectory().subFile(fileName.getString().trim());
             if (f.exists())
@@ -38,7 +38,7 @@ public class OutputToFile implements ParseRule {
             FileUtils.createFile(f);
             CommandOutput fileOut = new PrintStreamOutput(new PrintStream(new FileOutputStream(f)));
 
-            environment.getCommandHandler().handleInput(fileOut, s.substring(0, i));
+            environment.getCommandHandler().handleInput(environment.getInput(), fileOut, s.substring(0, i));
             fileOut.close();
             tokenList.clear();
             return s.length();

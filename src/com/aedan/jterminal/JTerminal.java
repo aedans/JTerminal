@@ -17,52 +17,21 @@ import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 public class JTerminal implements Runnable {
 
     /**
-     * The input for the JTerminal.
-     */
-    private CommandInput input;
-
-    /**
-     * The Outputs for the JTerminal.
-     */
-    private CommandOutput output;
-
-    /**
      * The Environment for the JTerminal.
      */
     private Environment environment;
 
     /**
-     * The default JTerminal constructor.
+     * Default JTerminal constructor.
      *
-     * @param args The list of arguments for the JTerminal.
-     * @throws Exception If there was an error whilst initializing the JTerminal.
-     */
-    public JTerminal(String... args) throws Exception {
-        this(args == null ? new String[]{} : args, null, null, null);
-    }
-
-    /**
-     * JTerminal constructor for custom CommandPackages, Inputs and Outputs.
-     *
-     * @param args        The list of arguments for the JTerminal.
-     * @param input       The CommandInput for the JTerminal to use.
-     * @param output      The CommandOutput for the JTerminal to use.
      * @param environment The Environment for the JTerminal to use.
      * @throws Exception If there was an error whilst initializing the JTerminal.
      */
-    public JTerminal(String[] args, CommandInput input, CommandOutput output, Environment environment)
+    public JTerminal(Environment environment)
             throws Exception {
-        if (args == null)
-            args = new String[]{};
-        if (input == null)
-            input = new ScannerInput();
-        if (output == null)
-            output = new PrintStreamOutput(System.out);
         if (environment == null)
-            environment = new Environment(args, input, output, new DefaultPackage());
+            environment = new Environment(null, null, null, null, null, new DefaultPackage());
 
-        this.input = input;
-        this.output = output;
         this.environment = environment;
     }
 
@@ -73,7 +42,7 @@ public class JTerminal implements Runnable {
      * @throws Exception If there was an error with the JTerminal.
      */
     public static void main(String[] args) throws Exception {
-        new JTerminal(args).run();
+        new JTerminal(null).run();
     }
 
     /**
@@ -85,14 +54,18 @@ public class JTerminal implements Runnable {
         //noinspection InfiniteLoopStatement
         while (true) {
             try {
-                environment.getCommandHandler().handleInput(caret, environment.getEnvironmentVariables().get("CARET").toString());
-                output.print(caret.getString().trim());
+                environment.getCommandHandler().handleInput(
+                        environment.getInput(),
+                        caret,
+                        environment.getEnvironmentVariables().get("CARET").toString()
+                );
+                environment.getOutput().print(caret.getString().trim());
                 caret.flush();
-                handleString(input.nextLine());
-            } catch (Exception | VirtualMachineError e) {
-                output.print("Fatal error: ");
+                handleString(environment.getInput().nextLine());
+            } catch (Throwable e) {
+                environment.getOutput().print("Fatal error: ");
                 for (StackTraceElement s : e.getStackTrace()) {
-                    output.println(s);
+                    environment.getOutput().println(s);
                 }
             }
         }
@@ -104,7 +77,7 @@ public class JTerminal implements Runnable {
      * @param s The String to handle.
      */
     public void handleString(String s) throws JTerminalException {
-        environment.getCommandHandler().handleInput(s);
+        environment.getCommandHandler().handleInput(environment.getInput(), environment.getOutput(), s);
     }
 
     public Environment getEnvironment() {
@@ -113,21 +86,5 @@ public class JTerminal implements Runnable {
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;
-    }
-
-    public CommandInput getInput() {
-        return input;
-    }
-
-    public void setInput(CommandInput input) {
-        this.input = input;
-    }
-
-    public CommandOutput getOutput() {
-        return output;
-    }
-
-    public void setOutput(CommandOutput output) {
-        this.output = output;
     }
 }

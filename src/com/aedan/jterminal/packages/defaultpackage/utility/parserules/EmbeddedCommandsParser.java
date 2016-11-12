@@ -5,6 +5,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.PrintStreamOutput;
+import com.aedan.jterminal.output.StringOutput;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -50,12 +51,9 @@ public class EmbeddedCommandsParser implements ParseRule {
                     break;
             }
         }
-        environment.getCommandHandler().handleInput(new PrintStreamOutput(new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-                tokenList.append((char) b);
-            }
-        })), command);
+        StringOutput output = new StringOutput();
+        environment.getCommandHandler().handleInput(environment.getInput(), output, command);
+        tokenList.add(output.getString());
         tokenList.trimToken();
         tokenList.nextToken();
         return j;

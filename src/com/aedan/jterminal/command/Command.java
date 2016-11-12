@@ -49,7 +49,7 @@ public abstract class Command {
      * @param input       The Input for the JTerminal.
      * @param output      The output to print to.
      * @param environment The Environment of the Command.
-     * @throws JTerminalException.CommandHandlerException if the String cannot be parsed.
+     * @throws JTerminalException if the String cannot be parsed.
      */
     public abstract void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws JTerminalException;
 
@@ -62,27 +62,7 @@ public abstract class Command {
         return identifier;
     }
 
-    public String getProperty(int id) throws InvalidPropertyException {
-        if (properties.length < id)
-            throw new InvalidPropertyException(
-                    "Command \"" + identifier + "\" does not support more than " + properties.length + " properties");
-        if (properties[id] == null)
-            throw new InvalidPropertyException("Command \"" + identifier + "\" has not assigned property " + id);
+    public String getProperty(int id) {
         return properties[id];
-    }
-
-    /**
-     * Exception thrown if the JTerminal tries to access an invalid property.
-     */
-    public static class InvalidPropertyException extends Exception {
-
-        /**
-         * The default InvalidPropertyException constructor.
-         *
-         * @param message The error message to display.
-         */
-        public InvalidPropertyException(String message) {
-            super(message);
-        }
     }
 }

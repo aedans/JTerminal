@@ -61,7 +61,7 @@ final class Parser {
      */
     private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
             throws JTerminalException {
-        CommandOutput commandOutput = runtime.getEnvironment().getCommandHandler().getOutput();
+        CommandOutput commandOutput = runtime.getEnvironment().getOutput();
         if (name.startsWith("!")) {
             name = name.substring(1);
             commandOutput = new StringOutput();
@@ -94,7 +94,11 @@ final class Parser {
                 }
                 // Execute statements
                 for (String statement : statements) {
-                    runtime.getEnvironment().getCommandHandler().handleInput(finalCommandOutput, statement);
+                    runtime.getEnvironment().getCommandHandler().handleInput(
+                            runtime.getEnvironment().getInput(),
+                            finalCommandOutput,
+                            statement
+                    );
                 }
                 // Ends scope
                 runtime.getEnvironment().setGlobalVariables(sVars);

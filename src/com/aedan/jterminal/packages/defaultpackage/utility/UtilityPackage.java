@@ -20,7 +20,6 @@ public class UtilityPackage implements Package {
         environment.getCommandHandler().getParser().addParseRule(new GlobalVariableParser());
         environment.getCommandHandler().getParser().addParseRule(new StringLiteralParser());
         environment.getCommandHandler().getParser().addParseRule(new SetGlobalVariableParser());
-        environment.getCommandHandler().getParser().addParseRule(new MultipleCommandParser());
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help(environment));

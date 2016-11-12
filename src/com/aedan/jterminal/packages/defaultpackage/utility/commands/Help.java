@@ -41,15 +41,10 @@ public class Help extends Command {
 
             ArrayList<String> sIdentifiers = new ArrayList<>();
             ArrayList<String> sDescriptions = new ArrayList<>();
-            for (Command c : sCommands) {
+            sCommands.stream().filter(c -> c.getProperty(0) != null).forEach(c -> {
                 sIdentifiers.add(c.getIdentifier());
-                try {
-                    sDescriptions.add(c.getProperty(0));
-                } catch (InvalidPropertyException e) {
-                    sDescriptions.add(
-                            "Could not access command \"" + c.getIdentifier() + "\" description (" + e.getMessage() + ")");
-                }
-            }
+                sDescriptions.add(c.getProperty(0));
+            });
 
             output.printGrid(4, sIdentifiers, sDescriptions);
         } else {
@@ -59,9 +54,8 @@ public class Help extends Command {
                     try {
                         output.println(c.getProperty(1));
                         return;
-                    } catch (InvalidPropertyException e) {
-                        output.printf("Could not access command \"%s\" description (%s)\n",
-                                c.getIdentifier(), e.getMessage());
+                    } catch (Exception e) {
+                        output.printf("Could not access command \"%s\" description (%s)\n", c.getIdentifier(), e.getMessage());
                         return;
                     }
                 }

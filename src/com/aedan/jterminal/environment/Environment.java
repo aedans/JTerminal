@@ -3,8 +3,8 @@ package com.aedan.jterminal.environment;
 import com.aedan.argparser.ArgumentParser;
 import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.command.CommandHandler;
+import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.startup.Execute;
 import com.aedan.jterminal.environment.startup.SetDirectory;
 import com.aedan.jterminal.environment.startup.StartupArgument;
@@ -12,6 +12,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.output.PrintStreamOutput;
+import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -36,53 +37,36 @@ public class Environment {
 
     private CommandHandler commandHandler;
 
-    public Environment(Package... packages) throws Exception {
-        this(new String[]{""}, packages);
-    }
+    private CommandInput input;
+
+    private CommandOutput output;
 
     /**
      * Default Environment constructor.
      *
-     * @param args     The arguments for the Environment.
-     * @param packages The List of Packages for the Environment.
+     * @param args             The arguments for the Environment.
+     * @param input            The CommandInput for the Environment.
+     * @param output           The CommandOutput for the Environment.
+     * @param commandHandler   The CommandHandler for the Environment.
+     * @param startupArguments The StartupArguments for the Environment.
+     * @param packages         The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String args[], Package... packages) throws Exception {
-        this(args, new ScannerInput(), new PrintStreamOutput(System.out), new StartupArgument[]{
-                new SetDirectory(),
-                new Execute()
-        }, packages);
-    }
+    public Environment(String[] args, CommandInput input, CommandOutput output, CommandHandler commandHandler,
+                       StartupArgument[] startupArguments, Package... packages) throws Exception {
+        if (args == null)
+            args = new String[]{};
+        if (input == null)
+            input = new ScannerInput(new Scanner(System.in));
+        if (output == null)
+            output = new PrintStreamOutput(System.out);
+        if (commandHandler == null)
+            commandHandler = new CommandHandler(this);
+        if (startupArguments == null)
+            startupArguments = new StartupArgument[]{new SetDirectory(), new Execute()};
+        if (packages == null)
+            packages = new Package[]{new DefaultPackage()};
 
-    /**
-     * Default Environment constructor.
-     *
-     * @param args          The arguments for the Environment.
-     * @param commandInput  The CommandInput for the Environment to read from.
-     * @param commandOutput The CommandOutput for the Environment to print to.
-     * @param packages      The List of Packages for the Environment.
-     * @throws Exception If there was an error handling the arguments.
-     */
-    public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, Package... packages)
-            throws Exception {
-        this(args, commandInput, commandOutput, new StartupArgument[]{
-                new SetDirectory(),
-                new Execute()
-        }, packages);
-    }
-
-    /**
-     * Default Environment constructor.
-     *
-     * @param args          The arguments for the Environment.
-     * @param commandInput  The CommandInput for the Environment to read from.
-     * @param commandOutput The CommandOutput for the Environment to print to.
-     * @param packages      The List of Packages for the Environment.
-     * @throws Exception If there was an error handling the arguments.
-     */
-    public Environment(String[] args, CommandInput commandInput, CommandOutput commandOutput, StartupArgument[] arguments,
-                       Package... packages)
-            throws Exception {
         Map<String, String> env = System.getenv();
         for (String envName : env.keySet()) {
             environmentVariables.put(envName, env.get(envName));
@@ -91,19 +75,24 @@ public class Environment {
         this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
         this.environmentVariables.put("VARS", this.globalVariables);
         this.environmentVariables.put("ENVVARS", this.environmentVariables);
-        this.environmentVariables.put("CARET", "echo \"\";+ %DIR% \\>");
+        this.environmentVariables.put("IN", input);
+        this.environmentVariables.put("OUT", output);
+        this.environmentVariables.put("CMDHANDLER", commandHandler);
+        this.environmentVariables.put("CARET", "+ %DIR% \\>");
 
-        this.commandHandler = new CommandHandler(this, commandInput, commandOutput);
+        this.input = input;
+        this.output = output;
+        this.commandHandler = commandHandler;
         for (Package p : packages) {
             this.addPackage(p);
         }
 
         ArgumentParser parser = new ArgumentParser();
-        for (StartupArgument startupArgument : arguments) {
+        for (StartupArgument startupArgument : startupArguments) {
             startupArgument.addTo(parser);
         }
         ParseResult parseResult = parser.parse(args);
-        for (StartupArgument startupArgument : arguments) {
+        for (StartupArgument startupArgument : startupArguments) {
             try {
                 startupArgument.handle(this, parseResult);
             } catch (Exception e) {
@@ -154,6 +143,22 @@ public class Environment {
 
     public EnvironmentPath getPath() {
         return path;
+    }
+
+    public CommandInput getInput() {
+        return input;
+    }
+
+    public void setInput(CommandInput input) {
+        this.input = input;
+    }
+
+    public CommandOutput getOutput() {
+        return output;
+    }
+
+    public void setOutput(CommandOutput output) {
+        this.output = output;
     }
 
     public ArrayList<Command> getCommands() {

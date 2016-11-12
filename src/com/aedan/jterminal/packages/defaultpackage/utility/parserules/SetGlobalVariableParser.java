@@ -21,8 +21,8 @@ public class SetGlobalVariableParser implements ParseRule {
     @Override
     public int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException {
         StringOutput value = new StringOutput(), name = new StringOutput();
-        environment.getCommandHandler().handleInput(value, s.substring(i + 1));
-        environment.getCommandHandler().handleInput(name, s.substring(0, i));
+        environment.getCommandHandler().handleInput(environment.getInput(), value, s.substring(i + 1));
+        environment.getCommandHandler().handleInput(environment.getInput(), name, s.substring(0, i));
 
         environment.addGlobalVariable(name.getString().trim(), value.getString().trim());
         tokenList.clear();

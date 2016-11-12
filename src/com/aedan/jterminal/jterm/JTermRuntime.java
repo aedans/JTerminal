@@ -35,7 +35,7 @@ public class JTermRuntime {
      * @throws Exception If there was an error compiling the JTermRuntime.
      */
     public JTermRuntime(String src, CommandInput input, CommandOutput output) throws Exception {
-        this.environment = new Environment(new String[]{""}, input, output, new JTermPackage(this));
+        this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
         for (Function function : Parser.parse(src, this)) {
             functions.put(function.getIdentifier(), function);
         }
@@ -48,7 +48,7 @@ public class JTermRuntime {
      * @throws JTerminalException If there was an error running the JTermRuntime.
      */
     public void run(String... args) throws JTerminalException {
-        environment.getCommandHandler().getOutput().print(getFunction("main").apply(args));
+        environment.getOutput().print(getFunction("main").apply(args));
     }
 
     public void add(Function function) {

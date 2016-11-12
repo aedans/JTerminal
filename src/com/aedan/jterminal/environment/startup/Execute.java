@@ -19,7 +19,7 @@ public class Execute implements StartupArgument {
     public void handle(Environment environment, ParseResult parseResult) throws Exception {
         String command = parseResult.getKeyValue("exec");
         if (command != null) {
-            environment.getCommandHandler().handleInput(command);
+            environment.getCommandHandler().handleInput(environment.getInput(), environment.getOutput(), command);
         }
     }
 }

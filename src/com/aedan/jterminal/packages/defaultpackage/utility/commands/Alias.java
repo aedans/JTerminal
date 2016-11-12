@@ -42,7 +42,7 @@ public class Alias extends Command {
                     command += " \"" + commandArgument.value + "\"";
                 }
 
-                environment.getCommandHandler().handleInput(command);
+                environment.getCommandHandler().handleInput(input, output, command);
             }
         });
 

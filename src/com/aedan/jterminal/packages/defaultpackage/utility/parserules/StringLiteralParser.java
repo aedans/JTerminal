@@ -44,4 +44,9 @@ public class StringLiteralParser implements ParseRule {
         }
         return j;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

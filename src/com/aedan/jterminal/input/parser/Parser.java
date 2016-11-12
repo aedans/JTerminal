@@ -2,6 +2,7 @@ package com.aedan.jterminal.input.parser;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.environment.Environment;
+import com.alibaba.fastjson.JSON;
 
 import java.util.LinkedList;
 
@@ -15,12 +16,12 @@ public class Parser {
     /**
      * The List of reserved characters for the Parser.
      */
-    private LinkedList<Character> reservedChars = new LinkedList<>();
+    public LinkedList<Character> reservedChars = new LinkedList<>();
 
     /**
      * The List of TokenizerRules.
      */
-    private LinkedList<ParseRule> parseRules = new LinkedList<>();
+    public LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     /**
      * Tokenizes a String.
@@ -36,9 +37,8 @@ public class Parser {
             switch (s.charAt(i)) {
                 case '\\':
                     i++;
-                    if (i == s.length()) {
+                    if (i == s.length())
                         throw new JTerminalException("Could not find character to escape", this);
-                    }
                     tokenList.append(s.charAt(i));
                     break;
                 case ' ':
@@ -77,12 +77,8 @@ public class Parser {
             reservedChars.add(c);
     }
 
-    /**
-     * Adds a ParseRule to the List of TokenizerRules.
-     *
-     * @param parseRule The ParseRule to addTo.
-     */
-    public void addParseRule(ParseRule parseRule) {
-        parseRules.add(parseRule);
+    @Override
+    public String toString() {
+        return "Parser:" + JSON.toJSONString(this, true);
     }
 }

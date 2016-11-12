@@ -19,4 +19,9 @@ public class ExecutorsPackage implements Package {
         environment.addCommand(new For());
         environment.addCommand(new SystemExec());
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

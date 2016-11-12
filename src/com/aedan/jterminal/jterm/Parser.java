@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * Class for parsing .jterm files.
  */
 
-class Parser {
+final class Parser {
     /**
      * Pattern for finding functions in .jterm files.
      */

@@ -3,7 +3,7 @@ package com.aedan.jterminal.jterm;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.jterm.jtermcommandpackage.JTermPackage;
+import com.aedan.jterminal.jterm.jtermpackage.JTermPackage;
 import com.aedan.jterminal.output.CommandOutput;
 
 import java.util.HashMap;
@@ -64,5 +64,10 @@ public class JTermRuntime {
 
     public Environment getEnvironment() {
         return environment;
+    }
+
+    @Override
+    public String toString() {
+        return "JTermRuntime(" + environment + ", " + functions + ")";
     }
 }

@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.jtermcommandpackage;
+package com.aedan.jterminal.jterm.jtermpackage;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
@@ -7,6 +7,7 @@ import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.StringOutput;
 
 import java.util.Objects;
 
@@ -14,9 +15,9 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-class IfNotEqual extends Command {
-    IfNotEqual() {
-        super("neq", "Returns true if two values are equal");
+class IfCommand extends Command {
+    IfCommand() {
+        super("if", "Executes a command if a command returns true.");
     }
 
     @Override
@@ -24,6 +25,11 @@ class IfNotEqual extends Command {
             throws JTerminalException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
-        output.println(!Objects.equals(args.get(1).value, args.get(2).value));
+        StringOutput stringOutput = new StringOutput();
+        environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
+
+        if (Objects.equals(stringOutput.getString().trim(), "true")) {
+            environment.getCommandHandler().handleInput(input, output, args.get(2).value);
+        }
     }
 }

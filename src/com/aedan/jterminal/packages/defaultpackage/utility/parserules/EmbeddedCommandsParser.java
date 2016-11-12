@@ -52,4 +52,9 @@ public class EmbeddedCommandsParser implements ParseRule {
         tokenList.nextToken();
         return j;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

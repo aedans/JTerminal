@@ -8,11 +8,12 @@ import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.startup.Execute;
 import com.aedan.jterminal.environment.startup.SetDirectory;
 import com.aedan.jterminal.environment.startup.StartupArgument;
+import com.aedan.jterminal.input.BufferedReaderInput;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.ScannerInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
+import com.alibaba.fastjson.JSON;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -56,9 +57,9 @@ public class Environment {
         if (args == null)
             args = new String[]{};
         if (input == null)
-            input = new ScannerInput(new Scanner(System.in));
+            input = new BufferedReaderInput();
         if (output == null)
-            output = new PrintStreamOutput(System.out);
+            output = new PrintStreamOutput();
         if (commandHandler == null)
             commandHandler = new CommandHandler(this);
         if (startupArguments == null)
@@ -74,6 +75,8 @@ public class Environment {
         this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
         this.environmentVariables.put("VARS", this.globalVariables);
         this.environmentVariables.put("ENVVARS", this.environmentVariables);
+        this.environmentVariables.put("ENV", this);
+        this.environmentVariables.put("COMMANDS", this.commands);
         this.environmentVariables.put("IN", input);
         this.environmentVariables.put("OUT", output);
         this.environmentVariables.put("CMDHANDLER", commandHandler);
@@ -112,6 +115,7 @@ public class Environment {
     public void addCommand(Command command) {
         commands.add(command);
         commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
+        environmentVariables.put(command.getIdentifier(), command);
     }
 
     public void addPackage(Package aPackage) {
@@ -178,5 +182,10 @@ public class Environment {
 
     public void setGlobalVariables(HashMap<String, Object> globalVariables) {
         this.globalVariables = globalVariables;
+    }
+
+    @Override
+    public String toString() {
+        return "Environment:" + JSON.toJSONString(this, true);
     }
 }

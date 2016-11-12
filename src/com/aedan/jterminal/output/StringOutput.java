@@ -1,5 +1,7 @@
 package com.aedan.jterminal.output;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * Created by Aedan Smith.
  */
@@ -29,5 +31,10 @@ public class StringOutput implements CommandOutput {
 
     public void setString(String string) {
         this.string = string;
+    }
+
+    @Override
+    public String toString() {
+        return "StringOutput:" + JSON.toJSONString(this, true);
     }
 }

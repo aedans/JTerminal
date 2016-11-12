@@ -45,4 +45,9 @@ public class GlobalVariableParser implements ParseRule {
             tokenList.addToken(value.toString());
         return j;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

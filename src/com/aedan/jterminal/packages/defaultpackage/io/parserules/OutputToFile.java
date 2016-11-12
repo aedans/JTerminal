@@ -45,4 +45,9 @@ public class OutputToFile implements ParseRule {
             throw new JTerminalException(e.getMessage(), this);
         }
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

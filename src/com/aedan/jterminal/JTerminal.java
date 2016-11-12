@@ -3,6 +3,7 @@ package com.aedan.jterminal;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.output.StringOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
+import com.alibaba.fastjson.JSON;
 
 /**
  * Created by Aedan Smith on 8/10/16.
@@ -81,5 +82,10 @@ public class JTerminal implements Runnable {
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+
+    @Override
+    public String toString() {
+        return "JTerminal:" + JSON.toJSONString(this, true);
     }
 }

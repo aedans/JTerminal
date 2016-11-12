@@ -25,4 +25,9 @@ public enum MatchResult {
     public String getDetailedMessage() {
         return message + " for command %s (required %i, given %i)";
     }
+
+    @Override
+    public String toString() {
+        return "MatchResult(" + message + ")";
+    }
 }

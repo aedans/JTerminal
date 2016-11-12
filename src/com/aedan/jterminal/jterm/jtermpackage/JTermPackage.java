@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.jtermcommandpackage;
+package com.aedan.jterminal.jterm.jtermpackage;
 
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;
@@ -21,11 +21,11 @@ public class JTermPackage implements Package {
         environment.addPackage(new DefaultPackage());
         environment.addCommand(new CallFunction(jTermRuntime));
         environment.addCommand(new IfCommand());
-        environment.addCommand(new IfElseCommand());
-        environment.addCommand(new WhileCommand());
+        environment.addCommand(new com.aedan.jterminal.jterm.jtermpackage.IfElseCommand());
+        environment.addCommand(new com.aedan.jterminal.jterm.jtermpackage.WhileCommand());
         environment.addCommand(new IfEqual());
         environment.addCommand(new IfNotEqual());
-        environment.addCommand(new LessThan());
-        environment.addCommand(new GreaterThan());
+        environment.addCommand(new com.aedan.jterminal.jterm.jtermpackage.LessThan());
+        environment.addCommand(new com.aedan.jterminal.jterm.jtermpackage.GreaterThan());
     }
 }

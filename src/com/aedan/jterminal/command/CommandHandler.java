@@ -8,6 +8,7 @@ import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
+import com.alibaba.fastjson.JSON;
 
 import java.io.File;
 import java.util.Objects;
@@ -62,12 +63,10 @@ public class CommandHandler {
      */
     public void handleInput(CommandInput input, CommandOutput output, TokenList tokens) {
         try {
-            if (tokens == null || input == null || output == null) {
+            if (tokens == null || input == null || output == null)
                 throw new IllegalArgumentException("Input is null");
-            }
-            if (tokens.isEmpty()) {
+            if (tokens.isEmpty())
                 return;
-            }
 
             for (Command command : environment.getCommands()) {
                 if (Objects.equals(command.getIdentifier(), tokens.get(0))) {
@@ -93,15 +92,16 @@ public class CommandHandler {
         }
     }
 
-    public Environment getEnvironment() {
-        return environment;
-    }
-
     public Parser getParser() {
         return parser;
     }
 
     public void setParser(Parser parser) {
         this.parser = parser;
+    }
+
+    @Override
+    public String toString() {
+        return "CommandHandler:" + JSON.toJSONString(this, true);
     }
 }

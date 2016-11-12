@@ -1,6 +1,6 @@
 package com.aedan.jterminal.environment;
 
-import com.aedan.jterminal.output.StringOutput;
+import com.alibaba.fastjson.JSON;
 
 import java.io.File;
 import java.util.HashMap;
@@ -33,10 +33,16 @@ public class EnvironmentPath {
         }
     }
 
+    public Directory getDirectory() {
+        return directory;
+    }
+
+    public HashMap<String, File> getFiles() {
+        return files;
+    }
+
     @Override
     public String toString() {
-        StringOutput stringOutput = new StringOutput();
-        files.forEach((s, file) -> stringOutput.println(file));
-        return stringOutput.getString().trim();
+        return "EnvironmentPath:" + JSON.toJSONString(this, true);
     }
 }

@@ -21,4 +21,9 @@ public class DefaultPackage implements Package {
         new MathPackage().addTo(environment);
         new UtilityPackage().addTo(environment);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

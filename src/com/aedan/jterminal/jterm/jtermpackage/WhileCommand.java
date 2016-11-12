@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.jtermcommandpackage;
+package com.aedan.jterminal.jterm.jtermpackage;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
@@ -15,9 +15,9 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-class IfCommand extends Command {
-    IfCommand() {
-        super("if", "Executes a command if a command returns true.");
+class WhileCommand extends Command {
+    WhileCommand() {
+        super("whl", "Executes a command until a command returns false.");
     }
 
     @Override
@@ -26,9 +26,8 @@ class IfCommand extends Command {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
         StringOutput stringOutput = new StringOutput();
-        environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
-
-        if (Objects.equals(stringOutput.getString().trim(), "true")) {
+        while (!Objects.equals(stringOutput.getString().trim(), "false")) {
+            environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
             environment.getCommandHandler().handleInput(input, output, args.get(2).value);
         }
     }

@@ -19,4 +19,9 @@ public class MathPackage implements Package {
         environment.addCommand(new PowerCommand());
         environment.addCommand(new SubtractionCommand());
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

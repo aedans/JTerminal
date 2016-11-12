@@ -54,6 +54,6 @@ public class BufferedReaderInput implements CommandInput {
 
     @Override
     public String toString() {
-        return "BufferedReaderInput:" + JSON.toJSONString(this, true);
+        return "\"bufferedReaderInput\":" + JSON.toJSONString(this, true);
     }
 }

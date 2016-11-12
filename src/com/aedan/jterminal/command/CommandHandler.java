@@ -102,6 +102,6 @@ public class CommandHandler {
 
     @Override
     public String toString() {
-        return "CommandHandler:" + JSON.toJSONString(this, true);
+        return "\"commandHandler\":" + JSON.toJSONString(this, true);
     }
 }

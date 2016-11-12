@@ -35,6 +35,6 @@ public class StringOutput implements CommandOutput {
 
     @Override
     public String toString() {
-        return "StringOutput:" + JSON.toJSONString(this, true);
+        return "\"stringOutput\":" + JSON.toJSONString(this, true);
     }
 }

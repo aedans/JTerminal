@@ -186,6 +186,6 @@ public class Environment {
 
     @Override
     public String toString() {
-        return "Environment:" + JSON.toJSONString(this, true);
+        return "\"environment\":" + JSON.toJSONString(this, true);
     }
 }

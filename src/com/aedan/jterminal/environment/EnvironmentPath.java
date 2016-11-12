@@ -43,6 +43,6 @@ public class EnvironmentPath {
 
     @Override
     public String toString() {
-        return "EnvironmentPath:" + JSON.toJSONString(this, true);
+        return "\"environmentPath\":" + JSON.toJSONString(this, true);
     }
 }

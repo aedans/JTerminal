@@ -5,6 +5,7 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermpackage.JTermPackage;
 import com.aedan.jterminal.output.CommandOutput;
+import com.alibaba.fastjson.JSON;
 
 import java.util.HashMap;
 
@@ -68,6 +69,6 @@ public class JTermRuntime {
 
     @Override
     public String toString() {
-        return "JTermRuntime(" + environment + ", " + functions + ")";
+        return "\"jTermRuntime\":" + JSON.toJSONString(this, true);
     }
 }

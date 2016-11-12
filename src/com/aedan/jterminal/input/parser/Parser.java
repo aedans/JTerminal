@@ -79,6 +79,6 @@ public class Parser {
 
     @Override
     public String toString() {
-        return "Parser:" + JSON.toJSONString(this, true);
+        return "\"parser\":" + JSON.toJSONString(this, true);
     }
 }

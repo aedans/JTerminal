@@ -28,4 +28,9 @@ public class JTermPackage implements Package {
         environment.addCommand(new com.aedan.jterminal.jterm.jtermpackage.LessThan());
         environment.addCommand(new com.aedan.jterminal.jterm.jtermpackage.GreaterThan());
     }
+
+    @Override
+    public String toString() {
+        return "JTermPackage";
+    }
 }

@@ -55,7 +55,7 @@ public abstract class Command {
 
     @Override
     public String toString() {
-        return identifier + ":" + JSON.toJSONString(this, true);
+        return "\"" + identifier + "\":" + JSON.toJSONString(this, true);
     }
 
     public String getIdentifier() {

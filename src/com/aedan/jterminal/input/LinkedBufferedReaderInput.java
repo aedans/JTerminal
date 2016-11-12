@@ -52,6 +52,6 @@ public class LinkedBufferedReaderInput implements CommandInput {
 
     @Override
     public String toString() {
-        return "LinkedBufferedReaderInput:" + JSON.toJSONString(this, true);
+        return "\"linkedBufferedReaderInput\":" + JSON.toJSONString(this, true);
     }
 }

@@ -35,6 +35,6 @@ public class PrintStreamOutput implements CommandOutput {
 
     @Override
     public String toString() {
-        return "PrintStreamOutput:" + JSON.toJSONString(this, true);
+        return "\"printStreamOutput\":" + JSON.toJSONString(this, true);
     }
 }

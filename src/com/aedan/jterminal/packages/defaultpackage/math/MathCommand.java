@@ -30,8 +30,9 @@ public abstract class MathCommand extends Command {
                 output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
             else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == MatchResult.CORRECT_ARGS)
                 output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
-            else
+            else {
                 throw new JTerminalException("Incorrect arguments given", this);
+            }
         } catch (NumberFormatException e) {
             throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
         }

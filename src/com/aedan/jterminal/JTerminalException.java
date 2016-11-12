@@ -10,6 +10,6 @@ public class JTerminalException extends Exception {
      * @param message The error message to display.
      */
     public JTerminalException(String message, Object source) {
-        super(message + " (" + source.getClass().getSimpleName() + ")");
+        super(message + " (" + (source != null ? source.getClass().getSimpleName() : "null") + ")");
     }
 }

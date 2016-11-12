@@ -76,7 +76,7 @@ public class CommandHandler {
             }
 
             File file = environment.getPath().get(tokens.get(0) + ".jterm");
-            if (file != null) {
+            if (file != null && file.exists()) {
                 ExecuteJTermFile.execute(tokens, input, output, environment);
                 return;
             }

@@ -58,8 +58,8 @@ public class JTerminal implements Runnable {
                 environment.getOutput().print(caret.getString().trim());
                 caret.flush();
                 handleString(environment.getInput().nextLine());
-            } catch (Throwable e) {
-                environment.getOutput().print("Fatal error: ");
+            } catch (Exception | VirtualMachineError e) {
+                environment.getOutput().println("Fatal error: " + e);
                 for (StackTraceElement s : e.getStackTrace()) {
                     environment.getOutput().println(s);
                 }

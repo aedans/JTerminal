@@ -32,7 +32,6 @@ class IfElseCommand extends Command {
             environment.getCommandHandler().handleInput(input, output, args.get(2).value);
         } else {
             environment.getCommandHandler().handleInput(input, output, args.get(3).value);
-
         }
     }
 }

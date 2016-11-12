@@ -62,7 +62,9 @@ public class Directory implements Supplier<String> {
      * @return The file with the given name.
      */
     public File getFile(String name) {
-        for (File file : path.toFile().listFiles()) {
+        File[] files = path.toFile().listFiles();
+        assert files != null;
+        for (File file : files) {
             if (Objects.equals(file.getName(), name)) {
                 return file;
             }

@@ -1,9 +1,9 @@
 package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.jterm.JTermRuntime;
@@ -17,7 +17,6 @@ import com.aedan.jterminal.utils.FileUtils;
  */
 
 public class ExecuteJTermFile extends Command {
-
     public ExecuteJTermFile() {
         super("exec");
         this.properties[0] = "Executes a .jterm file.";

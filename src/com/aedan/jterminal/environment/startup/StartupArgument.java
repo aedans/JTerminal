@@ -11,7 +11,6 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 public interface StartupArgument {
-
     /**
      * Adds the StartupArgument to an ArgumentParser.
      *

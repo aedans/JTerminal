@@ -1,15 +1,10 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
-import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.output.StringOutput;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -18,7 +13,6 @@ import java.io.PrintStream;
  */
 
 public class EmbeddedCommandsParser implements ParseRule {
-
     @Override
     public char getIdentifier() {
         return '[';

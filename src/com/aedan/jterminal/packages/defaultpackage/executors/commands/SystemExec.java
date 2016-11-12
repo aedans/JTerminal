@@ -1,10 +1,10 @@
 package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -15,7 +15,6 @@ import com.aedan.jterminal.output.CommandOutput;
  */
 
 public class SystemExec extends Command {
-
     public SystemExec() {
         super("exect");
         this.properties[0] = "Executes a system command.";

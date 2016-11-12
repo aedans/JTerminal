@@ -11,7 +11,6 @@ import java.util.Stack;
  */
 
 public class LinkedScannerInput implements CommandInput {
-
     /**
      * The current stack of input.
      */

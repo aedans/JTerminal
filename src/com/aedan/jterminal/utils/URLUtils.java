@@ -13,7 +13,6 @@ import java.net.URLConnection;
  */
 
 public final class URLUtils {
-
     /**
      * Loads the data at a given URL.
      *

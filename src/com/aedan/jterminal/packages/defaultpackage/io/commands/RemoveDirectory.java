@@ -1,10 +1,10 @@
 package com.aedan.jterminal.packages.defaultpackage.io.commands;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
@@ -16,7 +16,6 @@ import com.aedan.jterminal.utils.FileUtils;
  */
 
 public class RemoveDirectory extends Command {
-
     public RemoveDirectory() {
         super("rmdir");
         this.properties[0] = "Removes the directory with the given name.";

@@ -12,7 +12,6 @@ import com.aedan.jterminal.packages.defaultpackage.io.parserules.OutputToFile;
  */
 
 public class FileIOPackage implements Package {
-
     @Override
     public void addTo(Environment environment) {
         environment.addCommand(new Concatenate());

@@ -7,7 +7,6 @@ package com.aedan.jterminal.input;
  */
 
 public interface CommandInput {
-
     /**
      * @return The next line for the JTerminal to handle.
      */

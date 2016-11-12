@@ -1,10 +1,6 @@
 package com.aedan.jterminal;
 
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.ScannerInput;
-import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.output.StringOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 
@@ -15,7 +11,6 @@ import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
  */
 
 public class JTerminal implements Runnable {
-
     /**
      * The Environment for the JTerminal.
      */

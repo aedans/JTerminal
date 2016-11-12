@@ -1,10 +1,10 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.commands;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -18,9 +18,7 @@ import java.util.ArrayList;
 
 public class Help extends Command {
 
-    private final Environment environment;
-
-    public Help(Environment environment) {
+    public Help() {
         super("help");
         this.properties[0] = "Lists all command and their simple descriptions.";
         this.properties[1] =
@@ -28,7 +26,6 @@ public class Help extends Command {
                         "    Lists all command and their simple descriptions.\n" +
                         "help [string]:\n" +
                         "    Lists the detailed description of command [string].";
-        this.environment = environment;
     }
 
     @Override

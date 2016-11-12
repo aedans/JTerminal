@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
 
@@ -12,7 +12,6 @@ import com.aedan.jterminal.input.parser.TokenList;
  */
 
 public class StringLiteralParser implements ParseRule {
-
     @Override
     public char getIdentifier() {
         return '\"';

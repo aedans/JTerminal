@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.io.parserules;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.CommandOutput;
@@ -20,7 +20,6 @@ import java.io.PrintStream;
  */
 
 public class OutputToFile implements ParseRule {
-
     @Override
     public char getIdentifier() {
         return '>';

@@ -9,7 +9,6 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 public class Execute implements StartupArgument {
-
     @Override
     public void addTo(ArgumentParser argumentParser) {
         argumentParser.addKey("exec");

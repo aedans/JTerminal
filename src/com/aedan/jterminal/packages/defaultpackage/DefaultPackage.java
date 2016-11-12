@@ -14,7 +14,6 @@ import com.aedan.jterminal.packages.defaultpackage.utility.UtilityPackage;
  */
 
 public class DefaultPackage implements Package {
-
     @Override
     public void addTo(Environment environment) {
         new FileIOPackage().addTo(environment);

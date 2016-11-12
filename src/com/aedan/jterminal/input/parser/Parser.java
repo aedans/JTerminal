@@ -1,7 +1,7 @@
 package com.aedan.jterminal.input.parser;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.environment.Environment;
 
 import java.util.LinkedList;
 
@@ -12,7 +12,6 @@ import java.util.LinkedList;
  */
 
 public class Parser {
-
     /**
      * The List of reserved characters for the Parser.
      */

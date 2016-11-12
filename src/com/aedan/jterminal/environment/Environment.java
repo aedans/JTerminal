@@ -24,7 +24,6 @@ import java.util.*;
  */
 
 public class Environment {
-
     private ArrayList<Command> commands = new ArrayList<>();
 
     private HashMap<String, Object> environmentVariables = new HashMap<>();

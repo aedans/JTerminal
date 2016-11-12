@@ -11,7 +11,6 @@ import com.aedan.jterminal.packages.defaultpackage.math.commands.*;
  */
 
 public class MathPackage implements Package {
-
     @Override
     public void addTo(Environment environment) {
         environment.addCommand(new AdditionCommand());

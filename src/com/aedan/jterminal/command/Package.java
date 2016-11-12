@@ -9,7 +9,6 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 public interface Package {
-
     /**
      * Adds the package to the Environment
      *

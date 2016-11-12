@@ -12,7 +12,6 @@ import java.util.HashMap;
  */
 
 public class EnvironmentPath {
-
     private Directory directory;
 
     private HashMap<String, File> files = new HashMap<>();

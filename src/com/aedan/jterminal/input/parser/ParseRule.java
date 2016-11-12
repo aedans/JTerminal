@@ -1,7 +1,7 @@
 package com.aedan.jterminal.input.parser;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.environment.Environment;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -10,7 +10,6 @@ import com.aedan.jterminal.JTerminalException;
  */
 
 public interface ParseRule {
-
     /**
      * @return The character upon which to call the ParseRule.
      */

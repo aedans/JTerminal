@@ -7,7 +7,6 @@ package com.aedan.jterminal.command.commandarguments;
  */
 
 public enum MatchResult {
-
     MORE_ARGS("More arguments given than required"),
     LESS_ARGS("Less arguments given than required"),
     INCORRECT_ARGS("Incorrect arguments given"),

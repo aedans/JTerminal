@@ -13,7 +13,6 @@ import com.aedan.jterminal.packages.defaultpackage.executors.commands.SystemExec
  */
 
 public class ExecutorsPackage implements Package {
-
     @Override
     public void addTo(Environment environment) {
         environment.addCommand(new ExecuteJTermFile());

@@ -9,7 +9,6 @@ import java.util.Objects;
  */
 
 public class TokenList extends ArrayList<String> {
-
     /**
      * The current token
      */

@@ -1,7 +1,7 @@
 package com.aedan.jterminal.jterm;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermcommandpackage.JTermPackage;
 import com.aedan.jterminal.output.CommandOutput;
@@ -15,7 +15,6 @@ import java.util.HashMap;
  */
 
 public class JTermRuntime {
-
     /**
      * The list of functions to be executed in the JTermRuntime.
      */

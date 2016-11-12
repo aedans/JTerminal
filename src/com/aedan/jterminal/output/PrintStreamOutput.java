@@ -7,7 +7,6 @@ import java.io.PrintStream;
  */
 
 public class PrintStreamOutput implements CommandOutput {
-
     private PrintStream printStream;
 
     public PrintStreamOutput(PrintStream printStream) {

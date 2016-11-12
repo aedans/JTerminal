@@ -1,10 +1,10 @@
 package com.aedan.jterminal.jterm.jtermcommandpackage;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -15,7 +15,6 @@ import java.util.Objects;
  */
 
 class IfEqual extends Command {
-
     IfEqual() {
         super("eq", "Returns true if two values are equal");
     }

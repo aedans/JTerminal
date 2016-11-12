@@ -9,7 +9,6 @@ import com.aedan.jterminal.JTerminalException;
  */
 
 public interface Function {
-
     /**
      * @return The name of the function.
      */

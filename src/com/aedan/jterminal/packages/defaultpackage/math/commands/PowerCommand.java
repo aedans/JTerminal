@@ -9,7 +9,6 @@ import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
  */
 
 public class PowerCommand extends MathCommand {
-
     public PowerCommand() {
         super("^");
         properties[0] = "Outputs a number to the power of a second number.";

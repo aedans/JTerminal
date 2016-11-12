@@ -11,7 +11,6 @@ import java.util.Collection;
 
 @SuppressWarnings("unchecked")
 public interface CommandOutput {
-
     /**
      * Prints a String to the CommandOutput's output.
      *

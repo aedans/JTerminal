@@ -7,7 +7,6 @@ package com.aedan.jterminal.command.commandarguments;
  */
 
 public enum ArgumentType {
-
     BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, STRING, COMMAND_IDENTIFIER;
 
     /**

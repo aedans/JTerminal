@@ -11,7 +11,6 @@ import java.nio.file.Paths;
  */
 
 public class SetDirectory implements StartupArgument {
-
     @Override
     public void addTo(ArgumentParser argumentParser) {
         argumentParser.addKey("dir");

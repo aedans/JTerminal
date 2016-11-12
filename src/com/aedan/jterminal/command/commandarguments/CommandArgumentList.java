@@ -1,7 +1,7 @@
 package com.aedan.jterminal.command.commandarguments;
 
-import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.input.parser.TokenList;
 
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import java.util.LinkedList;
  */
 
 public class CommandArgumentList extends ArrayList<CommandArgument> {
-
     /**
      * The List of flags in the CommandArgumenList.
      */

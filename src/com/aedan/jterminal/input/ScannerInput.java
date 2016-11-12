@@ -9,7 +9,6 @@ import java.util.Scanner;
  */
 
 public class ScannerInput implements CommandInput {
-
     /**
      * The Scanner for the System Input.
      */

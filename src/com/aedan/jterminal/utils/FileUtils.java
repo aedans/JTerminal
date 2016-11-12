@@ -12,7 +12,6 @@ import java.util.stream.Stream;
  */
 
 public final class FileUtils {
-
     /**
      * Opens a File with the OS default file opener.
      *

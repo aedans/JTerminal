@@ -1,11 +1,11 @@
 package com.aedan.jterminal.packages.defaultpackage.math;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -16,7 +16,6 @@ import com.aedan.jterminal.output.CommandOutput;
  */
 
 public abstract class MathCommand extends Command {
-
     public MathCommand(String identifier) {
         super(identifier);
         properties[1] = identifier + " [num-1] [num-2]:\n" +

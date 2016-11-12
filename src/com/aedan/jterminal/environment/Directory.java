@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
  */
 
 public class Directory implements Supplier<String> {
-
     public static Pattern absoluteDirectoryPattern = Pattern.compile("\\w:.+|/*+|\\\\*+");
 
     /**

@@ -1,9 +1,9 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.commands;
 
+import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
@@ -14,7 +14,6 @@ import com.aedan.jterminal.output.CommandOutput;
  */
 
 public class Echo extends Command {
-
     public Echo() {
         super("echo");
         this.properties[0] = "Outputs text.";

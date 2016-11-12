@@ -7,7 +7,6 @@ package com.aedan.jterminal.command.commandarguments;
  */
 
 public class CommandArgument {
-
     /**
      * The value of the CommandArgument.
      */

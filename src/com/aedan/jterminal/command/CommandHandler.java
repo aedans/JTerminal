@@ -19,7 +19,6 @@ import java.util.Objects;
  */
 
 public class CommandHandler {
-
     /**
      * The Environment containing the CommandHandler.
      */

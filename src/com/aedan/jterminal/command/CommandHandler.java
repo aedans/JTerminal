@@ -48,7 +48,8 @@ public class CommandHandler {
      */
     public void handleInput(CommandInput commandInput, CommandOutput commandOutput, String s) {
         try {
-            this.handleInput(commandInput, commandOutput, parser.parse(environment, s));
+            for (TokenList tokenList : parser.parse(environment, s))
+                this.handleInput(commandInput, commandOutput, tokenList);
         } catch (JTerminalException e) {
             commandOutput.printf("Could not handle command (%s)\n", e.getMessage());
         }

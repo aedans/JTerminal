@@ -23,6 +23,10 @@ public class Parser {
      */
     public LinkedList<ParseRule> parseRules = new LinkedList<>();
 
+    {
+        reservedChars.add(';');
+    }
+
     /**
      * Tokenizes a String.
      *
@@ -30,8 +34,9 @@ public class Parser {
      * @param s           The String to parse.
      * @return The List of Tokens.
      */
-    public TokenList parse(Environment environment, String s) throws JTerminalException {
-        TokenList tokenList = new TokenList();
+    public LinkedList<TokenList> parse(Environment environment, String s) throws JTerminalException {
+        LinkedList<TokenList> tokenLists = new LinkedList<>();
+        tokenLists.add(new TokenList());
         for (int i = 0; i < s.length(); i++) {
             charSwitch:
             switch (s.charAt(i)) {
@@ -39,32 +44,38 @@ public class Parser {
                     i++;
                     if (i == s.length())
                         throw new JTerminalException("Could not find character to escape", this);
-                    tokenList.append(s.charAt(i));
+                    tokenLists.getLast().append(s.charAt(i));
                     break;
                 case ' ':
                 case '\n':
                 case '\t':
-                    tokenList.nextToken();
+                    tokenLists.getLast().nextToken();
+                    break;
+                case ';':
+                    tokenLists.getLast().nextToken();
+                    tokenLists.addLast(new TokenList());
+                    s = s.substring(i);
+                    i = 0;
                     break;
                 default:
                     for (ParseRule parseRule : parseRules) {
                         if (parseRule.getIdentifier() == s.charAt(i)) {
-                            i = parseRule.process(environment, s, i, tokenList);
+                            i = parseRule.process(environment, s, i, tokenLists.getLast());
                             break charSwitch;
                         }
                     }
                     if (reservedChars.contains(s.charAt(i))) {
-                        tokenList.addToken(s.charAt(i));
+                        tokenLists.getLast().addToken(s.charAt(i));
                         break;
                     } else {
-                        tokenList.append(s.charAt(i));
+                        tokenLists.getLast().append(s.charAt(i));
                         break;
                     }
             }
         }
-        tokenList.nextToken();
+        tokenLists.getLast().nextToken();
 
-        return tokenList;
+        return tokenLists;
     }
 
     /**

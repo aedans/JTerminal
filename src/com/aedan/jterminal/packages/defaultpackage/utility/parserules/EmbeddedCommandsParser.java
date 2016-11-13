@@ -46,7 +46,7 @@ public class EmbeddedCommandsParser implements ParseRule {
             }
         }
         StringOutput output = new StringOutput();
-        environment.getCommandHandler().handleInput(environment.getInput(), output, command);
+        environment.getCommandHandler().handleInput(command, environment.getInput(), output);
         tokenList.add(output.getString().trim());
         return j;
     }

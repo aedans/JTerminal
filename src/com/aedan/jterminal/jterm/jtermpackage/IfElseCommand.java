@@ -26,12 +26,12 @@ class IfElseCommand extends Command {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING, ArgumentType.STRING);
 
         StringOutput stringOutput = new StringOutput();
-        environment.getCommandHandler().handleInput(input, stringOutput, args.get(1).value);
+        environment.getCommandHandler().handleInput(args.get(1).value, input, stringOutput);
 
         if (Objects.equals(stringOutput.getString().trim(), "true")) {
-            environment.getCommandHandler().handleInput(input, output, args.get(2).value);
+            environment.getCommandHandler().handleInput(args.get(2).value, input, output);
         } else {
-            environment.getCommandHandler().handleInput(input, output, args.get(3).value);
+            environment.getCommandHandler().handleInput(args.get(3).value, input, output);
         }
     }
 }

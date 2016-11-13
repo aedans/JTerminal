@@ -78,16 +78,6 @@ public class Parser {
         return tokenLists;
     }
 
-    /**
-     * Adds a character to the reserved characters list.
-     *
-     * @param c The character to reserve.
-     */
-    public void addReservedChar(char c) {
-        if (!reservedChars.contains(c))
-            reservedChars.add(c);
-    }
-
     @Override
     public String toString() {
         return "\"parser\":" + JSON.toJSONString(this, true);

@@ -36,14 +36,14 @@ public class For extends Command {
             environment.addGlobalVariable("s", holder);
             for (String s : args.get(1).value.split("\n")) {
                 holder.setS(s);
-                environment.getCommandHandler().handleInput(input, output, args.get(2).value);
+                environment.getCommandHandler().handleInput(args.get(2).value, input, output);
             }
         } else if (args.matches(ArgumentType.LONG, ArgumentType.LONG, ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             LongHolder i = new LongHolder(Long.parseLong(args.get(1).value));
             long max = Long.parseLong(args.get(2).value);
             environment.addGlobalVariable(args.get(3).value, i);
             for (; i.getI() < max; i.increment()) {
-                environment.getCommandHandler().handleInput(input, output, args.get(4).value);
+                environment.getCommandHandler().handleInput(args.get(4).value, input, output);
             }
             environment.removeGlobalVariable(args.get(3).value);
         } else {

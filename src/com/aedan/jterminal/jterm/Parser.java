@@ -94,9 +94,7 @@ final class Parser {
                 // Execute statements
                 for (String statement : statements) {
                     runtime.getEnvironment().getCommandHandler().handleInput(
-                            runtime.getEnvironment().getInput(),
-                            finalCommandOutput,
-                            statement
+                            statement, runtime.getEnvironment().getInput(), finalCommandOutput
                     );
                 }
                 // Ends scope

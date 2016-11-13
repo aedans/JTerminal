@@ -45,35 +45,59 @@ public class JTerminal implements Runnable {
      * Starts the JTerminal.
      */
     public void run() {
-        //set CARET "echo \"\";+ [+ %USERNAME% @] [+ %USERDOMAIN_ROAMINGPROFILE% \" ~\"];echo \\$"
-        StringOutput caret = new StringOutput();
         //noinspection InfiniteLoopStatement
         while (true) {
             try {
-                environment.getCommandHandler().handleInput(
-                        environment.getInput(),
-                        caret,
-                        environment.getEnvironmentVariables().get("CARET").toString()
-                );
-                environment.getOutput().print(caret.getString().trim());
-                caret.flush();
-                handleString(environment.getInput().nextLine());
-            } catch (Exception | VirtualMachineError e) {
-                environment.getOutput().println("Fatal error: " + e);
-                for (StackTraceElement s : e.getStackTrace()) {
-                    environment.getOutput().println(s);
-                }
+                printCaret();
+                handleInput();
+            } catch (Throwable t) {
+                onError(t);
             }
+        }
+    }
+
+    /**
+     * Prints the JTerminal caret.
+     *
+     * @throws JTerminalException If there was an error printing the caret.
+     */
+    protected void printCaret() throws JTerminalException {
+        StringOutput caret = new StringOutput();
+        environment.getCommandHandler().handleInput(
+                environment.getEnvironmentVariables().get("CARET").toString(), environment.getInput(), caret
+        );
+        environment.getOutput().print(caret.getString().trim());
+        caret.flush();
+    }
+
+    /**
+     * Requests and handles a single line of input.
+     *
+     * @throws JTerminalException If there was an error handling the input.
+     */
+    protected void handleInput() throws JTerminalException {
+        handleString(environment.getInput().nextLine());
+    }
+
+    /**
+     * Hook called on a caught error.
+     *
+     * @param throwable The throwable that was caught.
+     */
+    protected void onError(Throwable throwable) {
+        environment.getOutput().println("Fatal error: " + throwable);
+        for (StackTraceElement s : throwable.getStackTrace()) {
+            environment.getOutput().println(s);
         }
     }
 
     /**
      * Handles a given String.
      *
-     * @param s The String to handle.
+     * @param s The String to execute.
      */
     public void handleString(String s) throws JTerminalException {
-        environment.getCommandHandler().handleInput(environment.getInput(), environment.getOutput(), s);
+        environment.getCommandHandler().handleInput(s, environment.getInput(), environment.getOutput());
     }
 
     public Environment getEnvironment() {

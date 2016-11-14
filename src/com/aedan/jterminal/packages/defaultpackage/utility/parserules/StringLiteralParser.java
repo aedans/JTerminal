@@ -1,9 +1,9 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
-import com.aedan.jterminal.input.parser.TokenList;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -18,9 +18,9 @@ public class StringLiteralParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException {
-        tokenList.nextToken();
+    public int process(Environment environment, String s, int i, ArgumentList argumentList) throws JTerminalException {
         int j = i + 1;
+        String literal = "";
         label:
         for (; true; j++) {
             if (j >= s.length())
@@ -28,20 +28,16 @@ public class StringLiteralParser implements ParseRule {
             switch (s.charAt(j)) {
                 case '\\':
                     j++;
-                    tokenList.append(s.charAt(j));
+                    literal += s.charAt(j);
                     break;
                 case '\"':
                     break label;
                 default:
-                    tokenList.append(s.charAt(j));
+                    literal += s.charAt(j);
                     break;
             }
         }
-        if (tokenList.getCurrentToken().isEmpty()) {
-            tokenList.add("");
-        } else {
-            tokenList.nextToken();
-        }
+        argumentList.add(literal);
         return j;
     }
 

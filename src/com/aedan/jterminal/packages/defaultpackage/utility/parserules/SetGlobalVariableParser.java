@@ -1,9 +1,9 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
-import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.StringOutput;
 
 /**
@@ -19,7 +19,7 @@ public class SetGlobalVariableParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException {
+    public int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException {
         StringOutput value = new StringOutput(), name = new StringOutput();
         environment.getCommandHandler().handleInput(s.substring(i + 1), environment.getInput(), value);
         environment.getCommandHandler().handleInput(s.substring(0, i), environment.getInput(), name);

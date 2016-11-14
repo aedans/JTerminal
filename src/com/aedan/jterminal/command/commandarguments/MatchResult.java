@@ -3,7 +3,7 @@ package com.aedan.jterminal.command.commandarguments;
 /**
  * Created by Aedan Smith.
  * <p>
- * Class for returning the result of CommandArgumentList matches.
+ * Class for returning the result of ArgumentList matches.
  */
 
 public enum MatchResult {

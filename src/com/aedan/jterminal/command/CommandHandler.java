@@ -1,11 +1,11 @@
 package com.aedan.jterminal.command;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.input.parser.Parser;
-import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
 import com.alibaba.fastjson.JSON;
@@ -43,15 +43,15 @@ public class CommandHandler {
     /**
      * Handles a line of input.
      *
-     * @param s             The String to execute.
+     * @param s      The String to execute.
      * @param input  The CommandInput to read the input from.
      * @param output The CommandOutput to write the output to.
      */
     public void handleInput(String s, CommandInput input, CommandOutput output)
             throws JTerminalException {
         try {
-            for (TokenList tokenList : parser.parse(environment, s)) {
-                this.handleInput(tokenList, input, output);
+            for (ArgumentList argumentList : parser.parse(environment, s)) {
+                this.handleInput(argumentList, input, output);
             }
         } catch (JTerminalException e) {
             onFatalExecution(input, output, e);
@@ -61,19 +61,19 @@ public class CommandHandler {
     /**
      * Handles a pre-parsed line of input.
      *
-     * @param tokens The list of parsed Tokens.
+     * @param arguments The list of parsed Tokens.
      * @param input  The CommandInput to read the input from.
      * @param output The CommandOutput to write the output to.
      */
-    public void handleInput(TokenList tokens, CommandInput input, CommandOutput output) throws JTerminalException {
+    public void handleInput(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
         try {
-            if (!verify(tokens, input, output))
+            if (!verify(arguments, input, output))
                 return;
 
-            if (execute(tokens, input, output)) {
-                onSuccessfulExecution(tokens, input, output);
+            if (execute(arguments, input, output)) {
+                onSuccessfulExecution(arguments, input, output);
             } else {
-                onFailedExecution(tokens, input, output);
+                onFailedExecution(arguments, input, output);
             }
         } catch (JTerminalException e) {
             onFatalExecution(input, output, e);
@@ -83,31 +83,31 @@ public class CommandHandler {
     /**
      * Verifies input.
      *
-     * @param tokens The TokenList input.
+     * @param arguments The TokenList input.
      * @param input  The CommandInput.
      * @param output The CommandOutput.
      * @return If the input should be ignored.
      * @throws JTerminalException If there is an error with the input.
      */
-    protected boolean verify(TokenList tokens, CommandInput input, CommandOutput output) throws JTerminalException {
-        if (tokens == null || input == null || output == null)
+    protected boolean verify(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
+        if (arguments == null || input == null || output == null)
             throw new IllegalArgumentException("Input is null");
-        return !tokens.isEmpty();
+        return !arguments.isEmpty();
     }
 
     /**
      * Executes a TokenList.
      *
-     * @param tokens The TokenList to execute.
-     * @param input  The CommandInput.
-     * @param output The CommandOutput.
+     * @param arguments The TokenList to execute.
+     * @param input     The CommandInput.
+     * @param output    The CommandOutput.
      * @return If the execution was successful.
      * @throws JTerminalException If there was an error during execution.
      */
-    protected boolean execute(TokenList tokens, CommandInput input, CommandOutput output) throws JTerminalException {
+    protected boolean execute(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
         for (Command command : environment.getCommands()) {
-            if (Objects.equals(command.getIdentifier(), tokens.get(0))) {
-                command.parse(new CommandArgumentList(tokens), input, output, environment);
+            if (Objects.equals(command.getIdentifier(), arguments.get(0).value)) {
+                command.parse(arguments, input, output, environment);
                 return true;
             }
         }
@@ -117,27 +117,28 @@ public class CommandHandler {
     /**
      * Hook called upon successful executions.
      */
-    protected void onSuccessfulExecution(TokenList tokens, CommandInput input, CommandOutput output)
+    protected void onSuccessfulExecution(ArgumentList arguments, CommandInput input, CommandOutput output)
             throws JTerminalException {
     }
 
     /**
      * Hook called upon failed executions.
      */
-    protected void onFailedExecution(TokenList tokens, CommandInput input, CommandOutput output)
+    protected void onFailedExecution(ArgumentList arguments, CommandInput input, CommandOutput output)
             throws JTerminalException {
-        File file = environment.getPath().get(tokens.get(0) + ".jterm");
+        File file = environment.getPath().get(arguments.get(0).value + ".jterm");
         if (file != null && file.exists()) {
-            ExecuteJTermFile.execute(tokens, input, output, environment);
+            arguments.add(0, new Argument("exec"));
+            ExecuteJTermFile.execute(arguments, input, output, environment);
             return;
         }
 
-        if (tokens.size() == 1) {
-            output.println(tokens.get(0));
+        if (arguments.size() == 1) {
+            output.println(arguments.get(0));
             return;
         }
 
-        throw new JTerminalException("Unrecognized Command \"" + tokens.get(0) + "\"", this);
+        throw new JTerminalException("Unrecognized Command \"" + arguments.get(0) + "\"", this);
     }
 
     /**

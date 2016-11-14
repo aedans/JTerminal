@@ -2,10 +2,9 @@ package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.parser.TokenList;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.utils.FileUtils;
@@ -25,13 +24,7 @@ public class ExecuteJTermFile extends Command {
                         "    Executes a file with the name [string].jterm, line by line.";
     }
 
-    public static void execute(TokenList args, CommandInput input, CommandOutput output, Environment environment)
-            throws JTerminalException {
-        args.add(0, "exec");
-        execute(new CommandArgumentList(args), input, output, environment);
-    }
-
-    public static void execute(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public static void execute(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
             if (args.size() == 1)
@@ -56,7 +49,7 @@ public class ExecuteJTermFile extends Command {
     }
 
     @Override
-    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         execute(args, input, output, environment);
     }

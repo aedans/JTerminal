@@ -2,8 +2,8 @@ package com.aedan.jterminal.packages.defaultpackage.io.commands;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
-import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -31,14 +31,14 @@ public class Concatenate extends Command {
     }
 
     @Override
-    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.matches() == MatchResult.CORRECT_ARGS) {
             String out = "";
             String in = input.nextLine();
             while (!Objects.equals(in.trim().toLowerCase(), "exit")) {
                 out += in + "\n";
-                if (args.isFlagPresent("l"))
+                if (args.flags.contains("l"))
                     break;
                 in = input.nextLine();
             }

@@ -48,7 +48,9 @@ public class JTermRuntime {
      * @throws JTerminalException If there was an error running the JTermRuntime.
      */
     public void run(String... args) throws JTerminalException {
-        environment.getOutput().print(getFunction("main").apply(args));
+        Object o = getFunction("main").apply(args);
+        if (o != null)
+            environment.getOutput().println(o.toString().trim());
     }
 
     public void add(Function function) {

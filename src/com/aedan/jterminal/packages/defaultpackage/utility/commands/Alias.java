@@ -2,9 +2,9 @@ package com.aedan.jterminal.packages.defaultpackage.utility.commands;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
+import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
-import com.aedan.jterminal.command.commandarguments.CommandArgument;
-import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -25,7 +25,7 @@ public class Alias extends Command {
     }
 
     @Override
-    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
@@ -35,12 +35,12 @@ public class Alias extends Command {
 
         environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {
             @Override
-            public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+            public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
                     throws JTerminalException {
                 String command = s;
                 for (int i = 1; i < args.size(); i++) {
-                    CommandArgument commandArgument = args.get(i);
-                    command += " \"" + commandArgument.value + "\"";
+                    Argument argument = args.get(i);
+                    command += " \"" + argument.value + "\"";
                 }
 
                 environment.getCommandHandler().handleInput(command, input, output);

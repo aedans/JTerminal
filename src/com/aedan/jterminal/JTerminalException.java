@@ -3,6 +3,7 @@ package com.aedan.jterminal;
 /**
  * Created by Aedan Smith.
  */
+
 public class JTerminalException extends Exception {
     /**
      * The default JTerminalException constructor.

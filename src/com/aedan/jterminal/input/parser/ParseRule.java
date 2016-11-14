@@ -1,6 +1,7 @@
 package com.aedan.jterminal.input.parser;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 
 /**
@@ -25,5 +26,5 @@ public interface ParseRule {
      * @return The index for the Parser to resume.
      * @throws JTerminalException If there is an error parsing the TokenList.
      */
-    int process(Environment environment, String s, int i, TokenList tokenList) throws JTerminalException;
+    int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException;
 }

@@ -3,7 +3,7 @@ package com.aedan.jterminal.command.commandarguments;
 /**
  * Created by Aedan Smith on 8/28/2016.
  * <p>
- * Enum containing all ArgumentTypes supported by the CommandArgumentList.
+ * Enum containing all ArgumentTypes supported by the ArgumentList.
  */
 
 public enum ArgumentType {

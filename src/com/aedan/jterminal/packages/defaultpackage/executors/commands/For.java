@@ -2,8 +2,8 @@ package com.aedan.jterminal.packages.defaultpackage.executors.commands;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.command.commandarguments.ArgumentType;
-import com.aedan.jterminal.command.commandarguments.CommandArgumentList;
 import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -29,7 +29,7 @@ public class For extends Command {
     }
 
     @Override
-    public void parse(CommandArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.matches(ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             StringHolder holder = new StringHolder("");

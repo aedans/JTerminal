@@ -19,7 +19,7 @@ public interface CommandOutput {
     void print(String s);
 
     default void print(Object o) {
-        print(o.toString());
+        print(o == null ? "null" : o.toString());
     }
 
     default void println(String s) {
@@ -27,7 +27,7 @@ public interface CommandOutput {
     }
 
     default void println(Object o) {
-        println(o.toString());
+        println(o == null ? "null" : o.toString());
     }
 
     default void printf(String s, Object... o) {

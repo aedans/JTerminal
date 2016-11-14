@@ -6,32 +6,32 @@ package com.aedan.jterminal.command.commandarguments;
  * Class for passing arguments to Commands.
  */
 
-public class CommandArgument {
+public class Argument {
     /**
-     * The value of the CommandArgument.
+     * The value of the Argument.
      */
     public String value;
     /**
-     * The ArgumentType of the CommandArgument.
+     * The ArgumentType of the Argument.
      */
     private ArgumentType argumentType;
 
     /**
-     * Default CommandArgument constructor.
+     * Default Argument constructor.
      *
-     * @param value The value of the CommandArgument.
+     * @param value The value of the Argument.
      */
-    CommandArgument(String value) {
+    public Argument(String value) {
         this(value, null);
     }
 
     /**
-     * CommandArgument constructor for assigning custom ArgumentTypes.
+     * Argument constructor for assigning custom ArgumentTypes.
      *
-     * @param value        The value of the CommandArgument.
-     * @param argumentType The ArgumentType of the CommandArgument.
+     * @param value        The value of the Argument.
+     * @param argumentType The ArgumentType of the Argument.
      */
-    CommandArgument(String value, ArgumentType argumentType) {
+    Argument(String value, ArgumentType argumentType) {
         this.value = value;
         this.argumentType = argumentType;
     }

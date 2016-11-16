@@ -29,13 +29,13 @@ public class AdditionCommand extends MathCommand {
 
         if (args.get(1).getArgumentType().isSubset(ArgumentType.LONG)
                 && args.get(2).getArgumentType().isSubset(ArgumentType.LONG))
-            output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
+            output.println(apply(Long.parseLong(args.get(1).toString()), Long.parseLong(args.get(2).toString())));
         else if (args.get(1).getArgumentType().isSubset(ArgumentType.DOUBLE)
                 && args.get(2).getArgumentType().isSubset(ArgumentType.DOUBLE))
-            output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
+            output.println(apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString())));
         else
             try {
-                output.println(args.get(1).value + args.get(2).value);
+                output.println(args.get(1).toString() + args.get(2).toString());
             } catch (NumberFormatException e) {
                 throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
             }

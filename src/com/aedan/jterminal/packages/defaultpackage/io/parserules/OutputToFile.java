@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.output.StringOutput;
@@ -26,7 +27,7 @@ public class OutputToFile implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException {
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s) throws JTerminalException {
         try {
             StringOutput fileName = new StringOutput();
             environment.getCommandHandler().handleInput(s.substring(i + 1), environment.getInput(), fileName);
@@ -39,7 +40,7 @@ public class OutputToFile implements ParseRule {
 
             environment.getCommandHandler().handleInput(s.substring(0, i), environment.getInput(), fileOut);
             fileOut.close();
-            tokenList.clear();
+            argumentList.clear();
             return s.length();
         } catch (Exception e) {
             throw new JTerminalException(e.getMessage(), this);

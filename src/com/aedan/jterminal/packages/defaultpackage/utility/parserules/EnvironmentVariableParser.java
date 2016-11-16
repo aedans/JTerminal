@@ -1,9 +1,11 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -18,7 +20,8 @@ public class EnvironmentVariableParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException {
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+            throws JTerminalException {
         String varName = "";
         int j = i + 1;
         label:
@@ -41,7 +44,7 @@ public class EnvironmentVariableParser implements ParseRule {
         if (value == null)
             throw new JTerminalException("Could not find environment variable with name " + varName, this);
         else
-            tokenList.add(value.toString());
+            argumentList.add(new Argument(value));
         return j;
     }
 

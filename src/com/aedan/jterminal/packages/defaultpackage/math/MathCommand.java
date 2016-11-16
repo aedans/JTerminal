@@ -27,9 +27,9 @@ public abstract class MathCommand extends Command {
             throws JTerminalException {
         try {
             if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == MatchResult.CORRECT_ARGS)
-                output.println(apply(Long.parseLong(args.get(1).value), Long.parseLong(args.get(2).value)));
+                output.println(apply(Long.parseLong(args.get(1).toString()), Long.parseLong(args.get(2).toString())));
             else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == MatchResult.CORRECT_ARGS)
-                output.println(apply(Double.parseDouble(args.get(1).value), Double.parseDouble(args.get(2).value)));
+                output.println(apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString())));
             else {
                 throw new JTerminalException("Incorrect arguments given", this);
             }

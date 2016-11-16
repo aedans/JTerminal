@@ -38,9 +38,10 @@ public class ExecuteJTermFile extends Command {
             } catch (Exception e) {
                 throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
             }
+            // TODO: Object[]
             String[] arguments = new String[args.size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
-                arguments[i] = args.get(i + 2).value;
+                arguments[i] = args.get(i + 2).toString();
             }
             runtime.run(arguments);
         } catch (FileUtils.FileIOException e) {

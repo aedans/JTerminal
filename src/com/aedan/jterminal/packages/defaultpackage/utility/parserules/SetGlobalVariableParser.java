@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.output.StringOutput;
 
 /**
@@ -19,13 +20,14 @@ public class SetGlobalVariableParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException {
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+            throws JTerminalException {
         StringOutput value = new StringOutput(), name = new StringOutput();
         environment.getCommandHandler().handleInput(s.substring(i + 1), environment.getInput(), value);
         environment.getCommandHandler().handleInput(s.substring(0, i), environment.getInput(), name);
 
         environment.addGlobalVariable(name.getString().trim(), value.getString().trim());
-        tokenList.clear();
+        argumentList.clear();
         return s.length();
     }
 

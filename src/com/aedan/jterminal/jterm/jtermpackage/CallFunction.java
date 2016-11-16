@@ -23,12 +23,13 @@ class CallFunction extends Command {
     @Override
     public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
+        // TODO: Object[]
         String[] arguments = new String[args.size() - 2];
         for (int i = 0; i < args.size() - 2; i++) {
-            arguments[i] = args.get(i + 2).value;
+            arguments[i] = args.get(i + 2).toString();
         }
 
-        Object o = runtime.getFunction(args.get(1).value).apply(arguments);
+        Object o = runtime.getFunction(args.get(1).toString()).apply(arguments);
         if (o != null)
             output.print(o);
     }

@@ -20,11 +20,11 @@ public interface ParseRule {
      * Processes a ParseRule.
      *
      * @param environment The Environment for the ParseRule.
-     * @param s           The original String.
-     * @param i           The current index of the Parser.
-     * @param tokenList   The TokenList to process.
-     * @return The index for the Parser to resume.
+     * @param parser
+     *@param i           The current index of the Parser.
+     * @param argumentList   The TokenList to process.
+     * @param s           The original String.    @return The index for the Parser to resume.
      * @throws JTerminalException If there is an error parsing the TokenList.
      */
-    int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException;
+    int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s) throws JTerminalException;
 }

@@ -52,14 +52,23 @@ public class ArgumentList extends ArrayList<Argument> {
         return MatchResult.CORRECT_ARGS;
     }
 
-    public void add(char c) {
-        this.add(new Argument(String.valueOf(c)));
-    }
-
     public void add(String string) {
         if (string.length() > 1 && string.charAt(0) == '-')
             flags.add(string.substring(1));
-        else
+        else {
             add(new Argument(string));
+        }
+    }
+
+    public Argument getLast() {
+        return this.get(size() - 1);
+    }
+
+    public void setLast(Argument argument) {
+        this.set(size() - 1, argument);
+    }
+
+    public void removeLast() {
+        remove(size() - 1);
     }
 }

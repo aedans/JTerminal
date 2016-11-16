@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -18,11 +19,12 @@ public class StringLiteralParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, ArgumentList argumentList) throws JTerminalException {
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+            throws JTerminalException {
         int j = i + 1;
         String literal = "";
         label:
-        for (; true; j++) {
+        for (; ; j++) {
             if (j >= s.length())
                 throw new JTerminalException("Could not find matching \"", this);
             switch (s.charAt(j)) {

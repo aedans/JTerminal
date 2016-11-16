@@ -1,0 +1,100 @@
+package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+
+import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
+import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Objects;
+
+/**
+ * Created by Aedan Smith.
+ */
+
+public class MethodAccessParser implements ParseRule {
+    @Override
+    public char getIdentifier() {
+        return '.';
+    }
+
+    @Override
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+            throws JTerminalException {
+        try {
+            String name = "", args = "";
+            for (i++; i < s.length(); i++) {
+                if (s.charAt(i) == '(') {
+                    break;
+                } else {
+                    name += s.charAt(i);
+                }
+            }
+            for (i++; i < s.length(); i++) {
+                if (s.charAt(i) == ')') {
+                    break;
+                } else {
+                    args += s.charAt(i);
+                }
+            }
+
+            LinkedList<ArgumentList> mArgs = parser.parse(environment, args);
+            ArrayList<Argument> arguments = new ArrayList<>();
+            mArgs.forEach(arguments::addAll);
+
+            Object[] objects = new Object[arguments.size()];
+            Class<?>[] classes = new Class<?>[arguments.size()];
+            for (int j = 0; j < arguments.size(); j++) {
+                objects[j] = arguments.get(j).value;
+                classes[j] = arguments.get(j).value.getClass();
+            }
+
+            Method m = null;
+            loop:
+            for (Method method : argumentList.getLast().value.getClass().getDeclaredMethods()) {
+                Class<?>[] params = method.getParameterTypes();
+                if (params.length != classes.length || !Objects.equals(method.getName(), name)) {
+                    continue;
+                }
+
+                for (int j = 0; j < params.length; j++) {
+                    if (!params[j].isAssignableFrom(classes[j]) && !params[j].equals(classes[j])) {
+                        continue loop;
+                    }
+                }
+
+                m = method;
+                break;
+            }
+            if (m == null)
+                throw new JTerminalException("Could not find method with name \"" + name + "\" and args \"" + args + "\"", this);
+            if (mArgs.isEmpty()) {
+                Object o = m.invoke(argumentList.getLast().value);
+                if (o != null)
+                    argumentList.setLast(new Argument(o));
+                else
+                    argumentList.removeLast();
+            } else {
+                Object o = m.invoke(argumentList.getLast().value, objects);
+                if (o != null)
+                    argumentList.setLast(new Argument(o));
+                else
+                    argumentList.removeLast();
+            }
+            return i;
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace(System.out);
+            throw new JTerminalException(e.getMessage(), this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}

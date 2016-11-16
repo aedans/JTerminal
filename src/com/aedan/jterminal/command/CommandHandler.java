@@ -22,14 +22,13 @@ import java.util.Objects;
 @SuppressWarnings("WeakerAccess")
 public class CommandHandler {
     /**
+     * The Parser for the CommandHandler.
+     */
+    public Parser parser = new Parser();
+    /**
      * The Environment containing the CommandHandler.
      */
     private Environment environment;
-
-    /**
-     * The Parser for the CommandHandler.
-     */
-    private Parser parser = new Parser();
 
     /**
      * Default CommandHandler constructor.
@@ -147,14 +146,6 @@ public class CommandHandler {
     protected void onFatalExecution(CommandInput input, CommandOutput output, JTerminalException e)
             throws JTerminalException {
         output.printf("Could not execute command (%s)\n", e.getMessage());
-    }
-
-    public Parser getParser() {
-        return parser;
-    }
-
-    public void setParser(Parser parser) {
-        this.parser = parser;
     }
 
     @Override

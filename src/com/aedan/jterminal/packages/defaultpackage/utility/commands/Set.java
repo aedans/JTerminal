@@ -24,6 +24,6 @@ public class Set extends Command {
             throws JTerminalException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
-        environment.getEnvironmentVariables().put(args.get(1).value, args.get(2).value);
+        environment.getEnvironmentVariables().put(args.get(1).toString(), args.get(2).value);
     }
 }

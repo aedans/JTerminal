@@ -14,11 +14,13 @@ import com.aedan.jterminal.packages.defaultpackage.utility.parserules.*;
 public class UtilityPackage implements Package {
     @Override
     public void addTo(Environment environment) {
-        environment.getCommandHandler().getParser().parseRules.add(new EmbeddedCommandsParser());
-        environment.getCommandHandler().getParser().parseRules.add(new EnvironmentVariableParser());
-        environment.getCommandHandler().getParser().parseRules.add(new GlobalVariableParser());
-        environment.getCommandHandler().getParser().parseRules.add(new StringLiteralParser());
-        environment.getCommandHandler().getParser().parseRules.add(new SetGlobalVariableParser());
+        environment.getCommandHandler().parser.parseRules.add(new EmbeddedCommandsParser());
+        environment.getCommandHandler().parser.parseRules.add(new EnvironmentVariableParser());
+        environment.getCommandHandler().parser.parseRules.add(new GlobalVariableParser());
+        environment.getCommandHandler().parser.parseRules.add(new StringLiteralParser());
+        environment.getCommandHandler().parser.parseRules.add(new SetGlobalVariableParser());
+        environment.getCommandHandler().parser.parseRules.add(new FieldAccessParser());
+        environment.getCommandHandler().parser.parseRules.add(new MethodAccessParser());
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help());

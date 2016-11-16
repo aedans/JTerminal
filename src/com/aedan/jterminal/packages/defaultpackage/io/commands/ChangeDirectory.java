@@ -30,7 +30,7 @@ public class ChangeDirectory extends Command {
             throws JTerminalException {
         args.checkMatches(this, ArgumentType.STRING);
 
-        Path path = environment.getDirectory().getPath(args.get(1).value);
+        Path path = environment.getDirectory().getPath(args.get(1).toString());
         if (path != null) {
             environment.getDirectory().setPath(path);
         }

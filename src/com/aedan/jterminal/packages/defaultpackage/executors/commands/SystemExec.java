@@ -29,7 +29,7 @@ public class SystemExec extends Command {
         args.checkMatches(this, ArgumentType.STRING);
 
         try {
-            Process process = Runtime.getRuntime().exec(args.get(1).value);
+            Process process = Runtime.getRuntime().exec(args.get(1).toString());
             final byte[] buffer = new byte[1024];
             while (process.getInputStream().read(buffer) != -1) {
                 for (byte b : buffer) {

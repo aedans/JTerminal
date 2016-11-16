@@ -29,11 +29,11 @@ public class Alias extends Command {
             throws JTerminalException {
         args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
 
-        String s = args.get(2).value;
+        String s = args.get(2).toString();
 
-        environment.removeCommand(args.get(1).value);
+        environment.removeCommand(args.get(1).toString());
 
-        environment.addCommand(new Command(args.get(1).value, "Aliased Command.", "Executes \"" + args.get(2).value + "\"") {
+        environment.addCommand(new Command(args.get(1).toString(), "Aliased Command.", "Executes \"" + args.get(2).toString() + "\"") {
             @Override
             public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
                     throws JTerminalException {

@@ -1,6 +1,7 @@
 package com.aedan.jterminal.input.parser;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.alibaba.fastjson.JSON;
@@ -46,7 +47,7 @@ public class Parser {
                     i++;
                     if (i == s.length())
                         throw new JTerminalException("Could not find character to escape", this);
-                    argumentLists.getLast().add(s.charAt(i));
+                    argumentLists.getLast().add(new Argument(s.charAt(i)));
                     break;
                 case ' ':
                 case '\n':
@@ -72,12 +73,12 @@ public class Parser {
                                 argumentLists.getLast().add(currentToken);
                                 currentToken = "";
                             }
-                            i = parseRule.process(environment, s, i, argumentLists.getLast());
+                            i = parseRule.process(environment, this, i, argumentLists.getLast(), s);
                             break charSwitch;
                         }
                     }
                     if (reservedChars.contains(s.charAt(i))) {
-                        argumentLists.getLast().add(s.charAt(i));
+                        argumentLists.getLast().add(new Argument(s.charAt(i)));
                         break;
                     } else {
                         currentToken += s.charAt(i);

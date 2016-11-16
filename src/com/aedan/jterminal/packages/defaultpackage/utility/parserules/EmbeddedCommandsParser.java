@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.output.StringOutput;
 
 /**
@@ -19,7 +20,8 @@ public class EmbeddedCommandsParser implements ParseRule {
     }
 
     @Override
-    public int process(Environment environment, String s, int i, ArgumentList tokenList) throws JTerminalException {
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+            throws JTerminalException {
         String command = "";
         int j = i + 1, depth = 1;
         label:
@@ -46,7 +48,7 @@ public class EmbeddedCommandsParser implements ParseRule {
         }
         StringOutput output = new StringOutput();
         environment.getCommandHandler().handleInput(command, environment.getInput(), output);
-        tokenList.add(output.getString().trim());
+        argumentList.add(output.getString().trim());
         return j;
     }
 

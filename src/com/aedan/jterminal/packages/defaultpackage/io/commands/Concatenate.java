@@ -45,7 +45,7 @@ public class Concatenate extends Command {
             output.print(out);
         } else if (args.matches(ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             try {
-                output.println(FileUtils.readFile(environment.getDirectory().subFile(args.get(1).value), true));
+                output.println(FileUtils.readFile(environment.getDirectory().subFile(args.get(1).toString()), true));
             } catch (FileUtils.FileIOException e) {
                 throw new JTerminalException(e.getMessage(), this);
             }
@@ -53,7 +53,7 @@ public class Concatenate extends Command {
             String s = "";
             for (int i = 1; i < args.size(); i++) {
                 try {
-                    s += FileUtils.readFile(environment.getDirectory().subFile(args.get(i).value), true);
+                    s += FileUtils.readFile(environment.getDirectory().subFile(args.get(i).toString()), true);
                 } catch (FileUtils.FileIOException e) {
                     throw new JTerminalException(e.getMessage(), this);
                 }

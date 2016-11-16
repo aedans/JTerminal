@@ -21,6 +21,6 @@ class LessThan extends Command {
     public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws JTerminalException {
         args.checkMatches(this, ArgumentType.DOUBLE, ArgumentType.DOUBLE);
 
-        output.println(Double.parseDouble(args.get(1).value) < Double.parseDouble(args.get(2).value));
+        output.println(Double.parseDouble(args.get(1).toString()) < Double.parseDouble(args.get(2).toString()));
     }
 }

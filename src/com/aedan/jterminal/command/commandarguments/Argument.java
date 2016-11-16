@@ -10,7 +10,7 @@ public class Argument {
     /**
      * The value of the Argument.
      */
-    public String value;
+    public Object value;
     /**
      * The ArgumentType of the Argument.
      */
@@ -21,7 +21,7 @@ public class Argument {
      *
      * @param value The value of the Argument.
      */
-    public Argument(String value) {
+    public Argument(Object value) {
         this(value, null);
     }
 
@@ -31,19 +31,19 @@ public class Argument {
      * @param value        The value of the Argument.
      * @param argumentType The ArgumentType of the Argument.
      */
-    Argument(String value, ArgumentType argumentType) {
+    Argument(Object value, ArgumentType argumentType) {
         this.value = value;
         this.argumentType = argumentType;
     }
 
     public ArgumentType getArgumentType() {
         if (argumentType == null)
-            argumentType = ArgumentType.getArgumentType(value);
+            argumentType = ArgumentType.getArgumentType(value.toString());
         return argumentType;
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 }

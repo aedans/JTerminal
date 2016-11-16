@@ -27,8 +27,8 @@ class WhileCommand extends Command {
 
         StringOutput stringOutput = new StringOutput();
         while (!Objects.equals(stringOutput.getString().trim(), "false")) {
-            environment.getCommandHandler().handleInput(args.get(1).value, input, stringOutput);
-            environment.getCommandHandler().handleInput(args.get(2).value, input, output);
+            environment.getCommandHandler().handleInput(args.get(1).toString(), input, stringOutput);
+            environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
         }
     }
 }

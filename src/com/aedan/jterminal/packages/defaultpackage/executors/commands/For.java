@@ -34,18 +34,18 @@ public class For extends Command {
         if (args.matches(ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
             StringHolder holder = new StringHolder("");
             environment.addGlobalVariable("s", holder);
-            for (String s : args.get(1).value.split("\n")) {
+            for (String s : args.get(1).toString().split("\n")) {
                 holder.setS(s);
-                environment.getCommandHandler().handleInput(args.get(2).value, input, output);
+                environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
             }
-        } else if (args.matches(ArgumentType.LONG, ArgumentType.LONG, ArgumentType.STRING, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
-            LongHolder i = new LongHolder(Long.parseLong(args.get(1).value));
-            long max = Long.parseLong(args.get(2).value);
-            environment.addGlobalVariable(args.get(3).value, i);
+        } else if (args.matches(ArgumentType.LONG, ArgumentType.LONG, ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
+            LongHolder i = new LongHolder(Long.parseLong(args.get(1).toString()));
+            long max = Long.parseLong(args.get(2).toString());
+            environment.addGlobalVariable("i", i);
             for (; i.getI() < max; i.increment()) {
-                environment.getCommandHandler().handleInput(args.get(4).value, input, output);
+                environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
             }
-            environment.removeGlobalVariable(args.get(3).value);
+            environment.removeGlobalVariable("i");
         } else {
             throw new JTerminalException("Incorrect arguments given", this);
         }

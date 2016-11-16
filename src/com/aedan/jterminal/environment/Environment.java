@@ -80,7 +80,7 @@ public class Environment {
         this.environmentVariables.put("IN", input);
         this.environmentVariables.put("OUT", output);
         this.environmentVariables.put("CMDHANDLER", commandHandler);
-        this.environmentVariables.put("CARET", "+ %DIR% \\>");
+        this.environmentVariables.put("CARET", "%DIR% ; \\>");
 
         this.input = input;
         this.output = output;

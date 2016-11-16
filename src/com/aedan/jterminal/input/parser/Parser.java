@@ -4,8 +4,6 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.packages.defaultpackage.utility.parserules.NumberParser;
-import com.aedan.jterminal.packages.defaultpackage.utility.parserules.StringLiteralParser;
 import com.alibaba.fastjson.JSON;
 
 import java.util.LinkedList;
@@ -28,7 +26,6 @@ public class Parser {
     public LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     {
-        reservedChars.add(';');
         parseRules.add(new NumberParser());
         parseRules.add(new StringLiteralParser());
     }
@@ -74,7 +71,7 @@ public class Parser {
                     } else {
                         String literal = "";
                         for (; i < s.length(); i++) {
-                            if (s.charAt(i) == ' ')
+                            if (!Character.isAlphabetic(s.charAt(i)))
                                 break;
                             literal += s.charAt(i);
                         }

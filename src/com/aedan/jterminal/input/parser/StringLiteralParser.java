@@ -1,10 +1,8 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+package com.aedan.jterminal.input.parser;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.parser.ParseRule;
-import com.aedan.jterminal.input.parser.Parser;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -17,6 +15,7 @@ public class StringLiteralParser implements ParseRule {
     public boolean matches(String s, int i) {
         return s.charAt(i) == '\"';
     }
+
     @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {

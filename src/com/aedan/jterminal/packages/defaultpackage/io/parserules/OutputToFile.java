@@ -22,8 +22,8 @@ import java.io.PrintStream;
 
 public class OutputToFile implements ParseRule {
     @Override
-    public char getIdentifier() {
-        return '>';
+    public boolean matches(String s, int i) {
+        return s.charAt(i) == '>';
     }
 
     @Override

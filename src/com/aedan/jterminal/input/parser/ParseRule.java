@@ -11,10 +11,7 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 public interface ParseRule {
-    /**
-     * @return The character upon which to call the ParseRule.
-     */
-    char getIdentifier();
+    boolean matches(String s, int i);
 
     /**
      * Processes a ParseRule.

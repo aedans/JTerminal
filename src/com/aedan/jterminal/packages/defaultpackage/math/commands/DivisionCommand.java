@@ -15,11 +15,6 @@ public class DivisionCommand extends MathCommand {
     }
 
     @Override
-    public long apply(long l1, long l2) {
-        return l1 / l2;
-    }
-
-    @Override
     public double apply(double d1, double d2) {
         return d1 / d2;
     }

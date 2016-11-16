@@ -15,8 +15,8 @@ import java.lang.reflect.Field;
 
 public class FieldAccessParser implements ParseRule {
     @Override
-    public char getIdentifier() {
-        return ':';
+    public boolean matches(String s, int i) {
+        return s.charAt(i) == ':';
     }
 
     @Override

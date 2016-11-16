@@ -4,7 +4,6 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -27,7 +26,7 @@ public class Alias extends Command {
     @Override
     public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        args.checkMatches(this, ArgumentType.STRING, ArgumentType.STRING);
+        args.checkMatches(this, String.class, String.class);
 
         String s = args.get(2).toString();
 

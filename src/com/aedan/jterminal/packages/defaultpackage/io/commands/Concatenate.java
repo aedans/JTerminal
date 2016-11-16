@@ -3,7 +3,6 @@ package com.aedan.jterminal.packages.defaultpackage.io.commands;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -43,7 +42,7 @@ public class Concatenate extends Command {
                 in = input.nextLine();
             }
             output.print(out);
-        } else if (args.matches(ArgumentType.STRING) == MatchResult.CORRECT_ARGS) {
+        } else if (args.matches(String.class) == MatchResult.CORRECT_ARGS) {
             try {
                 output.println(FileUtils.readFile(environment.getDirectory().subFile(args.get(1).toString()), true));
             } catch (FileUtils.FileIOException e) {

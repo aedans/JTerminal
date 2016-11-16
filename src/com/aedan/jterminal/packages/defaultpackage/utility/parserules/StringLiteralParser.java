@@ -14,10 +14,9 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class StringLiteralParser implements ParseRule {
     @Override
-    public char getIdentifier() {
-        return '\"';
+    public boolean matches(String s, int i) {
+        return s.charAt(i) == '\"';
     }
-
     @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {

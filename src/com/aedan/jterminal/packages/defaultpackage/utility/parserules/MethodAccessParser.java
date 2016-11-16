@@ -19,8 +19,8 @@ import java.util.Objects;
 
 public class MethodAccessParser implements ParseRule {
     @Override
-    public char getIdentifier() {
-        return '.';
+    public boolean matches(String s, int i) {
+        return s.charAt(i) == '.';
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MethodAccessParser implements ParseRule {
 
             Method m = null;
             loop:
-            for (Method method : argumentList.getLast().value.getClass().getDeclaredMethods()) {
+            for (Method method : argumentList.getLast().value.getClass().getMethods()) {
                 Class<?>[] params = method.getParameterTypes();
                 if (params.length != classes.length || !Objects.equals(method.getName(), name)) {
                     continue;
@@ -71,8 +71,10 @@ public class MethodAccessParser implements ParseRule {
                 m = method;
                 break;
             }
+
             if (m == null)
                 throw new JTerminalException("Could not find method with name \"" + name + "\" and args \"" + args + "\"", this);
+
             if (mArgs.isEmpty()) {
                 Object o = m.invoke(argumentList.getLast().value);
                 if (o != null)
@@ -88,7 +90,6 @@ public class MethodAccessParser implements ParseRule {
             }
             return i;
         } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace(System.out);
             throw new JTerminalException(e.getMessage(), this);
         }
     }

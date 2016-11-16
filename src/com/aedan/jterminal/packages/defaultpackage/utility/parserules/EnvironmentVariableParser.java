@@ -15,8 +15,8 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class EnvironmentVariableParser implements ParseRule {
     @Override
-    public char getIdentifier() {
-        return '%';
+    public boolean matches(String s, int i) {
+        return s.charAt(i) == '%';
     }
 
     @Override

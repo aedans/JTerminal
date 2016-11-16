@@ -1,6 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
@@ -14,8 +15,8 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class GlobalVariableParser implements ParseRule {
     @Override
-    public char getIdentifier() {
-        return '$';
+    public boolean matches(String s, int i) {
+        return s.charAt(i) == '$';
     }
 
     @Override
@@ -43,7 +44,7 @@ public class GlobalVariableParser implements ParseRule {
         if (value == null)
             throw new JTerminalException("Could not find global variable with name " + varName, this);
         else
-            argumentList.add(value.toString());
+            argumentList.add(new Argument(value));
         return j;
     }
 

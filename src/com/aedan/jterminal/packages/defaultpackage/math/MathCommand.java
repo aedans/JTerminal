@@ -3,7 +3,6 @@ package com.aedan.jterminal.packages.defaultpackage.math;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.command.commandarguments.ArgumentType;
 import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
@@ -26,19 +25,15 @@ public abstract class MathCommand extends Command {
     public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
-            if (args.matches(ArgumentType.LONG, ArgumentType.LONG) == MatchResult.CORRECT_ARGS)
-                output.println(apply(Long.parseLong(args.get(1).toString()), Long.parseLong(args.get(2).toString())));
-            else if (args.matches(ArgumentType.DOUBLE, ArgumentType.DOUBLE) == MatchResult.CORRECT_ARGS)
+            if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
                 output.println(apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString())));
-            else {
+            } else {
                 throw new JTerminalException("Incorrect arguments given", this);
             }
         } catch (NumberFormatException e) {
             throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
         }
     }
-
-    public abstract long apply(long l1, long l2);
 
     public abstract double apply(double d1, double d2);
 }

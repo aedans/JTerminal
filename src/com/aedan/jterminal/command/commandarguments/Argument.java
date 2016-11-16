@@ -14,7 +14,7 @@ public class Argument {
     /**
      * The ArgumentType of the Argument.
      */
-    private ArgumentType argumentType;
+    private Class argumentType;
 
     /**
      * Default Argument constructor.
@@ -31,14 +31,23 @@ public class Argument {
      * @param value        The value of the Argument.
      * @param argumentType The ArgumentType of the Argument.
      */
-    Argument(Object value, ArgumentType argumentType) {
+    public Argument(Object value, Class argumentType) {
         this.value = value;
         this.argumentType = argumentType;
     }
 
-    public ArgumentType getArgumentType() {
+    private static Class getArgumentType(String value) {
+        for (int i = value.charAt(0) != '-' ? 0 : 1; i < value.length(); i++) {
+            if ((value.charAt(i) < '0' || value.charAt(i) > '9') && value.charAt(i) != '.' && value.charAt(i) != 'E') {
+                return String.class;
+            }
+        }
+        return Number.class;
+    }
+
+    public Class getArgumentType() {
         if (argumentType == null)
-            argumentType = ArgumentType.getArgumentType(value.toString());
+            argumentType = getArgumentType(value.toString());
         return argumentType;
     }
 

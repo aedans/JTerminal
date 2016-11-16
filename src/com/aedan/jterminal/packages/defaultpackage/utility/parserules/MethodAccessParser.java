@@ -64,6 +64,7 @@ public class MethodAccessParser implements ParseRule {
 
                 for (int j = 0; j < params.length; j++) {
                     if (!params[j].isAssignableFrom(classes[j]) && !params[j].equals(classes[j])) {
+                        System.out.println(classes[j]);
                         continue loop;
                     }
                 }

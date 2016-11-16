@@ -11,4 +11,8 @@ public interface CommandInput {
      * @return The next line for the JTerminal to execute.
      */
     String nextLine();
+
+    default String getId() {
+        return this.getClass().getSimpleName();
+    }
 }

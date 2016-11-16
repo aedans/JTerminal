@@ -10,7 +10,7 @@ import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
 
 public class MultiplicationCommand extends MathCommand {
     public MultiplicationCommand() {
-        super("mult");
+        super("*");
         properties[0] = "Multiplies two numbers.";
     }
 

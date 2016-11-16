@@ -15,4 +15,8 @@ public interface Package {
      * @param environment The Environment to addTo to.
      */
     void addTo(Environment environment);
+
+    default String getId() {
+        return this.getClass().getSimpleName();
+    }
 }

@@ -16,11 +16,6 @@ import java.util.LinkedList;
 
 public class Parser {
     /**
-     * The List of reserved characters for the Parser.
-     */
-    public LinkedList<Character> reservedChars = new LinkedList<>();
-
-    /**
      * The List of TokenizerRules.
      */
     public LinkedList<ParseRule> parseRules = new LinkedList<>();
@@ -49,10 +44,6 @@ public class Parser {
                         throw new JTerminalException("Could not find character to escape", this);
                     argumentLists.getLast().add(new Argument(s.charAt(i)));
                     break;
-                case ' ':
-                case '\n':
-                case '\t':
-                    break;
                 case ';':
                     argumentLists.addLast(new ArgumentList());
                     s = s.substring(i);
@@ -65,19 +56,16 @@ public class Parser {
                             break charSwitch;
                         }
                     }
-                    if (reservedChars.contains(s.charAt(i))) {
-                        argumentLists.getLast().add(new Argument(s.charAt(i)));
-                        break;
-                    } else {
-                        String literal = "";
-                        for (; i < s.length(); i++) {
-                            if (!Character.isAlphabetic(s.charAt(i)))
-                                break;
-                            literal += s.charAt(i);
-                        }
-                        argumentLists.getLast().add(new Argument(literal, String.class));
-                        break;
+
+                    String literal = "";
+                    for (; i < s.length(); i++) {
+                        if (s.charAt(i) == ' ')
+                            break;
+                        literal += s.charAt(i);
                     }
+                    if (!literal.isEmpty())
+                        argumentLists.getLast().add(new Argument(literal, String.class));
+                    break;
             }
         }
 

@@ -62,7 +62,11 @@ public class ArgumentList extends ArrayList<Argument> {
     }
 
     public Argument getLast() {
-        return this.get(size() - 1);
+        if (size() != 0) {
+            return this.get(size() - 1);
+        } else {
+            return null;
+        }
     }
 
     public void setLast(Argument argument) {

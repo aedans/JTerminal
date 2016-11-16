@@ -107,4 +107,8 @@ public interface CommandOutput {
     }
 
     void close();
+
+    default String getId() {
+        return this.getClass().getSimpleName();
+    }
 }

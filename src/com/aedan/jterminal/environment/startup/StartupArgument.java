@@ -26,4 +26,8 @@ public interface StartupArgument {
      * @throws Exception If there was an error whilst handling the argument.
      */
     void handle(Environment environment, ParseResult parseResult) throws Exception;
+
+    default String getId() {
+        return this.getClass().getSimpleName();
+    }
 }

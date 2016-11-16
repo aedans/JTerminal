@@ -24,4 +24,8 @@ public interface ParseRule {
      * @throws JTerminalException If there is an error parsing the TokenList.
      */
     int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s) throws JTerminalException;
+
+    default String getId() {
+        return this.getClass().getSimpleName();
+    }
 }

@@ -1,5 +1,11 @@
 package com.aedan.jterminal.packages.defaultpackage.math.commands;
 
+import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
+import com.aedan.jterminal.command.commandarguments.MatchResult;
+import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.input.CommandInput;
+import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
 
 /**
@@ -10,8 +16,24 @@ import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
 
 public class AdditionCommand extends MathCommand {
     public AdditionCommand() {
-        super("add");
+        super("+");
         properties[0] = "Adds two numbers.";
+    }
+
+    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+            throws JTerminalException {
+        if (args.size() != 3)
+            throw new JTerminalException(
+                    "Wrong number of arguments given (given: " + (args.size() - 1) + ", required 2)", this);
+
+        if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
+            output.println(apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString())));
+        } else
+            try {
+                output.println(args.get(1).toString() + args.get(2).toString());
+            } catch (NumberFormatException e) {
+                throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
+            }
     }
 
     @Override

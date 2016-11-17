@@ -30,7 +30,7 @@ public class Concatenate extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.matches() == MatchResult.CORRECT_ARGS) {
             String out = "";
@@ -41,10 +41,10 @@ public class Concatenate extends Command {
                     break;
                 in = input.nextLine();
             }
-            output.print(out);
+            return out;
         } else if (args.matches(String.class) == MatchResult.CORRECT_ARGS) {
             try {
-                output.println(FileUtils.readFile(environment.getDirectory().subFile(args.get(1).toString()), true));
+                return FileUtils.readFile(environment.getDirectory().subFile(args.get(1).toString()), true);
             } catch (FileUtils.FileIOException e) {
                 throw new JTerminalException(e.getMessage(), this);
             }
@@ -57,7 +57,7 @@ public class Concatenate extends Command {
                     throw new JTerminalException(e.getMessage(), this);
                 }
             }
-            output.println(s);
+            return s;
         }
     }
 }

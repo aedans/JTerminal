@@ -19,10 +19,11 @@ public class Set extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
         environment.getEnvironmentVariables().put(args.get(1).toString(), args.get(2).value);
+        return args.get(2).value;
     }
 }

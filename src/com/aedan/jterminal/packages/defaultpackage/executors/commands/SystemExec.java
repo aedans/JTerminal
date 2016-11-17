@@ -23,7 +23,7 @@ public class SystemExec extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class);
 
@@ -37,6 +37,7 @@ public class SystemExec extends Command {
             }
             output.println("");
             process.destroy();
+            return process.exitValue();
         } catch (Exception e) {
             throw new JTerminalException(e.getMessage(), this);
         }

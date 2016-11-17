@@ -1,7 +1,6 @@
 package com.aedan.jterminal;
 
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.output.StringOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 import com.alibaba.fastjson.JSON;
 
@@ -62,12 +61,10 @@ public class JTerminal implements Runnable {
      * @throws JTerminalException If there was an error printing the caret.
      */
     protected void printCaret() throws JTerminalException {
-        StringOutput caret = new StringOutput();
-        environment.getCommandHandler().handleInput(
-                environment.getEnvironmentVariables().get("CARET").toString(), environment.getInput(), caret
-        );
-        environment.getOutput().print(caret.getString().trim());
-        caret.flush();
+        environment.getOutput().print(environment.getCommandHandler().handleInput(
+                environment.getEnvironmentVariables().get("CARET").toString(),
+                environment.getInput(), environment.getOutput()
+        ));
     }
 
     /**
@@ -97,7 +94,11 @@ public class JTerminal implements Runnable {
      * @param s The String to execute.
      */
     public void handleString(String s) throws JTerminalException {
-        environment.getCommandHandler().handleInput(s, environment.getInput(), environment.getOutput());
+        environment.getOutput().println(environment.getCommandHandler().handleInput(
+                s,
+                environment.getInput(),
+                environment.getOutput()
+        ));
     }
 
     public Environment getEnvironment() {

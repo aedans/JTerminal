@@ -22,11 +22,11 @@ public abstract class MathCommand extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
             if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
-                output.println(apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString())));
+                return apply((double) args.get(1).value, (double) args.get(2).value);
             } else {
                 throw new JTerminalException("Incorrect arguments given", this);
             }

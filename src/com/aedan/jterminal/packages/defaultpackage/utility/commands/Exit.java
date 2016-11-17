@@ -19,8 +19,9 @@ public class Exit extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         System.exit(0);
+        return null;
     }
 }

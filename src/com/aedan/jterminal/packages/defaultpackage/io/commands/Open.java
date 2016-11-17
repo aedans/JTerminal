@@ -24,12 +24,12 @@ public class Open extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
             args.checkMatches(this, String.class);
 
-            output.println(FileUtils.open(environment.getDirectory().subFile(args.get(1).toString())));
+            return FileUtils.open(environment.getDirectory().subFile(args.get(1).toString()));
         } catch (FileUtils.FileIOException e) {
             throw new JTerminalException(e.getMessage(), this);
         }

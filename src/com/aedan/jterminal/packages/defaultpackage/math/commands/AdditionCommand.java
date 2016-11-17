@@ -20,20 +20,21 @@ public class AdditionCommand extends MathCommand {
         properties[0] = "Adds two numbers.";
     }
 
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.size() != 3)
             throw new JTerminalException(
                     "Wrong number of arguments given (given: " + (args.size() - 1) + ", required 2)", this);
 
         if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
-            output.println(apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString())));
-        } else
+            return apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString()));
+        } else {
             try {
-                output.println(args.get(1).toString() + args.get(2).toString());
+                return args.get(1).toString() + args.get(2).toString();
             } catch (NumberFormatException e) {
                 throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
             }
+        }
     }
 
     @Override

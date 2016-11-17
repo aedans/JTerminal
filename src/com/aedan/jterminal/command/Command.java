@@ -51,7 +51,8 @@ public abstract class Command {
      * @param environment The Environment of the Command.
      * @throws JTerminalException if the String cannot be parsed.
      */
-    public abstract void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws JTerminalException;
+    public abstract Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+            throws JTerminalException;
 
     @Override
     public String toString() {

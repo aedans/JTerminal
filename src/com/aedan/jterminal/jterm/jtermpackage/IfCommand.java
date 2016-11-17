@@ -20,7 +20,7 @@ class IfCommand extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
@@ -28,7 +28,9 @@ class IfCommand extends Command {
         environment.getCommandHandler().handleInput(args.get(1).toString(), input, stringOutput);
 
         if (Objects.equals(stringOutput.getString().trim(), "true")) {
-            environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+            return environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+        } else {
+            return false;
         }
     }
 }

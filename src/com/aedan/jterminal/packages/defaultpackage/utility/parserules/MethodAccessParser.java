@@ -6,6 +6,7 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.Parser;
+import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -51,7 +52,7 @@ public class MethodAccessParser implements ParseRule {
             Class<?>[] classes = new Class<?>[arguments.size()];
             for (int j = 0; j < arguments.size(); j++) {
                 objects[j] = arguments.get(j).value;
-                classes[j] = arguments.get(j).value.getClass();
+                classes[j] = arguments.get(j).getArgumentType();
             }
 
             Method m = null;
@@ -63,8 +64,7 @@ public class MethodAccessParser implements ParseRule {
                 }
 
                 for (int j = 0; j < params.length; j++) {
-                    if (!params[j].isAssignableFrom(classes[j]) && !params[j].equals(classes[j])) {
-                        System.out.println(classes[j]);
+                    if (ClassUtils.isValidParam(params[j], classes[j])) {
                         continue loop;
                     }
                 }
@@ -74,7 +74,7 @@ public class MethodAccessParser implements ParseRule {
             }
 
             if (m == null)
-                throw new JTerminalException("Could not find method with name \"" + name + "\" and args \"" + args + "\"", this);
+                throw new JTerminalException("Could not find method with name \"" + name + "\" and args \"" + arguments + "\"", this);
 
             if (mArgs.isEmpty()) {
                 Object o = m.invoke(argumentList.getLast().value);

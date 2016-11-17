@@ -19,10 +19,10 @@ class IfNotEqual extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
-        output.println(!Objects.equals(args.get(1).value, args.get(2).value));
+        return !Objects.equals(args.get(1).value, args.get(2).value);
     }
 }

@@ -24,12 +24,12 @@ public class MakeDirectory extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
             args.checkMatches(this, String.class);
 
-            output.println(FileUtils.createDirectory(environment.getDirectory().subFile(args.get(1).toString())));
+            return FileUtils.createDirectory(environment.getDirectory().subFile(args.get(1).toString()));
         } catch (FileUtils.FileIOException e) {
             throw new JTerminalException(e.getMessage(), this);
         }

@@ -24,7 +24,7 @@ public class Alias extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
@@ -34,7 +34,7 @@ public class Alias extends Command {
 
         environment.addCommand(new Command(args.get(1).toString(), "Aliased Command.", "Executes \"" + args.get(2).toString() + "\"") {
             @Override
-            public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+            public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
                     throws JTerminalException {
                 String command = s;
                 for (int i = 1; i < args.size(); i++) {
@@ -42,10 +42,10 @@ public class Alias extends Command {
                     command += " \"" + argument.value + "\"";
                 }
 
-                environment.getCommandHandler().handleInput(command, input, output);
+                return environment.getCommandHandler().handleInput(command, input, output);
             }
         });
 
-        output.printf("Aliased \"%s\" to \"%s\"\n", args.get(1).value, args.get(2).value);
+        return String.format("Aliased \"%s\" to \"%s\"\n", args.get(1).value, args.get(2).value);
     }
 }

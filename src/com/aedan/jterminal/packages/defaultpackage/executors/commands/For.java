@@ -8,6 +8,8 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
+import java.util.ArrayList;
+
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
@@ -28,23 +30,28 @@ public class For extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.matches(String.class, String.class) == MatchResult.CORRECT_ARGS) {
+            ArrayList<Object> objects = new ArrayList<>();
             StringHolder holder = new StringHolder("");
             environment.addGlobalVariable("s", holder);
             for (String s : args.get(1).toString().split("\n")) {
                 holder.setS(s);
-                environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+                objects.add(environment.getCommandHandler().handleInput(args.get(2).toString(), input, output));
             }
+            return objects;
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
-            LongHolder i = new LongHolder((long) Double.parseDouble(args.get(1).toString()));
-            long max = (long) Double.parseDouble(args.get(2).toString());
-            environment.addGlobalVariable("i", i);
-            for (; i.getI() < max; i.increment()) {
-                environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
+            ArrayList<Object> objects = new ArrayList<>();
+            int max = (int) args.get(2).value;
+
+            for (int i = (int) args.get(1).value; i < max; i++) {
+                environment.addGlobalVariable("i", i);
+                objects.add(environment.getCommandHandler().handleInput(args.get(3).toString(), input, output));
+                environment.removeGlobalVariable("i");
             }
-            environment.removeGlobalVariable("i");
+
+            return objects;
         } else {
             throw new JTerminalException("Incorrect arguments given", this);
         }
@@ -69,26 +76,5 @@ class StringHolder {
     @Override
     public String toString() {
         return s;
-    }
-}
-
-class LongHolder {
-    private long i;
-
-    LongHolder(long i) {
-        this.i = i;
-    }
-
-    public long getI() {
-        return i;
-    }
-
-    void increment() {
-        ++i;
-    }
-
-    @Override
-    public String toString() {
-        return Long.toString(i);
     }
 }

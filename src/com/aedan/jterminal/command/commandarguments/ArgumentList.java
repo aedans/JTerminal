@@ -2,6 +2,8 @@ package com.aedan.jterminal.command.commandarguments;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
+import com.aedan.jterminal.utils.ClassUtils;
+import com.sun.org.apache.xpath.internal.operations.Number;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,6 +47,12 @@ public class ArgumentList extends ArrayList<Argument> {
             return MatchResult.LESS_ARGS;
 
         for (int i = 1; i < size(); i++) {
+            if (args[i - 1] == String.class) {
+                continue;
+            }
+            if (args[i - 1] == Number.class && ClassUtils.isNumber(args[i - 1])) {
+                continue;
+            }
             if (!args[i - 1].equals(String.class) && !(args[i - 1].isAssignableFrom(get(i).getArgumentType()))) {
                 return MatchResult.INCORRECT_ARGS;
             }

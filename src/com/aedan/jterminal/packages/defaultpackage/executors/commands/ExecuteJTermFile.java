@@ -24,7 +24,7 @@ public class ExecuteJTermFile extends Command {
                         "    Executes a file with the name [string].jterm, line by line.";
     }
 
-    public static void execute(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public static Object execute(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
             if (args.size() == 1)
@@ -43,15 +43,15 @@ public class ExecuteJTermFile extends Command {
             for (int i = 0; i < args.size() - 2; i++) {
                 arguments[i] = args.get(i + 2).toString();
             }
-            runtime.run(arguments);
+            return runtime.run(arguments);
         } catch (FileUtils.FileIOException e) {
             throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
         }
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        execute(args, input, output, environment);
+        return execute(args, input, output, environment);
     }
 }

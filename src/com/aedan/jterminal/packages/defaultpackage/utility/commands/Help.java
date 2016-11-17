@@ -6,6 +6,7 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.StringOutput;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class Help extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.size() == 1) {
             //noinspection unchecked
@@ -42,17 +43,17 @@ public class Help extends Command {
                 sDescriptions.add(c.getProperty(0));
             });
 
-            output.printGrid(4, sIdentifiers, sDescriptions);
+            StringOutput s = new StringOutput();
+            s.printGrid(4, sIdentifiers, sDescriptions);
+            return s.getString().trim();
         } else {
             args.matches(String.class);
             for (Command c : environment.getCommands()) {
                 if (c.getIdentifier().equals(args.get(1).value)) {
                     try {
-                        output.println(c.getProperty(1));
-                        return;
+                        return c.getProperty(1);
                     } catch (Exception e) {
-                        output.printf("Could not access command \"%s\" description (%s)\n", c.getIdentifier(), e.getMessage());
-                        return;
+                        return String.format("Could not access command \"%s\" description (%s)\n", c.getIdentifier(), e.getMessage());
                     }
                 }
             }

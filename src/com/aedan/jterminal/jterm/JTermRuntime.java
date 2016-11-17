@@ -47,10 +47,8 @@ public class JTermRuntime {
      * @param args An array of arguments for the JTermRuntime main function.
      * @throws JTerminalException If there was an error running the JTermRuntime.
      */
-    public void run(String... args) throws JTerminalException {
-        Object o = getFunction("main").apply(args);
-        if (o != null)
-            environment.getOutput().println(o.toString().trim());
+    public Object run(String... args) throws JTerminalException {
+        return getFunction("main").apply(args);
     }
 
     public void add(Function function) {

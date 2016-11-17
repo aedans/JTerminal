@@ -25,11 +25,13 @@ public class ListSubdirectories extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
+        String s = "";
         //noinspection ConstantConditions
         for (File f : environment.getDirectory().subFile().listFiles()) {
-            output.println(f.getName());
+            s += f.getName() + "\n";
         }
+        return s.trim();
     }
 }

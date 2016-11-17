@@ -25,7 +25,7 @@ public class ChangeDirectory extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class);
 
@@ -33,5 +33,6 @@ public class ChangeDirectory extends Command {
         if (path != null) {
             environment.getDirectory().setPath(path);
         }
+        return path;
     }
 }

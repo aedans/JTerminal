@@ -23,10 +23,10 @@ public class Echo extends Command {
     }
 
     @Override
-    public void parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class);
 
-        output.println(args.get(1).value);
+        return args.get(1).value;
     }
 }

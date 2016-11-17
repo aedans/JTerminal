@@ -1,11 +1,11 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
 
 import com.aedan.jterminal.JTerminalException;
+import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.parser.ParseRule;
 import com.aedan.jterminal.input.parser.Parser;
-import com.aedan.jterminal.output.StringOutput;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -46,9 +46,9 @@ public class EmbeddedCommandsParser implements ParseRule {
                     break;
             }
         }
-        StringOutput output = new StringOutput();
-        environment.getCommandHandler().handleInput(command, environment.getInput(), output);
-        argumentList.add(output.getString().trim());
+        argumentList.add(new Argument(
+                environment.getCommandHandler().handleInput(command, environment.getInput(), environment.getOutput())
+        ));
         return j;
     }
 

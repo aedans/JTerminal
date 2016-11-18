@@ -19,6 +19,8 @@ public interface CommandOutput {
     void print(String s);
 
     default void print(Object[] objects) {
+        if (objects.length == 0)
+            return;
         print(objects[0]);
         for (int i = 1; i < objects.length; i++) {
             println();

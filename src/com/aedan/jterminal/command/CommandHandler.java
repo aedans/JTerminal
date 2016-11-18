@@ -61,7 +61,7 @@ public class CommandHandler {
                     if (o != null)
                         objects.add(o);
                 }
-                return objects;
+                return objects.toArray();
             }
         } catch (JTerminalException e) {
             ArrayList<Object> objects = new ArrayList<>();
@@ -82,7 +82,7 @@ public class CommandHandler {
                 return null;
 
             Object o = execute(arguments, input, output);
-            if (!o.equals(false)) {
+            if (o != null && !o.equals(false)) {
                 return onSuccessfulExecution(o, arguments, input, output);
             } else {
                 return onFailedExecution(arguments, input, output);
@@ -145,7 +145,7 @@ public class CommandHandler {
         }
 
         if (arguments.size() == 1) {
-            return arguments.get(0);
+            return arguments.get(0).value;
         }
 
         throw new JTerminalException("Unrecognized Command \"" + arguments.get(0) + "\"", this);

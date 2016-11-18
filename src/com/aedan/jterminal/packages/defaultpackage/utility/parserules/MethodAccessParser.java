@@ -28,6 +28,9 @@ public class MethodAccessParser implements ParseRule {
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
+            if (argumentList.getLast() == null) {
+                throw new JTerminalException("Object is null", this);
+            }
             String name = "", args = "";
             for (i++; i < s.length(); i++) {
                 if (s.charAt(i) == '(') {

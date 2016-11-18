@@ -46,6 +46,6 @@ public class Alias extends Command {
             }
         });
 
-        return String.format("Aliased \"%s\" to \"%s\"\n", args.get(1).value, args.get(2).value);
+        return String.format("Aliased \"%s\" to \"%s\"", args.get(1).value, args.get(2).value);
     }
 }

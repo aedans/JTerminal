@@ -31,9 +31,21 @@ public class NumberParser implements ParseRule {
             }
         }
         if (decimal) {
-            argumentList.add(new Argument(Float.parseFloat(number), Float.class));
+            if (number.length() < 39) {
+                argumentList.add(new Argument(Float.parseFloat(number), Float.class));
+            } else if (number.length() < 310) {
+                argumentList.add(new Argument(Double.parseDouble(number), Double.class));
+            } else {
+                argumentList.add(new Argument(number));
+            }
         } else {
-            argumentList.add(new Argument(Integer.parseInt(number), Integer.class));
+            if (number.length() < 11) {
+                argumentList.add(new Argument(Integer.parseInt(number), Integer.class));
+            } else if (number.length() < 20) {
+                argumentList.add(new Argument(Long.parseLong(number), Long.class));
+            } else {
+                argumentList.add(new Argument(number));
+            }
         }
         return i;
     }

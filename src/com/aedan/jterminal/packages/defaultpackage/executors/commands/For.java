@@ -8,6 +8,8 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
+import java.util.Collection;
+
 /**
  * Created by Aedan Smith on 8/15/2016.
  * <p>
@@ -30,28 +32,35 @@ public class For extends Command {
     @Override
     public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        if (args.matches(String.class, String.class) == MatchResult.CORRECT_ARGS) {
-            String[] strings = args.get(1).toString().split("\n");
-            Object[] objects = new Object[strings.length];
+        if (args.matches(Object.class, Object.class) == MatchResult.CORRECT_ARGS) {
+            Object[] objects;
+            if (args.get(1).value.getClass().isArray()) {
+                objects = (Object[]) args.get(1).value;
+            } else if (args.get(1).value.getClass().isAssignableFrom(Collection.class)) {
+                objects = ((Collection) args.get(1).value).toArray();
+            } else {
+                objects = args.get(1).value.toString().split("\n");
+            }
+            Object[] out = new Object[objects.length];
 
-            for (int i = 0; i < objects.length; i++) {
-                environment.addGlobalVariable("s", strings[i]);
-                objects[i] = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+            for (int i = 0; i < out.length; i++) {
+                environment.addGlobalVariable("s", objects[i]);
+                out[i] = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
                 environment.removeGlobalVariable("s");
             }
 
-            return objects;
+            return out;
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
             int max = ((Number) args.get(2).value).intValue();
-            Object[] objects = new Object[max];
+            Object[] out = new Object[max];
 
             for (int i = ((Number) args.get(1).value).intValue(); i < max; i++) {
                 environment.addGlobalVariable("i", i);
-                objects[i] = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
+                out[i] = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
                 environment.removeGlobalVariable("i");
             }
 
-            return objects;
+            return out;
         } else {
             throw new JTerminalException("Incorrect arguments given", this);
         }

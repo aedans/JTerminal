@@ -44,13 +44,14 @@ public class JTerminal implements Runnable {
      * Starts the JTerminal.
      */
     public void run() {
+        this.environment.getEnvironmentVariables().put("RUN", true);
         //noinspection InfiniteLoopStatement
-        while (true) {
+        while ((Boolean) this.environment.getEnvironmentVariables().get("RUN")) {
             try {
-                printCaret();
-                handleInput();
+                this.printCaret();
+                this.handleInput();
             } catch (Throwable t) {
-                onError(t);
+                this.onError(t);
             }
         }
     }

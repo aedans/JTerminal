@@ -29,7 +29,8 @@ public class RemoveFile extends Command {
         try {
             args.checkMatches(this, String.class);
 
-            return FileUtils.removeFile(environment.getDirectory().subFile(args.get(1).toString()));
+            output.println(FileUtils.removeFile(environment.getDirectory().subFile(args.get(1).toString())));
+            return null;
         } catch (FileUtils.FileIOException e) {
             throw new JTerminalException(e.getMessage(), this);
         }

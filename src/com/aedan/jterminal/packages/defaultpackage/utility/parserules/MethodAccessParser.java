@@ -21,7 +21,7 @@ import java.util.Objects;
 public class MethodAccessParser implements ParseRule {
     @Override
     public boolean matches(String s, int i) {
-        return s.charAt(i) == '.';
+        return s.charAt(i) == ':' && s.charAt(i + 1) == ':';
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MethodAccessParser implements ParseRule {
                 throw new JTerminalException("Object is null", this);
             }
             String name = "", args = "";
-            for (i++; i < s.length(); i++) {
+            for (i += 2; i < s.length(); i++) {
                 if (s.charAt(i) == '(') {
                     break;
                 } else {

@@ -1,0 +1,4 @@
+!main(){
+    echo "help"
+    new com.aedan.jterminal.JTerminal(%ENV%)::run()
+}

@@ -30,7 +30,7 @@ public class ExecuteJTermFile extends Command {
             if (args.size() == 1)
                 throw new JTerminalException("No arguments given", ExecuteJTermFile.class);
 
-            String dir = args.get(1) + ".jterminal";
+            String dir = args.get(1) + ".jterm";
             String lines = FileUtils.readFile(environment.getDirectory().subFile(dir));
             JTermRuntime runtime;
             try {
@@ -38,8 +38,7 @@ public class ExecuteJTermFile extends Command {
             } catch (Exception e) {
                 throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
             }
-            // TODO: Object[]
-            String[] arguments = new String[args.size() - 2];
+            Object[] arguments = new Object[args.size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
                 arguments[i] = args.get(i + 2).toString();
             }

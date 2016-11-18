@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 public class FieldAccessParser implements ParseRule {
     @Override
     public boolean matches(String s, int i) {
-        return s.charAt(i) == ':';
+        return s.charAt(i) == ':' && s.charAt(i + 1) != ':';
     }
 
     @Override

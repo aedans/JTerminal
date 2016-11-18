@@ -22,7 +22,7 @@ public class Argument {
      * @param value The value of the Argument.
      */
     public Argument(Object value) {
-        this(value, value.getClass());
+        this(value, value == null ? null : value.getClass());
     }
 
     /**

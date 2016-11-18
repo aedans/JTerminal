@@ -21,6 +21,7 @@ public class Parser {
     public LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     {
+        parseRules.add(new FlagParser());
         parseRules.add(new NumberParser());
         parseRules.add(new StringLiteralParser());
     }

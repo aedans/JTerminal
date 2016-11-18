@@ -27,11 +27,10 @@ public class ListSubdirectories extends Command {
     @Override
     public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        String s = "";
-        //noinspection ConstantConditions
-        for (File f : environment.getDirectory().subFile().listFiles()) {
-            s += f.getName() + "\n";
+        File[] files = environment.getDirectory().subFile().listFiles();
+        for (int i = 0; i < files.length; i++) {
+            files[i] = new File(files[i].getName());
         }
-        return s.trim();
+        return files;
     }
 }

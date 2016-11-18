@@ -33,6 +33,6 @@ public class ChangeDirectory extends Command {
         if (path != null) {
             environment.getDirectory().setPath(path);
         }
-        return path;
+        return null;
     }
 }

@@ -80,7 +80,7 @@ public class CommandHandler {
                 return null;
 
             Object o = execute(arguments, input, output);
-            if (o != null && !o.equals(false)) {
+            if (o != JTerminalException.class) {
                 return onSuccessfulExecution(o, arguments, input, output);
             } else {
                 return onFailedExecution(arguments, input, output);
@@ -120,7 +120,7 @@ public class CommandHandler {
                 return command.parse(arguments, input, output, environment);
             }
         }
-        return false;
+        return JTerminalException.class;
     }
 
     /**

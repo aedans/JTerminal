@@ -29,7 +29,7 @@ public class ConstructorAccessParser implements ParseRule {
             throws JTerminalException {
         try {
             String name = "", args = "";
-            for (i++; i < s.length(); i++) {
+            for (i += 4; i < s.length(); i++) {
                 if (s.charAt(i) == '(') {
                     break;
                 } else {
@@ -77,10 +77,7 @@ public class ConstructorAccessParser implements ParseRule {
                 throw new JTerminalException("Could not find constructor with name \"" + name + "\" and args \"" + arguments + "\"", this);
 
             Object o = c.newInstance(objects);
-            if (o != null)
-                argumentList.setLast(new Argument(o));
-            else
-                argumentList.removeLast();
+            argumentList.add(new Argument(o));
 
             return i;
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {

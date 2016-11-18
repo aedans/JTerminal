@@ -24,6 +24,6 @@ public class Set extends Command {
         args.checkMatches(this, String.class, String.class);
 
         environment.getEnvironmentVariables().put(args.get(1).toString(), args.get(2).value);
-        return args.get(2).value;
+        return null;
     }
 }

@@ -41,7 +41,7 @@ public class Concatenate extends Command {
                     break;
                 in = input.nextLine();
             }
-            return out;
+            return out.trim();
         } else if (args.matches(String.class) == MatchResult.CORRECT_ARGS) {
             try {
                 return FileUtils.readFile(environment.getDirectory().subFile(args.get(1).toString()), true);
@@ -52,12 +52,12 @@ public class Concatenate extends Command {
             String s = "";
             for (int i = 1; i < args.size(); i++) {
                 try {
-                    s += FileUtils.readFile(environment.getDirectory().subFile(args.get(i).toString()), true);
+                    s += FileUtils.readFile(environment.getDirectory().subFile(args.get(i).toString()), true) + "\n";
                 } catch (FileUtils.FileIOException e) {
                     throw new JTerminalException(e.getMessage(), this);
                 }
             }
-            return s;
+            return s.trim();
         }
     }
 }

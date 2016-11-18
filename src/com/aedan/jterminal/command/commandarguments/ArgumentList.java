@@ -78,7 +78,10 @@ public class ArgumentList extends ArrayList<Argument> {
     }
 
     public void setLast(Argument argument) {
-        this.set(size() - 1, argument);
+        if (size() == 0)
+            add(argument);
+        else
+            this.set(size() - 1, argument);
     }
 
     public void removeLast() {

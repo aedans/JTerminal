@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Created by Aedan Smith.
  * <p>
- * The runtime for a .jterm file.
+ * The runtime for a .jterminal file.
  */
 
 public class JTermRuntime {

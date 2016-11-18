@@ -64,9 +64,7 @@ public class CommandHandler {
                 return objects.toArray();
             }
         } catch (JTerminalException e) {
-            ArrayList<Object> objects = new ArrayList<>();
-            objects.add(onFatalExecution(input, output, e));
-            return objects;
+            return onFatalExecution(input, output, e);
         }
     }
 
@@ -138,7 +136,7 @@ public class CommandHandler {
      */
     protected Object onFailedExecution(ArgumentList arguments, CommandInput input, CommandOutput output)
             throws JTerminalException {
-        File file = environment.getPath().get(arguments.get(0).value + ".jterm");
+        File file = environment.getPath().get(arguments.get(0).value + ".jterminal");
         if (file != null && file.exists()) {
             arguments.add(0, new Argument("exec"));
             return ExecuteJTermFile.execute(arguments, input, output, environment);

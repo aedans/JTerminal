@@ -18,10 +18,10 @@ import com.aedan.jterminal.utils.FileUtils;
 public class ExecuteJTermFile extends Command {
     public ExecuteJTermFile() {
         super("exec");
-        this.properties[0] = "Executes a .jterm file.";
+        this.properties[0] = "Executes a .jterminal file.";
         this.properties[1] =
                 "exec [string] [string...]:\n" +
-                        "    Executes a file with the name [string].jterm, line by line.";
+                        "    Executes a file with the name [string].jterminal, line by line.";
     }
 
     public static Object execute(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
@@ -30,7 +30,7 @@ public class ExecuteJTermFile extends Command {
             if (args.size() == 1)
                 throw new JTerminalException("No arguments given", ExecuteJTermFile.class);
 
-            String dir = args.get(1) + ".jterm";
+            String dir = args.get(1) + ".jterminal";
             String lines = FileUtils.readFile(environment.getDirectory().subFile(dir));
             JTermRuntime runtime;
             try {

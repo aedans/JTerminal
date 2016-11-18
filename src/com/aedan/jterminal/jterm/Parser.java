@@ -12,17 +12,17 @@ import java.util.regex.Pattern;
 /**
  * Created by Aedan Smith.
  * <p>
- * Class for parsing .jterm files.
+ * Class for parsing .jterminal files.
  */
 
 final class Parser {
     /**
-     * Pattern for finding functions in .jterm files.
+     * Pattern for finding functions in .jterminal files.
      */
     private static Pattern functionPattern = Pattern.compile("([ !a-zA-Z]+)\\(([^()]*)\\) *\\{");
 
     /**
-     * Parsers a .jterm file.
+     * Parsers a .jterminal file.
      *
      * @param s       The file to parse.
      * @param runtime The runtime requesting the parser.

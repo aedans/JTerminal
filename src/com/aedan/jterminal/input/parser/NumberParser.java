@@ -49,4 +49,9 @@ public class NumberParser implements ParseRule {
         }
         return i;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

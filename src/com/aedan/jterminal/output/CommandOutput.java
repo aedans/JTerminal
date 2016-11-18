@@ -18,16 +18,36 @@ public interface CommandOutput {
      */
     void print(String s);
 
+    default void print(Object[] objects) {
+        print(objects[0]);
+        for (int i = 1; i < objects.length; i++) {
+            println();
+            print(objects[i]);
+        }
+    }
+
     default void print(Object o) {
-        print(o == null ? "null" : o.toString());
+        if (o == null) {
+            print("null");
+        } else if (o.getClass().isArray()) {
+            print((Object[]) o);
+        } else {
+            print(o.toString());
+        }
+    }
+
+    default void println() {
+        print("\n");
     }
 
     default void println(String s) {
-        print(s + "\n");
+        print(s);
+        println();
     }
 
     default void println(Object o) {
-        println(o == null ? "null" : o.toString());
+        print(o);
+        println();
     }
 
     default void printf(String s, Object... o) {

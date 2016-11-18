@@ -18,7 +18,6 @@ public class FileIOPackage implements Package {
         environment.addCommand(new ChangeDirectory());
         environment.addCommand(new ListSubdirectories());
         environment.addCommand(new MakeDirectory());
-        environment.addCommand(new Open());
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
         environment.getCommandHandler().parser.parseRules.add(new OutputToFile());

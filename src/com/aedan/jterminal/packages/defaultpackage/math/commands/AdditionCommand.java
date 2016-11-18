@@ -27,7 +27,7 @@ public class AdditionCommand extends MathCommand {
                     "Wrong number of arguments given (given: " + (args.size() - 1) + ", required 2)", this);
 
         if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
-            return apply(Double.parseDouble(args.get(1).toString()), Double.parseDouble(args.get(2).toString()));
+            return apply(((Number) args.get(1).value).doubleValue(), ((Number) args.get(2).value).doubleValue());
         } else {
             try {
                 return args.get(1).toString() + args.get(2).toString();

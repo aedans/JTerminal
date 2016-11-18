@@ -94,11 +94,13 @@ public class JTerminal implements Runnable {
      * @param s The String to execute.
      */
     public void handleString(String s) throws JTerminalException {
-        environment.getOutput().println(environment.getCommandHandler().handleInput(
+        Object o = environment.getCommandHandler().handleInput(
                 s,
                 environment.getInput(),
                 environment.getOutput()
-        ));
+        );
+        if (o != null)
+            environment.getOutput().println(o);
     }
 
     public Environment getEnvironment() {

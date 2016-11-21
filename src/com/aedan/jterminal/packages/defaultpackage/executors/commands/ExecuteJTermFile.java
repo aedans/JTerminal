@@ -18,10 +18,10 @@ import com.aedan.jterminal.utils.FileUtils;
 public class ExecuteJTermFile extends Command {
     public ExecuteJTermFile() {
         super("exec");
-        this.properties[0] = "Executes a .jterminal file.";
+        this.properties[0] = "Executes a .jterm file.";
         this.properties[1] =
                 "exec [string] [string...]:\n" +
-                        "    Executes a file with the name [string].jterminal, line by line.";
+                        "    Executes a file with the name [string].jterm, line by line.";
     }
 
     public static Object execute(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)

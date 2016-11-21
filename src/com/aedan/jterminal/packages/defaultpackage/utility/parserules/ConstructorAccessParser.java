@@ -4,8 +4,8 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.parser.ParseRule;
-import com.aedan.jterminal.input.parser.Parser;
+import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.Constructor;

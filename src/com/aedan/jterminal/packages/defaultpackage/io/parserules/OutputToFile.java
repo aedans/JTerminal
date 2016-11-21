@@ -3,9 +3,9 @@ package com.aedan.jterminal.packages.defaultpackage.io.parserules;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.parser.ParseRule;
-import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.output.StringOutput;
+import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.utils.FileUtils;
 
 import java.io.File;

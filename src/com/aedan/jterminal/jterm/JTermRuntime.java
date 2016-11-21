@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Created by Aedan Smith.
  * <p>
- * The runtime for a .jterminal file.
+ * The runtime for a .jterm file.
  */
 
 public class JTermRuntime {
@@ -48,7 +48,7 @@ public class JTermRuntime {
      * @throws JTerminalException If there was an error running the JTermRuntime.
      */
     public Object run(Object[] args) throws JTerminalException {
-        return getFunction("main").apply(args);
+        return this.getFunction("main").apply(args);
     }
 
     public void add(Function function) {
@@ -69,6 +69,6 @@ public class JTermRuntime {
 
     @Override
     public String toString() {
-        return "\"jTermRuntime\":" + JSON.toJSONString(this, true);
+        return "\"jtermRuntime\":" + JSON.toJSONString(this, true);
     }
 }

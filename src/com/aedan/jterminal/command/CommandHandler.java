@@ -5,9 +5,9 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.input.parser.Parser;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
+import com.aedan.jterminal.parser.Parser;
 import com.alibaba.fastjson.JSON;
 
 import java.io.File;
@@ -26,7 +26,7 @@ public class CommandHandler {
     /**
      * The Parser for the CommandHandler.
      */
-    public Parser parser = new Parser();
+    private Parser parser = new Parser();
     /**
      * The Environment containing the CommandHandler.
      */
@@ -157,8 +157,18 @@ public class CommandHandler {
         return String.format("Could not execute command (%s)", e.getMessage());
     }
 
+    public Parser getParser() {
+        return parser;
+    }
+
+    public void setParser(Parser parser) {
+        this.parser = parser;
+    }
+
     @Override
     public String toString() {
         return "\"commandHandler\":" + JSON.toJSONString(this, true);
     }
+
+
 }

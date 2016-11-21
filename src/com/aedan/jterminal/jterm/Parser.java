@@ -1,8 +1,6 @@
 package com.aedan.jterminal.jterm;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.output.StringOutput;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,13 +58,6 @@ final class Parser {
      */
     private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
             throws JTerminalException {
-        CommandOutput commandOutput = runtime.getEnvironment().getOutput();
-        if (name.startsWith("!")) {
-            name = name.substring(1);
-            commandOutput = new StringOutput();
-        }
-        String finalName = name;
-        CommandOutput finalCommandOutput = commandOutput;
         String[] args = arguments.split(",");
         if (arguments.isEmpty()) {
             args = new String[0];
@@ -76,7 +67,7 @@ final class Parser {
         return new Function() {
             @Override
             public String getIdentifier() {
-                return finalName;
+                return name;
             }
 
             @Override
@@ -88,30 +79,26 @@ final class Parser {
                     try {
                         runtime.getEnvironment().addGlobalVariable(finalArgs[i].trim(), o[i].toString());
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new JTerminalException("Not enough arguments given for function " + finalName, this);
+                        throw new JTerminalException("Not enough arguments given for function " + name, this);
                     }
                 }
                 // Execute statements
                 for (String statement : statements) {
                     runtime.getEnvironment().getCommandHandler().handleInput(
-                            statement, runtime.getEnvironment().getInput(), finalCommandOutput
+                            statement, runtime.getEnvironment().getInput(), runtime.getEnvironment().getOutput()
                     );
                 }
-                // Ends scope
-                runtime.getEnvironment().setGlobalVariables(sVars);
-                if (finalCommandOutput instanceof StringOutput) {
-                    try {
-                        return ((StringOutput) finalCommandOutput).getString();
-                    } finally {
-                        ((StringOutput) finalCommandOutput).flush();
-                    }
-                } else
-                    return null;
+                try {
+                    return runtime.getEnvironment().getGlobalVariables().get("return");
+                } finally {
+                    // Ends scope
+                    runtime.getEnvironment().setGlobalVariables(sVars);
+                }
             }
 
             @Override
             public String toString() {
-                return finalName;
+                return name;
             }
         };
     }

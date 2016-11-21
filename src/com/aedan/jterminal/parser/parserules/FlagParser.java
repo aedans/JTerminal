@@ -1,18 +1,16 @@
-package com.aedan.jterminal.input.parser.parserules;
+package com.aedan.jterminal.parser.parserules;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.parser.ParseRule;
-import com.aedan.jterminal.input.parser.Parser;
 
 /**
  * Created by Aedan Smith.
  */
 
-public class FlagParser implements ParseRule {
+public class FlagParser implements com.aedan.jterminal.parser.ParseRule {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, com.aedan.jterminal.parser.Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         if (s.charAt(i) != '-')
             return -1;

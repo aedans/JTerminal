@@ -20,7 +20,7 @@ public class FileIOPackage implements Package {
         environment.addCommand(new MakeDirectory());
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
-        environment.getCommandHandler().parser.parseRules.add(new OutputToFile());
+        environment.getCommandHandler().getParser().getParseRules().add(new OutputToFile());
     }
 
     @Override

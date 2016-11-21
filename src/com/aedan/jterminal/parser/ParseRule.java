@@ -1,4 +1,4 @@
-package com.aedan.jterminal.input.parser;
+package com.aedan.jterminal.parser;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;

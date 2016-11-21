@@ -14,7 +14,7 @@ public class Argument {
     /**
      * The ArgumentType of the Argument.
      */
-    private Class argumentType;
+    private Class<?> argumentType;
 
     /**
      * Default Argument constructor.

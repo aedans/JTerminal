@@ -14,13 +14,13 @@ import com.aedan.jterminal.packages.defaultpackage.utility.parserules.*;
 public class UtilityPackage implements Package {
     @Override
     public void addTo(Environment environment) {
-        environment.getCommandHandler().parser.parseRules.add(new EmbeddedCommandsParser());
-        environment.getCommandHandler().parser.parseRules.add(new EnvironmentVariableParser());
-        environment.getCommandHandler().parser.parseRules.add(new GlobalVariableParser());
-        environment.getCommandHandler().parser.parseRules.add(new SetGlobalVariableParser());
-        environment.getCommandHandler().parser.parseRules.add(new FieldAccessParser());
-        environment.getCommandHandler().parser.parseRules.add(new MethodAccessParser());
-        environment.getCommandHandler().parser.parseRules.add(new ConstructorAccessParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new EmbeddedCommandsParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new EnvironmentVariableParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new GlobalVariableParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new SetGlobalVariableParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new FieldAccessParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new MethodAccessParser());
+        environment.getCommandHandler().getParser().getParseRules().add(new ConstructorAccessParser());
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help());

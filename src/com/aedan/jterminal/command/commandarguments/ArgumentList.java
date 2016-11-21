@@ -11,7 +11,7 @@ import java.util.LinkedList;
 /**
  * Created by Aedan Smith on 8/28/2016.
  * <p>
- * Class for passing arguments to Commands.
+ * Class for passing Arguments to Commands.
  */
 
 public class ArgumentList extends ArrayList<Argument> {
@@ -40,20 +40,20 @@ public class ArgumentList extends ArrayList<Argument> {
      * @return The MatchResult.
      */
     public MatchResult matches(Class<?>... args) {
-        if (size() > args.length + 1)
+        if (this.size() > args.length + 1)
             return MatchResult.MORE_ARGS;
 
-        if (size() < args.length + 1)
+        if (this.size() < args.length + 1)
             return MatchResult.LESS_ARGS;
 
-        for (int i = 1; i < size(); i++) {
+        for (int i = 1; i < this.size(); i++) {
             if (args[i - 1] == String.class) {
                 continue;
             }
             if (args[i - 1] == Number.class && ClassUtils.isNumber(args[i - 1])) {
                 continue;
             }
-            if (!args[i - 1].equals(String.class) && !(args[i - 1].isAssignableFrom(get(i).getArgumentType()))) {
+            if (!args[i - 1].equals(String.class) && !(args[i - 1].isAssignableFrom(this.get(i).getArgumentType()))) {
                 return MatchResult.INCORRECT_ARGS;
             }
         }
@@ -65,26 +65,27 @@ public class ArgumentList extends ArrayList<Argument> {
         if (string.length() > 1 && string.charAt(0) == '-')
             flags.add(string.substring(1));
         else {
-            add(new Argument(string));
+            this.add(new Argument(string));
         }
     }
 
     public Argument getLast() {
-        if (size() != 0) {
-            return this.get(size() - 1);
+        if (this.size() != 0) {
+            return this.get(this.size() - 1);
         } else {
             return null;
         }
     }
 
     public void setLast(Argument argument) {
-        if (size() == 0)
-            add(argument);
+        if (this.size() == 0)
+            this.add(argument);
         else
-            this.set(size() - 1, argument);
+            this.set(this.size() - 1, argument);
     }
 
     public void removeLast() {
-        remove(size() - 1);
+        if (this.size() != 0)
+            this.remove(this.size() - 1);
     }
 }

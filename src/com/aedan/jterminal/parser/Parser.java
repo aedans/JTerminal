@@ -1,12 +1,12 @@
-package com.aedan.jterminal.input.parser;
+package com.aedan.jterminal.parser;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.input.parser.parserules.FlagParser;
-import com.aedan.jterminal.input.parser.parserules.NumberParser;
-import com.aedan.jterminal.input.parser.parserules.StringLiteralParser;
+import com.aedan.jterminal.parser.parserules.FlagParser;
+import com.aedan.jterminal.parser.parserules.NumberParser;
+import com.aedan.jterminal.parser.parserules.StringLiteralParser;
 import com.alibaba.fastjson.JSON;
 
 import java.util.LinkedList;
@@ -21,7 +21,7 @@ public class Parser {
     /**
      * The List of TokenizerRules.
      */
-    public LinkedList<ParseRule> parseRules = new LinkedList<>();
+    private LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     {
         parseRules.add(new FlagParser());
@@ -50,7 +50,7 @@ public class Parser {
                     break;
                 case ';':
                     argumentLists.addLast(new ArgumentList());
-                    s = s.substring(i);
+                    s = s.substring(i + 1);
                     i = 0;
                     break;
                 default:
@@ -75,6 +75,10 @@ public class Parser {
         }
 
         return argumentLists;
+    }
+
+    public LinkedList<ParseRule> getParseRules() {
+        return parseRules;
     }
 
     @Override

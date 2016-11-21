@@ -8,7 +8,6 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -17,7 +16,7 @@ import java.util.regex.Pattern;
  * utility class for managing the CommandHandler path.
  */
 
-public class Directory implements Supplier<String> {
+public class Directory {
     /**
      * Pattern for detecting absolute Directory.
      */
@@ -123,11 +122,6 @@ public class Directory implements Supplier<String> {
 
     @Override
     public String toString() {
-        return path.toString();
-    }
-
-    @Override
-    public String get() {
         return path.toString();
     }
 

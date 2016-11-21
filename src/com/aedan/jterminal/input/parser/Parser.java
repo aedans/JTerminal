@@ -4,6 +4,9 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.input.parser.parserules.FlagParser;
+import com.aedan.jterminal.input.parser.parserules.NumberParser;
+import com.aedan.jterminal.input.parser.parserules.StringLiteralParser;
 import com.alibaba.fastjson.JSON;
 
 import java.util.LinkedList;
@@ -21,8 +24,8 @@ public class Parser {
     public LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     {
-        parseRules.add(new FlagParser());
         parseRules.add(new NumberParser());
+        parseRules.add(new FlagParser());
         parseRules.add(new StringLiteralParser());
     }
 

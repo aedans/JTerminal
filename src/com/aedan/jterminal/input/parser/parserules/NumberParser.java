@@ -1,9 +1,11 @@
-package com.aedan.jterminal.input.parser;
+package com.aedan.jterminal.input.parser.parserules;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 
 /**
  * Created by Aedan Smith.
@@ -12,7 +14,8 @@ import com.aedan.jterminal.environment.Environment;
 public class NumberParser implements ParseRule {
     @Override
     public boolean matches(String s, int i) {
-        return Character.isDigit(s.charAt(i));
+        return (s.charAt(i) >= '0' && s.charAt(i) <= '9')
+                || (s.charAt(i) == '-' && (s.charAt(i + 1) >= '0' && s.charAt(i + 1) <= '9'));
     }
 
     @Override
@@ -21,7 +24,7 @@ public class NumberParser implements ParseRule {
         boolean decimal = false;
         String number = "";
         for (; i < s.length(); i++) {
-            if (Character.isDigit(s.charAt(i))) {
+            if ((s.charAt(i) >= '0' && s.charAt(i) <= '9') || s.charAt(i) == '-') {
                 number += s.charAt(i);
             } else if (s.charAt(i) == '.') {
                 number += '.';

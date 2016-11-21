@@ -14,7 +14,7 @@ public class JTerminal implements Runnable {
     /**
      * The Environment for the JTerminal.
      */
-    private Environment environment;
+    public Environment environment;
 
     /**
      * Default JTerminal constructor.
@@ -102,14 +102,6 @@ public class JTerminal implements Runnable {
         );
         if (o != null)
             environment.getOutput().println(o);
-    }
-
-    public Environment getEnvironment() {
-        return environment;
-    }
-
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
     }
 
     @Override

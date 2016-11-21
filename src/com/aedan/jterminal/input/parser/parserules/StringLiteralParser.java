@@ -1,8 +1,10 @@
-package com.aedan.jterminal.input.parser;
+package com.aedan.jterminal.input.parser.parserules;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.input.parser.ParseRule;
+import com.aedan.jterminal.input.parser.Parser;
 
 /**
  * Created by Aedan Smith on 10/10/2016.

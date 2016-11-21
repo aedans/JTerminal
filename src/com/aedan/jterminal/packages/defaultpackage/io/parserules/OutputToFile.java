@@ -18,13 +18,11 @@ import java.io.File;
 
 public class OutputToFile implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == '>';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s) throws JTerminalException {
         try {
+            if (s.charAt(i) != '>')
+                return -1;
+
             String fileName = environment.getCommandHandler().handleInput(
                     s.substring(i + 1),
                     environment.getInput(),

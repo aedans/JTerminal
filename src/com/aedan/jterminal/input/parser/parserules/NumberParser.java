@@ -13,14 +13,11 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class NumberParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return (s.charAt(i) >= '0' && s.charAt(i) <= '9')
-                || (s.charAt(i) == '-' && (s.charAt(i + 1) >= '0' && s.charAt(i + 1) <= '9'));
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
+        if (!((s.charAt(i) >= '0' && s.charAt(i) <= '9') || s.charAt(i) == '-'))
+            return -1;
+
         boolean decimal = false;
         String number = "";
         for (; i < s.length(); i++) {
@@ -33,24 +30,28 @@ public class NumberParser implements ParseRule {
                 break;
             }
         }
-        if (decimal) {
-            if (number.length() < 39) {
-                argumentList.add(new Argument(Float.parseFloat(number), Float.class));
-            } else if (number.length() < 310) {
-                argumentList.add(new Argument(Double.parseDouble(number), Double.class));
+        try {
+            if (decimal) {
+                if (number.length() < 39) {
+                    argumentList.add(new Argument(Float.parseFloat(number), Float.class));
+                } else if (number.length() < 310) {
+                    argumentList.add(new Argument(Double.parseDouble(number), Double.class));
+                } else {
+                    argumentList.add(new Argument(number));
+                }
             } else {
-                argumentList.add(new Argument(number));
+                if (number.length() < 11) {
+                    argumentList.add(new Argument(Integer.parseInt(number), Integer.class));
+                } else if (number.length() < 20) {
+                    argumentList.add(new Argument(Long.parseLong(number), Long.class));
+                } else {
+                    argumentList.add(new Argument(number));
+                }
             }
-        } else {
-            if (number.length() < 11) {
-                argumentList.add(new Argument(Integer.parseInt(number), Integer.class));
-            } else if (number.length() < 20) {
-                argumentList.add(new Argument(Long.parseLong(number), Long.class));
-            } else {
-                argumentList.add(new Argument(number));
-            }
+            return i;
+        } catch (Exception e) {
+            return -1;
         }
-        return i;
     }
 
     @Override

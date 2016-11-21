@@ -20,14 +20,12 @@ import java.util.Objects;
 
 public class MethodAccessParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == ':' && s.charAt(i + 1) == ':';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
+            if (!(s.charAt(i) == ':' && s.charAt(i + 1) == ':'))
+                return -1;
+
             if (argumentList.getLast() == null) {
                 throw new JTerminalException("Object is null", this);
             }

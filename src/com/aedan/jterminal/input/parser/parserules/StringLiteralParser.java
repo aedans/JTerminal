@@ -14,13 +14,11 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class StringLiteralParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == '\"';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
+        if (s.charAt(i) != '\"')
+            return -1;
+
         int j = i + 1;
         String literal = "";
         label:

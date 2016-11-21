@@ -94,8 +94,8 @@ public class CommandHandler {
      * Verifies input.
      *
      * @param arguments The TokenList input.
-     * @param input  The CommandInput.
-     * @param output The CommandOutput.
+     * @param input     The CommandInput.
+     * @param output    The CommandOutput.
      * @return If the input should be ignored.
      * @throws JTerminalException If there is an error with the input.
      */

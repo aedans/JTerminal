@@ -15,14 +15,12 @@ import java.lang.reflect.Field;
 
 public class FieldAccessParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == ':' && s.charAt(i + 1) != ':';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
+            if (!(s.charAt(i) == ':' && s.charAt(i + 1) != ':'))
+                return -1;
+
             String name = "";
             for (i++; i < s.length(); i++) {
                 if (s.charAt(i) == ' ')

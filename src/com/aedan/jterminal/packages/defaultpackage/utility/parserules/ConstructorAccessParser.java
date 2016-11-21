@@ -20,14 +20,12 @@ import java.util.Objects;
 
 public class ConstructorAccessParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == 'n' && s.charAt(i + 1) == 'e' && s.charAt(i + 2) == 'w' && s.charAt(i + 3) == ' ';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
+            if (!(s.charAt(i) == 'n' && s.charAt(i + 1) == 'e' && s.charAt(i + 2) == 'w' && s.charAt(i + 3) == ' '))
+                return -1;
+
             String name = "", args = "";
             for (i += 4; i < s.length(); i++) {
                 if (s.charAt(i) == '(') {

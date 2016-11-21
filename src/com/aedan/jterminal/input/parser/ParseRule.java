@@ -11,16 +11,15 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 public interface ParseRule {
-    boolean matches(String s, int i);
-
     /**
-     * Processes a ParseRule.
+     * Processes a ParseRule. If -1 is returned, ignores the ParseRule instead.
      *
-     * @param environment The Environment for the ParseRule.
-     * @param parser
-     *@param i           The current index of the Parser.
+     * @param environment    The Environment for the ParseRule.
+     * @param parser         The current Parser
+     * @param i              The current index of the Parser.
      * @param argumentList   The TokenList to process.
-     * @param s           The original String.    @return The index for the Parser to resume.
+     * @param s              The original String.
+     * @return The index for the Parser to resume, -1 to ignore the ParseRule.
      * @throws JTerminalException If there is an error parsing the TokenList.
      */
     int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s) throws JTerminalException;

@@ -14,13 +14,11 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class SetGlobalVariableParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == '=';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
+        if (s.charAt(i) != '=')
+            return -1;
+
         Object name = environment.getCommandHandler().parser.parse(environment, s.substring(0, i)).get(0).get(0).value;
         Object value = environment.getCommandHandler().parser.parse(environment, s.substring(i + 1)).get(0).get(0).value;
 

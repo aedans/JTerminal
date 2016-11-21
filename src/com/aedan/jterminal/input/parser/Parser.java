@@ -24,8 +24,8 @@ public class Parser {
     public LinkedList<ParseRule> parseRules = new LinkedList<>();
 
     {
-        parseRules.add(new NumberParser());
         parseRules.add(new FlagParser());
+        parseRules.add(new NumberParser());
         parseRules.add(new StringLiteralParser());
     }
 
@@ -39,7 +39,7 @@ public class Parser {
     public LinkedList<ArgumentList> parse(Environment environment, String s) throws JTerminalException {
         LinkedList<ArgumentList> argumentLists = new LinkedList<>();
         argumentLists.add(new ArgumentList());
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0, j; i < s.length(); i++) {
             charSwitch:
             switch (s.charAt(i)) {
                 case '\\':
@@ -55,8 +55,9 @@ public class Parser {
                     break;
                 default:
                     for (ParseRule parseRule : parseRules) {
-                        if (parseRule.matches(s, i)) {
-                            i = parseRule.process(environment, this, i, argumentLists.getLast(), s);
+                        j = parseRule.process(environment, this, i, argumentLists.getLast(), s);
+                        if (j != -1) {
+                            i = j;
                             break charSwitch;
                         }
                     }

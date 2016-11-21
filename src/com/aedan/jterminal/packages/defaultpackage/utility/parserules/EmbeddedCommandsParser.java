@@ -15,13 +15,11 @@ import com.aedan.jterminal.input.parser.Parser;
 
 public class EmbeddedCommandsParser implements ParseRule {
     @Override
-    public boolean matches(String s, int i) {
-        return s.charAt(i) == '[';
-    }
-
-    @Override
     public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
+        if (s.charAt(i) != '[')
+            return -1;
+
         String command = "";
         int j = i + 1, depth = 1;
         label:

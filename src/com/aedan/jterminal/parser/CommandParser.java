@@ -9,18 +9,19 @@ import com.aedan.jterminal.parser.parsers.FlagParser;
 import com.aedan.jterminal.parser.parsers.NumberParser;
 import com.aedan.jterminal.parser.parsers.StringLiteralParser;
 import com.alibaba.fastjson.JSON;
+import javafx.util.Pair;
 
 import java.util.LinkedList;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
  * <p>
- * tokenizer for the CommandHandler.
+ * Parser for the CommandHandler.
  */
 
 public class CommandParser implements Parser {
     /**
-     * The List of TokenizerRules.
+     * The List of Parsers.
      */
     private LinkedList<Parser> parsers = new LinkedList<>();
 
@@ -32,19 +33,65 @@ public class CommandParser implements Parser {
     }
 
     /**
-     * Tokenizes a String.
+     * Parses a string.
      *
-     * @param environment The Environment to parse for.
-     * @param s           The String to parse.
-     * @return The List of Tokens.
+     * @param environment The Environment containing the Parser.
+     * @param s           The string to parse.
+     * @return The List of Arguments.
      */
     public ArgumentList parse(Environment environment, String s) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
         for (int i = 0; i < s.length(); i++) {
             i = this.process(environment, this, i, argumentList, s);
         }
-
         return argumentList;
+    }
+
+    /**
+     * Parses a string until a character.
+     *
+     * @param environment The Environment containing the Parser.
+     * @param s           The string to parse.
+     * @param end         The character that begins a scope.
+     * @return The List of Arguments
+     * @throws JTerminalException If there was an error parsing the string.
+     */
+    public ArgumentList parseUntil(Environment environment, String s, char end) throws JTerminalException {
+        ArgumentList argumentList = new ArgumentList();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == end)
+                break;
+            i = this.process(environment, this, i, argumentList, s);
+        }
+        return argumentList;
+    }
+
+    /**
+     * Parses a string until a nested character.
+     *
+     * @param environment The Environment containing the Parser.
+     * @param s           The string to parse.
+     * @param beginNest   The character that begins a scope.
+     * @param endNest     The character that ends a scope.
+     * @return The List of Arguments.
+     * @throws JTerminalException If there was an error parsing the string.
+     */
+    public Pair<ArgumentList, Integer> nestedParse(Environment environment, String s, char beginNest, char endNest)
+            throws JTerminalException {
+        ArgumentList argumentList = new ArgumentList();
+        int depth = 1, i = 0;
+        for (; i < s.length(); i++) {
+            if (s.charAt(i) == beginNest) {
+                depth++;
+            } else if (s.charAt(i) == endNest) {
+                depth--;
+                if (depth == 0)
+                    break;
+            } else {
+                i = this.process(environment, this, i, argumentList, s);
+            }
+        }
+        return new Pair<>(argumentList, i);
     }
 
     @Override

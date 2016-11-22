@@ -7,6 +7,7 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.utils.ClassUtils;
+import javafx.util.Pair;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -24,23 +25,19 @@ public class ConstructorAccessParser implements Parser {
             if (!(s.charAt(i) == 'n' && s.charAt(i + 1) == 'e' && s.charAt(i + 2) == 'w' && s.charAt(i + 3) == ' '))
                 return -1;
 
-            String name = "", args = "";
+            String name = "";
             for (i += 4; i < s.length(); i++) {
                 if (s.charAt(i) == '(') {
+                    i++;
                     break;
                 } else {
                     name += s.charAt(i);
                 }
             }
-            for (i++; i < s.length(); i++) {
-                if (s.charAt(i) == ')') {
-                    break;
-                } else {
-                    args += s.charAt(i);
-                }
-            }
 
-            ArgumentList arguments = commandParser.parse(environment, args);
+            Pair<ArgumentList, Integer> parse = commandParser.nestedParse(environment, s.substring(i), '(', ')');
+            ArgumentList arguments = parse.getKey();
+            i = i + parse.getValue();
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

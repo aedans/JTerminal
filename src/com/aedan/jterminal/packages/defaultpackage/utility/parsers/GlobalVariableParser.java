@@ -1,23 +1,23 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
  * <p>
- * ParseRule for environment variables.
+ * Parser for global variables.
  */
 
-public class EnvironmentVariableParser implements ParseRule {
+public class GlobalVariableParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
-        if (s.charAt(i) != '%')
+        if (s.charAt(i) != '$')
             return -1;
 
         String varName = "";
@@ -25,22 +25,22 @@ public class EnvironmentVariableParser implements ParseRule {
         label:
         for (; true; j++) {
             if (j >= s.length())
-                throw new JTerminalException("Could not find matching %", this);
+                break;
             switch (s.charAt(j)) {
                 case '\\':
                     j++;
                     varName += s.charAt(j);
                     break;
-                case '%':
+                case ' ':
                     break label;
                 default:
                     varName += s.charAt(j);
                     break;
             }
         }
-        Object value = environment.getEnvironmentVariables().get(varName);
+        Object value = environment.getGlobalVariables().get(varName);
         if (value == null)
-            throw new JTerminalException("Could not find environment variable with name " + varName, this);
+            throw new JTerminalException("Could not find global variable with name " + varName, this);
         else
             argumentList.add(new Argument(value));
         return j;

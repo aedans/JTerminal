@@ -1,26 +1,24 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers.reflection;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Objects;
 
 /**
  * Created by Aedan Smith.
  */
 
-public class MethodAccessParser implements ParseRule {
+public class MethodAccessParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
             if (!(s.charAt(i) == ':' && s.charAt(i + 1) == ':'))
@@ -45,9 +43,7 @@ public class MethodAccessParser implements ParseRule {
                 }
             }
 
-            LinkedList<ArgumentList> mArgs = parser.parse(environment, args);
-            ArrayList<Argument> arguments = new ArrayList<>();
-            mArgs.forEach(arguments::addAll);
+            ArgumentList arguments = commandParser.parse(environment, args);
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];
@@ -77,7 +73,7 @@ public class MethodAccessParser implements ParseRule {
             if (m == null)
                 throw new JTerminalException("Could not find method with name \"" + name + "\" and args \"" + arguments + "\"", this);
 
-            if (mArgs.isEmpty()) {
+            if (arguments.isEmpty()) {
                 Object o = m.invoke(argumentList.getLast().value);
                 if (o != null)
                     argumentList.setLast(new Argument(o));

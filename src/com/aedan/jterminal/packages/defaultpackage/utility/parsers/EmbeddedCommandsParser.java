@@ -1,21 +1,21 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
  * <p>
- * ParseRule for embedded command.
+ * Parser for embedded command.
  */
 
-public class EmbeddedCommandsParser implements ParseRule {
+public class EmbeddedCommandsParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         if (s.charAt(i) != '[')
             return -1;

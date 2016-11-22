@@ -35,6 +35,8 @@ public class Environment {
 
     private EnvironmentPath path;
 
+    // TODO: EnvironmentClassPath
+
     private CommandHandler commandHandler;
 
     private CommandInput input;

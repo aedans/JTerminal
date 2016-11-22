@@ -7,12 +7,10 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
-import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.CommandParser;
 import com.alibaba.fastjson.JSON;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Objects;
 
 /**
@@ -24,9 +22,9 @@ import java.util.Objects;
 @SuppressWarnings("WeakerAccess")
 public class CommandHandler {
     /**
-     * The Parser for the CommandHandler.
+     * The CommandParser for the CommandHandler.
      */
-    private Parser parser = new Parser();
+    private CommandParser parser = new CommandParser();
     /**
      * The Environment containing the CommandHandler.
      */
@@ -51,18 +49,7 @@ public class CommandHandler {
     public Object handleInput(String s, CommandInput input, CommandOutput output)
             throws JTerminalException {
         try {
-            LinkedList<ArgumentList> argumentLists = parser.parse(environment, s);
-            if (argumentLists.size() == 1) {
-                return handleInput(argumentLists.get(0), input, output);
-            } else {
-                ArrayList<Object> objects = new ArrayList<>();
-                for (ArgumentList argumentList : argumentLists) {
-                    Object o = this.handleInput(argumentList, input, output);
-                    if (o != null)
-                        objects.add(o);
-                }
-                return objects.toArray();
-            }
+            return handleInput(parser.parse(environment, s), input, output);
         } catch (JTerminalException e) {
             return onFatalExecution(input, output, e);
         }
@@ -157,12 +144,12 @@ public class CommandHandler {
         return String.format("Could not execute command (%s)", e.getMessage());
     }
 
-    public Parser getParser() {
+    public CommandParser getParser() {
         return parser;
     }
 
-    public void setParser(Parser parser) {
-        this.parser = parser;
+    public void setParser(CommandParser commandParser) {
+        this.parser = commandParser;
     }
 
     @Override

@@ -1,26 +1,24 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers.reflection;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Objects;
 
 /**
  * Created by Aedan Smith.
  */
 
-public class ConstructorAccessParser implements ParseRule {
+public class ConstructorAccessParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
             if (!(s.charAt(i) == 'n' && s.charAt(i + 1) == 'e' && s.charAt(i + 2) == 'w' && s.charAt(i + 3) == ' '))
@@ -42,9 +40,7 @@ public class ConstructorAccessParser implements ParseRule {
                 }
             }
 
-            LinkedList<ArgumentList> mArgs = parser.parse(environment, args);
-            ArrayList<Argument> arguments = new ArrayList<>();
-            mArgs.forEach(arguments::addAll);
+            ArgumentList arguments = commandParser.parse(environment, args);
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

@@ -1,9 +1,9 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parserules;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.ParseRule;
+import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 
 /**
@@ -12,17 +12,17 @@ import com.aedan.jterminal.parser.Parser;
  * Default Operand.
  */
 
-public class SetGlobalVariableParser implements ParseRule {
+public class SetGlobalVariableParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         if (s.charAt(i) != '=')
             return -1;
 
-        Object name = parser.parse(environment, s.substring(0, i)).get(0).get(0).value;
-        Object value = parser.parse(environment, s.substring(i + 1)).get(0).get(0).value;
-
-        environment.addGlobalVariable(name.toString(), value);
+//        Object name = parser.parse(environment, s.substring(0, i)).get(0).get(0).value;
+//        Object value = parser.parse(environment, s.substring(i + 1)).get(0).get(0).value;
+//
+//        environment.addGlobalVariable(name.toString(), value);
         argumentList.clear();
         return s.length();
     }

@@ -26,7 +26,7 @@ public class UtilityPackage implements Package {
         environment.getCommandHandler().getParser().getParsers().add(new SetGlobalVariableParser());
         environment.getCommandHandler().getParser().getParsers().add(new FieldAccessParser());
         environment.getCommandHandler().getParser().getParsers().add(new MethodAccessParser());
-        environment.getCommandHandler().getParser().getParsers().add(new ConstructorAccessParser());
+        environment.getCommandHandler().getParser().getParsers().add(new ConstructorAccessParser(environment));
         environment.addCommand(new Alias());
         environment.addCommand(new Echo());
         environment.addCommand(new Help());

@@ -16,6 +16,9 @@ import java.lang.reflect.InvocationTargetException;
  */
 
 public class ConstructorAccessParser implements Parser {
+    public ConstructorAccessParser(Environment environment) {
+        environment.getEnvironmentVariables().put("CP", "java.lang;java.util");
+    }
 
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
@@ -28,6 +31,7 @@ public class ConstructorAccessParser implements Parser {
             String name = "";
             while (true) {
                 if (in.peek() == '(') {
+                    in.next();
                     break;
                 } else {
                     name += in.next();

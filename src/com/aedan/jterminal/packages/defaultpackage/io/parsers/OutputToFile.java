@@ -25,11 +25,8 @@ public class OutputToFile implements Parser {
                 return false;
             in.next();
 
-            String fileName = environment.getCommandHandler().handleInput(
-                    in.fromCurrent(),
-                    environment.getInput(),
-                    environment.getOutput()
-            ).toString();
+            // TODO: Remove getLast()
+            String fileName = parser.parse(environment, in.fromCurrent()).getLast().toString();
 
             File f = environment.getDirectory().subFile(fileName.trim());
             if (f.exists())
@@ -47,6 +44,7 @@ public class OutputToFile implements Parser {
             FileUtils.writeToFile(f, stringOutput.getString().trim());
 
             argumentList.clear();
+            in.end();
             return true;
         } catch (Exception e) {
             throw new JTerminalException(e.getMessage(), this);

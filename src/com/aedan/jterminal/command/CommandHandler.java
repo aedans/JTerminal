@@ -61,19 +61,16 @@ public class CommandHandler {
      * @param input  The CommandInput to read the input from.
      * @param output The CommandOutput to write the output to.
      */
-    public Object handleInput(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
-        try {
-            if (!verify(arguments, input, output))
-                return null;
+    public Object handleInput(ArgumentList arguments, CommandInput input, CommandOutput output)
+            throws JTerminalException {
+        if (!verify(arguments, input, output))
+            return null;
 
-            Object o = execute(arguments, input, output);
-            if (o != JTerminalException.class) {
-                return onSuccessfulExecution(o, arguments, input, output);
-            } else {
-                return onFailedExecution(arguments, input, output);
-            }
-        } catch (JTerminalException e) {
-            return onFatalExecution(input, output, e);
+        Object o = execute(arguments, input, output);
+        if (o != JTerminalException.class) {
+            return onSuccessfulExecution(o, arguments, input, output);
+        } else {
+            return onFailedExecution(arguments, input, output);
         }
     }
 

@@ -42,14 +42,14 @@ public class CommandParser implements Parser {
         }
 
         String v = "";
-        while (in.hasNext() && ((in.peek() >= 'a' && in.peek() <= 'z') || (in.peek() >= 'A' && in.peek() <= 'Z'))) {
+        while (in.hasNext() && in.peek() != ' ' && in.peek() != '\n') {
             v += in.next();
         }
 
         if (!v.isEmpty()) {
             argumentList.add(new Argument(v, String.class));
             return true;
-        } else if (in.peek() != ' ') {
+        } else if (in.peek() != ' ' && in.peek() != '\n') {
             v += in.next();
             argumentList.add(new Argument(v, String.class));
             return true;

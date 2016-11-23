@@ -1,5 +1,7 @@
 package com.aedan.jterminal.utils;
 
+import com.aedan.jterminal.environment.Environment;
+
 /**
  * Created by Aedan Smith.
  */
@@ -15,6 +17,20 @@ public final class ClassUtils {
         if (Number.class.isAssignableFrom(clazz))
             return true;
         return clazz.isPrimitive() && !clazz.equals(char.class) && !clazz.equals(boolean.class);
+    }
+
+    public static Class<?> fromName(String name, Environment environment) throws ClassNotFoundException {
+        try {
+            return Class.forName(name);
+        } catch (ClassNotFoundException e) {
+            for (String s : environment.getEnvironmentVariables().get("CP").toString().split(";")) {
+                try {
+                    return Class.forName(s + "." + name);
+                } catch (ClassNotFoundException ignored) {
+                }
+            }
+            throw new ClassNotFoundException();
+        }
     }
 
     /**

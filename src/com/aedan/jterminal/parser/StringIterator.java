@@ -10,6 +10,7 @@ public class StringIterator implements Iterator<Character> {
     private int i = 0;
     private String string;
 
+
     public StringIterator(String string) {
         this.string = string;
     }

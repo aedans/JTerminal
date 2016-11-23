@@ -45,6 +45,7 @@ public class JTerminal implements Runnable {
      */
     public void run() {
         this.environment.getEnvironmentVariables().put("RUN", true);
+        this.environment.getEnvironmentVariables().put("CARET", "+ %DIR% \\>");
         //noinspection InfiniteLoopStatement
         while ((Boolean) this.environment.getEnvironmentVariables().get("RUN")) {
             try {

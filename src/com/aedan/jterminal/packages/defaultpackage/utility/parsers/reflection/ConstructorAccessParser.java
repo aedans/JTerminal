@@ -10,7 +10,6 @@ import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
 
 /**
  * Created by Aedan Smith.
@@ -46,9 +45,9 @@ public class ConstructorAccessParser implements Parser {
 
             Constructor<?> c = null;
             loop:
-            for (Constructor<?> constructor : Class.forName(name).getConstructors()) {
+            for (Constructor<?> constructor : ClassUtils.fromName(name, environment).getConstructors()) {
                 Class<?>[] params = constructor.getParameterTypes();
-                if (params.length != classes.length || !Objects.equals(constructor.getName(), name)) {
+                if (params.length != classes.length) {
                     continue;
                 }
 

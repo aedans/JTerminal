@@ -35,8 +35,6 @@ public class Environment {
 
     private EnvironmentPath path;
 
-    // TODO: EnvironmentClassPath
-
     private CommandHandler commandHandler;
 
     private CommandInput input;
@@ -82,7 +80,7 @@ public class Environment {
         this.environmentVariables.put("IN", input);
         this.environmentVariables.put("OUT", output);
         this.environmentVariables.put("CMDHANDLER", commandHandler);
-        this.environmentVariables.put("CARET", "+%DIR%\\>");
+        this.environmentVariables.put("CP", "java.lang");
 
         this.input = input;
         this.output = output;

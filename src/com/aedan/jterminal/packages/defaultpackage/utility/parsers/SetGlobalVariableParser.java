@@ -22,10 +22,11 @@ public class SetGlobalVariableParser implements Parser {
 
         // TODO: Remove getLast()
         String name = parser.parse(environment, in.untilCurrent()).getLast().toString();
-        Object value = parser.parse(environment, in.fromCurrent());
+        Object value = parser.parse(environment, in.fromCurrent()).getLast().value;
 
         environment.addGlobalVariable(name, value);
         argumentList.clear();
+        in.end();
         return true;
     }
 

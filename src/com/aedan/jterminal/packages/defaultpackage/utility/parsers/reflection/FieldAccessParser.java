@@ -4,7 +4,6 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 
 import java.lang.reflect.Field;
@@ -15,7 +14,7 @@ import java.lang.reflect.Field;
 
 public class FieldAccessParser implements Parser {
     @Override
-    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
             if (!(s.charAt(i) == ':' && s.charAt(i + 1) != ':'))

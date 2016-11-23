@@ -4,7 +4,6 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.utils.ClassUtils;
 import javafx.util.Pair;
@@ -19,7 +18,7 @@ import java.util.Objects;
 
 public class MethodAccessParser implements Parser {
     @Override
-    public int process(Environment environment, CommandParser commandParser, int i, ArgumentList argumentList, String s)
+    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
             throws JTerminalException {
         try {
             if (!(s.charAt(i) == ':' && s.charAt(i + 1) == ':'))
@@ -38,7 +37,7 @@ public class MethodAccessParser implements Parser {
                 }
             }
 
-            Pair<ArgumentList, Integer> parse = commandParser.nestedParse(environment, s.substring(i), '(', ')');
+            Pair<ArgumentList, Integer> parse = parser.nestedParse(environment, s.substring(i), '(', ')');
             ArgumentList arguments = parse.getKey();
             i = i + parse.getValue();
 

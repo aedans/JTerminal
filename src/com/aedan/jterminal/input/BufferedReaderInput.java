@@ -31,7 +31,7 @@ public class BufferedReaderInput implements CommandInput {
     }
 
     /**
-     * @return The next line of the System input.
+     * @return The skip line of the System input.
      */
     @Override
     public String nextLine() {

@@ -8,7 +8,7 @@ package com.aedan.jterminal.input;
 
 public interface CommandInput {
     /**
-     * @return The next line for the JTerminal to execute.
+     * @return The skip line for the JTerminal to execute.
      */
     String nextLine();
 

@@ -9,6 +9,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -41,26 +42,49 @@ public class For extends Command {
             } else {
                 objects = args.get(1).value.toString().split("\n");
             }
-            Object[] out = new Object[objects.length];
+            return new Iterator<Object>() {
+                int i = 0;
 
-            for (int i = 0; i < out.length; i++) {
-                environment.addGlobalVariable("s", objects[i]);
-                out[i] = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
-                environment.removeGlobalVariable("s");
-            }
+                @Override
+                public boolean hasNext() {
+                    return i < objects.length;
+                }
 
-            return out;
+                @Override
+                public Object next() {
+                    try {
+                        environment.addGlobalVariable("s", objects[i]);
+                        Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+                        environment.removeGlobalVariable("s");
+                        i++;
+                        return o;
+                    } catch (JTerminalException e) {
+                        return e;
+                    }
+                }
+            };
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
-            int max = ((Number) args.get(2).value).intValue();
-            Object[] out = new Object[max];
+            return new Iterator<Object>() {
+                int i = ((Number) args.get(1).value).intValue(), max = ((Number) args.get(2).value).intValue();
 
-            for (int i = ((Number) args.get(1).value).intValue(); i < max; i++) {
-                environment.addGlobalVariable("i", i);
-                out[i] = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
-                environment.removeGlobalVariable("i");
-            }
+                @Override
+                public boolean hasNext() {
+                    return i < max;
+                }
 
-            return out;
+                @Override
+                public Object next() {
+                    try {
+                        environment.addGlobalVariable("i", i);
+                        Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
+                        environment.removeGlobalVariable("i");
+                        i++;
+                        return o;
+                    } catch (JTerminalException e) {
+                        return e;
+                    }
+                }
+            };
         } else {
             throw new JTerminalException("Incorrect arguments given", this);
         }

@@ -3,7 +3,6 @@ package com.aedan.jterminal.parser;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import javafx.util.Pair;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -21,8 +20,9 @@ public interface Parser {
      */
     default ArgumentList parse(Environment environment, String s) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
-        for (int i = 0; i < s.length(); i++) {
-            i = this.process(environment, this, i, argumentList, s);
+        StringIterator in = new StringIterator(s);
+        while (in.hasNext()) {
+            this.apply(environment, this, argumentList, in);
         }
         return argumentList;
     }
@@ -31,17 +31,17 @@ public interface Parser {
      * Parses a string until a character.
      *
      * @param environment The Environment containing the Parser.
-     * @param s           The string to parse.
+     * @param in          The string input to parse.
      * @param end         The character that begins a scope.
      * @return The List of Arguments
      * @throws JTerminalException If there was an error parsing the string.
      */
-    default ArgumentList parseUntil(Environment environment, String s, char end) throws JTerminalException {
+    default ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == end)
+        while (in.hasNext()) {
+            if (in.peek() == end)
                 break;
-            i = this.process(environment, this, i, argumentList, s);
+            this.apply(environment, this, argumentList, in);
         }
         return argumentList;
     }
@@ -50,42 +50,43 @@ public interface Parser {
      * Parses a string until a nested character.
      *
      * @param environment The Environment containing the Parser.
-     * @param s           The string to parse.
+     * @param in          The string input to parse.
      * @param beginNest   The character that begins a scope.
      * @param endNest     The character that ends a scope.
      * @return The List of Arguments.
      * @throws JTerminalException If there was an error parsing the string.
      */
-    default Pair<ArgumentList, Integer> nestedParse(Environment environment, String s, char beginNest, char endNest)
+    default ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
             throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
-        int depth = 1, i = 0;
-        for (; i < s.length(); i++) {
-            if (s.charAt(i) == beginNest) {
+        int depth = 1;
+        while (in.hasNext()) {
+            if (in.peek() == beginNest) {
                 depth++;
-            } else if (s.charAt(i) == endNest) {
+                in.next();
+            } else if (in.peek() == endNest) {
                 depth--;
+                in.next();
                 if (depth == 0)
                     break;
             } else {
-                i = this.process(environment, this, i, argumentList, s);
+                this.apply(environment, this, argumentList, in);
             }
         }
-        return new Pair<>(argumentList, i);
+        return argumentList;
     }
 
     /**
-     * Processes a string. If -1 is returned, ignores the Parser instead.
+     * Processes a string.
      *
      * @param environment    The Environment for the Parser.
      * @param parser         The CommandParser.
-     * @param i              The current index of the Parser.
-     * @param argumentList   The TokenList to process.
-     * @param s              The original String.
-     * @return The index for the Parser to resume, -1 to ignore the Parser.
+     * @param argumentList   The TokenList to apply.
+     * @param in             The original String.
+     * @return If the parser applied successfully.
      * @throws JTerminalException If there is an error parsing the string.
      */
-    int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException;
 
     default String getId() {

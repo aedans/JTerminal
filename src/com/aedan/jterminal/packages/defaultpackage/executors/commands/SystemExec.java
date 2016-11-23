@@ -32,7 +32,7 @@ public class SystemExec extends Command {
             final byte[] buffer = new byte[1024];
             while (process.getInputStream().read(buffer) != -1) {
                 for (byte b : buffer) {
-                    output.print((char) b);
+                    output.print(String.valueOf((char) b));
                 }
             }
             output.println("");

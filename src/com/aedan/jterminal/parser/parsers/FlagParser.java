@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 /**
  * Created by Aedan Smith.
@@ -11,19 +12,20 @@ import com.aedan.jterminal.parser.Parser;
 
 public class FlagParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (s.charAt(i) != '-')
-            return -1;
+        if (in.peek() != '-' || (in.peek(1) <= '9' && in.peek(1) >= '0'))
+            return false;
+        in.next();
 
         String name = "";
-        for (i++; i < s.length(); i++) {
-            if ((s.charAt(i) >= 'a' && s.charAt(i) <= 'z') || (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z'))
-                name += s.charAt(i);
+        while (in.hasNext()) {
+            if ((in.peek() >= 'a' && in.peek() <= 'z') || (in.peek() >= 'A' && in.peek() <= 'Z'))
+                name += in.next();
             else
-                return -1;
+                return false;
         }
         argumentList.flags.add(name);
-        return i;
+        return true;
     }
 }

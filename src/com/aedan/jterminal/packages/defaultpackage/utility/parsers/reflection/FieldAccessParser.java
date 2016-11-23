@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 import java.lang.reflect.Field;
 
@@ -14,25 +15,23 @@ import java.lang.reflect.Field;
 
 public class FieldAccessParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
-            if (!(s.charAt(i) == ':' && s.charAt(i + 1) != ':'))
-                return -1;
+            if (!(in.peek() == ':' && in.peek(1) != ':'))
+                return false;
 
             String name = "";
-            for (i++; i < s.length(); i++) {
-                if (s.charAt(i) == ' ')
+            while (true) {
+                if (in.peek() == ' ') {
                     break;
-                else if (s.charAt(i) == '.' || s.charAt(i) == ':') {
-                    i--;
-                    break;
-                } else
-                    name += s.charAt(i);
+                } else {
+                    name += in.next();
+                }
             }
             Field f = argumentList.getLast().value.getClass().getField(name);
             argumentList.setLast(new Argument(f.get(argumentList.getLast().value)));
-            return i;
+            return true;
         } catch (Exception e) {
             throw new JTerminalException(e.getMessage(), this);
         }

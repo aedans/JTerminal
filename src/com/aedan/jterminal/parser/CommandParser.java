@@ -32,27 +32,31 @@ public class CommandParser implements Parser {
     }
 
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        int j;
         for (Parser p : parsers) {
-            j = p.process(environment, this, i, argumentList, s);
-            if (j != -1) {
-                i = j;
-                return i;
-            }
+            if (!in.hasNext())
+                return true;
+            if (p.apply(environment, this, argumentList, in))
+                return true;
         }
 
         String v = "";
-        for (; i < s.length(); i++) {
-            if (s.charAt(i) == ' ')
-                break;
-            v += s.charAt(i);
+        while (in.hasNext() && ((in.peek() >= 'a' && in.peek() <= 'z') || (in.peek() >= 'A' && in.peek() <= 'Z'))) {
+            v += in.next();
         }
-        if (!v.isEmpty())
-            argumentList.add(new Argument(v, String.class));
 
-        return i;
+        if (!v.isEmpty()) {
+            argumentList.add(new Argument(v, String.class));
+            return true;
+        } else if (in.peek() != ' ') {
+            v += in.next();
+            argumentList.add(new Argument(v, String.class));
+            return true;
+        } else {
+            in.next();
+            return false;
+        }
     }
 
     public LinkedList<Parser> getParsers() {

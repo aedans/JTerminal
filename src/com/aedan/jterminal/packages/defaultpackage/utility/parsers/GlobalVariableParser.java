@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -14,35 +15,29 @@ import com.aedan.jterminal.parser.Parser;
 
 public class GlobalVariableParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (s.charAt(i) != '$')
-            return -1;
+        if (in.peek() != '$')
+            return false;
+        in.next();
 
         String varName = "";
-        int j = i + 1;
         label:
-        for (; true; j++) {
-            if (j >= s.length())
-                break;
-            switch (s.charAt(j)) {
-                case '\\':
-                    j++;
-                    varName += s.charAt(j);
-                    break;
+        while (in.hasNext()) {
+            switch (in.peek()) {
                 case ' ':
                     break label;
                 default:
-                    varName += s.charAt(j);
+                    varName += in.next();
                     break;
             }
         }
         Object value = environment.getGlobalVariables().get(varName);
         if (value == null)
-            throw new JTerminalException("Could not find global variable with name " + varName, this);
+            throw new JTerminalException("Could not find global variable with name \"" + varName + "\"", this);
         else
             argumentList.add(new Argument(value));
-        return j;
+        return true;
     }
 
     @Override

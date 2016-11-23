@@ -2,6 +2,7 @@ package com.aedan.jterminal.output;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
@@ -28,11 +29,23 @@ public interface CommandOutput {
         }
     }
 
+    default void print(Iterator<?> iterator) {
+        if (!iterator.hasNext())
+            return;
+        print(iterator.next());
+        while (iterator.hasNext()) {
+            println();
+            print(iterator.next());
+        }
+    }
+
     default void print(Object o) {
         if (o == null) {
             print("null");
         } else if (o.getClass().isArray()) {
             print((Object[]) o);
+        } else if (o instanceof Iterator) {
+            print((Iterator) o);
         } else {
             print(o.toString());
         }

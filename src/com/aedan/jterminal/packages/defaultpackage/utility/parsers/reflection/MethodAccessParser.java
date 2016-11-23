@@ -5,8 +5,8 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.ClassUtils;
-import javafx.util.Pair;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,28 +18,28 @@ import java.util.Objects;
 
 public class MethodAccessParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
-            if (!(s.charAt(i) == ':' && s.charAt(i + 1) == ':'))
-                return -1;
+            if (!(in.peek() == ':' && in.peek(1) == ':'))
+                return false;
 
             if (argumentList.getLast() == null) {
                 throw new JTerminalException("Object is null", this);
             }
+
             String name = "";
-            for (i += 2; i < s.length(); i++) {
-                if (s.charAt(i) == '(') {
-                    i++;
+            in.skip(2);
+            while (true) {
+                if (in.peek() == '(') {
+                    in.next();
                     break;
                 } else {
-                    name += s.charAt(i);
+                    name += in.next();
                 }
             }
 
-            Pair<ArgumentList, Integer> parse = parser.nestedParse(environment, s.substring(i), '(', ')');
-            ArgumentList arguments = parse.getKey();
-            i = i + parse.getValue();
+            ArgumentList arguments = parser.nestedParse(environment, in, '(', ')');
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];
@@ -82,7 +82,7 @@ public class MethodAccessParser implements Parser {
                 else
                     argumentList.removeLast();
             }
-            return i;
+            return true;
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new JTerminalException(e.getMessage(), this);
         }

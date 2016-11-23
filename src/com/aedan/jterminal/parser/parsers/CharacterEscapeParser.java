@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 /**
  * Created by Aedan Smith.
@@ -12,15 +13,16 @@ import com.aedan.jterminal.parser.Parser;
 
 public class CharacterEscapeParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (s.charAt(i) != '\\')
-            return -1;
+        if (in.peek() != '\\')
+            return false;
 
-        i++;
-        if (i == s.length())
+        in.next();
+        if (!in.hasNext())
             throw new JTerminalException("Could not find character to escape", this);
-        argumentList.add(new Argument(s.charAt(i)));
-        return i;
+
+        argumentList.add(new Argument(in.next()));
+        return true;
     }
 }

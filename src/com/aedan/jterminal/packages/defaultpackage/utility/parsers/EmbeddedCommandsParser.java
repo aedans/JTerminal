@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -14,39 +15,18 @@ import com.aedan.jterminal.parser.Parser;
 
 public class EmbeddedCommandsParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (s.charAt(i) != '[')
-            return -1;
+        if (in.peek() != '[')
+            return false;
+        in.next();
 
-        String command = "";
-        int j = i + 1, depth = 1;
-        label:
-        for (; true; j++) {
-            if (j >= s.length())
-                throw new JTerminalException("Could not find matching ]", this);
-            switch (s.charAt(j)) {
-                case '\\':
-                    j++;
-                    command += s.charAt(j);
-                    break;
-                case '[':
-                    depth++;
-                    command += '[';
-                    break;
-                case ']':
-                    depth--;
-                    if (depth == 0)
-                        break label;
-                default:
-                    command += s.charAt(j);
-                    break;
-            }
-        }
-        argumentList.add(new Argument(
-                environment.getCommandHandler().handleInput(command, environment.getInput(), environment.getOutput())
-        ));
-        return j;
+        argumentList.add(new Argument(environment.getCommandHandler().handleInput(
+                parser.nestedParse(environment, in, '[', ']'),
+                environment.getInput(),
+                environment.getOutput()
+        )));
+        return true;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.output.StringOutput;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.FileUtils;
 
 import java.io.File;
@@ -17,13 +18,15 @@ import java.io.File;
 
 public class OutputToFile implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s) throws JTerminalException {
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+            throws JTerminalException {
         try {
-            if (s.charAt(i) != '>')
-                return -1;
+            if (in.peek() != '>')
+                return false;
+            in.next();
 
             String fileName = environment.getCommandHandler().handleInput(
-                    s.substring(i + 1),
+                    in.fromCurrent(),
                     environment.getInput(),
                     environment.getOutput()
             ).toString();
@@ -34,16 +37,17 @@ public class OutputToFile implements Parser {
             FileUtils.createFile(f);
 
             Object object = environment.getCommandHandler().handleInput(
-                    s.substring(0, i),
+                    in.untilCurrent(),
                     environment.getInput(),
                     environment.getOutput()
             );
+
             StringOutput stringOutput = new StringOutput();
             stringOutput.println(object);
             FileUtils.writeToFile(f, stringOutput.getString().trim());
 
             argumentList.clear();
-            return s.length();
+            return true;
         } catch (Exception e) {
             throw new JTerminalException(e.getMessage(), this);
         }

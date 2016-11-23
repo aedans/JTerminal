@@ -5,6 +5,7 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 /**
  * Created by Aedan Smith.
@@ -12,18 +13,18 @@ import com.aedan.jterminal.parser.Parser;
 
 public class NumberParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (!((s.charAt(i) >= '0' && s.charAt(i) <= '9') || s.charAt(i) == '-'))
-            return -1;
+        if (!((in.peek() >= '0' && in.peek() <= '9') || in.peek() == '-'))
+            return false;
 
         boolean decimal = false;
         String number = "";
-        for (; i < s.length(); i++) {
-            if ((s.charAt(i) >= '0' && s.charAt(i) <= '9') || s.charAt(i) == '-') {
-                number += s.charAt(i);
-            } else if (s.charAt(i) == '.') {
-                number += '.';
+        while (in.hasNext()) {
+            if ((in.peek() >= '0' && in.peek() <= '9') || in.peek() == '-') {
+                number += in.next();
+            } else if (in.peek() == '.') {
+                number += in.next();
                 decimal = true;
             } else {
                 break;
@@ -47,9 +48,9 @@ public class NumberParser implements Parser {
                     argumentList.add(new Argument(number));
                 }
             }
-            return i;
-        } catch (Exception e) {
-            return -1;
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

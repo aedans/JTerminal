@@ -5,8 +5,8 @@ import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.ClassUtils;
-import javafx.util.Pair;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -17,26 +17,25 @@ import java.util.Objects;
  */
 
 public class ConstructorAccessParser implements Parser {
+
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
-            if (!(s.charAt(i) == 'n' && s.charAt(i + 1) == 'e' && s.charAt(i + 2) == 'w' && s.charAt(i + 3) == ' '))
-                return -1;
+            if (!(in.peek() == 'n' && in.peek(1) == 'e' && in.peek(2) == 'w' && in.peek(3) == ' '))
+                return false;
+            in.skip(4);
 
             String name = "";
-            for (i += 4; i < s.length(); i++) {
-                if (s.charAt(i) == '(') {
-                    i++;
+            while (true) {
+                if (in.peek() == '(') {
                     break;
                 } else {
-                    name += s.charAt(i);
+                    name += in.next();
                 }
             }
 
-            Pair<ArgumentList, Integer> parse = parser.nestedParse(environment, s.substring(i), '(', ')');
-            ArgumentList arguments = parse.getKey();
-            i = i + parse.getValue();
+            ArgumentList arguments = parser.nestedParse(environment, in, '(', ')');
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];
@@ -66,10 +65,8 @@ public class ConstructorAccessParser implements Parser {
             if (c == null)
                 throw new JTerminalException("Could not find constructor with name \"" + name + "\" and args \"" + arguments + "\"", this);
 
-            Object o = c.newInstance(objects);
-            argumentList.add(new Argument(o));
-
-            return i;
+            argumentList.add(new Argument(c.newInstance(objects)));
+            return true;
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new JTerminalException(e.getMessage(), this);
         } catch (ClassNotFoundException e) {

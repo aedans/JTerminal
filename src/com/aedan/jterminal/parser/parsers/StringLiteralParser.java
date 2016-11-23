@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
+import com.aedan.jterminal.parser.StringIterator;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -13,31 +14,32 @@ import com.aedan.jterminal.parser.Parser;
 
 public class StringLiteralParser implements Parser {
     @Override
-    public int process(Environment environment, Parser parser, int i, ArgumentList argumentList, String s)
+    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (s.charAt(i) != '\"')
-            return -1;
+        if (in.peek() != '\"')
+            return false;
+        in.next();
 
-        int j = i + 1;
         String literal = "";
         label:
-        for (; ; j++) {
-            if (j >= s.length())
+        while (true) {
+            if (!in.hasNext())
                 throw new JTerminalException("Could not find matching \"", this);
-            switch (s.charAt(j)) {
+            switch (in.peek()) {
                 case '\\':
-                    j++;
-                    literal += s.charAt(j);
+                    in.next();
+                    literal += in.next();
                     break;
                 case '\"':
+                    in.next();
                     break label;
                 default:
-                    literal += s.charAt(j);
+                    literal += in.next();
                     break;
             }
         }
         argumentList.add(literal);
-        return j;
+        return true;
     }
 
     @Override

@@ -39,8 +39,10 @@ public interface Parser {
     default ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
         while (in.hasNext()) {
-            if (in.peek() == end)
+            if (in.peek() == end) {
+                in.next();
                 break;
+            }
             this.apply(environment, this, argumentList, in);
         }
         return argumentList;

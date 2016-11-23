@@ -22,7 +22,7 @@ public class EmbeddedCommandsParser implements Parser {
         in.next();
 
         argumentList.add(new Argument(environment.getCommandHandler().handleInput(
-                parser.nestedParse(environment, in, '[', ']'),
+                parser.parseUntil(environment, in, ']'),
                 environment.getInput(),
                 environment.getOutput()
         )));

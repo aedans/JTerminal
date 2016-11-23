@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
@@ -104,7 +105,6 @@ public class Environment {
     }
 
     public void addGlobalVariable(String name, Object value) {
-        removeGlobalVariable(name);
         globalVariables.put(name, value);
     }
 

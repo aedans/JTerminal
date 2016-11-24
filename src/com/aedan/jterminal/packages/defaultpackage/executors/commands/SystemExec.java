@@ -7,6 +7,10 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
 /**
  * Created by Aedan Smith on 10/6/2016.
  * <p>
@@ -28,14 +32,28 @@ public class SystemExec extends Command {
         args.checkMatches(this, String.class);
 
         try {
-            Process process = Runtime.getRuntime().exec(args.get(1).toString());
-            final byte[] buffer = new byte[1024];
-            while (process.getInputStream().read(buffer) != -1) {
-                for (byte b : buffer) {
-                    output.print(String.valueOf((char) b));
+            ProcessBuilder builder = new ProcessBuilder().command(args.get(1).toString());
+            Process process = builder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            PrintWriter writer = new PrintWriter(process.getOutputStream());
+
+            Thread inputThread = new Thread(() -> {
+                String read = null;
+                while (!Thread.interrupted() && (read = input.nextLine()) != null) {
+                    writer.println(read);
+                    writer.flush();
                 }
+            });
+
+            inputThread.start();
+
+            String s;
+            while ((s = reader.readLine()) != null) {
+                output.println(s);
             }
-            output.println("");
+
+            inputThread.interrupt();
+
             process.destroy();
             return process.exitValue();
         } catch (Exception e) {

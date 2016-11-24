@@ -22,6 +22,7 @@ public class Exit extends Command {
     public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         environment.getEnvironmentVariables().put("RUN", false);
+        environment.getCommandHandler().handleInput("exit", input, output);
         return null;
     }
 }

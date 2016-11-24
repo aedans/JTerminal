@@ -66,6 +66,9 @@ public class CommandHandler {
         if (!verify(arguments, input, output))
             return null;
 
+        if (arguments.size() == 0)
+            return "";
+
         Object o = execute(arguments, input, output);
         if (o != JTerminalException.class) {
             return onSuccessfulExecution(o, arguments, input, output);
@@ -86,7 +89,8 @@ public class CommandHandler {
     protected boolean verify(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
         if (arguments == null || input == null || output == null)
             throw new IllegalArgumentException("Input is null");
-        return !arguments.isEmpty();
+        else
+            return true;
     }
 
     /**
@@ -153,6 +157,4 @@ public class CommandHandler {
     public String toString() {
         return "\"commandHandler\":" + JSON.toJSONString(this, true);
     }
-
-
 }

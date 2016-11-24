@@ -11,7 +11,7 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 // TODO: Error handling
-public interface Parser {
+public abstract class Parser {
     /**
      * Parses a string.
      *
@@ -19,7 +19,7 @@ public interface Parser {
      * @param s           The string to parse.
      * @return The List of Arguments.
      */
-    default ArgumentList parse(Environment environment, String s) throws JTerminalException {
+    public ArgumentList parse(Environment environment, String s) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
         StringIterator in = new StringIterator(s);
         while (in.hasNext()) {
@@ -37,7 +37,7 @@ public interface Parser {
      * @return The List of Arguments
      * @throws JTerminalException If there was an error parsing the string.
      */
-    default ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
+    public ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
         while (in.hasNext()) {
             if (in.peek() == end) {
@@ -59,7 +59,7 @@ public interface Parser {
      * @return The List of Arguments.
      * @throws JTerminalException If there was an error parsing the string.
      */
-    default ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
+    public ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
             throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
         int depth = 1;
@@ -89,10 +89,10 @@ public interface Parser {
      * @return If the parser applied successfully.
      * @throws JTerminalException If there is an error parsing the string.
      */
-    boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    protected abstract boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException;
 
-    default String getId() {
+    public String getId() {
         return this.getClass().getSimpleName();
     }
 }

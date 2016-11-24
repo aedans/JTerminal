@@ -18,17 +18,37 @@ import java.util.LinkedList;
  * Parser for the CommandHandler.
  */
 
-public class CommandParser implements Parser {
+public class CommandParser extends Parser {
     /**
      * The List of Parsers.
      */
     private LinkedList<Parser> parsers = new LinkedList<>();
+    private String v = "";
 
     {
         parsers.add(new CharacterEscapeParser());
         parsers.add(new FlagParser());
         parsers.add(new NumberParser());
         parsers.add(new StringLiteralParser());
+    }
+
+    @Override
+    public ArgumentList parse(Environment environment, String s) throws JTerminalException {
+        v = "";
+        return super.parse(environment, s);
+    }
+
+    @Override
+    public ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
+        v = "";
+        return super.parseUntil(environment, in, end);
+    }
+
+    @Override
+    public ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
+            throws JTerminalException {
+        v = "";
+        return super.nestedParse(environment, in, beginNest, endNest);
     }
 
     @Override
@@ -41,18 +61,13 @@ public class CommandParser implements Parser {
                 return true;
         }
 
-        String v = "";
-        while (in.hasNext() && in.peek() != ' ' && in.peek() != '\n') {
+        if (in.hasNext() && in.peek() != ' ' && in.peek() != '\n') {
             v += in.next();
-        }
-
-        if (!v.isEmpty()) {
-            argumentList.add(new Argument(v, String.class));
             return true;
-            // TODO: Better EOS detection
-        } else if (in.peek() != ' ' && in.peek() != '\n') {
-            v += in.next();
-            argumentList.add(new Argument(v, String.class));
+        } else if (!v.isEmpty()) {
+            argumentList.add(new Argument(v));
+            v = "";
+            in.next();
             return true;
         } else {
             in.next();

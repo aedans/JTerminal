@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
  * Created by Aedan Smith.
  */
 
-public class FieldAccessParser implements Parser {
+public class FieldAccessParser extends Parser {
     // TODO: Set field values
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
@@ -21,6 +21,7 @@ public class FieldAccessParser implements Parser {
         try {
             if (!(in.peek() == ':' && in.peek(1) != ':'))
                 return false;
+            in.next();
 
             String name = "";
             while (true) {

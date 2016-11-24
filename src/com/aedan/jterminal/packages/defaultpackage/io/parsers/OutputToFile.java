@@ -16,7 +16,7 @@ import java.io.File;
  * Default Operand.
  */
 
-public class OutputToFile implements Parser {
+public class OutputToFile extends Parser {
     // TODO: Rewrite
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)

@@ -12,7 +12,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Default Operand.
  */
 
-public class SetGlobalVariableParser implements Parser {
+public class SetGlobalVariableParser extends Parser {
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

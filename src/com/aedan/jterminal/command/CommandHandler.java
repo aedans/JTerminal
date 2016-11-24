@@ -66,8 +66,8 @@ public class CommandHandler {
         if (!verify(arguments, input, output))
             return null;
 
-        if (arguments.size() == 0)
-            return "";
+        if (arguments.isEmpty())
+            return ifEmpty(input, output);
 
         Object o = execute(arguments, input, output);
         if (o != JTerminalException.class) {
@@ -109,6 +109,13 @@ public class CommandHandler {
             }
         }
         return JTerminalException.class;
+    }
+
+    /**
+     * Hook called if the ArgumentList is empty.
+     */
+    private Object ifEmpty(CommandInput input, CommandOutput output) throws JTerminalException {
+        return null;
     }
 
     /**

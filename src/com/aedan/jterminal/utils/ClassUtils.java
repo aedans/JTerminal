@@ -2,6 +2,10 @@ package com.aedan.jterminal.utils;
 
 import com.aedan.jterminal.environment.Environment;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Aedan Smith.
  */
@@ -30,6 +34,20 @@ public final class ClassUtils {
                 }
             }
             throw new ClassNotFoundException();
+        }
+    }
+
+    public static Object[] convertToObjectArray(Object array) {
+        Class ofArray = array.getClass().getComponentType();
+        if (ofArray.isPrimitive()) {
+            List ar = new ArrayList();
+            int length = Array.getLength(array);
+            for (int i = 0; i < length; i++) {
+                ar.add(Array.get(array, i));
+            }
+            return ar.toArray();
+        } else {
+            return (Object[]) array;
         }
     }
 

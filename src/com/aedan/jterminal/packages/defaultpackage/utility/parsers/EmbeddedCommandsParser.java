@@ -13,7 +13,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for embedded command.
  */
 
-public class EmbeddedCommandsParser implements Parser {
+public class EmbeddedCommandsParser extends Parser {
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

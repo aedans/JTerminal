@@ -1,5 +1,7 @@
 package com.aedan.jterminal.output;
 
+import com.aedan.jterminal.utils.ClassUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -44,7 +46,7 @@ public interface CommandOutput {
         if (o == null) {
             print("null");
         } else if (o.getClass().isArray()) {
-            print((Object[]) o);
+            print(ClassUtils.convertToObjectArray(o));
         } else if (o instanceof Iterator) {
             print((Iterator) o);
         } else {

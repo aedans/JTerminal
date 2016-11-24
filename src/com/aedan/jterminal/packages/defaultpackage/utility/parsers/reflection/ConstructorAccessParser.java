@@ -15,13 +15,14 @@ import java.lang.reflect.InvocationTargetException;
  * Created by Aedan Smith.
  */
 
-public class ConstructorAccessParser implements Parser {
+public class ConstructorAccessParser extends Parser {
     public ConstructorAccessParser(Environment environment) {
         environment.getEnvironmentVariables().put("CP", "java.lang;java.util");
     }
 
     // TODO: Variatic args
     // TODO: Templates?
+    // TODO: Forward exceptions
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -77,5 +78,10 @@ public class ConstructorAccessParser implements Parser {
         } catch (ClassNotFoundException e) {
             throw new JTerminalException("Could not find class " + e.getMessage(), this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
     }
 }

@@ -13,7 +13,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for global variables.
  */
 
-public class GlobalVariableParser implements Parser {
+public class GlobalVariableParser extends Parser {
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

@@ -13,7 +13,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for environment variables.
  */
 
-public class EnvironmentVariableParser implements Parser {
+public class EnvironmentVariableParser extends Parser {
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

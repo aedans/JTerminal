@@ -11,7 +11,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class CharacterEscapeParser implements Parser {
+public class CharacterEscapeParser extends Parser {
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -25,5 +25,10 @@ public class CharacterEscapeParser implements Parser {
 
         argumentList.add(new Argument(in.next()));
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
     }
 }

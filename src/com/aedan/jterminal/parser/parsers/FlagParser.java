@@ -10,7 +10,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class FlagParser implements Parser {
+public class FlagParser extends Parser {
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -27,5 +27,10 @@ public class FlagParser implements Parser {
         }
         argumentList.flags.add(name);
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
     }
 }

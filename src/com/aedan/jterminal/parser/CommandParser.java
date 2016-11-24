@@ -75,6 +75,11 @@ public class CommandParser extends Parser {
         }
     }
 
+    public void addParser(Parser parser) {
+        if (!this.parsers.contains(parser))
+            this.parsers.add(parser);
+    }
+
     public LinkedList<Parser> getParsers() {
         return parsers;
     }

@@ -9,6 +9,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -24,10 +25,10 @@ public class For extends Command {
         this.properties[1] =
                 "for [int-begin] [int-end] [string-varname] [string-command]:\n" +
                         "    Adds the variable [string-varname] to the CommandHandler, then executes [string-command] once\n" +
-                        "    for each value between [int-begin] and [int-end].\n" +
-                        "for [string-content] [string-command]:\n" +
-                        "    Adds the variable s to the CommandHandler, then executes [string-command] once for each line\n" +
-                        "    in [string-content], setting variable s to the content of the line.";
+                        "    for each value between [int-begin] and [int-end], setting variable i to the current index.\n" +
+                        "for [list-content] [string-command]:\n" +
+                        "    Adds the variable s to the CommandHandler, then executes [string-command] once for each item\n" +
+                        "    in [list-content], setting variable o to the object at the current index.";
     }
 
     @Override
@@ -53,9 +54,9 @@ public class For extends Command {
                 @Override
                 public Object next() {
                     try {
-                        environment.addGlobalVariable("s", objects[i]);
+                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).put("o", objects[i]);
                         Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
-                        environment.removeGlobalVariable("s");
+                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).remove("o", objects[i]);
                         i++;
                         return o;
                     } catch (JTerminalException e) {
@@ -75,9 +76,9 @@ public class For extends Command {
                 @Override
                 public Object next() {
                     try {
-                        environment.addGlobalVariable("i", i);
+                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).put("i", i);
                         Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
-                        environment.removeGlobalVariable("i");
+                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).remove("i", i);
                         i++;
                         return o;
                     } catch (JTerminalException e) {

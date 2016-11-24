@@ -29,8 +29,6 @@ public class Environment {
 
     private HashMap<String, Object> environmentVariables = new HashMap<>();
 
-    private HashMap<String, Object> globalVariables = new HashMap<>();
-
     private Directory directory;
 
     private EnvironmentPath path;
@@ -73,7 +71,6 @@ public class Environment {
         }
         this.environmentVariables.put("DIR", this.directory = new Directory());
         this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
-        this.environmentVariables.put("VARS", this.globalVariables);
         this.environmentVariables.put("ENVVARS", this.environmentVariables);
         this.environmentVariables.put("ENV", this);
         this.environmentVariables.put("COMMANDS", this.commands);
@@ -100,15 +97,6 @@ public class Environment {
                 System.out.println("Exception in initialization: " + e.getMessage());
             }
         }
-    }
-
-    public void addGlobalVariable(String name, Object value) {
-        removeGlobalVariable(name);
-        globalVariables.put(name, value);
-    }
-
-    public void removeGlobalVariable(String name) {
-        globalVariables.remove(name);
     }
 
     public void addCommand(Command command) {
@@ -173,14 +161,6 @@ public class Environment {
 
     public HashMap<String, Object> getEnvironmentVariables() {
         return environmentVariables;
-    }
-
-    public HashMap<String, Object> getGlobalVariables() {
-        return globalVariables;
-    }
-
-    public void setGlobalVariables(HashMap<String, Object> globalVariables) {
-        this.globalVariables = globalVariables;
     }
 
     @Override

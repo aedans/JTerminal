@@ -1,7 +1,5 @@
 package com.aedan.jterminal.utils;
 
-import com.aedan.jterminal.environment.Environment;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +21,19 @@ public final class ClassUtils {
         return clazz.isPrimitive() && !clazz.equals(char.class) && !clazz.equals(boolean.class);
     }
 
-    public static Class<?> fromName(String name, Environment environment) throws ClassNotFoundException {
+    /**
+     * Returns the class with the given name.
+     *
+     * @param name The name to find.
+     * @param cp   The classpath to look through.
+     * @return The class with the given name.
+     * @throws ClassNotFoundException If there is no class with the given name in the given classpath.
+     */
+    public static Class<?> fromName(String name, String cp) throws ClassNotFoundException {
         try {
             return Class.forName(name);
         } catch (ClassNotFoundException e) {
-            for (String s : environment.getEnvironmentVariables().get("CP").toString().split(";")) {
+            for (String s : cp.split(";")) {
                 try {
                     return Class.forName(s + "." + name);
                 } catch (ClassNotFoundException ignored) {
@@ -37,6 +43,9 @@ public final class ClassUtils {
         }
     }
 
+    /**
+     * Converts an object to an array of objects.
+     */
     public static Object[] convertToObjectArray(Object array) {
         Class ofArray = array.getClass().getComponentType();
         if (ofArray.isPrimitive()) {

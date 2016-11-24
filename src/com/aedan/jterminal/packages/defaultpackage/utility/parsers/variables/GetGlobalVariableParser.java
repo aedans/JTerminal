@@ -1,4 +1,4 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parsers;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers.variables;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
@@ -7,13 +7,21 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
+import java.util.HashMap;
+
 /**
  * Created by Aedan Smith on 10/10/2016.
  * <p>
  * Parser for global variables.
  */
 
-public class GlobalVariableParser extends Parser {
+public class GetGlobalVariableParser extends Parser {
+    private HashMap<String, Object> variables;
+
+    public GetGlobalVariableParser(HashMap<String, Object> variables) {
+        this.variables = variables;
+    }
+
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -32,7 +40,7 @@ public class GlobalVariableParser extends Parser {
                     break;
             }
         }
-        Object value = environment.getGlobalVariables().get(varName);
+        Object value = variables.get(varName);
         if (value == null)
             throw new JTerminalException("Could not find global variable with name \"" + varName + "\"", this);
         else

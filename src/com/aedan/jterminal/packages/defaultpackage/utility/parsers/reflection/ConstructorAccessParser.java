@@ -52,7 +52,8 @@ public class ConstructorAccessParser extends Parser {
 
             Constructor<?> c = null;
             loop:
-            for (Constructor<?> constructor : ClassUtils.fromName(name, environment).getConstructors()) {
+            for (Constructor<?> constructor : ClassUtils.fromName(name,
+                    environment.getEnvironmentVariables().get("CP").toString()).getConstructors()) {
                 Class<?>[] params = constructor.getParameterTypes();
                 if (params.length != classes.length) {
                     continue;

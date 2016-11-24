@@ -1,10 +1,12 @@
-package com.aedan.jterminal.packages.defaultpackage.utility.parsers;
+package com.aedan.jterminal.packages.defaultpackage.utility.parsers.variables;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
+
+import java.util.HashMap;
 
 /**
  * Created by Aedan Smith on 8/22/2016.
@@ -13,6 +15,12 @@ import com.aedan.jterminal.parser.StringIterator;
  */
 
 public class SetGlobalVariableParser extends Parser {
+    private HashMap<String, Object> variables;
+
+    public SetGlobalVariableParser(HashMap<String, Object> variables) {
+        this.variables = variables;
+    }
+
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -24,7 +32,7 @@ public class SetGlobalVariableParser extends Parser {
         String name = parser.parse(environment, in.untilCurrent()).getLast().toString();
         Object value = parser.parse(environment, in.fromCurrent()).getLast().value;
 
-        environment.addGlobalVariable(name, value);
+        variables.put(name, value);
         argumentList.clear();
         in.end();
         return true;

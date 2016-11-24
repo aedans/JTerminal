@@ -17,6 +17,7 @@ import java.io.File;
  */
 
 public class OutputToFile implements Parser {
+    // TODO: Rewrite
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

@@ -56,6 +56,7 @@ final class Parser {
      * @return The parsed function.
      * @throws JTerminalException If there was an error parsing the function.
      */
+    // TODO: Rewrite
     private static Function parseFunction(String src, String name, String arguments, JTermRuntime runtime)
             throws JTerminalException {
         String[] args = arguments.split(",");

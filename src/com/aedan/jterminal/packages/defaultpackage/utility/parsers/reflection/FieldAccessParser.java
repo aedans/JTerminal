@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
  */
 
 public class FieldAccessParser implements Parser {
+    // TODO: Set field values
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

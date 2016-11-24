@@ -17,6 +17,7 @@ import java.util.Objects;
  */
 
 public class MethodAccessParser implements Parser {
+    // TODO: Variatic args
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

@@ -39,6 +39,7 @@ public interface CommandOutput {
         }
     }
 
+    // TODO: Rewrite without if statements.
     default void print(Object o) {
         if (o == null) {
             print("null");

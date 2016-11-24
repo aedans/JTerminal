@@ -49,6 +49,7 @@ public class CommandParser implements Parser {
         if (!v.isEmpty()) {
             argumentList.add(new Argument(v, String.class));
             return true;
+            // TODO: Better EOS detection
         } else if (in.peek() != ' ' && in.peek() != '\n') {
             v += in.next();
             argumentList.add(new Argument(v, String.class));

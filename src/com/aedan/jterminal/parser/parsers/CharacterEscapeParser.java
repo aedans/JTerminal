@@ -17,8 +17,9 @@ public class CharacterEscapeParser implements Parser {
             throws JTerminalException {
         if (in.peek() != '\\')
             return false;
-
         in.next();
+
+        // TODO: Add escape sequences
         if (!in.hasNext())
             throw new JTerminalException("Could not find character to escape", this);
 

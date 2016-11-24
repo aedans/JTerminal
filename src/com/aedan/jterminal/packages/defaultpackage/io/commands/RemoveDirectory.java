@@ -23,6 +23,7 @@ public class RemoveDirectory extends Command {
                         "    Recursively removes all files in [directory].";
     }
 
+    // TODO: Variatic number of files.
     @Override
     public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {

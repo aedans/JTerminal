@@ -20,6 +20,8 @@ public class ConstructorAccessParser implements Parser {
         environment.getEnvironmentVariables().put("CP", "java.lang;java.util");
     }
 
+    // TODO: Variatic args
+    // TODO: Templates?
     @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

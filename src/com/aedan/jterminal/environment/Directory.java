@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  * utility class for managing the CommandHandler path.
  */
 
+// TODO: Improve
 public class Directory {
     /**
      * Pattern for detecting absolute Directory.

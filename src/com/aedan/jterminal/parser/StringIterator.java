@@ -6,10 +6,10 @@ import java.util.Iterator;
  * Created by Aedan Smith.
  */
 
+// TODO: Error handling.
 public class StringIterator implements Iterator<Character> {
     private int i = 0;
     private String string;
-
 
     public StringIterator(String string) {
         this.string = string;

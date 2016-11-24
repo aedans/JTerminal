@@ -10,6 +10,7 @@ import com.aedan.jterminal.environment.Environment;
  * Class for creating CommandParser rules.
  */
 
+// TODO: Error handling
 public interface Parser {
     /**
      * Parses a string.

@@ -26,6 +26,7 @@ public class StringLiteralParser implements Parser {
             if (!in.hasNext())
                 throw new JTerminalException("Could not find matching \"", this);
             switch (in.peek()) {
+                // TODO: Parse with CharacterEscapeParser
                 case '\\':
                     in.next();
                     literal += in.next();

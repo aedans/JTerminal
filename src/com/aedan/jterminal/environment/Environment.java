@@ -15,7 +15,6 @@ import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 import com.alibaba.fastjson.JSON;
 
-import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -28,10 +27,6 @@ public class Environment {
     private ArrayList<Command> commands = new ArrayList<>();
 
     private HashMap<String, Object> environmentVariables = new HashMap<>();
-
-    private Directory directory;
-
-    private EnvironmentPath path;
 
     private CommandHandler commandHandler;
 
@@ -69,8 +64,6 @@ public class Environment {
         for (String envName : env.keySet()) {
             environmentVariables.put(envName, env.get(envName));
         }
-        this.environmentVariables.put("DIR", this.directory = new Directory());
-        this.environmentVariables.put("PATH", this.path = new EnvironmentPath(directory));
         this.environmentVariables.put("ENVVARS", this.environmentVariables);
         this.environmentVariables.put("ENV", this);
         this.environmentVariables.put("COMMANDS", this.commands);
@@ -119,22 +112,6 @@ public class Environment {
         commands.removeAll(toRemove);
     }
 
-    public void setDirectoryPath(Path path) {
-        try {
-            this.directory.setPath(path);
-        } catch (Directory.DirectoryChangeException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Directory getDirectory() {
-        return directory;
-    }
-
-    public EnvironmentPath getPath() {
-        return path;
-    }
-
     public CommandInput getInput() {
         return input;
     }
@@ -157,6 +134,18 @@ public class Environment {
 
     public CommandHandler getCommandHandler() {
         return commandHandler;
+    }
+
+    public void setEnvironmentVariable(String name, Object o) {
+        this.environmentVariables.put(name, o);
+    }
+
+    public void removeEnvironmentVariable(String name) {
+        this.environmentVariables.remove(name);
+    }
+
+    public Object getEnvironmentVariable(String name) {
+        return this.environmentVariables.get(name);
     }
 
     public HashMap<String, Object> getEnvironmentVariables() {

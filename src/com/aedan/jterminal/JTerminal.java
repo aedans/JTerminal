@@ -44,10 +44,10 @@ public class JTerminal implements Runnable {
      * Starts the JTerminal.
      */
     public void run() {
-        this.environment.getEnvironmentVariables().put("RUN", true);
-        this.environment.getEnvironmentVariables().put("CARET", "+ %DIR% \\>");
+        this.environment.setEnvironmentVariable("RUN", true);
+        this.environment.setEnvironmentVariable("CARET", "+ %DIR% \\>");
         //noinspection InfiniteLoopStatement
-        while ((Boolean) this.environment.getEnvironmentVariables().get("RUN")) {
+        while ((Boolean) this.environment.getEnvironmentVariable("RUN")) {
             try {
                 this.printCaret();
                 this.handleInput();
@@ -64,7 +64,7 @@ public class JTerminal implements Runnable {
      */
     protected void printCaret() throws JTerminalException {
         environment.getOutput().print(environment.getCommandHandler().handleInput(
-                environment.getEnvironmentVariables().get("CARET").toString(),
+                environment.getEnvironmentVariable("CARET").toString(),
                 environment.getInput(), environment.getOutput()
         ));
     }

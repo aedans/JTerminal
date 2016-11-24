@@ -54,9 +54,9 @@ public class For extends Command {
                 @Override
                 public Object next() {
                     try {
-                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).put("o", objects[i]);
+                        ((HashMap) environment.getEnvironmentVariable("VARS")).put("o", objects[i]);
                         Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
-                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).remove("o", objects[i]);
+                        ((HashMap) environment.getEnvironmentVariable("VARS")).remove("o", objects[i]);
                         i++;
                         return o;
                     } catch (JTerminalException e) {
@@ -76,9 +76,9 @@ public class For extends Command {
                 @Override
                 public Object next() {
                     try {
-                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).put("i", i);
+                        ((HashMap) environment.getEnvironmentVariable("VARS")).put("i", i);
                         Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
-                        ((HashMap) environment.getEnvironmentVariables().get("VARS")).remove("i", i);
+                        ((HashMap) environment.getEnvironmentVariable("VARS")).remove("i", i);
                         i++;
                         return o;
                     } catch (JTerminalException e) {

@@ -32,7 +32,7 @@ public class EnvironmentVariableParser extends Parser {
                 varName += in.next();
             }
         }
-        Object value = environment.getEnvironmentVariables().get(varName);
+        Object value = environment.getEnvironmentVariable(varName);
         if (value == null)
             throw new JTerminalException("Could not find environment variable with name " + varName, this);
         else

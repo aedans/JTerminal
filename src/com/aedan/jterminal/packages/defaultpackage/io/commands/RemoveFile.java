@@ -6,6 +6,7 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 import com.aedan.jterminal.utils.FileUtils;
 
 /**
@@ -29,7 +30,9 @@ public class RemoveFile extends Command {
         try {
             args.checkMatches(this, String.class);
 
-            output.println(FileUtils.removeFile(environment.getDirectory().subFile(args.get(1).toString())));
+            output.println(FileUtils.removeFile(
+                    ((Directory) environment.getEnvironmentVariable("DIR")).subFile(args.get(1).toString())
+            ));
             return null;
         } catch (FileUtils.FileIOException e) {
             throw new JTerminalException(e.getMessage(), this);

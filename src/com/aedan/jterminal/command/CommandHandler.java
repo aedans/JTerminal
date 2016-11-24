@@ -1,16 +1,13 @@
 package com.aedan.jterminal.command;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
 import com.aedan.jterminal.parser.CommandParser;
 import com.alibaba.fastjson.JSON;
 
-import java.io.File;
 import java.util.Objects;
 
 /**
@@ -131,11 +128,12 @@ public class CommandHandler {
      */
     protected Object onFailedExecution(ArgumentList arguments, CommandInput input, CommandOutput output)
             throws JTerminalException {
-        File file = environment.getPath().get(arguments.get(0).value + ".jterminal");
-        if (file != null && file.exists()) {
-            arguments.add(0, new Argument("exec"));
-            return ExecuteJTermFile.execute(arguments, input, output, environment);
-        }
+        // TODO: Re-implement
+//        File file = environment.getPath().get(arguments.get(0).value + ".jterminal");
+//        if (file != null && file.exists()) {
+//            arguments.add(0, new Argument("exec"));
+//            return ExecuteJTermFile.execute(arguments, input, output, environment);
+//        }
 
         if (arguments.size() == 1) {
             return arguments.get(0).value;

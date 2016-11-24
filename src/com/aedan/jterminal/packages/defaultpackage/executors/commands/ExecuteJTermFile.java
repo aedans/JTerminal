@@ -7,6 +7,7 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 import com.aedan.jterminal.utils.FileUtils;
 
 /**
@@ -31,7 +32,9 @@ public class ExecuteJTermFile extends Command {
                 throw new JTerminalException("No arguments given", ExecuteJTermFile.class);
 
             String dir = args.get(1) + ".jterm";
-            String lines = FileUtils.readFile(environment.getDirectory().subFile(dir));
+            String lines = FileUtils.readFile(
+                    ((Directory) environment.getEnvironmentVariable("DIR")).subFile(dir)
+            );
             JTermRuntime runtime;
             try {
                 runtime = new JTermRuntime(lines, input, output);

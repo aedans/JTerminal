@@ -6,6 +6,7 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 
 import java.nio.file.Path;
 
@@ -29,9 +30,9 @@ public class ChangeDirectory extends Command {
             throws JTerminalException {
         args.checkMatches(this, String.class);
 
-        Path path = environment.getDirectory().getPath(args.get(1).toString());
+        Path path = ((Directory) environment.getEnvironmentVariable("DIR")).getPath(args.get(1).toString());
         if (path != null) {
-            environment.getDirectory().setPath(path);
+            ((Directory) environment.getEnvironmentVariable("DIR")).setPath(path);
         }
         return null;
     }

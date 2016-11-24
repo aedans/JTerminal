@@ -7,6 +7,7 @@ import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 import com.aedan.jterminal.utils.FileUtils;
 
 import java.util.Objects;
@@ -44,7 +45,9 @@ public class Concatenate extends Command {
             return out.trim();
         } else if (args.matches(String.class) == MatchResult.CORRECT_ARGS) {
             try {
-                return FileUtils.readFile(environment.getDirectory().subFile(args.get(1).toString()), true);
+                return FileUtils.readFile(
+                        ((Directory) environment.getEnvironmentVariable("DIR")).subFile(args.get(1).toString()), true
+                );
             } catch (FileUtils.FileIOException e) {
                 throw new JTerminalException(e.getMessage(), this);
             }
@@ -52,7 +55,9 @@ public class Concatenate extends Command {
             String s = "";
             for (int i = 1; i < args.size(); i++) {
                 try {
-                    s += FileUtils.readFile(environment.getDirectory().subFile(args.get(i).toString()), true) + "\n";
+                    s += FileUtils.readFile(
+                            ((Directory) environment.getEnvironmentVariable("DIR")).subFile(args.get(i).toString()), true
+                    ) + "\n";
                 } catch (FileUtils.FileIOException e) {
                     throw new JTerminalException(e.getMessage(), this);
                 }

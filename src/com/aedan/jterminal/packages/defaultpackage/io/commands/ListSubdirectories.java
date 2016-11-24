@@ -6,6 +6,7 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 
 import java.io.File;
 
@@ -27,7 +28,7 @@ public class ListSubdirectories extends Command {
     @Override
     public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        File[] files = environment.getDirectory().subFile().listFiles();
+        File[] files = ((Directory) environment.getEnvironmentVariable("DIR")).subFile().listFiles();
         for (int i = 0; i < files.length; i++) {
             files[i] = new File(files[i].getName());
         }

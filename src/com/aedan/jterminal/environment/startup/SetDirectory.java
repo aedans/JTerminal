@@ -2,6 +2,7 @@ package com.aedan.jterminal.environment.startup;
 
 import com.aedan.argparser.ArgumentParser;
 import com.aedan.argparser.ParseResult;
+import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.environment.Environment;
 
 import java.nio.file.Paths;
@@ -20,6 +21,6 @@ public class SetDirectory implements StartupArgument {
     public void handle(Environment environment, ParseResult parseResult) throws Exception {
         String path = parseResult.getKeyValue("dir");
         if (path != null)
-            environment.setDirectoryPath(Paths.get(path));
+            ((Directory) environment.getEnvironmentVariable("DIR")).setPath(Paths.get(path));
     }
 }

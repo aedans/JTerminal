@@ -23,7 +23,7 @@ public class Set extends Command {
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
-        environment.getEnvironmentVariables().put(args.get(1).toString(), args.get(2).value);
+        environment.setEnvironmentVariable(args.get(1).toString(), args.get(2).value);
         return null;
     }
 }

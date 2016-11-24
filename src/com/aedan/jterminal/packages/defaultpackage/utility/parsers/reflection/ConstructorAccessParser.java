@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class ConstructorAccessParser extends Parser {
     public ConstructorAccessParser(Environment environment) {
-        environment.getEnvironmentVariables().put("CP", "java.lang;java.util");
+        environment.setEnvironmentVariable("CP", "java.lang;java.util");
     }
 
     // TODO: Variatic args
@@ -53,7 +53,7 @@ public class ConstructorAccessParser extends Parser {
             Constructor<?> c = null;
             loop:
             for (Constructor<?> constructor : ClassUtils.fromName(name,
-                    environment.getEnvironmentVariables().get("CP").toString()).getConstructors()) {
+                    environment.getEnvironmentVariable("CP").toString()).getConstructors()) {
                 Class<?>[] params = constructor.getParameterTypes();
                 if (params.length != classes.length) {
                     continue;

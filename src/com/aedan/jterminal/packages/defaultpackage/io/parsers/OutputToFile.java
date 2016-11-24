@@ -2,6 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.io.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
+import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.output.StringOutput;
 import com.aedan.jterminal.parser.Parser;
@@ -29,7 +30,7 @@ public class OutputToFile extends Parser {
             // TODO: Remove getLast()
             String fileName = parser.parse(environment, in.fromCurrent()).getLast().toString();
 
-            File f = environment.getDirectory().subFile(fileName.trim());
+            File f = ((Directory) environment.getEnvironmentVariable("DIR")).subFile(fileName.trim());
             if (f.exists())
                 f.delete();
             FileUtils.createFile(f);

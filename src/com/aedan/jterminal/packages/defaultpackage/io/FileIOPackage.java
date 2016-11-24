@@ -14,6 +14,7 @@ import com.aedan.jterminal.packages.defaultpackage.io.parsers.OutputToFile;
 public class FileIOPackage implements Package {
     @Override
     public void addTo(Environment environment) {
+        environment.setEnvironmentVariable("DIR", new Directory());
         environment.addCommand(new Concatenate());
         environment.addCommand(new ChangeDirectory());
         environment.addCommand(new ListSubdirectories());

@@ -33,25 +33,6 @@ public class CommandParser extends Parser {
     }
 
     @Override
-    public ArgumentList parse(Environment environment, String s) throws JTerminalException {
-        v = "";
-        return super.parse(environment, s);
-    }
-
-    @Override
-    public ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
-        v = "";
-        return super.parseUntil(environment, in, end);
-    }
-
-    @Override
-    public ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
-            throws JTerminalException {
-        v = "";
-        return super.nestedParse(environment, in, beginNest, endNest);
-    }
-
-    @Override
     public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         for (Parser p : parsers) {

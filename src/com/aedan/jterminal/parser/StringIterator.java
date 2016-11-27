@@ -12,7 +12,7 @@ public class StringIterator implements Iterator<Character> {
     private String string;
 
     public StringIterator(String string) {
-        this.string = string + ' ';
+        this.string = string;
     }
 
     @Override

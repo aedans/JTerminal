@@ -2,8 +2,8 @@ package com.aedan.jterminal.environment.startup;
 
 import com.aedan.argparser.ArgumentParser;
 import com.aedan.argparser.ParseResult;
-import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 
 import java.nio.file.Paths;
 

@@ -11,6 +11,7 @@ import com.aedan.jterminal.parser.parsers.StringLiteralParser;
 import com.alibaba.fastjson.JSON;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -54,6 +55,13 @@ public class CommandParser extends Parser {
             in.next();
             return false;
         }
+    }
+
+    @Override
+    protected void onEndParse(Environment environment, ArgumentList arguments, StringIterator in) {
+        if (!Objects.equals(v, ""))
+            arguments.add(new Argument(v));
+        v = "";
     }
 
     public void addParser(Parser parser) {

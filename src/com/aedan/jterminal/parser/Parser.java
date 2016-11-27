@@ -22,9 +22,11 @@ public abstract class Parser {
     public ArgumentList parse(Environment environment, String s) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
         StringIterator in = new StringIterator(s);
+        onBeginParse(environment, argumentList, in);
         while (in.hasNext()) {
             this.apply(environment, this, argumentList, in);
         }
+        onEndParse(environment, argumentList, in);
         return argumentList;
     }
 
@@ -39,6 +41,7 @@ public abstract class Parser {
      */
     public ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
+        onBeginParse(environment, argumentList, in);
         while (in.hasNext()) {
             if (in.peek() == end) {
                 in.next();
@@ -46,6 +49,7 @@ public abstract class Parser {
             }
             this.apply(environment, this, argumentList, in);
         }
+        onEndParse(environment, argumentList, in);
         return argumentList;
     }
 
@@ -62,6 +66,7 @@ public abstract class Parser {
     public ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
             throws JTerminalException {
         ArgumentList argumentList = new ArgumentList();
+        onBeginParse(environment, argumentList, in);
         int depth = 1;
         while (in.hasNext()) {
             if (in.peek() == beginNest) {
@@ -76,7 +81,14 @@ public abstract class Parser {
                 this.apply(environment, this, argumentList, in);
             }
         }
+        onEndParse(environment, argumentList, in);
         return argumentList;
+    }
+
+    protected void onBeginParse(Environment environment, ArgumentList arguments, StringIterator in) {
+    }
+
+    protected void onEndParse(Environment environment, ArgumentList arguments, StringIterator in) {
     }
 
     /**

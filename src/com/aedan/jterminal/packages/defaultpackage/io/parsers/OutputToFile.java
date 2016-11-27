@@ -2,14 +2,16 @@ package com.aedan.jterminal.packages.defaultpackage.io.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Directory;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.output.StringOutput;
+import com.aedan.jterminal.output.PrintStreamOutput;
+import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.FileUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -41,9 +43,8 @@ public class OutputToFile extends Parser {
                     environment.getOutput()
             );
 
-            StringOutput stringOutput = new StringOutput();
-            stringOutput.println(object);
-            FileUtils.writeToFile(f, stringOutput.getString().trim());
+            PrintStreamOutput output = new PrintStreamOutput(new PrintStream(new FileOutputStream(f)));
+            output.println(object);
 
             argumentList.clear();
             in.end();

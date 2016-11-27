@@ -6,9 +6,6 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.output.StringOutput;
-
-import java.util.Objects;
 
 /**
  * Created by Aedan Smith.
@@ -24,10 +21,8 @@ class IfCommand extends Command {
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
-        StringOutput stringOutput = new StringOutput();
-        environment.getCommandHandler().handleInput(args.get(1).toString(), input, stringOutput);
 
-        if (Objects.equals(stringOutput.getString().trim(), "true")) {
+        if ((boolean) environment.getCommandHandler().handleInput(args.get(1).toString(), input, output)) {
             return environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
         } else {
             return false;

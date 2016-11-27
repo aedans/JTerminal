@@ -2,6 +2,5 @@
 JTerminal.iml
 out/
 src/META-INF
-install.bat
 JTerminal/
-jterminal.bat
+jar/META-INF

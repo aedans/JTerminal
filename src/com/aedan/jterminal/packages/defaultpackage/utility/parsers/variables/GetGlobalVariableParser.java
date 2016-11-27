@@ -29,17 +29,9 @@ public class GetGlobalVariableParser extends Parser {
             return false;
         in.next();
 
-        String varName = "";
-        label:
-        while (in.hasNext()) {
-            switch (in.peek()) {
-                case ' ':
-                    break label;
-                default:
-                    varName += in.next();
-                    break;
-            }
-        }
+        // TODO: Remove getLast()
+        String varName = parser.parseUntil(environment, in, ' ').getLast().toString();
+
         Object value = variables.get(varName);
         if (value == null)
             throw new JTerminalException("Could not find global variable with name \"" + varName + "\"", this);

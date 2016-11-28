@@ -1,10 +1,7 @@
 package com.aedan.jterminal.output;
 
-import com.aedan.jterminal.utils.ClassUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Created by Aedan Smith on 8/14/2016.
@@ -21,34 +18,9 @@ public interface CommandOutput {
      */
     void print(String s);
 
-    default void print(Object[] objects) {
-        if (objects.length == 0)
-            return;
-        print(objects[0]);
-        for (int i = 1; i < objects.length; i++) {
-            println();
-            print(objects[i]);
-        }
-    }
-
-    default void print(Iterator<?> iterator) {
-        while (iterator.hasNext()) {
-            Object o = iterator.next();
-            if (o != null) {
-                println();
-                print(iterator.next());
-            }
-        }
-    }
-
-    // TODO: Rewrite without if statements.
     default void print(Object o) {
-        if (o == null) {
-            print("null");
-        } else if (o.getClass().isArray()) {
-            print(ClassUtils.convertToObjectArray(o));
-        } else if (o instanceof Iterator) {
-            print((Iterator) o);
+        if (o instanceof PrintWrapper){
+            ((PrintWrapper) o).print(this);
         } else {
             print(o.toString());
         }
@@ -64,7 +36,11 @@ public interface CommandOutput {
     }
 
     default void println(Object o) {
-        print(o);
+        if (o instanceof PrintWrapper){
+            ((PrintWrapper) o).print(this);
+        } else {
+            print(o.toString());
+        }
         println();
     }
 

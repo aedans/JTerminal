@@ -7,6 +7,7 @@ import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
+import com.aedan.jterminal.output.PrintWrapper;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,46 +44,27 @@ public class For extends Command {
             } else {
                 objects = args.get(1).value.toString().split("\n");
             }
-            return new Iterator<Object>() {
-                int i = 0;
-
-                @Override
-                public boolean hasNext() {
-                    return i < objects.length;
-                }
-
-                @Override
-                public Object next() {
-                    try {
-                        ((HashMap) environment.getEnvironmentVariable("VARS")).put("o", objects[i]);
-                        Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
-                        ((HashMap) environment.getEnvironmentVariable("VARS")).remove("o", objects[i]);
-                        i++;
-                        return o;
-                    } catch (JTerminalException e) {
-                        return e;
+            return (PrintWrapper) pOutput -> {
+                for (Object object : objects) {
+                    //noinspection unchecked
+                    environment.getEnvironmentVariables().put("o", object);
+                    Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, pOutput);
+                    environment.getEnvironmentVariables().remove("o");
+                    if (o != null) {
+                        pOutput.println(o);
                     }
                 }
             };
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
-            return new Iterator<Object>() {
-                int i = ((Number) args.get(1).value).intValue(), max = ((Number) args.get(2).value).intValue();
-
-                @Override
-                public boolean hasNext() {
-                    return i < max;
-                }
-
-                @Override
-                public Object next() {
-                    try {
-                        ((HashMap) environment.getEnvironmentVariable("VARS")).put("i", i);
-                        Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
-                        ((HashMap) environment.getEnvironmentVariable("VARS")).remove("i", i);
-                        i++;
-                        return o;
-                    } catch (JTerminalException e) {
-                        return e;
+            long max = ((Number) args.get(2).value).longValue();
+            return (PrintWrapper) pOutput -> {
+                for (long i = ((Number) args.get(1).value).longValue(); i < max; i++) {
+                    //noinspection unchecked
+                    environment.getEnvironmentVariables().put("i", i);
+                    Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, pOutput);
+                    environment.getEnvironmentVariables().remove("i");
+                    if (o != null) {
+                        pOutput.println(o);
                     }
                 }
             };

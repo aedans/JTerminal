@@ -21,17 +21,9 @@ public class EnvironmentVariableParser extends Parser {
             return false;
         in.next();
 
-        String varName = "";
-        while (true) {
-            if (!in.hasNext())
-                throw new JTerminalException("Could not find matching %", this);
-            if (in.peek() == '%') {
-                in.next();
-                break;
-            } else {
-                varName += in.next();
-            }
-        }
+        // TODO: Remove getLast()
+        String varName = parser.parseUntil(environment, in, '%').getLast().toString();
+
         Object value = environment.getEnvironmentVariable(varName);
         if (value == null)
             throw new JTerminalException("Could not find environment variable with name " + varName, this);

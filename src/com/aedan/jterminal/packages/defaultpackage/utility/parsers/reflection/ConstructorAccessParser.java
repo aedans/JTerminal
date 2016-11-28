@@ -10,6 +10,7 @@ import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 /**
  * Created by Aedan Smith.
@@ -27,7 +28,7 @@ public class ConstructorAccessParser extends Parser {
     public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
-            if (!(in.peek() == 'n' && in.peek(1) == 'e' && in.peek(2) == 'w' && in.peek(3) == ' '))
+            if (!in.hasNext(4) || !Objects.equals(in.peekString(4), "new "))
                 return false;
             in.skip(4);
 

@@ -21,6 +21,10 @@ public class StringIterator implements Iterator<Character> {
         return i < string.length();
     }
 
+    public boolean hasNext(int n){
+        return i+n < string.length();
+    }
+
     public void skip(int i) {
         this.i += i;
     }

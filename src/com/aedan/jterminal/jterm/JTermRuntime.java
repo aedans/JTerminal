@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 // TODO: Write
 public class JTermRuntime {
-    public Parser parser = new JTermParser();
+//    public Parser parser = new JTermParser();
 
     /**
      * The list of functions to be executed in the JTermRuntime.
@@ -41,7 +41,7 @@ public class JTermRuntime {
     public JTermRuntime(String src, CommandInput input, CommandOutput output) throws Exception {
         this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
         // TODO: Re-write parser
-//        for (Function function : Parser.apply(src, this)) {
+//        for (Function function : Parser.parse(src, this)) {
 //            functions.put(function.getIdentifier(), function);
 //        }
     }

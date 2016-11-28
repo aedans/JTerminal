@@ -12,7 +12,7 @@ import com.aedan.jterminal.parser.StringIterator;
 
 public class FlagParser extends Parser {
     @Override
-    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (in.peek() != '-' || (in.peek(1) <= '9' && in.peek(1) >= '0'))
             return false;

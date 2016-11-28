@@ -45,7 +45,7 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param args        The ArgumentList to apply.
+     * @param args        The ArgumentList to parse.
      * @param input       The Input for the JTerminal.
      * @param output      The output to print to.
      * @param environment The Environment of the Command.

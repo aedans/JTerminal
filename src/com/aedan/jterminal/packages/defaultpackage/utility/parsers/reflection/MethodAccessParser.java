@@ -20,7 +20,7 @@ public class MethodAccessParser extends Parser {
     // TODO: Variatic args
     // TODO: Forward exceptions
     @Override
-    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (!(in.peek() == ':' && in.peek(1) == ':'))

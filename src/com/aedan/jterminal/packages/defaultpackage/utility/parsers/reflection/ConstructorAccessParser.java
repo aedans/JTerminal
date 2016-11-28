@@ -24,7 +24,7 @@ public class ConstructorAccessParser extends Parser {
     // TODO: Templates?
     // TODO: Forward exceptions
     @Override
-    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (!(in.peek() == 'n' && in.peek(1) == 'e' && in.peek(2) == 'w' && in.peek(3) == ' '))

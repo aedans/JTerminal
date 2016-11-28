@@ -22,7 +22,7 @@ import java.io.PrintStream;
 public class OutputToFile extends Parser {
     // TODO: Rewrite
     @Override
-    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (in.peek() != '>')

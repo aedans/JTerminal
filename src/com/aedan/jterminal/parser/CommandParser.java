@@ -34,12 +34,12 @@ public class CommandParser extends Parser {
     }
 
     @Override
-    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         for (Parser p : parsers) {
             if (!in.hasNext())
                 return true;
-            if (p.apply(environment, this, argumentList, in))
+            if (p.parse(environment, this, argumentList, in))
                 return true;
         }
 

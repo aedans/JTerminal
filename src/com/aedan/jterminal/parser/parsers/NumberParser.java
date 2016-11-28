@@ -13,7 +13,7 @@ import com.aedan.jterminal.parser.StringIterator;
 
 public class NumberParser extends Parser {
     @Override
-    public boolean apply(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (!((in.peek() >= '0' && in.peek() <= '9') || in.peek() == '-'))
             return false;

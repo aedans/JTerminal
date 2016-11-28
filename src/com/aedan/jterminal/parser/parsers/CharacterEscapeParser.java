@@ -20,9 +20,6 @@ public class CharacterEscapeParser extends Parser {
         in.next();
 
         // TODO: Add escape sequences
-        if (!in.hasNext())
-            throw new JTerminalException("Could not find character to escape", this);
-
         argumentList.add(new Argument(in.next()));
         return true;
     }

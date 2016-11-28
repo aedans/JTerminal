@@ -22,7 +22,7 @@ public class EnvironmentVariableParser extends Parser {
         in.next();
 
         // TODO: Remove getLast()
-        String varName = parser.parseUntil(environment, in, '%').getLast().toString();
+        String varName = parser.parseUntil(environment, in, ' ').getLast().toString();
 
         Object value = environment.getEnvironmentVariable(varName);
         if (value == null)

@@ -1,12 +1,13 @@
 package com.aedan.jterminal.parser;
 
+import com.aedan.jterminal.JTerminalException;
+
 import java.util.Iterator;
 
 /**
  * Created by Aedan Smith.
  */
 
-// TODO: Error handling.
 public class StringIterator implements Iterator<Character> {
     private int i = 0;
     private String string;
@@ -26,15 +27,24 @@ public class StringIterator implements Iterator<Character> {
 
     @Override
     public Character next() {
-        return string.charAt(i++);
+        if (i >= string.length())
+            throw new JTerminalException("Unexpected end of string", this);
+        else
+            return string.charAt(i++);
     }
 
     public Character peek() {
-        return string.charAt(i);
+        if (i >= string.length())
+            throw new JTerminalException("Unexpected end of string", this);
+        else
+            return string.charAt(i);
     }
 
     public Character peek(int n) {
-        return string.charAt(i + n);
+        if (i+n >= string.length())
+            throw new JTerminalException("Unexpected end of string", this);
+        else
+            return string.charAt(i + n);
     }
 
     public String fromCurrent() {

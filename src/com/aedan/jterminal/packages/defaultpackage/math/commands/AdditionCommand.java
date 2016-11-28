@@ -16,7 +16,7 @@ import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
 
 public class AdditionCommand extends MathCommand {
     public AdditionCommand() {
-        super("+");
+        super("add");
         properties[0] = "Adds two numbers.";
     }
 

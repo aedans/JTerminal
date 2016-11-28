@@ -10,7 +10,7 @@ import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
 
 public class DivisionCommand extends MathCommand {
     public DivisionCommand() {
-        super("/");
+        super("div");
         properties[0] = "Divides two numbers.";
     }
 

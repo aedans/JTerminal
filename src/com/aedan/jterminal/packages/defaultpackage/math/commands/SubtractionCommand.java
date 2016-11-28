@@ -10,7 +10,7 @@ import com.aedan.jterminal.packages.defaultpackage.math.MathCommand;
 
 public class SubtractionCommand extends MathCommand {
     public SubtractionCommand() {
-        super("-");
+        super("subt");
         properties[0] = "Subtracts two numbers.";
     }
 

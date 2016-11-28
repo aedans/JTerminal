@@ -17,7 +17,7 @@ class IfElseCommand extends Command {
     }
 
     @Override
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class, String.class);
 

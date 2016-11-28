@@ -20,7 +20,7 @@ public class AdditionCommand extends MathCommand {
         properties[0] = "Adds two numbers.";
     }
 
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         if (args.size() != 3)
             throw new JTerminalException(

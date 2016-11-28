@@ -22,8 +22,7 @@ public class JTerminal implements Runnable {
      * @param environment The Environment for the JTerminal to use.
      * @throws Exception If there was an error whilst initializing the JTerminal.
      */
-    public JTerminal(Environment environment)
-            throws Exception {
+    public JTerminal(Environment environment) throws Exception {
         if (environment == null)
             environment = new Environment(null, null, null, null, null, new DefaultPackage());
 
@@ -47,7 +46,7 @@ public class JTerminal implements Runnable {
         this.environment.setEnvironmentVariable("RUN", true);
         this.environment.setEnvironmentVariable("CARET", "add %DIR \\>");
         //noinspection InfiniteLoopStatement
-        while ((Boolean) this.environment.getEnvironmentVariable("RUN")) {
+        while ((boolean) this.environment.getEnvironmentVariable("RUN")) {
             try {
                 this.printCaret();
                 this.handleInput();

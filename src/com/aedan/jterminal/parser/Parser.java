@@ -16,7 +16,7 @@ public abstract class Parser {
      * Parses a string.
      *
      * @param environment The Environment containing the Parser.
-     * @param s           The string to parse.
+     * @param s           The string to apply.
      * @return The List of Arguments.
      */
     public ArgumentList parse(Environment environment, String s) throws JTerminalException {
@@ -34,7 +34,7 @@ public abstract class Parser {
      * Parses a string until a character.
      *
      * @param environment The Environment containing the Parser.
-     * @param in          The string input to parse.
+     * @param in          The string input to apply.
      * @param end         The character that begins a scope.
      * @return The List of Arguments
      * @throws JTerminalException If there was an error parsing the string.
@@ -57,7 +57,7 @@ public abstract class Parser {
      * Parses a string until a nested character.
      *
      * @param environment The Environment containing the Parser.
-     * @param in          The string input to parse.
+     * @param in          The string input to apply.
      * @param beginNest   The character that begins a scope.
      * @param endNest     The character that ends a scope.
      * @return The List of Arguments.

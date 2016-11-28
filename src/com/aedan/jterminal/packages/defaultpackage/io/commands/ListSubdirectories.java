@@ -26,7 +26,7 @@ public class ListSubdirectories extends Command {
     }
 
     @Override
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         File[] files = ((Directory) environment.getEnvironmentVariable("DIR")).subFile().listFiles();
         for (int i = 0; i < files.length; i++) {

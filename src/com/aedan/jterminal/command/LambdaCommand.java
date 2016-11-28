@@ -24,7 +24,7 @@ public class LambdaCommand extends Command {
     }
 
     @Override
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         String command = this.command;
         for (int i = 1; i < args.size(); i++) {

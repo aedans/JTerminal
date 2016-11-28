@@ -22,7 +22,7 @@ public abstract class MathCommand extends Command {
     }
 
     @Override
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         try {
             if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {

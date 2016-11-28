@@ -9,8 +9,8 @@ import java.util.Iterator;
  */
 
 public class StringIterator implements Iterator<Character> {
-    private int i = 0;
-    private String string;
+    protected int i = 0;
+    protected String string;
 
     public StringIterator(String string) {
         this.string = string;
@@ -47,6 +47,13 @@ public class StringIterator implements Iterator<Character> {
             return string.charAt(i + n);
     }
 
+    public String peekString(int n){
+        if (i+n >= string.length())
+            throw new JTerminalException("Unexpected end of string", this);
+        else
+            return string.substring(i, i+n);
+    }
+
     public String fromCurrent() {
         return string.substring(i);
     }
@@ -57,5 +64,13 @@ public class StringIterator implements Iterator<Character> {
 
     public void end() {
         i = string.length();
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public int getIndex() {
+        return i;
     }
 }

@@ -19,7 +19,7 @@ public class Exit extends Command {
     }
 
     @Override
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         environment.setEnvironmentVariable("RUN", false);
         return null;

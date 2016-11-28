@@ -18,7 +18,7 @@ class LessThan extends Command {
     }
 
     @Override
-    public Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws JTerminalException {
+    public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment) throws JTerminalException {
         args.checkMatches(this, Number.class, Number.class);
 
         return (double) args.get(1).value < (double) args.get(2).value;

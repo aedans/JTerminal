@@ -8,8 +8,6 @@ import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.parser.CommandParser;
 import com.alibaba.fastjson.JSON;
 
-import java.util.Objects;
-
 /**
  * Created by Aedan Smith on 8/10/16.
  * <p>
@@ -102,7 +100,7 @@ public class CommandHandler {
     protected Object execute(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
         Command c = environment.getCommands().get(arguments.get(0).value);
         if (c != null)
-            return c.parse(arguments, input, output, environment);
+            return c.apply(arguments, input, output, environment);
         else
             return JTerminalException.class;
     }

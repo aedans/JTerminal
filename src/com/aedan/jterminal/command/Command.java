@@ -45,13 +45,13 @@ public abstract class Command {
     /**
      * Parses a String.
      *
-     * @param args        The ArgumentList to parse.
+     * @param args        The ArgumentList to apply.
      * @param input       The Input for the JTerminal.
      * @param output      The output to print to.
      * @param environment The Environment of the Command.
      * @throws JTerminalException if the String cannot be parsed.
      */
-    public abstract Object parse(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
+    public abstract Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException;
 
     @Override

@@ -100,12 +100,11 @@ public class CommandHandler {
      * @throws JTerminalException If there was an error during execution.
      */
     protected Object execute(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
-        for (Command command : environment.getCommands()) {
-            if (Objects.equals(command.getIdentifier(), arguments.get(0).value)) {
-                return command.parse(arguments, input, output, environment);
-            }
-        }
-        return JTerminalException.class;
+        Command c = environment.getCommands().get(arguments.get(0).value);
+        if (c != null)
+            return c.parse(arguments, input, output, environment);
+        else
+            return JTerminalException.class;
     }
 
     /**

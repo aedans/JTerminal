@@ -24,7 +24,7 @@ import java.util.*;
  */
 
 public class Environment {
-    private ArrayList<Command> commands = new ArrayList<>();
+    private HashMap<String, Command> commands = new HashMap<>();
 
     private HashMap<String, Object> environmentVariables = new HashMap<>();
 
@@ -93,8 +93,7 @@ public class Environment {
     }
 
     public void addCommand(Command command) {
-        commands.add(command);
-        commands.sort((o1, o2) -> o2.getIdentifier().length() - o1.getIdentifier().length());
+        commands.put(command.getIdentifier(), command);
         environmentVariables.put(command.getIdentifier(), command);
     }
 
@@ -103,13 +102,7 @@ public class Environment {
     }
 
     public void removeCommand(String s) {
-        LinkedList<Command> toRemove = new LinkedList<>();
-        for (Command c : commands) {
-            if (Objects.equals(c.getIdentifier(), s)) {
-                toRemove.add(c);
-            }
-        }
-        commands.removeAll(toRemove);
+        commands.remove(s);
     }
 
     public CommandInput getInput() {
@@ -128,7 +121,7 @@ public class Environment {
         this.output = output;
     }
 
-    public ArrayList<Command> getCommands() {
+    public HashMap<String, Command> getCommands() {
         return commands;
     }
 

@@ -8,7 +8,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.output.StringOutput;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -33,8 +33,8 @@ public class Help extends Command {
             throws JTerminalException {
         if (args.size() == 1) {
             //noinspection unchecked
-            ArrayList<Command> sCommands = (ArrayList<Command>) environment.getCommands().clone();
-            sCommands.sort((o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));
+            List<Command> sCommands = new ArrayList<>(environment.getCommands().values());
+            Collections.sort(sCommands, (o1, o2) -> o1.getIdentifier().compareTo(o2.getIdentifier()));
 
             ArrayList<String> sIdentifiers = new ArrayList<>();
             ArrayList<String> sDescriptions = new ArrayList<>();
@@ -48,13 +48,12 @@ public class Help extends Command {
             return s.getString().trim();
         } else {
             args.matches(String.class);
-            for (Command c : environment.getCommands()) {
-                if (c.getIdentifier().equals(args.get(1).value)) {
-                    try {
-                        return c.getProperty(1);
-                    } catch (Exception e) {
-                        return String.format("Could not access command \"%s\" description (%s)\n", c.getIdentifier(), e.getMessage());
-                    }
+            Command c = environment.getCommands().get(args.get(1).value);
+            if (c != null) {
+                try {
+                    return c.getProperty(1);
+                } catch (Exception e) {
+                    return String.format("Could not access command \"%s\" description (%s)\n", c.getIdentifier(), e.getMessage());
                 }
             }
 

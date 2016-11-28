@@ -4,7 +4,7 @@ package com.aedan.jterminal;
  * Created by Aedan Smith.
  */
 
-public class JTerminalException extends Exception {
+public class JTerminalException extends RuntimeException {
     /**
      * The default JTerminalException constructor.
      *

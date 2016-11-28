@@ -32,12 +32,12 @@ public interface CommandOutput {
     }
 
     default void print(Iterator<?> iterator) {
-        if (!iterator.hasNext())
-            return;
-        print(iterator.next());
         while (iterator.hasNext()) {
-            println();
-            print(iterator.next());
+            Object o = iterator.next();
+            if (o != null) {
+                println();
+                print(iterator.next());
+            }
         }
     }
 

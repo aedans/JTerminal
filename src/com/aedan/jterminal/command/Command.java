@@ -66,4 +66,9 @@ public abstract class Command {
     public String getProperty(int id) {
         return properties[id];
     }
+
+    @Override
+    public int hashCode() {
+        return identifier.hashCode();
+    }
 }

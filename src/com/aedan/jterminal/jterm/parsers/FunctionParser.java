@@ -51,7 +51,7 @@ public class FunctionParser extends Parser {
         }
 
         String finalName = name;
-        String[] finalArgs = args.split(",");
+        String[] finalArgs = args.isEmpty() ? new String[0] : args.split(",");
         String[] finalStatements = body.split("\n");
 
         functions.put(finalName, new Function() {
@@ -63,7 +63,7 @@ public class FunctionParser extends Parser {
             @Override
             public Object apply(Object[] args) throws JTerminalException {
                 if (args.length != finalArgs.length)
-                    throw new JTerminalException("Incorrect arguments given", this);
+                    throw new JTerminalException("Incorrect arguments given to function " + getIdentifier(), this);
 
                 HashMap<String, Object> vars = new HashMap<>();
                 for (int i = 0; i < args.length; i++) {
@@ -84,7 +84,7 @@ public class FunctionParser extends Parser {
                 }
 
                 environment.setEnvironmentVariable("VARS", sVars);
-                return null;
+                return environment.removeEnvironmentVariable("RETURN");
             }
         });
 

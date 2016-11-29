@@ -23,8 +23,7 @@ class CallFunction extends Command {
     @Override
     public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        // TODO: Object[]
-        String[] arguments = new String[args.size() - 2];
+        Object[] arguments = new Object[args.size() - 2];
         for (int i = 0; i < args.size() - 2; i++) {
             arguments[i] = args.get(i + 2).toString();
         }

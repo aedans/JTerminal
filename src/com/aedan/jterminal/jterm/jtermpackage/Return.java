@@ -11,16 +11,18 @@ import com.aedan.jterminal.output.CommandOutput;
  * Created by Aedan Smith.
  */
 
-class GreaterThan extends Command {
-    GreaterThan() {
-        super("gt", "Returns true if a number is greater than another number.");
+class Return extends Command {
+    Return() {
+        super("ret", "Sets the return value of the function to an object.");
     }
 
     @Override
     public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        args.checkMatches(this, String.class, String.class);
+        args.checkMatches(this, Object.class);
 
-        return (double) args.get(1).value > (double) args.get(2).value;
+        environment.setEnvironmentVariable("RETURN", args.get(1).value);
+
+        return null;
     }
 }

@@ -133,8 +133,8 @@ public class Environment {
         this.environmentVariables.put(name, o);
     }
 
-    public void removeEnvironmentVariable(String name) {
-        this.environmentVariables.remove(name);
+    public Object removeEnvironmentVariable(String name) {
+        return this.environmentVariables.remove(name);
     }
 
     public Object getEnvironmentVariable(String name) {

@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.jtermpackage;
+package jterm.jtermpackage;
 
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.environment.Environment;

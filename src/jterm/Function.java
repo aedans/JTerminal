@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm;
+package jterm;
 
 import com.aedan.jterminal.JTerminalException;
 

@@ -1,4 +1,4 @@
-package com.aedan.jterminal.jterm.jtermpackage;
+package jterm.jtermpackage;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
@@ -7,15 +7,16 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Created by Aedan Smith.
  */
 
-class IfEqual extends Command {
-    IfEqual() {
-        super("eq", "Returns true if two values are equal");
+class WhileCommand extends Command {
+    WhileCommand() {
+        super("whl", "Executes a command until a command returns false.");
     }
 
     @Override
@@ -23,6 +24,10 @@ class IfEqual extends Command {
             throws JTerminalException {
         args.checkMatches(this, String.class, String.class);
 
-        return Objects.equals(args.get(1).value, args.get(2).value);
+        ArrayList<Object> objects = new ArrayList<>();
+        while (!Objects.equals(objects.get(objects.size() - 1), false)) {
+            objects.add(environment.getCommandHandler().handleInput(args.get(2).toString(), input, output));
+        }
+        return objects;
     }
 }

@@ -1,10 +1,10 @@
-package com.aedan.jterminal.jterm;
+package jterm;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
-import com.aedan.jterminal.jterm.jtermpackage.JTermPackage;
-import com.aedan.jterminal.jterm.parsers.JTermParser;
+import jterm.jtermpackage.JTermPackage;
+import jterm.parsers.JTermParser;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.parser.Parser;
 import com.alibaba.fastjson.JSON;

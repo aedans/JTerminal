@@ -36,7 +36,9 @@ public interface CommandOutput {
     }
 
     default void println(Object o) {
-        if (o instanceof PrintWrapper){
+        if (o == null) {
+            println("null");
+        } else if (o instanceof PrintWrapper){
             ((PrintWrapper) o).print(this);
         } else {
             print(o.toString());

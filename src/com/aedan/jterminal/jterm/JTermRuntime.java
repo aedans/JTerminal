@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermpackage.JTermPackage;
+import com.aedan.jterminal.jterm.parsers.JTermParser;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.parser.Parser;
 import com.alibaba.fastjson.JSON;
@@ -16,14 +17,13 @@ import java.util.HashMap;
  * The runtime for a .jterm file.
  */
 
-// TODO: Write
 public class JTermRuntime {
-//    public Parser parser = new JTermParser();
-
     /**
      * The list of functions to be executed in the JTermRuntime.
      */
     private HashMap<String, Function> functions = new HashMap<>();
+
+    public Parser parser = new JTermParser(functions);
 
     /**
      * The Environment for the JTermRuntime.
@@ -40,10 +40,7 @@ public class JTermRuntime {
      */
     public JTermRuntime(String src, CommandInput input, CommandOutput output) throws Exception {
         this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
-        // TODO: Re-write parser
-//        for (Function function : Parser.parse(src, this)) {
-//            functions.put(function.getIdentifier(), function);
-//        }
+        this.parser.parse(environment, src);
     }
 
     /**

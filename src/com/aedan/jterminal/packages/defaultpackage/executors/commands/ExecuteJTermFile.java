@@ -43,7 +43,7 @@ public class ExecuteJTermFile extends Command {
             }
             Object[] arguments = new Object[args.size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
-                arguments[i] = args.get(i + 2).toString();
+                arguments[i] = args.get(i + 2).value;
             }
             return runtime.run(arguments);
         } catch (FileUtils.FileIOException e) {

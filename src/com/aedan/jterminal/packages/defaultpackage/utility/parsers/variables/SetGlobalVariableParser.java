@@ -15,12 +15,6 @@ import java.util.HashMap;
  */
 
 public class SetGlobalVariableParser extends Parser {
-    private HashMap<String, Object> variables;
-
-    public SetGlobalVariableParser(HashMap<String, Object> variables) {
-        this.variables = variables;
-    }
-
     @Override
     public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -32,7 +26,7 @@ public class SetGlobalVariableParser extends Parser {
         String name = parser.parse(environment, in.untilCurrent()).getLast().toString();
         Object value = parser.parse(environment, in.fromCurrent()).getLast().value;
 
-        variables.put(name, value);
+        ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).put(name, value);
         argumentList.clear();
         in.end();
         return true;

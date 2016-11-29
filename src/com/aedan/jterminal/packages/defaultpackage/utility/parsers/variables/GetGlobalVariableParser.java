@@ -16,12 +16,6 @@ import java.util.HashMap;
  */
 
 public class GetGlobalVariableParser extends Parser {
-    private HashMap<String, Object> variables;
-
-    public GetGlobalVariableParser(HashMap<String, Object> variables) {
-        this.variables = variables;
-    }
-
     @Override
     public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -32,7 +26,7 @@ public class GetGlobalVariableParser extends Parser {
         // TODO: Remove getLast()
         String varName = parser.parseUntil(environment, in, ' ').getLast().toString();
 
-        Object value = variables.get(varName);
+        Object value = ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).get(varName);
         if (value == null)
             throw new JTerminalException("Could not find global variable with name \"" + varName + "\"", this);
         else

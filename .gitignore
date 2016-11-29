@@ -1,6 +1,7 @@
 .idea/
-JTerminal.iml
 out/
 src/META-INF
 JTerminal/
 jar/META-INF
+test.jterm
+jar/jterm

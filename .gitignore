@@ -1,5 +1,4 @@
-jar/META-INF
 test.jterm
-JTerminal
 .idea
-out/
+JTerminal.iml
+src/META-INF/

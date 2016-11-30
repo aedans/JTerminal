@@ -16,11 +16,11 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class MethodAccessParser extends Parser {
+public class MethodAccessParser extends Parser<ArgumentList> {
     // TODO: Variatic args
     // TODO: Forward exceptions
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (!(in.peek() == ':' && in.peek(1) == ':'))
@@ -41,7 +41,8 @@ public class MethodAccessParser extends Parser {
                 }
             }
 
-            ArgumentList arguments = parser.nestedParse(environment, in, '(', ')');
+            ArgumentList arguments = new ArgumentList();
+            environment.getCommandHandler().getParser().parseUntil(environment, in, arguments, ')');
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

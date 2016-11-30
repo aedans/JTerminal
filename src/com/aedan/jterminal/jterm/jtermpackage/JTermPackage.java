@@ -20,13 +20,13 @@ public class JTermPackage implements Package {
     public void addTo(Environment environment) {
         environment.addPackage(new DefaultPackage());
         environment.addCommand(new CallFunction(jTermRuntime));
-        environment.addCommand(new IfCommand());
-        environment.addCommand(new IfElseCommand());
-        environment.addCommand(new WhileCommand());
-        environment.addCommand(new IfEqual());
-        environment.addCommand(new IfNotEqual());
-        environment.addCommand(new LessThan());
-        environment.addCommand(new GreaterThan());
+//        environment.addCommand(new IfCommand());
+//        environment.addCommand(new IfElseCommand());
+//        environment.addCommand(new WhileCommand());
+//        environment.addCommand(new IfEqual());
+//        environment.addCommand(new IfNotEqual());
+//        environment.addCommand(new LessThan());
+//        environment.addCommand(new GreaterThan());
         environment.addCommand(new Return());
     }
 

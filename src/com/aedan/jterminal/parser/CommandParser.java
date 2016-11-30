@@ -19,11 +19,11 @@ import java.util.Objects;
  * Parser for the CommandHandler.
  */
 
-public class CommandParser extends Parser {
+public class CommandParser extends Parser<ArgumentList> {
     /**
      * The List of Parsers.
      */
-    private LinkedList<Parser> parsers = new LinkedList<>();
+    private LinkedList<Parser<ArgumentList>> parsers = new LinkedList<>();
     private String v = "";
 
     {
@@ -34,12 +34,12 @@ public class CommandParser extends Parser {
     }
 
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        for (Parser p : parsers) {
+        for (Parser<ArgumentList> p : parsers) {
             if (!in.hasNext())
-                return true;
-            if (p.parse(environment, this, argumentList, in))
+                return false;
+            if (p.parse(environment, argumentList, in))
                 return true;
         }
 
@@ -53,7 +53,7 @@ public class CommandParser extends Parser {
             return true;
         } else {
             in.next();
-            return false;
+            return true;
         }
     }
 
@@ -69,7 +69,7 @@ public class CommandParser extends Parser {
             this.parsers.add(parser);
     }
 
-    public LinkedList<Parser> getParsers() {
+    public LinkedList<Parser<ArgumentList>> getParsers() {
         return parsers;
     }
 

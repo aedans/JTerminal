@@ -11,9 +11,9 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class NumberParser extends Parser {
+public class NumberParser extends Parser<ArgumentList> {
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (!((in.peek() >= '0' && in.peek() <= '9') || in.peek() == '-'))
             return false;

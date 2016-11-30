@@ -10,9 +10,9 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class FlagParser extends Parser {
+public class FlagParser extends Parser<ArgumentList> {
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (in.peek() != '-' || (in.peek(1) <= '9' && in.peek(1) >= '0'))
             return false;

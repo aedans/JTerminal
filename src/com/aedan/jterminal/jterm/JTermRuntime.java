@@ -23,7 +23,7 @@ public class JTermRuntime {
      */
     private HashMap<String, Function> functions = new HashMap<>();
 
-    public Parser parser = new JTermParser(functions);
+    public JTermParser parser = new JTermParser();
 
     /**
      * The Environment for the JTermRuntime.
@@ -40,7 +40,7 @@ public class JTermRuntime {
      */
     public JTermRuntime(String src, CommandInput input, CommandOutput output) throws Exception {
         this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
-        this.parser.parse(environment, src);
+        this.parser.parse(environment, src, functions);
     }
 
     /**

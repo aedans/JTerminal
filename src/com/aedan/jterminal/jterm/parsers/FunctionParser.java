@@ -13,15 +13,10 @@ import java.util.HashMap;
  * Created by Aedan Smith.
  */
 
-public class FunctionParser extends Parser {
-    private HashMap<String, Function> functions;
-
-    public FunctionParser(HashMap<String, Function> functions) {
-        this.functions = functions;
-    }
+public class FunctionParser extends Parser<HashMap<String, Function>> {
 
     @Override
-    protected boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    protected boolean parse(Environment environment, HashMap<String, Function> functions, StringIterator in)
             throws JTerminalException {
         String name = "";
         while (in.peek() != '('){

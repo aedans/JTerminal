@@ -16,16 +16,15 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class ConstructorAccessParser extends Parser {
+public class ConstructorAccessParser extends Parser<ArgumentList> {
     public ConstructorAccessParser(Environment environment) {
         environment.setEnvironmentVariable("CP", "java.lang;java.util");
     }
 
-    // TODO: Variatic args
     // TODO: Templates?
     // TODO: Forward exceptions
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (!in.hasNext(4) || !Objects.equals(in.peekString(4), "new "))
@@ -42,7 +41,8 @@ public class ConstructorAccessParser extends Parser {
                 }
             }
 
-            ArgumentList arguments = parser.nestedParse(environment, in, '(', ')');
+            ArgumentList arguments = new ArgumentList();
+            environment.getCommandHandler().getParser().parseUntil(environment, in, arguments, ')');
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

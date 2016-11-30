@@ -14,6 +14,5 @@ public class GlobalVariablePackage implements Package {
     public void addTo(Environment environment) {
         environment.setEnvironmentVariable("VARS", new HashMap<String, Object>());
         environment.getCommandHandler().getParser().addParser(new GetGlobalVariableParser());
-        environment.getCommandHandler().getParser().addParser(new SetGlobalVariableParser());
     }
 }

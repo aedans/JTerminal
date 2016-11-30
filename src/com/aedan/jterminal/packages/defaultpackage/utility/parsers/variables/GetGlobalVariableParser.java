@@ -15,16 +15,26 @@ import java.util.HashMap;
  * Parser for global variables.
  */
 
-public class GetGlobalVariableParser extends Parser {
+public class GetGlobalVariableParser extends Parser<ArgumentList> {
+    private Parser<StringBuilder> parser = new Parser<StringBuilder>() {
+        @Override
+        protected boolean parse(Environment environment, StringBuilder stringBuilder, StringIterator in)
+                throws JTerminalException {
+            stringBuilder.append(in.next());
+            return false;
+        }
+    };
+
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (in.peek() != '$')
             return false;
         in.next();
 
-        // TODO: Remove getLast()
-        String varName = parser.parseUntil(environment, in, ' ').getLast().toString();
+        StringBuilder builder = new StringBuilder();
+        parser.parseUntil(environment, in, builder, ' ');
+        String varName = builder.toString();
 
         Object value = ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).get(varName);
         if (value == null)

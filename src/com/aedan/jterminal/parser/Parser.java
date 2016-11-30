@@ -1,7 +1,6 @@
 package com.aedan.jterminal.parser;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 
 /**
@@ -11,23 +10,21 @@ import com.aedan.jterminal.environment.Environment;
  */
 
 // TODO: Error handling
-public abstract class Parser {
+public abstract class Parser<T> {
     /**
      * Parses a string.
      *
      * @param environment The Environment containing the Parser.
      * @param s           The string to parse.
-     * @return The List of Arguments.
+     * @param t           The object to parse to.
      */
-    public ArgumentList parse(Environment environment, String s) throws JTerminalException {
-        ArgumentList argumentList = new ArgumentList();
+    public void parse(Environment environment, String s, T t) throws JTerminalException {
         StringIterator in = new StringIterator(s);
-        onBeginParse(environment, argumentList, in);
+        onBeginParse(environment, t, in);
         while (in.hasNext()) {
-            this.parse(environment, this, argumentList, in);
+            this.parse(environment, t, in);
         }
-        onEndParse(environment, argumentList, in);
-        return argumentList;
+        onEndParse(environment, t, in);
     }
 
     /**
@@ -35,22 +32,21 @@ public abstract class Parser {
      *
      * @param environment The Environment containing the Parser.
      * @param in          The string input to parse.
+     * @param t           The object to parse to.
      * @param end         The character that begins a scope.
-     * @return The List of Arguments
      * @throws JTerminalException If there was an error parsing the string.
      */
-    public ArgumentList parseUntil(Environment environment, StringIterator in, char end) throws JTerminalException {
-        ArgumentList argumentList = new ArgumentList();
-        onBeginParse(environment, argumentList, in);
+    public void parseUntil(Environment environment, StringIterator in, T t, char end)
+            throws JTerminalException {
+        onBeginParse(environment, t, in);
         while (in.hasNext()) {
             if (in.peek() == end) {
                 in.next();
                 break;
             }
-            this.parse(environment, this, argumentList, in);
+            this.parse(environment, t, in);
         }
-        onEndParse(environment, argumentList, in);
-        return argumentList;
+        onEndParse(environment, t, in);
     }
 
     /**
@@ -58,15 +54,14 @@ public abstract class Parser {
      *
      * @param environment The Environment containing the Parser.
      * @param in          The string input to parse.
+     * @param t           The object to parse to.
      * @param beginNest   The character that begins a scope.
      * @param endNest     The character that ends a scope.
-     * @return The List of Arguments.
      * @throws JTerminalException If there was an error parsing the string.
      */
-    public ArgumentList nestedParse(Environment environment, StringIterator in, char beginNest, char endNest)
+    public void nestedParse(Environment environment, StringIterator in, T t, char beginNest, char endNest)
             throws JTerminalException {
-        ArgumentList argumentList = new ArgumentList();
-        onBeginParse(environment, argumentList, in);
+        onBeginParse(environment, t, in);
         int depth = 1;
         while (in.hasNext()) {
             if (in.peek() == beginNest) {
@@ -78,30 +73,27 @@ public abstract class Parser {
                 if (depth == 0)
                     break;
             } else {
-                this.parse(environment, this, argumentList, in);
+                this.parse(environment, t, in);
             }
         }
-        onEndParse(environment, argumentList, in);
-        return argumentList;
+        onEndParse(environment, t, in);
     }
 
-    protected void onBeginParse(Environment environment, ArgumentList arguments, StringIterator in) {
+    protected void onBeginParse(Environment environment, T t, StringIterator in) {
     }
 
-    protected void onEndParse(Environment environment, ArgumentList arguments, StringIterator in) {
+    protected void onEndParse(Environment environment, T t, StringIterator in) {
     }
 
     /**
      * Processes a string.
      *
      * @param environment    The Environment for the Parser.
-     * @param parser         The CommandParser.
-     * @param argumentList   The TokenList to parse.
+     * @param t              The object to parse to.
      * @param in             The original String.
-     * @return If the parser applied successfully.
      * @throws JTerminalException If there is an error parsing the string.
      */
-    protected abstract boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    protected abstract boolean parse(Environment environment, T t, StringIterator in)
             throws JTerminalException;
 
     public String getId() {

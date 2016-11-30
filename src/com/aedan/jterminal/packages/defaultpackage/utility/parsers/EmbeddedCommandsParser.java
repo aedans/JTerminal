@@ -13,16 +13,19 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for embedded command.
  */
 
-public class EmbeddedCommandsParser extends Parser {
+public class EmbeddedCommandsParser extends Parser<ArgumentList> {
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (in.peek() != '[')
             return false;
         in.next();
 
+        ArgumentList arguments = new ArgumentList();
+        environment.getCommandHandler().getParser().parseUntil(environment, in, arguments, ']');
+
         argumentList.add(new Argument(environment.getCommandHandler().handleInput(
-                parser.parseUntil(environment, in, ']'),
+                arguments,
                 environment.getInput(),
                 environment.getOutput()
         )));

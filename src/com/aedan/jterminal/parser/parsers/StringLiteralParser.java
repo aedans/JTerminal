@@ -12,9 +12,9 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for String Literals
  */
 
-public class StringLiteralParser extends Parser {
+public class StringLiteralParser extends Parser<ArgumentList> {
     @Override
-    public boolean parse(Environment environment, Parser parser, ArgumentList argumentList, StringIterator in)
+    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (in.peek() != '\"')
             return false;

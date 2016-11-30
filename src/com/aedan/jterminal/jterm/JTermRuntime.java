@@ -40,6 +40,7 @@ public class JTermRuntime {
      */
     public JTermRuntime(String src, CommandInput input, CommandOutput output) throws Exception {
         this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
+        this.environment.setEnvironmentVariable("FUNCTIONS", functions);
         this.parser.parse(environment, src, functions);
     }
 

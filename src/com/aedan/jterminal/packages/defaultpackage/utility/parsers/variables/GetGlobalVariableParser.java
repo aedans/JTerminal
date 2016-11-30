@@ -30,8 +30,11 @@ public class GetGlobalVariableParser implements Parser<ArgumentList> {
         in.next();
 
         StringBuilder builder = new StringBuilder();
-        parser.parseUntil(environment, in, builder, stringIterator ->
-                !(stringIterator.peek() == ' ' || stringIterator.peek() == '\n' || stringIterator.peek() == '\t'));
+        parser.parseUntil(environment, in, builder, s ->
+                (s.peek() >= 'a' && s.peek() <= 'z')
+                        || (s.peek() >= 'A' && s.peek() <= 'Z')
+                        || (s.peek() >= '0' && s.peek() <= '9')
+                        || s.peek() == '_');
         String varName = builder.toString();
 
         Object value = ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).get(varName);

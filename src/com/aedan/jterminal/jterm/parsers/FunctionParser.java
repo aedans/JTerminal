@@ -7,7 +7,6 @@ import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

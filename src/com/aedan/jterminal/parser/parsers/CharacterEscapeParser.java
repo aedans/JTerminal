@@ -11,7 +11,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class CharacterEscapeParser extends Parser<ArgumentList> {
+public class CharacterEscapeParser implements Parser<ArgumentList> {
     @Override
     public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

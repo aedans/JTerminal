@@ -12,7 +12,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for String Literals
  */
 
-public class StringLiteralParser extends Parser<ArgumentList> {
+public class StringLiteralParser implements Parser<ArgumentList> {
     @Override
     public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

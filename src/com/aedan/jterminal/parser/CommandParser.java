@@ -19,7 +19,7 @@ import java.util.Objects;
  * Parser for the CommandHandler.
  */
 
-public class CommandParser extends Parser<ArgumentList> {
+public class CommandParser implements Parser<ArgumentList> {
     /**
      * The List of Parsers.
      */
@@ -36,6 +36,18 @@ public class CommandParser extends Parser<ArgumentList> {
     @Override
     public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
+        if (in.hasNext() && (in.peek() == ' ' || in.peek() == '\n' || in.peek() == '\t')) {
+            if (!v.isEmpty()){
+                argumentList.add(new Argument(v));
+                v = "";
+                in.next();
+                return true;
+            } else {
+                in.next();
+                return false;
+            }
+        }
+
         for (Parser<ArgumentList> p : parsers) {
             if (!in.hasNext())
                 return false;
@@ -43,28 +55,18 @@ public class CommandParser extends Parser<ArgumentList> {
                 return true;
         }
 
-        if (in.hasNext() && in.peek() != ' ' && in.peek() != '\n') {
-            v += in.next();
-            return true;
-        } else if (!v.isEmpty()) {
-            argumentList.add(new Argument(v));
-            v = "";
-            in.next();
-            return true;
-        } else {
-            in.next();
-            return true;
-        }
+        v += in.next();
+        return true;
     }
 
     @Override
-    protected void onEndParse(Environment environment, ArgumentList arguments, StringIterator in) {
+    public void onEndParse(Environment environment, ArgumentList arguments, StringIterator in) {
         if (!Objects.equals(v, ""))
             arguments.add(new Argument(v));
         v = "";
     }
 
-    public void addParser(Parser parser) {
+    public void addParser(Parser<ArgumentList> parser) {
         if (!this.parsers.contains(parser))
             this.parsers.add(parser);
     }

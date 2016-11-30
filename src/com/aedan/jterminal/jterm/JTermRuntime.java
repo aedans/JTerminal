@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * Created by Aedan Smith.
  * <p>
- * The runtime for a .com.aedan.jterminal.jterm file.
+ * The runtime for a .jterm file.
  */
 
 public class JTermRuntime {

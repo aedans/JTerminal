@@ -14,7 +14,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class JTermParser extends Parser<HashMap<String, Function>> {
+public class JTermParser implements Parser<HashMap<String, Function>> {
     private FunctionParser functionParser;
 
     public JTermParser() {
@@ -22,16 +22,13 @@ public class JTermParser extends Parser<HashMap<String, Function>> {
     }
 
     @Override
-    protected boolean parse(Environment environment, HashMap<String, Function> functions, StringIterator in)
+    public boolean parse(Environment environment, HashMap<String, Function> functions, StringIterator in)
             throws JTerminalException {
         if (in.hasNext(3) && Objects.equals(in.peekString(3), "fn ")){
             in.skip(3);
             return functionParser.parse(environment, functions, in);
         }
-        if (in.peek() == ' ' || in.peek() == '\n') {
-            in.skip(1);
-            return true;
-        }
+        in.next();
 
         return false;
     }

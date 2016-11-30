@@ -13,14 +13,10 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for environment variables.
  */
 
-public class EnvironmentVariableParser extends Parser<ArgumentList> {
-    private Parser<StringBuilder> parser = new Parser<StringBuilder>() {
-        @Override
-        protected boolean parse(Environment environment, StringBuilder stringBuilder, StringIterator in)
-                throws JTerminalException {
-            stringBuilder.append(in.next());
-            return false;
-        }
+public class EnvironmentVariableParser implements Parser<ArgumentList> {
+    private Parser<StringBuilder> parser = (environment, stringBuilder, in) -> {
+        stringBuilder.append(in.next());
+        return false;
     };
 
     @Override
@@ -31,7 +27,8 @@ public class EnvironmentVariableParser extends Parser<ArgumentList> {
         in.next();
 
         StringBuilder builder = new StringBuilder();
-        parser.parseUntil(environment, in, builder, ' ');
+        parser.parseUntil(environment, in, builder, stringIterator ->
+                !(stringIterator.peek() == ' ' || stringIterator.peek() == '\n' || stringIterator.peek() == '\t'));
         String varName = builder.toString();
 
         Object value = environment.getEnvironmentVariable(varName);

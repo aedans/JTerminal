@@ -7,13 +7,15 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
+import java.util.function.Predicate;
+
 /**
  * Created by Aedan Smith on 10/10/2016.
  * <p>
  * Parser for embedded command.
  */
 
-public class EmbeddedCommandsParser extends Parser<ArgumentList> {
+public class EmbeddedCommandsParser implements Parser<ArgumentList> {
     @Override
     public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -22,7 +24,11 @@ public class EmbeddedCommandsParser extends Parser<ArgumentList> {
         in.next();
 
         ArgumentList arguments = new ArgumentList();
-        environment.getCommandHandler().getParser().parseUntil(environment, in, arguments, ']');
+        // TODO: Nested predicate
+        environment.getCommandHandler().getParser().parseUntil(
+                environment, in, arguments, stringIterator -> stringIterator.peek() != ']'
+        );
+        in.next();
 
         argumentList.add(new Argument(environment.getCommandHandler().handleInput(
                 arguments,

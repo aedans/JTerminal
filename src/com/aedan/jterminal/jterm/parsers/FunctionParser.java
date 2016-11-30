@@ -7,16 +7,16 @@ import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by Aedan Smith.
  */
 
-public class FunctionParser extends Parser<HashMap<String, Function>> {
-
+class FunctionParser implements Parser<HashMap<String, Function>> {
     @Override
-    protected boolean parse(Environment environment, HashMap<String, Function> functions, StringIterator in)
+    public boolean parse(Environment environment, HashMap<String, Function> functions, StringIterator in)
             throws JTerminalException {
         String name = "";
         while (in.peek() != '('){
@@ -47,7 +47,7 @@ public class FunctionParser extends Parser<HashMap<String, Function>> {
 
         String finalName = name;
         String[] finalArgs = args.isEmpty() ? new String[0] : args.split(",");
-        String[] finalStatements = body.split("\n");
+        String finalBody = body;
 
         functions.put(finalName, new Function() {
             @Override
@@ -68,14 +68,18 @@ public class FunctionParser extends Parser<HashMap<String, Function>> {
                 Object sVars = environment.getEnvironmentVariable("VARS");
                 environment.setEnvironmentVariable("VARS", vars);
 
-                for (String s : finalStatements) {
+                StringIterator bodyIterator = new StringIterator(finalBody);
+                while (bodyIterator.hasNext()){
+                    ArgumentList arguments = new ArgumentList();
+                    environment.getCommandHandler().getParser().parseUntil(
+                            environment, bodyIterator, arguments, stringIterator -> stringIterator.peek() != '\n'
+                    );
+                    bodyIterator.next();
                     Object o = environment.getCommandHandler().handleInput(
-                            s,
-                            environment.getInput(),
-                            environment.getOutput()
+                            arguments, environment.getInput(), environment.getOutput()
                     );
                     if (o != null)
-                        environment.getOutput().println(o);
+                        System.out.println(o);
                 }
 
                 environment.setEnvironmentVariable("VARS", sVars);

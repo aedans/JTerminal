@@ -11,7 +11,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class NumberParser extends Parser<ArgumentList> {
+public class NumberParser implements Parser<ArgumentList> {
     @Override
     public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

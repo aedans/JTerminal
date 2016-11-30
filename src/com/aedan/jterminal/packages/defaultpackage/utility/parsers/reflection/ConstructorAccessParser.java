@@ -11,12 +11,13 @@ import com.aedan.jterminal.utils.ClassUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Created by Aedan Smith.
  */
 
-public class ConstructorAccessParser extends Parser<ArgumentList> {
+public class ConstructorAccessParser implements Parser<ArgumentList> {
     public ConstructorAccessParser(Environment environment) {
         environment.setEnvironmentVariable("CP", "java.lang;java.util");
     }
@@ -42,7 +43,10 @@ public class ConstructorAccessParser extends Parser<ArgumentList> {
             }
 
             ArgumentList arguments = new ArgumentList();
-            environment.getCommandHandler().getParser().parseUntil(environment, in, arguments, ')');
+            // TODO: Nested
+            environment.getCommandHandler().getParser().parseUntil(
+                    environment, in, arguments, stringIterator -> stringIterator.peek() != ')'
+            );
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

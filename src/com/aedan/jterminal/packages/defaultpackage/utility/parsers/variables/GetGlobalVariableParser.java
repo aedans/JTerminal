@@ -8,6 +8,7 @@ import com.aedan.jterminal.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
 import java.util.HashMap;
+import java.util.function.Predicate;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
@@ -15,14 +16,10 @@ import java.util.HashMap;
  * Parser for global variables.
  */
 
-public class GetGlobalVariableParser extends Parser<ArgumentList> {
-    private Parser<StringBuilder> parser = new Parser<StringBuilder>() {
-        @Override
-        protected boolean parse(Environment environment, StringBuilder stringBuilder, StringIterator in)
-                throws JTerminalException {
-            stringBuilder.append(in.next());
-            return false;
-        }
+public class GetGlobalVariableParser implements Parser<ArgumentList> {
+    private Parser<StringBuilder> parser = (environment, stringBuilder, in) -> {
+        stringBuilder.append(in.next());
+        return true;
     };
 
     @Override
@@ -33,7 +30,8 @@ public class GetGlobalVariableParser extends Parser<ArgumentList> {
         in.next();
 
         StringBuilder builder = new StringBuilder();
-        parser.parseUntil(environment, in, builder, ' ');
+        parser.parseUntil(environment, in, builder, stringIterator ->
+                !(stringIterator.peek() == ' ' || stringIterator.peek() == '\n' || stringIterator.peek() == '\t'));
         String varName = builder.toString();
 
         Object value = ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).get(varName);

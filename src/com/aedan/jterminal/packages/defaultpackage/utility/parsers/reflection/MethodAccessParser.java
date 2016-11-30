@@ -16,7 +16,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class MethodAccessParser extends Parser<ArgumentList> {
+public class MethodAccessParser implements Parser<ArgumentList> {
     // TODO: Variatic args
     // TODO: Forward exceptions
     @Override
@@ -42,7 +42,10 @@ public class MethodAccessParser extends Parser<ArgumentList> {
             }
 
             ArgumentList arguments = new ArgumentList();
-            environment.getCommandHandler().getParser().parseUntil(environment, in, arguments, ')');
+            // TODO: Nested
+            environment.getCommandHandler().getParser().parseUntil(
+                    environment, in, arguments, stringIterator -> stringIterator.peek() != ')'
+            );
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

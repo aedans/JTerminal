@@ -102,7 +102,7 @@ public class CommandHandler {
      * @throws JTerminalException If there was an error during execution.
      */
     protected Object execute(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
-        Command c = environment.getCommands().get(arguments.get(0).value.toString());
+        Command c = environment.getCommands().get(arguments.get(0).toString());
         if (c != null)
             return c.apply(arguments, input, output, environment);
         else

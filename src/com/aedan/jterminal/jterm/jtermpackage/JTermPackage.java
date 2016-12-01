@@ -19,7 +19,6 @@ public class JTermPackage implements Package {
 
     @Override
     public void addTo(Environment environment) {
-        environment.addPackage(new DefaultPackage());
         environment.addCommand(new CallFunction(jTermRuntime));
 //        environment.addCommand(new IfCommand());
 //        environment.addCommand(new IfElseCommand());

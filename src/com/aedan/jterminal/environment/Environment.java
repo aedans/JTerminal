@@ -15,6 +15,7 @@ import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 import com.alibaba.fastjson.JSON;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -33,6 +34,8 @@ public class Environment {
     private CommandInput input;
 
     private CommandOutput output;
+
+    private ArrayList<Package> packages = new ArrayList<>();
 
     /**
      * Default Environment constructor.
@@ -98,7 +101,10 @@ public class Environment {
     }
 
     public void addPackage(Package aPackage) {
-        aPackage.addTo(this);
+        if (!this.packages.contains(aPackage)) {
+            aPackage.addTo(this);
+            packages.add(aPackage);
+        }
     }
 
     public void removeCommand(String s) {
@@ -143,6 +149,10 @@ public class Environment {
 
     public HashMap<String, Object> getEnvironmentVariables() {
         return environmentVariables;
+    }
+
+    public ArrayList<Package> getPackages() {
+        return packages;
     }
 
     @Override

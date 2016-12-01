@@ -35,18 +35,14 @@ public class ExecuteJTermFile extends Command {
             String lines = FileUtils.readFile(
                     ((Directory) environment.getEnvironmentVariable("DIR")).subFile(dir)
             );
-            JTermRuntime runtime;
-            try {
-                runtime = new JTermRuntime(lines, input, output);
-            } catch (Exception e) {
-                throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
-            }
+            JTermRuntime runtime = new JTermRuntime(environment, lines, input, output);
+
             Object[] arguments = new Object[args.size() - 2];
             for (int i = 0; i < args.size() - 2; i++) {
                 arguments[i] = args.get(i + 2).value;
             }
             return runtime.run(arguments);
-        } catch (FileUtils.FileIOException e) {
+        } catch (Exception e) {
             throw new JTerminalException(e.getMessage(), ExecuteJTermFile.class);
         }
     }

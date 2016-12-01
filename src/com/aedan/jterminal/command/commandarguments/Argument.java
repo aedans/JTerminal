@@ -42,6 +42,9 @@ public class Argument {
 
     @Override
     public String toString() {
-        return value.toString();
+        if (value == null)
+            return null;
+        else
+            return value.toString();
     }
 }

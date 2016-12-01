@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.parser.ParseException;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.ClassUtils;
@@ -16,7 +17,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class MethodAccessParser implements Parser<ArgumentList> {
+public class MethodAccessParser implements Parser<StringIterator, ArgumentList> {
     private Environment environment;
 
     public MethodAccessParser(Environment environment){
@@ -33,7 +34,7 @@ public class MethodAccessParser implements Parser<ArgumentList> {
                 return false;
 
             if (argumentList.getLast() == null) {
-                throw new JTerminalException("Object is null", this);
+                throw new ParseException("Object is null", this);
             }
 
             String name = "";
@@ -80,7 +81,7 @@ public class MethodAccessParser implements Parser<ArgumentList> {
             }
 
             if (m == null)
-                throw new JTerminalException("Could not find method with name \"" + name + "\" and args \"" + arguments + "\"", this);
+                throw new ParseException("Could not find method with name \"" + name + "\" and args \"" + arguments + "\"", this);
 
             if (arguments.isEmpty()) {
                 Object o = m.invoke(argumentList.getLast().value);
@@ -97,7 +98,7 @@ public class MethodAccessParser implements Parser<ArgumentList> {
             }
             return true;
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new JTerminalException(e.getMessage(), this);
+            throw new ParseException(e.getMessage(), this);
         }
     }
 

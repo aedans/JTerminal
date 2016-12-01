@@ -14,7 +14,7 @@ import java.util.HashMap;
  * Created by Aedan Smith.
  */
 
-class FunctionParser implements Parser<HashMap<String, Function>> {
+class FunctionParser implements Parser<StringIterator, HashMap<String, Function>> {
     private Environment environment;
 
     public FunctionParser(Environment environment){

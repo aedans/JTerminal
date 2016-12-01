@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.parser.ParseException;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.ClassUtils;
@@ -16,7 +17,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class ConstructorAccessParser implements Parser<ArgumentList> {
+public class ConstructorAccessParser implements Parser<StringIterator, ArgumentList> {
     private Environment environment;
 
     public ConstructorAccessParser(Environment environment) {
@@ -78,14 +79,14 @@ public class ConstructorAccessParser implements Parser<ArgumentList> {
             }
 
             if (c == null)
-                throw new JTerminalException("Could not find constructor with name \"" + name + "\" and args \"" + arguments + "\"", this);
+                throw new ParseException("Could not find constructor with name \"" + name + "\" and args \"" + arguments + "\"", this);
 
             argumentList.add(new Argument(c.newInstance(objects)));
             return true;
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            throw new JTerminalException(e.getMessage(), this);
+            throw new ParseException(e.getMessage(), this);
         } catch (ClassNotFoundException e) {
-            throw new JTerminalException("Could not find class " + e.getMessage(), this);
+            throw new ParseException("Could not find class " + e.getMessage(), this);
         }
     }
 

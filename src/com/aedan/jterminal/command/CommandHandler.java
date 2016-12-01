@@ -6,6 +6,7 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.parser.CommandParser;
+import com.aedan.jterminal.parser.StringIterator;
 import com.alibaba.fastjson.JSON;
 
 /**
@@ -45,7 +46,7 @@ public class CommandHandler {
             throws JTerminalException {
         try {
             ArgumentList arguments = new ArgumentList();
-            parser.parse(s, arguments);
+            parser.parse(new StringIterator(s), arguments);
             return handleInput(arguments, input, output);
         } catch (JTerminalException e) {
             return onFatalExecution(input, output, e);

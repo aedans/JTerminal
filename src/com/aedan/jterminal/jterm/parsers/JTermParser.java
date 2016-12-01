@@ -13,7 +13,7 @@ import java.util.Objects;
  * Created by Aedan Smith.
  */
 
-public class JTermParser implements Parser<HashMap<String, Function>> {
+public class JTermParser implements Parser<StringIterator, HashMap<String, Function>> {
     private FunctionParser functionParser;
 
     public JTermParser(Environment environment) {

@@ -10,7 +10,7 @@ import com.aedan.parser.Parser;
  * Created by Aedan Smith.
  */
 
-public class DefaultParser implements Parser<ArgumentList> {
+public class DefaultParser implements Parser<StringIterator, ArgumentList> {
     @Override
     public boolean parse(ArgumentList arguments, StringIterator in) throws JTerminalException {
         StringBuilder s = new StringBuilder();

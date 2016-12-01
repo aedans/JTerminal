@@ -13,7 +13,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for embedded command.
  */
 
-public class EmbeddedCommandsParser implements Parser<ArgumentList> {
+public class EmbeddedCommandsParser implements Parser<StringIterator, ArgumentList> {
     private Environment environment;
 
     public EmbeddedCommandsParser(Environment environment){

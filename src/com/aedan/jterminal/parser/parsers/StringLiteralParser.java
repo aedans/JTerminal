@@ -2,7 +2,7 @@ package com.aedan.jterminal.parser.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.parser.ParseException;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
@@ -12,7 +12,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for String Literals
  */
 
-public class StringLiteralParser implements Parser<ArgumentList> {
+public class StringLiteralParser implements Parser<StringIterator, ArgumentList> {
     @Override
     public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
@@ -24,7 +24,7 @@ public class StringLiteralParser implements Parser<ArgumentList> {
         label:
         while (true) {
             if (!in.hasNext())
-                throw new JTerminalException("Could not find matching \"", this);
+                throw new ParseException("Could not find matching \"", this);
             switch (in.peek()) {
                 // TODO: Parse with CharacterEscapeParser
                 case '\\':

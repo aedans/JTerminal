@@ -2,7 +2,6 @@ package com.aedan.jterminal.parser.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
@@ -10,7 +9,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class FlagParser implements Parser<ArgumentList> {
+public class FlagParser implements Parser<StringIterator, ArgumentList> {
     @Override
     public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {

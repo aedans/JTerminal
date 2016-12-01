@@ -3,7 +3,6 @@ package com.aedan.jterminal.jterm.parsers;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.jterm.JTermRuntime;
 import com.aedan.parser.Parser;
@@ -13,7 +12,7 @@ import com.aedan.jterminal.parser.StringIterator;
  * Created by Aedan Smith.
  */
 
-public class FunctionCallParser implements Parser<ArgumentList> {
+public class FunctionCallParser implements Parser<StringIterator, ArgumentList> {
     private JTermRuntime jTermRuntime;
 
     public FunctionCallParser(JTermRuntime jTermRuntime){

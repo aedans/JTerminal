@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
+import com.aedan.parser.ParseException;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
@@ -13,8 +14,8 @@ import com.aedan.jterminal.parser.StringIterator;
  * Parser for environment variables.
  */
 
-public class EnvironmentVariableParser implements Parser<ArgumentList> {
-    private Parser<StringBuilder> parser = (stringBuilder, in) -> {
+public class EnvironmentVariableParser implements Parser<StringIterator, ArgumentList> {
+    private Parser<StringIterator, StringBuilder> parser = (stringBuilder, in) -> {
         stringBuilder.append(in.next());
         return false;
     };
@@ -42,7 +43,7 @@ public class EnvironmentVariableParser implements Parser<ArgumentList> {
 
         Object value = environment.getEnvironmentVariable(varName);
         if (value == null)
-            throw new JTerminalException("Could not find environment variable with name " + varName, this);
+            throw new ParseException("Could not find environment variable with name " + varName, this);
         else
             argumentList.add(new Argument(value));
         return true;

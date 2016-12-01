@@ -7,22 +7,22 @@ import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 
+import java.util.Objects;
+
 /**
  * Created by Aedan Smith.
  */
 
-class Return extends Command {
-    Return() {
-        super("ret");
+class IfEquals extends Command {
+    IfEquals() {
+        super("==");
     }
 
     @Override
     public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        args.checkMatches(this, Object.class);
+        args.checkMatches(this, Object.class, Object.class);
 
-        environment.setEnvironmentVariable("RETURN", args.get(1).value);
-
-        return null;
+        return Objects.equals(args.get(1).value, args.get(2).value);
     }
 }

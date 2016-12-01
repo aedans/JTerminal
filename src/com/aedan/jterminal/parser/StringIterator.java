@@ -4,6 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 /**
  * Created by Aedan Smith.
@@ -32,6 +33,22 @@ public class StringIterator implements Iterator<Character> {
 
     public void skip(int i) {
         this.i += i;
+    }
+
+    public String until(char c) {
+        String s = "";
+        while (hasNext() && peek() != c){
+            s += string[i++];
+        }
+        return s;
+    }
+
+    public String until(Predicate<StringIterator> test){
+        String s = "";
+        while (test.test(this)){
+            s += next();
+        }
+        return s;
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.parser.CommandParser;
 import com.aedan.jterminal.parser.StringIterator;
+import com.aedan.parser.ParseException;
 import com.alibaba.fastjson.JSON;
 
 /**
@@ -48,7 +49,7 @@ public class CommandHandler {
             ArgumentList arguments = new ArgumentList();
             parser.parse(new StringIterator(s), arguments);
             return handleInput(arguments, input, output);
-        } catch (JTerminalException e) {
+        } catch (JTerminalException | ParseException e) {
             return onFatalExecution(input, output, e);
         }
     }
@@ -101,7 +102,7 @@ public class CommandHandler {
      * @throws JTerminalException If there was an error during execution.
      */
     protected Object execute(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
-        Command c = environment.getCommands().get(arguments.get(0).value);
+        Command c = environment.getCommands().get(arguments.get(0).value.toString());
         if (c != null)
             return c.apply(arguments, input, output, environment);
         else
@@ -145,7 +146,7 @@ public class CommandHandler {
     /**
      * Hook called upon fatal executions.
      */
-    protected Object onFatalExecution(CommandInput input, CommandOutput output, JTerminalException e)
+    protected Object onFatalExecution(CommandInput input, CommandOutput output, Exception e)
             throws JTerminalException {
         return String.format("Could not execute command (%s)", e.getMessage());
     }

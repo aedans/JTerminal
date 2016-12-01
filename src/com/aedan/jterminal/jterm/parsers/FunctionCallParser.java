@@ -21,7 +21,7 @@ public class FunctionCallParser implements Parser<StringIterator, ArgumentList> 
 
     @Override
     public boolean parse(ArgumentList args, StringIterator in) throws JTerminalException {
-        if (in.peek() != '@')
+        if (in.peek() != '!')
             return false;
         in.skip();
 

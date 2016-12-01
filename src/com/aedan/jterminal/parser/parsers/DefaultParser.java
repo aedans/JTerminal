@@ -13,14 +13,19 @@ import com.aedan.parser.Parser;
 public class DefaultParser implements Parser<StringIterator, ArgumentList> {
     @Override
     public boolean parse(ArgumentList arguments, StringIterator in) throws JTerminalException {
+        if (in.isInRange('\0', ' ')) {
+            in.skip();
+            return false;
+        }
+
         StringBuilder s = new StringBuilder();
         while (in.hasNext() &&
                 (in.isInRange('A', 'Z') || in.isInRange('a', 'z') || in.isInRange('0', '9') || in.peek() == '_'))
             s.append(in.next());
 
         if (s.toString().length() == 0) {
-            in.skip();
-            return false;
+            arguments.add(new Argument(in.next(), String.class));
+            return true;
         }
 
         arguments.add(new Argument(s.toString(), String.class));

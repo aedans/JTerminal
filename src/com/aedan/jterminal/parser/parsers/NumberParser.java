@@ -4,7 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.Parser;
+import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
 /**
@@ -13,7 +13,7 @@ import com.aedan.jterminal.parser.StringIterator;
 
 public class NumberParser implements Parser<ArgumentList> {
     @Override
-    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
+    public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         if (!((in.peek() >= '0' && in.peek() <= '9') || in.peek() == '-'))
             return false;

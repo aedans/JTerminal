@@ -17,8 +17,8 @@ import com.aedan.jterminal.packages.defaultpackage.utility.parsers.variables.Glo
 public class UtilityPackage implements Package {
     @Override
     public void addTo(Environment environment) {
-        environment.getCommandHandler().getParser().addParser(new EmbeddedCommandsParser());
-        environment.getCommandHandler().getParser().addParser(new EnvironmentVariableParser());
+        environment.getCommandHandler().getParser().addParser(new EmbeddedCommandsParser(environment));
+        environment.getCommandHandler().getParser().addParser(new EnvironmentVariableParser(environment));
         environment.addPackage(new GlobalVariablePackage());
         environment.addPackage(new ReflectionPackage());
         environment.addCommand(new Alias());

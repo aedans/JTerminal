@@ -45,7 +45,7 @@ public class CommandHandler {
             throws JTerminalException {
         try {
             ArgumentList arguments = new ArgumentList();
-            parser.parse(environment, s, arguments);
+            parser.parse(s, arguments);
             return handleInput(arguments, input, output);
         } catch (JTerminalException e) {
             return onFatalExecution(input, output, e);

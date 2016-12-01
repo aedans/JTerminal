@@ -4,7 +4,7 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.Parser;
+import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.ClassUtils;
 
@@ -17,10 +17,16 @@ import java.util.Objects;
  */
 
 public class MethodAccessParser implements Parser<ArgumentList> {
+    private Environment environment;
+
+    public MethodAccessParser(Environment environment){
+        this.environment = environment;
+    }
+
     // TODO: Variatic args
     // TODO: Forward exceptions
     @Override
-    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
+    public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (!(in.peek() == ':' && in.peek(1) == ':'))
@@ -44,8 +50,9 @@ public class MethodAccessParser implements Parser<ArgumentList> {
             ArgumentList arguments = new ArgumentList();
             // TODO: Nested
             environment.getCommandHandler().getParser().parseUntil(
-                    environment, in, arguments, stringIterator -> stringIterator.peek() != ')'
+                    in, arguments, stringIterator -> stringIterator.peek() != ')'
             );
+            in.skip();
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

@@ -6,10 +6,8 @@ import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.jterm.JTermRuntime;
-import com.aedan.jterminal.parser.Parser;
+import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
-
-import java.util.HashMap;
 
 /**
  * Created by Aedan Smith.
@@ -23,7 +21,7 @@ public class FunctionCallParser implements Parser<ArgumentList> {
     }
 
     @Override
-    public boolean parse(Environment environment, ArgumentList args, StringIterator in) throws JTerminalException {
+    public boolean parse(ArgumentList args, StringIterator in) throws JTerminalException {
         if (in.peek() != '@')
             return false;
         in.skip();
@@ -40,8 +38,8 @@ public class FunctionCallParser implements Parser<ArgumentList> {
 
         ArgumentList arguments = new ArgumentList();
         // TODO: Nested
-        environment.getCommandHandler().getParser().parseUntil(
-                environment, in, arguments, stringIterator -> stringIterator.peek() != ')'
+        jTermRuntime.getEnvironment().getCommandHandler().getParser().parseUntil(
+                in, arguments, stringIterator -> stringIterator.peek() != ')'
         );
         in.skip();
 

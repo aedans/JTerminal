@@ -44,27 +44,33 @@ public class For extends Command {
             } else {
                 objects = args.get(1).value.toString().split("\n");
             }
-            return (PrintWrapper) pOutput -> {
-                for (Object object : objects) {
-                    //noinspection unchecked
-                    environment.getEnvironmentVariables().put("o", object);
-                    Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, pOutput);
-                    environment.getEnvironmentVariables().remove("o");
-                    if (o != null) {
-                        pOutput.println(o);
+            return new PrintWrapper(){
+                @Override
+                public void print(CommandOutput output) {
+                    for (Object object : objects) {
+                        //noinspection unchecked
+                        environment.getEnvironmentVariables().put("o", object);
+                        Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+                        environment.getEnvironmentVariables().remove("o");
+                        if (o != null) {
+                            output.println(o);
+                        }
                     }
                 }
             };
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
             long max = ((Number) args.get(2).value).longValue();
-            return (PrintWrapper) pOutput -> {
-                for (long i = ((Number) args.get(1).value).longValue(); i < max; i++) {
-                    //noinspection unchecked
-                    environment.getEnvironmentVariables().put("i", i);
-                    Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, pOutput);
-                    environment.getEnvironmentVariables().remove("i");
-                    if (o != null) {
-                        pOutput.println(o);
+            return new PrintWrapper() {
+                @Override
+                public void print(CommandOutput output) {
+                    for (long i = ((Number) args.get(1).value).longValue(); i < max; i++) {
+                        //noinspection unchecked
+                        environment.getEnvironmentVariables().put("i", i);
+                        Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
+                        environment.getEnvironmentVariables().remove("i");
+                        if (o != null) {
+                            output.println(o);
+                        }
                     }
                 }
             };

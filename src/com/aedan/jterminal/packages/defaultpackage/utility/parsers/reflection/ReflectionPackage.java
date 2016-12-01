@@ -10,7 +10,7 @@ import com.aedan.jterminal.environment.Environment;
 public class ReflectionPackage implements Package {
     @Override
     public void addTo(Environment environment) {
-        environment.getCommandHandler().getParser().addParser(new MethodAccessParser());
+        environment.getCommandHandler().getParser().addParser(new MethodAccessParser(environment));
         environment.getCommandHandler().getParser().addParser(new ConstructorAccessParser(environment));
     }
 }

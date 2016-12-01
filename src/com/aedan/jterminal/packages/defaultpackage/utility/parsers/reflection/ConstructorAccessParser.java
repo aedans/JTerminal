@@ -4,28 +4,30 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.Parser;
+import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.jterminal.utils.ClassUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 /**
  * Created by Aedan Smith.
  */
 
 public class ConstructorAccessParser implements Parser<ArgumentList> {
+    private Environment environment;
+
     public ConstructorAccessParser(Environment environment) {
+        this.environment = environment;
         environment.setEnvironmentVariable("CP", "java.lang;java.util");
     }
 
     // TODO: Templates?
     // TODO: Forward exceptions
     @Override
-    public boolean parse(Environment environment, ArgumentList argumentList, StringIterator in)
+    public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
         try {
             if (!in.hasNext(4) || !Objects.equals(in.peekString(4), "new "))
@@ -45,8 +47,9 @@ public class ConstructorAccessParser implements Parser<ArgumentList> {
             ArgumentList arguments = new ArgumentList();
             // TODO: Nested
             environment.getCommandHandler().getParser().parseUntil(
-                    environment, in, arguments, stringIterator -> stringIterator.peek() != ')'
+                    in, arguments, stringIterator -> stringIterator.peek() != ')'
             );
+            in.skip();
 
             Object[] objects = new Object[arguments.size()];
             Class<?>[] classes = new Class<?>[arguments.size()];

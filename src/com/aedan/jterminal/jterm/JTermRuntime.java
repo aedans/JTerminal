@@ -6,7 +6,6 @@ import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermpackage.JTermPackage;
 import com.aedan.jterminal.jterm.parsers.JTermParser;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.parser.Parser;
 import com.alibaba.fastjson.JSON;
 
 import java.util.HashMap;
@@ -23,7 +22,7 @@ public class JTermRuntime {
      */
     private HashMap<String, Function> functions = new HashMap<>();
 
-    public JTermParser parser = new JTermParser();
+    public JTermParser parser;
 
     /**
      * The Environment for the JTermRuntime.
@@ -40,8 +39,9 @@ public class JTermRuntime {
      */
     public JTermRuntime(String src, CommandInput input, CommandOutput output) throws Exception {
         this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
+        this.parser = new JTermParser(environment);
         this.environment.setEnvironmentVariable("FUNCTIONS", functions);
-        this.parser.parse(environment, src, functions);
+        this.parser.parse(src, functions);
     }
 
     /**

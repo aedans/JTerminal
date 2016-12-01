@@ -4,9 +4,10 @@ import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.jterm.Function;
-import com.aedan.jterminal.parser.Parser;
+import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -14,8 +15,14 @@ import java.util.HashMap;
  */
 
 class FunctionParser implements Parser<HashMap<String, Function>> {
+    private Environment environment;
+
+    public FunctionParser(Environment environment){
+        this.environment = environment;
+    }
+
     @Override
-    public boolean parse(Environment environment, HashMap<String, Function> functions, StringIterator in)
+    public boolean parse(HashMap<String, Function> functions, StringIterator in)
             throws JTerminalException {
         String name = "";
         while (in.peek() != '('){
@@ -71,7 +78,7 @@ class FunctionParser implements Parser<HashMap<String, Function>> {
                 while (bodyIterator.hasNext()){
                     ArgumentList arguments = new ArgumentList();
                     environment.getCommandHandler().getParser().parseUntil(
-                            environment, bodyIterator, arguments, stringIterator -> stringIterator.peek() != '\n'
+                            bodyIterator, arguments, stringIterator -> stringIterator.peek() != '\n'
                     );
                     bodyIterator.next();
                     Object o = environment.getCommandHandler().handleInput(
@@ -83,6 +90,11 @@ class FunctionParser implements Parser<HashMap<String, Function>> {
 
                 environment.setEnvironmentVariable("VARS", sVars);
                 return environment.removeEnvironmentVariable("RETURN");
+            }
+
+            @Override
+            public String toString() {
+                return getIdentifier() + "("+ Arrays.toString(finalArgs) + ")";
             }
         });
 

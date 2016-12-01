@@ -2,6 +2,7 @@ package com.aedan.jterminal.parser;
 
 import com.aedan.jterminal.JTerminalException;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -10,19 +11,19 @@ import java.util.Iterator;
 
 public class StringIterator implements Iterator<Character> {
     protected int i = 0;
-    protected String string;
+    protected char[] string;
 
     public StringIterator(String string) {
-        this.string = string;
+        this.string = string.toCharArray();
     }
 
     @Override
     public boolean hasNext() {
-        return i < string.length();
+        return i < string.length;
     }
 
     public boolean hasNext(int n){
-        return i+n < string.length();
+        return i+n < string.length;
     }
 
     public void skip(){
@@ -35,46 +36,45 @@ public class StringIterator implements Iterator<Character> {
 
     @Override
     public Character next() {
-        if (i >= string.length())
+        if (i >= string.length)
             throw new JTerminalException("Unexpected end of string", this);
         else
-            return string.charAt(i++);
+            return string[i++];
     }
 
     public Character peek() {
-        if (i >= string.length())
+        if (i >= string.length)
             throw new JTerminalException("Unexpected end of string", this);
         else
-            return string.charAt(i);
+            return string[i];
     }
 
     public Character peek(int n) {
-        if (i+n >= string.length())
+        if (i+n >= string.length)
             throw new JTerminalException("Unexpected end of string", this);
         else
-            return string.charAt(i + n);
+            return string[i+n];
     }
 
     public String peekString(int n){
-        if (i+n >= string.length())
+        if (i+n >= string.length)
             throw new JTerminalException("Unexpected end of string", this);
         else
-            return string.substring(i, i+n);
+            return new String(Arrays.copyOfRange(string, i, i+n));
     }
 
-    public String fromCurrent() {
-        return string.substring(i);
-    }
-
-    public String untilCurrent() {
-        return string.substring(0, i - 1);
+    public boolean isInRange(char low, char high){
+        if (i >= string.length)
+            throw new JTerminalException("Unexpected end of string", this);
+        else
+            return string[i] >= low && string[i] <= high;
     }
 
     public void end() {
-        i = string.length();
+        i = string.length;
     }
 
-    public String getString() {
+    public char[] getString() {
         return string;
     }
 

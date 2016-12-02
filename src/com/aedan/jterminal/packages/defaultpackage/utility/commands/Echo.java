@@ -27,6 +27,6 @@ public class Echo extends Command {
             throws JTerminalException {
         args.checkMatches(this, String.class);
 
-        return args.get(1).value;
+        return args.get(1).get();
     }
 }

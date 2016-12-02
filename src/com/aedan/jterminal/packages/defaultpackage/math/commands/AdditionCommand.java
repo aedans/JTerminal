@@ -27,10 +27,10 @@ public class AdditionCommand extends MathCommand {
                     "Wrong number of arguments given (given: " + (args.size() - 1) + ", required 2)", this);
 
         if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
-            return apply(((Number) args.get(1).value).doubleValue(), ((Number) args.get(2).value).doubleValue());
+            return apply(((Number) args.get(1).get()).doubleValue(), ((Number) args.get(2).get()).doubleValue());
         } else {
             try {
-                return args.get(1).toString() + args.get(2).toString();
+                return args.get(1).get().toString() + args.get(2).get().toString();
             } catch (NumberFormatException e) {
                 throw new JTerminalException("I" + e.getMessage().substring(5) + " is not a number", this);
             }

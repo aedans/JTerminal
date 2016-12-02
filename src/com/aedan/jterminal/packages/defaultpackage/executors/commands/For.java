@@ -37,12 +37,12 @@ public class For extends Command {
             throws JTerminalException {
         if (args.matches(Object.class, Object.class) == MatchResult.CORRECT_ARGS) {
             Object[] objects;
-            if (args.get(1).value.getClass().isArray()) {
-                objects = (Object[]) args.get(1).value;
-            } else if (args.get(1).value.getClass().isAssignableFrom(Collection.class)) {
-                objects = ((Collection) args.get(1).value).toArray();
+            if (args.get(1).get().getClass().isArray()) {
+                objects = (Object[]) args.get(1).get();
+            } else if (args.get(1).get().getClass().isAssignableFrom(Collection.class)) {
+                objects = ((Collection) args.get(1).get()).toArray();
             } else {
-                objects = args.get(1).value.toString().split("\n");
+                objects = args.get(1).get().toString().split("\n");
             }
             return new PrintWrapper(){
                 @Override
@@ -59,11 +59,11 @@ public class For extends Command {
                 }
             };
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
-            long max = ((Number) args.get(2).value).longValue();
+            long max = ((Number) args.get(2).get()).longValue();
             return new PrintWrapper() {
                 @Override
                 public void print(CommandOutput output) {
-                    for (long i = ((Number) args.get(1).value).longValue(); i < max; i++) {
+                    for (long i = ((Number) args.get(1).get()).longValue(); i < max; i++) {
                         //noinspection unchecked
                         environment.getEnvironmentVariables().put("i", i);
                         Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);

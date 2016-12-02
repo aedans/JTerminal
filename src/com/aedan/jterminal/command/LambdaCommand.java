@@ -29,7 +29,7 @@ public class LambdaCommand extends Command {
         String command = this.command;
         for (int i = 1; i < args.size(); i++) {
             // TODO: Preserve types
-            command += " \"" + args.get(i).value + "\"";
+            command += " \"" + args.get(i).get() + "\"";
         }
 
         return environment.getCommandHandler().handleInput(command, input, output);

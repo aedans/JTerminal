@@ -1,7 +1,7 @@
 package com.aedan.jterminal.jterm.parsers;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.jterm.Function;
 import com.aedan.jterminal.jterm.JTermRuntime;
@@ -44,7 +44,7 @@ public class FunctionCallParser implements Parser<StringIterator, ArgumentList> 
 
         Function f = jTermRuntime.getFunction(name);
         if (f != null){
-            args.add(new Argument(f.apply(arguments.toArray())));
+            args.add(new ConstantArgument(f.apply(arguments.toArray())));
             return true;
         } else {
             throw new JTerminalException("Could not find function with name " + name, this);

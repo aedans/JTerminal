@@ -34,6 +34,6 @@ public class Alias extends Command {
                 args.get(1).toString(), args.get(2).toString(), "Aliased Command.", "Executes \"" + args.get(2).toString() + "\"")
         );
 
-        return String.format("Aliased \"%s\" to \"%s\"", args.get(1).value, args.get(2).value);
+        return String.format("Aliased \"%s\" to \"%s\"", args.get(1).get(), args.get(2).get());
     }
 }

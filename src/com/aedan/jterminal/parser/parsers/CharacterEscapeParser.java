@@ -1,7 +1,7 @@
 package com.aedan.jterminal.parser.parsers;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
@@ -19,7 +19,7 @@ public class CharacterEscapeParser implements Parser<StringIterator, ArgumentLis
         in.next();
 
         // TODO: Add escape sequences
-        argumentList.add(new Argument(in.next()));
+        argumentList.add(new ConstantArgument(in.next()));
         return true;
     }
 

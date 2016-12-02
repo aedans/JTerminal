@@ -21,7 +21,7 @@ class Return extends Command {
             throws JTerminalException {
         args.checkMatches(this, Object.class);
 
-        environment.setEnvironmentVariable("RETURN", args.get(1).value);
+        environment.setEnvironmentVariable("RETURN", args.get(1).get());
 
         return null;
     }

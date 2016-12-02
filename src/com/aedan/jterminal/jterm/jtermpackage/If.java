@@ -19,10 +19,10 @@ public class If extends Command {
     @Override
     public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
-        args.checkMatches(this, Boolean.class, String.class);
+        args.checkMatches(this, Boolean.class, ArgumentList.class);
 
-        if ((boolean) args.get(1).value){
-            return environment.getCommandHandler().handleInput(args.get(2).value.toString(), input, output);
+        if ((boolean) args.get(1).get()){
+            return environment.getCommandHandler().handleInput((ArgumentList) args.get(2).get(), input, output);
         } else {
             return null;
         }

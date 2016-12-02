@@ -65,7 +65,7 @@ public class ArgumentList extends ArrayList<Argument> {
         if (string.length() > 1 && string.charAt(0) == '-')
             flags.add(string.substring(1));
         else {
-            this.add(new Argument(string));
+            this.add(new ConstantArgument(string));
         }
     }
 
@@ -84,8 +84,9 @@ public class ArgumentList extends ArrayList<Argument> {
             this.set(this.size() - 1, argument);
     }
 
-    public void removeLast() {
+    public Argument removeLast() {
         if (this.size() != 0)
-            this.remove(this.size() - 1);
+            return this.remove(this.size() - 1);
+        else return null;
     }
 }

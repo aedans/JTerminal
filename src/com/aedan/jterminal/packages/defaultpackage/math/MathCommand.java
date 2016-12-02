@@ -26,7 +26,7 @@ public abstract class MathCommand extends Command {
             throws JTerminalException {
         try {
             if (args.matches(Number.class, Number.class) == MatchResult.CORRECT_ARGS) {
-                return apply(((Number) args.get(1).value).doubleValue(), ((Number) args.get(2).value).doubleValue());
+                return apply(((Number) args.get(1).get()).doubleValue(), ((Number) args.get(2).get()).doubleValue());
             } else {
                 throw new JTerminalException("Incorrect arguments given", this);
             }

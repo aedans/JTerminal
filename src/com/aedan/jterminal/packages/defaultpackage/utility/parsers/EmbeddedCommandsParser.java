@@ -2,6 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.utility.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.parser.Parser;
@@ -34,11 +35,31 @@ public class EmbeddedCommandsParser implements Parser<StringIterator, ArgumentLi
         );
         in.next();
 
-        argumentList.add(new Argument(environment.getCommandHandler().handleInput(
-                arguments,
-                environment.getInput(),
-                environment.getOutput()
-        )));
+        argumentList.add(new Argument() {
+            private Object o = null;
+
+            @Override
+            public Object get() {
+                if (o == null) {
+                    o = environment.getCommandHandler().handleInput(
+                            arguments,
+                            environment.getInput(),
+                            environment.getOutput()
+                    );
+                }
+                return o;
+            }
+
+            @Override
+            public Class<?> getArgumentType() {
+                return get().getClass();
+            }
+
+            @Override
+            public String toString() {
+                return get().toString();
+            }
+        });
         return true;
     }
 

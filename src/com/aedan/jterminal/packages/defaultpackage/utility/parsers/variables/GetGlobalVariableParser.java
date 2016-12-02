@@ -2,6 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.utility.parsers.variables;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.parser.ParseException;
@@ -43,11 +44,27 @@ public class GetGlobalVariableParser implements Parser<StringIterator, ArgumentL
                         || s.peek() == '_');
         String varName = builder.toString();
 
-        Object value = ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).get(varName);
-        if (value == null)
-            throw new ParseException("Could not find global variable with name \"" + varName + "\"", this);
-        else
-            argumentList.add(new Argument(value));
+        argumentList.add(new Argument() {
+            @Override
+            public Object get() {
+                Object value = ((HashMap<String, Object>) environment.getEnvironmentVariable("VARS")).get(varName);
+                if (value == null)
+                    throw new ParseException("Could not find environment variable with name " + varName,
+                            GetGlobalVariableParser.this);
+                else
+                    return value;
+            }
+
+            @Override
+            public Class<?> getArgumentType() {
+                return get().getClass();
+            }
+
+            @Override
+            public String toString() {
+                return get().toString();
+            }
+        });
         return true;
     }
 

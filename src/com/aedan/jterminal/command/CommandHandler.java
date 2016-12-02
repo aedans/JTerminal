@@ -21,7 +21,7 @@ public class CommandHandler {
     /**
      * The CommandParser for the CommandHandler.
      */
-    private CommandParser parser = new CommandParser();
+    private CommandParser parser;
     /**
      * The Environment containing the CommandHandler.
      */
@@ -34,6 +34,7 @@ public class CommandHandler {
      */
     public CommandHandler(Environment environment) {
         this.environment = environment;
+        this.parser = new CommandParser();
     }
 
     /**
@@ -102,7 +103,7 @@ public class CommandHandler {
      * @throws JTerminalException If there was an error during execution.
      */
     protected Object execute(ArgumentList arguments, CommandInput input, CommandOutput output) throws JTerminalException {
-        Command c = environment.getCommands().get(arguments.get(0).toString());
+        Command c = environment.getCommands().get(arguments.get(0).get());
         if (c != null)
             return c.apply(arguments, input, output, environment);
         else
@@ -132,12 +133,12 @@ public class CommandHandler {
         // TODO: Re-implement
 //        File file = environment.getPath().get(arguments.get(0).value + ".jterminal");
 //        if (file != null && file.exists()) {
-//            arguments.add(0, new Argument("exec"));
+//            arguments.add(0, new ConstantArgument("exec"));
 //            return ExecuteJTermFile.execute(arguments, input, output, environment);
 //        }
 
         if (arguments.size() == 1) {
-            return arguments.get(0).value;
+            return arguments.get(0).get();
         }
 
         throw new JTerminalException("Unrecognized Command \"" + arguments.get(0) + "\"", this);

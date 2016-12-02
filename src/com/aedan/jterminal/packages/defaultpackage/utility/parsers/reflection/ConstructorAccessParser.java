@@ -2,6 +2,7 @@ package com.aedan.jterminal.packages.defaultpackage.utility.parsers.reflection;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.environment.Environment;
 import com.aedan.parser.ParseException;
@@ -30,64 +31,81 @@ public class ConstructorAccessParser implements Parser<StringIterator, ArgumentL
     @Override
     public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        try {
-            if (!in.hasNext(4) || !Objects.equals(in.peekString(4), "new "))
-                return false;
-            in.skip(4);
+        if (!in.hasNext(4) || !Objects.equals(in.peekString(4), "new "))
+            return false;
+        in.skip(4);
 
-            String name = "";
-            while (true) {
-                if (in.peek() == '(') {
-                    in.next();
-                    break;
-                } else {
-                    name += in.next();
-                }
-            }
-
-            ArgumentList arguments = new ArgumentList();
-            // TODO: Nested
-            environment.getCommandHandler().getParser().parseUntil(
-                    in, arguments, stringIterator -> stringIterator.peek() != ')'
-            );
-            in.skip();
-
-            Object[] objects = new Object[arguments.size()];
-            Class<?>[] classes = new Class<?>[arguments.size()];
-            for (int j = 0; j < arguments.size(); j++) {
-                objects[j] = arguments.get(j).value;
-                classes[j] = arguments.get(j).getArgumentType();
-            }
-
-            Constructor<?> c = null;
-            loop:
-            for (Constructor<?> constructor : ClassUtils.fromName(name,
-                    environment.getEnvironmentVariable("CP").toString()).getConstructors()) {
-                Class<?>[] params = constructor.getParameterTypes();
-                if (params.length != classes.length) {
-                    continue;
-                }
-
-                for (int j = 0; j < params.length; j++) {
-                    if (ClassUtils.isValidParam(params[j], classes[j])) {
-                        continue loop;
-                    }
-                }
-
-                c = constructor;
+        String name = "";
+        while (true) {
+            if (in.peek() == '(') {
+                in.next();
                 break;
+            } else {
+                name += in.next();
+            }
+        }
+
+        ArgumentList arguments = new ArgumentList();
+        // TODO: Nested
+        environment.getCommandHandler().getParser().parseUntil(
+                in, arguments, stringIterator -> stringIterator.peek() != ')'
+        );
+        in.skip();
+
+        String finalName = name;
+        argumentList.add(new Argument() {
+            @Override
+            public Object get() {
+                try {
+                    Object[] objects = new Object[arguments.size()];
+                    Class<?>[] classes = new Class<?>[arguments.size()];
+                    for (int j = 0; j < arguments.size(); j++) {
+                        objects[j] = arguments.get(j).get();
+                        classes[j] = arguments.get(j).getArgumentType();
+                    }
+
+                    Constructor<?> c = null;
+                    loop:
+                    for (Constructor<?> constructor : ClassUtils.fromName(finalName,
+                            environment.getEnvironmentVariable("CP").toString()).getConstructors()) {
+                        Class<?>[] params = constructor.getParameterTypes();
+                        if (params.length != classes.length) {
+                            continue;
+                        }
+
+                        for (int j = 0; j < params.length; j++) {
+                            if (ClassUtils.isValidParam(params[j], classes[j])) {
+                                continue loop;
+                            }
+                        }
+
+                        c = constructor;
+                        break;
+                    }
+
+                    if (c == null)
+                        throw new ParseException("Could not find constructor with name \"" +
+                                finalName + "\" and args \"" + arguments + "\"", ConstructorAccessParser.this);
+
+                    return c.newInstance(objects);
+                } catch (ClassNotFoundException e) {
+                    throw new ParseException("Could not find class " + e.getMessage(), ConstructorAccessParser.this);
+                } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                    throw new JTerminalException(e.getMessage(), ConstructorAccessParser.this);
+                }
             }
 
-            if (c == null)
-                throw new ParseException("Could not find constructor with name \"" + name + "\" and args \"" + arguments + "\"", this);
+            @Override
+            public Class<?> getArgumentType() {
+                return get().getClass();
+            }
 
-            argumentList.add(new Argument(c.newInstance(objects)));
-            return true;
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            throw new ParseException(e.getMessage(), this);
-        } catch (ClassNotFoundException e) {
-            throw new ParseException("Could not find class " + e.getMessage(), this);
-        }
+            @Override
+            public String toString() {
+                return get().toString();
+            }
+        });
+        return true;
     }
 
     @Override

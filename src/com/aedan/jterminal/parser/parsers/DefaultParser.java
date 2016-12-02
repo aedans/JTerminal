@@ -1,12 +1,10 @@
 package com.aedan.jterminal.parser.parsers;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.parser.StringIterator;
 import com.aedan.parser.Parser;
-
-import java.util.function.Predicate;
 
 /**
  * Created by Aedan Smith.
@@ -26,11 +24,11 @@ public class DefaultParser implements Parser<StringIterator, ArgumentList> {
             s.append(in.next());
 
         if (s.toString().length() == 0) {
-            arguments.add(new Argument(in.until(stringIterator -> !stringIterator.isInRange('\0', ' ')), String.class));
+            arguments.add(new ConstantArgument(in.until(stringIterator -> !stringIterator.isInRange('\0', ' ')), String.class));
             return true;
         }
 
-        arguments.add(new Argument(s.toString(), String.class));
+        arguments.add(new ConstantArgument(s.toString(), String.class));
         return true;
     }
 }

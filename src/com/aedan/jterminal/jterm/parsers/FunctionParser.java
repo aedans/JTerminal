@@ -34,18 +34,20 @@ class FunctionParser implements Parser<StringIterator, HashMap<String, Function>
             args += in.next();
         }
 
-        in.skip(1);
+        in.until('{');
+        in.skip();
+
         String body = "";
-        int depth = 0;
+        int depth = 1;
         while (in.hasNext()){
             if (in.peek() == '{') {
                 depth++;
-                in.next();
+                body += in.next();
             } else if (in.peek() == '}'){
                 depth--;
-                in.next();
                 if (depth == 0)
                     break;
+                body += in.next();
             } else {
                 body += in.next();
             }

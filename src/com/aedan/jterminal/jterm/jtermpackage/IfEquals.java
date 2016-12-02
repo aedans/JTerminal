@@ -23,6 +23,6 @@ class IfEquals extends Command {
             throws JTerminalException {
         args.checkMatches(this, Object.class, Object.class);
 
-        return Objects.equals(args.get(1).value, args.get(2).value);
+        return Objects.equals(args.get(1).get(), args.get(2).get());
     }
 }

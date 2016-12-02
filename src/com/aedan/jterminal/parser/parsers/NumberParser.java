@@ -1,7 +1,7 @@
 package com.aedan.jterminal.parser.parsers;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.commandarguments.Argument;
+import com.aedan.jterminal.command.commandarguments.ConstantArgument;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;
@@ -32,19 +32,19 @@ public class NumberParser implements Parser<StringIterator, ArgumentList> {
         try {
             if (decimal) {
                 if (number.length() < 39) {
-                    argumentList.add(new Argument(Float.parseFloat(number), Float.class));
+                    argumentList.add(new ConstantArgument(Float.parseFloat(number), Float.class));
                 } else if (number.length() < 310) {
-                    argumentList.add(new Argument(Double.parseDouble(number), Double.class));
+                    argumentList.add(new ConstantArgument(Double.parseDouble(number), Double.class));
                 } else {
-                    argumentList.add(new Argument(number));
+                    argumentList.add(new ConstantArgument(number));
                 }
             } else {
                 if (number.length() < 11) {
-                    argumentList.add(new Argument(Integer.parseInt(number), Integer.class));
+                    argumentList.add(new ConstantArgument(Integer.parseInt(number), Integer.class));
                 } else if (number.length() < 20) {
-                    argumentList.add(new Argument(Long.parseLong(number), Long.class));
+                    argumentList.add(new ConstantArgument(Long.parseLong(number), Long.class));
                 } else {
-                    argumentList.add(new Argument(number));
+                    argumentList.add(new ConstantArgument(number));
                 }
             }
             return true;

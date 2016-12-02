@@ -48,7 +48,7 @@ public class Help extends Command {
             return s.getString().trim();
         } else {
             args.matches(String.class);
-            Command c = environment.getCommands().get(args.get(1).value);
+            Command c = environment.getCommands().get(args.get(1).get());
             if (c != null) {
                 try {
                     return c.getProperty(1);
@@ -57,7 +57,7 @@ public class Help extends Command {
                 }
             }
 
-            throw new JTerminalException("Could not find command \"" + args.get(1).value + "\"", this);
+            throw new JTerminalException("Could not find command \"" + args.get(1).get() + "\"", this);
         }
     }
 }

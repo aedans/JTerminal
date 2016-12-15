@@ -1,6 +1,5 @@
 package com.aedan.jterminal;
 
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 import com.alibaba.fastjson.JSON;
 
@@ -24,7 +23,7 @@ public class JTerminal implements Runnable {
      */
     public JTerminal(Environment environment) throws Exception {
         if (environment == null)
-            environment = new Environment(null, null, null, null, null, new DefaultPackage());
+            environment = new Environment(null, null, null, new DefaultPackage());
 
         this.environment = environment;
     }

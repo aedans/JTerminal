@@ -1,13 +1,8 @@
-package com.aedan.jterminal.environment;
+package com.aedan.jterminal;
 
-import com.aedan.argparser.ArgumentParser;
-import com.aedan.argparser.ParseResult;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.environment.startup.Execute;
-import com.aedan.jterminal.environment.startup.SetDirectory;
-import com.aedan.jterminal.environment.startup.StartupArgument;
 import com.aedan.jterminal.input.BufferedReaderInput;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
@@ -15,8 +10,9 @@ import com.aedan.jterminal.output.PrintStreamOutput;
 import com.aedan.jterminal.packages.defaultpackage.DefaultPackage;
 import com.alibaba.fastjson.JSON;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Aedan Smith on 9/6/2016.
@@ -40,26 +36,20 @@ public class Environment {
     /**
      * Default Environment constructor.
      *
-     * @param args             The arguments for the Environment.
      * @param input            The CommandInput for the Environment.
      * @param output           The CommandOutput for the Environment.
      * @param commandHandler   The CommandHandler for the Environment.
-     * @param startupArguments The StartupArguments for the Environment.
      * @param packages         The List of Packages for the Environment.
      * @throws Exception If there was an error handling the arguments.
      */
-    public Environment(String[] args, CommandInput input, CommandOutput output, CommandHandler commandHandler,
-                       StartupArgument[] startupArguments, Package... packages) throws Exception {
-        if (args == null)
-            args = new String[]{};
+    public Environment(CommandInput input, CommandOutput output, CommandHandler commandHandler, Package... packages)
+            throws Exception {
         if (input == null)
             input = new BufferedReaderInput();
         if (output == null)
             output = new PrintStreamOutput();
         if (commandHandler == null)
             commandHandler = new CommandHandler(this);
-        if (startupArguments == null)
-            startupArguments = new StartupArgument[]{new SetDirectory(), new Execute()};
         if (packages == null)
             packages = new Package[]{new DefaultPackage()};
 
@@ -80,19 +70,6 @@ public class Environment {
         this.commandHandler = commandHandler;
         for (Package p : packages) {
             this.addPackage(p);
-        }
-
-        ArgumentParser parser = new ArgumentParser();
-        for (StartupArgument startupArgument : startupArguments) {
-            startupArgument.addTo(parser);
-        }
-        ParseResult parseResult = parser.parse(args);
-        for (StartupArgument startupArgument : startupArguments) {
-            try {
-                startupArgument.handle(this, parseResult);
-            } catch (Exception e) {
-                System.out.println("Exception in initialization: " + e.getMessage());
-            }
         }
     }
 

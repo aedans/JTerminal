@@ -1,21 +1,15 @@
 package com.aedan.jterminal.jterm;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.command.Command;
-import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.jterm.jtermpackage.JTermPackage;
 import com.aedan.jterminal.jterm.parsers.JTermParser;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.parser.StringIterator;
-import com.aedan.parser.Parser;
 import com.alibaba.fastjson.JSON;
 
 import java.util.HashMap;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * Created by Aedan Smith.
@@ -46,7 +40,7 @@ public class JTermRuntime {
      * @throws Exception If there was an error compiling the JTermRuntime.
      */
     public JTermRuntime(Environment environment, String src, CommandInput input, CommandOutput output) throws Exception {
-        this.environment = new Environment(null, input, output, null, null, new JTermPackage(this));
+        this.environment = new Environment(input, output, null, new JTermPackage(this));
         environment.getPackages().forEach(aPackage -> JTermRuntime.this.environment.addPackage(aPackage));
         this.parser = new JTermParser(this.environment);
         this.environment.setEnvironmentVariable("FUNCTIONS", functions);

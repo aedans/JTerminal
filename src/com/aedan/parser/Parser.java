@@ -1,8 +1,6 @@
 package com.aedan.parser;
 
 import com.aedan.jterminal.JTerminalException;
-import com.aedan.jterminal.environment.Environment;
-import com.aedan.jterminal.parser.StringIterator;
 
 import java.util.Iterator;
 import java.util.function.Predicate;

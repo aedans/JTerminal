@@ -2,7 +2,7 @@ package com.aedan.jterminal.jterm.parsers;
 
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.jterm.Function;
 import com.aedan.parser.Parser;
 import com.aedan.jterminal.parser.StringIterator;

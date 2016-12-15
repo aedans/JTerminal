@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.math;
 
 import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.packages.defaultpackage.math.commands.*;
 
 /**

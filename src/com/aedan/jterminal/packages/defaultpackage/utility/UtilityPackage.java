@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.utility;
 
 import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.packages.defaultpackage.utility.commands.*;
 import com.aedan.jterminal.packages.defaultpackage.utility.parsers.EmbeddedCommandsParser;
 import com.aedan.jterminal.packages.defaultpackage.utility.parsers.EnvironmentVariableParser;

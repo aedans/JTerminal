@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.utility.parsers.reflection;
 
 import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.Environment;
 
 /**
  * Created by Aedan Smith.

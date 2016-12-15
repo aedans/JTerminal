@@ -1,7 +1,7 @@
 package com.aedan.jterminal.packages.defaultpackage.executors;
 
 import com.aedan.jterminal.command.Package;
-import com.aedan.jterminal.environment.Environment;
+import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.ExecuteJTermFile;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.For;
 import com.aedan.jterminal.packages.defaultpackage.executors.commands.SystemExec;

@@ -1,7 +1,6 @@
 package com.aedan.jterminal.parser;
 
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.environment.Environment;
 import com.aedan.jterminal.parser.parsers.*;
 import com.aedan.parser.*;
 import com.alibaba.fastjson.JSON;

@@ -2,18 +2,17 @@ package com.aedan.jterminal.parser;
 
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.parser.parsers.*;
-import com.aedan.parser.*;
+import com.aedan.parser.LinkedParser;
+import com.aedan.parser.Parser;
 import com.alibaba.fastjson.JSON;
 
 /**
  * Created by Aedan Smith on 10/10/2016.
- * <p>
- *environment
  */
 
 public class CommandParser extends LinkedParser<StringIterator, ArgumentList> {
     public CommandParser(){
-        super(new DefaultParser(),
+        this(
                 new CharacterEscapeParser(),
                 new NumberParser(),
                 new FlagParser(),

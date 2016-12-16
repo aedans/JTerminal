@@ -19,11 +19,7 @@ public interface CommandOutput {
     void print(String s);
 
     default void print(Object o) {
-        if (o instanceof PrintWrapper){
-            ((PrintWrapper) o).print(this);
-        } else {
-            print(o.toString());
-        }
+        print(o.toString());
     }
 
     default void println() {
@@ -36,13 +32,7 @@ public interface CommandOutput {
     }
 
     default void println(Object o) {
-        if (o == null) {
-            println("null");
-        } else if (o instanceof PrintWrapper){
-            ((PrintWrapper) o).print(this);
-        } else {
-            print(o.toString());
-        }
+        print(o == null ? "null" : o.toString());
         println();
     }
 

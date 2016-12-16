@@ -29,7 +29,7 @@ public class MethodAccessParser implements Parser<StringIterator, ArgumentList> 
     @Override
     public boolean parse(ArgumentList argumentList, StringIterator in)
             throws JTerminalException {
-        if (!(in.peek() == ':' && in.peek(1) == ':'))
+        if (!in.hasNext(2) || !(in.peek(0) == ':' && in.peek(1) == ':'))
             return false;
 
         if (argumentList.getLast() == null) {

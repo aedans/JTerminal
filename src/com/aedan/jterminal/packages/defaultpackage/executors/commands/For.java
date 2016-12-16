@@ -7,9 +7,9 @@ import com.aedan.jterminal.command.commandarguments.MatchResult;
 import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
-import com.aedan.jterminal.output.PrintWrapper;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -42,34 +42,60 @@ public class For extends Command {
             } else {
                 objects = args.get(1).get().toString().split("\n");
             }
-            return new PrintWrapper(){
+            return new Iterator<Object>(){
+                int i = 0;
+
                 @Override
-                public void print(CommandOutput output) {
-                    for (Object object : objects) {
-                        //noinspection unchecked
-                        environment.getEnvironmentVariables().put("o", object);
-                        Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
-                        environment.getEnvironmentVariables().remove("o");
-                        if (o != null) {
-                            output.println(o);
-                        }
+                public boolean hasNext() {
+                    return i < objects.length;
+                }
+
+                @Override
+                public Object next() {
+                    //noinspection unchecked
+                    environment.getEnvironmentVariables().put("o", objects[i]);
+                    Object o = environment.getCommandHandler().handleInput(args.get(2).toString(), input, output);
+                    environment.getEnvironmentVariables().remove("o");
+                    i++;
+                    return o;
+                }
+
+                @Override
+                public String toString() {
+                    String s = "";
+                    while (hasNext()){
+                        s += next() + "\n";
                     }
+                    return s.substring(0, s.length()-1);
                 }
             };
         } else if (args.matches(Number.class, Number.class, String.class) == MatchResult.CORRECT_ARGS) {
             long max = ((Number) args.get(2).get()).longValue();
-            return new PrintWrapper() {
+            return new Iterator<Object>() {
+                long i = ((Number) args.get(1).get()).longValue();
+
                 @Override
-                public void print(CommandOutput output) {
-                    for (long i = ((Number) args.get(1).get()).longValue(); i < max; i++) {
-                        //noinspection unchecked
-                        environment.getEnvironmentVariables().put("i", i);
-                        Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
-                        environment.getEnvironmentVariables().remove("i");
-                        if (o != null) {
-                            output.println(o);
-                        }
+                public boolean hasNext() {
+                    return i < max;
+                }
+
+                @Override
+                public Object next() {
+                    //noinspection unchecked
+                    environment.getEnvironmentVariables().put("i", i);
+                    Object o = environment.getCommandHandler().handleInput(args.get(3).toString(), input, output);
+                    environment.getEnvironmentVariables().remove("i");
+                    i++;
+                    return o;
+                }
+
+                @Override
+                public String toString() {
+                    String s = "";
+                    while (hasNext()){
+                        s += next() + "\n";
                     }
+                    return s.substring(0, s.length()-1);
                 }
             };
         } else {

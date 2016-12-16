@@ -3,6 +3,7 @@ package com.aedan.jterminal.packages.defaultpackage.io;
 import com.aedan.jterminal.command.Package;
 import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.packages.defaultpackage.io.commands.*;
+import com.aedan.jterminal.parser.parsers.DefaultParser;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -20,6 +21,8 @@ public class FileIOPackage implements Package {
         environment.addCommand(new MakeDirectory());
         environment.addCommand(new RemoveDirectory());
         environment.addCommand(new RemoveFile());
+        ((DefaultParser) environment.getCommandHandler().getParser().getDefaultParser()).reserved.add(':');
+        ((DefaultParser) environment.getCommandHandler().getParser().getDefaultParser()).reserved.add('/');
     }
 
     @Override

@@ -1,14 +1,16 @@
 package com.aedan.jterminal.packages.defaultpackage.io.commands;
 
+import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.JTerminalException;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.commandarguments.ArgumentList;
-import com.aedan.jterminal.Environment;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;
 import com.aedan.jterminal.packages.defaultpackage.io.Directory;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Aedan Smith on 8/15/2016.
@@ -29,9 +31,17 @@ public class ListSubdirectories extends Command {
     public Object apply(ArgumentList args, CommandInput input, CommandOutput output, Environment environment)
             throws JTerminalException {
         File[] files = ((Directory) environment.getEnvironmentVariable("DIR")).subFile().listFiles();
-        for (int i = 0; i < files.length; i++) {
-            files[i] = new File(files[i].getName());
-        }
-        return files;
+        ArrayList<File> arrayList = new ArrayList<File>(){
+            @Override
+            public String toString() {
+                String s = "";
+                for (File file : this) {
+                    s += file.getName() + "\n";
+                }
+                return s.substring(0, s.length()-1);
+            }
+        };
+        Collections.addAll(arrayList, files);
+        return arrayList;
     }
 }

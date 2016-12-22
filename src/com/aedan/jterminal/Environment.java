@@ -64,6 +64,7 @@ public class Environment {
         this.environmentVariables.put("OUT", output);
         this.environmentVariables.put("CMDHANDLER", commandHandler);
         this.environmentVariables.put("PACKAGES", packages);
+        this.environmentVariables.put("CARET", "\\>");
 
         this.input = input;
         this.output = output;

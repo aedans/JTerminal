@@ -20,6 +20,7 @@ public class DefaultPackage implements Package {
         new ExecutorsPackage().addTo(environment);
         new MathPackage().addTo(environment);
         new UtilityPackage().addTo(environment);
+        environment.setEnvironmentVariable("CARET", "+ %DIR \\>");
     }
 
     @Override

@@ -92,8 +92,11 @@ public class For extends Command {
                 @Override
                 public String toString() {
                     String s = "";
+                    Object o;
                     while (hasNext()){
-                        s += next() + "\n";
+                        o = next();
+                        if (o != null)
+                            s += o + "\n";
                     }
                     return s.substring(0, s.length()-1);
                 }

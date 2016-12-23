@@ -20,10 +20,10 @@ public class Help extends Command {
 
     public Help() {
         super("help");
-        this.properties[0] = "Lists all command and their simple descriptions.";
+        this.properties[0] = "Lists all commands and their simple descriptions.";
         this.properties[1] =
                 "help:\n" +
-                        "    Lists all command and their simple descriptions.\n" +
+                        "    Lists all commands and their simple descriptions.\n" +
                         "help [string]:\n" +
                         "    Lists the detailed description of command [string].";
     }

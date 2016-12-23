@@ -3,6 +3,7 @@ package com.aedan.jterminal;
 import com.aedan.jterminal.command.Command;
 import com.aedan.jterminal.command.CommandHandler;
 import com.aedan.jterminal.command.Package;
+import com.aedan.jterminal.command.commandarguments.ArgumentList;
 import com.aedan.jterminal.input.BufferedReaderInput;
 import com.aedan.jterminal.input.CommandInput;
 import com.aedan.jterminal.output.CommandOutput;

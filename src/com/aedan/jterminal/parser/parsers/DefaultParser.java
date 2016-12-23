@@ -34,6 +34,7 @@ public class DefaultParser implements Parser<StringIterator, ArgumentList> {
         String s = in.until(stringIterator -> stringIterator.hasNext()
                 && (stringIterator.isInRange('A', 'Z')
                 || stringIterator.isInRange('a', 'z')
+                || stringIterator.isInRange('0', '9')
                 || reserved.contains(in.peek())));
 
         if (s.length() == 0) {
